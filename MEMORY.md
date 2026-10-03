@@ -4,7 +4,8 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 ## Estado actual (2-oct-2026)
 - Fase 0: arnés instalado (AGENTS.md, constitución, skills, agentes, comandos, CI) y versionado en el commit `ca8e4cc`. Sin código ni datos todavía.
 - Constitución revisada el 2-oct-2026 con /sdd-constitution; se decidió dejarla como está (sin cambios, seis principios). Posible mejora futura: aclarar que la reproducibilidad parte de `data/raw/` congelado y quitar la excepción "salvo causalidad" del principio 5.
-- Spec 001-datos aprobada el 2-oct-2026 (clarificada y resuelta). Siguiente: `/sdd-plan 001-datos`.
+- Spec 001-datos aprobada el 2-oct-2026 (clarificada y resuelta).
+- Plan 001-datos aprobado el 2-oct-2026 (`specs/001-datos/plan.md`). Decisión clave D1: `data --download` descarga; `data` y `all` construyen solo desde `data/raw/` congelado. Siguiente: `/fabrica 001-datos` en OpenCode (tareas, implementación, validación).
 
 ## Calendario (entregar el jueves 15-oct antes de las 22:00; cierre oficial 16-oct 00:00)
 - 001 datos 3–4 oct · 002 literatura 4–6 oct · 003 modelo I 5–8 oct · 004 modelo II 8–10 oct
@@ -30,6 +31,6 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
 
 ## Próximos pasos
-1. `/clear` y `/sdd-plan 001-datos` (sube a opus en su primer turno).
-2. El plan debe cubrir RNF-2 y RNF-4 de la spec: `conftest.py` que bloquee la red y endurecer el test de cifras (`tests/test_harness.py:93`) con `\d+[.,]\d+` y `\d+\s?%`.
+1. `/fabrica 001-datos` en OpenCode. El plan ya cubre RNF-2 (`conftest.py` sin red) y RNF-4 (endurecer `tests/test_harness.py:93`).
+2. Al descargar, verificar en FRED las unidades de cada serie (sobre todo el año base de GDPC1).
 3. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
