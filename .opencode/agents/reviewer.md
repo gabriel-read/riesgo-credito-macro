@@ -1,7 +1,7 @@
 ---
 description: SDD · Revisa la spec como QA (clarificación) y valida la implementación RF por RF; solo escribe sus informes review-*.md
 mode: subagent
-model: opencode/longcat-2.5-preview-free#high
+model: opencode/nemotron-3-ultra-free
 permissions:
   - action: edit
     resource: "*"

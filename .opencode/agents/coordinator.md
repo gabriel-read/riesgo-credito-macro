@@ -1,7 +1,7 @@
 ---
 description: SDD · Coordina la fábrica de una spec aprobada (tareas → implementación → validación) con planner, implementer, reviewer y bibliotecario, y transmite el contexto entre fases
 mode: primary
-model: opencode/longcat-2.5-preview-free#high
+model: opencode/nemotron-3-ultra-free
 color: "#2f80ed"
 permissions:
   - action: edit

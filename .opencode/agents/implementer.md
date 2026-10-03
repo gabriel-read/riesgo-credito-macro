@@ -1,7 +1,7 @@
 ---
 description: SDD · Implementa UNA tarea de un plan aprobado con tests primero (datos, modelos, estrés, tablas, figuras, Quarto); no rediseña
 mode: subagent
-model: opencode/longcat-2.5-preview-free#high
+model: opencode/nemotron-3-ultra-free
 permissions:
   - action: edit
     resource: "*"

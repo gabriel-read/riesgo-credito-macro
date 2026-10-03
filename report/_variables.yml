@@ -1,0 +1,57 @@
+datos:
+  muestra_inicio: 2000T1
+  muestra_fin: 2026T2
+  n_trimestres: '106'
+  n_series: '12'
+  fecha_descarga: '2026-10-02'
+  trimestres_excluidos: 2026T3
+  cpiaucsl_2025t4_meses: '2'
+  unrate_2025t4_meses: '2'
+  dralacbs_media: 2,63
+  dralacbs_desv: 1,64
+  dralacbs_max: 7,35
+  dralacbs_max_trimestre: 2010T1
+  dralacbs_min: 1,19
+  dralacbs_min_trimestre: 2022T3
+  dralacbs_ultimo: 1,42
+  unrate_max: 13,00
+  unrate_max_trimestre: 2020T2
+  fedfunds_max: 6,52
+  fedfunds_ultimo: 3,63
+  decision:
+    dralacbs: ambigua (primera diferencia)
+    dralacbs_logit: primera diferencia
+    dralacbn: ambigua (primera diferencia)
+    dralacbn_logit: ambigua (primera diferencia)
+    drclacbs: primera diferencia
+    drclacbs_logit: primera diferencia
+    drblacbs: primera diferencia
+    drblacbs_logit: ambigua (primera diferencia)
+    drsreacbs: ambigua (primera diferencia)
+    drsreacbs_logit: ambigua (primera diferencia)
+    gdpc1_yoy: niveles
+    gdp_yoy: niveles
+    cpiaucsl_yoy: ambigua (primera diferencia)
+    loans_yoy: ambigua (primera diferencia)
+    unrate: niveles
+    fedfunds: niveles
+    coralacbs: niveles
+  orden:
+    dralacbs: I(1)
+    dralacbs_logit: posible I(2)
+    dralacbn: I(1)
+    dralacbn_logit: posible I(2)
+    drclacbs: I(1)
+    drclacbs_logit: I(1)
+    drblacbs: I(1)
+    drblacbs_logit: I(1)
+    drsreacbs: posible I(2)
+    drsreacbs_logit: posible I(2)
+    gdpc1_yoy: I(0)
+    gdp_yoy: I(0)
+    cpiaucsl_yoy: I(1)
+    loans_yoy: I(1)
+    unrate: I(0)
+    fedfunds: I(0)
+    coralacbs: I(0)
+  n_ambiguas: '8'

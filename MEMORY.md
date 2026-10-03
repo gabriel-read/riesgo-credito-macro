@@ -1,9 +1,13 @@
 # MEMORY.md — Riesgo de crédito y macroeconomía
 Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). Máximo ~50 líneas: resume o elimina lo que ya no aporte.
 
-## Estado actual
-- Fase 0: arnés instalado (AGENTS.md, constitución, skills, agentes, comandos, CI). Sin código ni datos todavía.
-- Próxima spec: 001-datos (`/sdd-spec` en Claude Code).
+## Estado actual (2-oct-2026)
+- Fase 0: arnés instalado (AGENTS.md, constitución, skills, agentes, comandos, CI) y versionado en el commit `ca8e4cc`. Sin código ni datos todavía.
+- Constitución revisada el 2-oct-2026 con /sdd-constitution; se decidió dejarla como está (sin cambios, seis principios). Posible mejora futura: aclarar que la reproducibilidad parte de `data/raw/` congelado y quitar la excepción "salvo causalidad" del principio 5.
+- Spec 001-datos aprobada el 2-oct-2026 (clarificada y resuelta).
+- Plan 001-datos aprobado el 2-oct-2026 (`specs/001-datos/plan.md`). Decisión clave D1: `data --download` descarga; `data` y `all` construyen solo desde `data/raw/` congelado.
+- Spec 001-datos T1 implementada (2-oct-2026): `tests/conftest.py` con bloqueo de red autouse (RNF-2), `tests/test_network.py`, `find_hand_typed_numbers` en `tests/test_harness.py` (RNF-4) y `pythonpath = ["."]` en `pyproject.toml`. `uv run pytest -q`: 12 passed.
+- Spec 001-datos T2 implementada (2-oct-2026): `src/config.py` con constantes, `SERIES_META` y `COLUMN_LABELS` (25 etiquetas en español). `tests/test_config.py` con 16 tests. `uv run pytest -q`: 28 passed. Siguiente: T3 (`src/fred_io.py`).
 
 ## Calendario (entregar el jueves 15-oct antes de las 22:00; cierre oficial 16-oct 00:00)
 - 001 datos 3–4 oct · 002 literatura 4–6 oct · 003 modelo I 5–8 oct · 004 modelo II 8–10 oct
@@ -11,7 +15,7 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 
 ## Decisiones (y por qué)
 - Frecuencia trimestral: la dependiente (DRALACBS) es trimestral; las mensuales se promedian por trimestre.
-- Muestra 2000T1 al último trimestre publicado (2026T2); se descarga desde 1998 para calcular variaciones interanuales sin perder 2000.
+- Muestra 2000T1 al último trimestre publicado (2026T2); se descarga desde 1998 para calcular variaciones interanuales sin perder 2000. Desviación frente a la guía (que corta en 2026-01-01): declararla en el informe.
 - Reparto de arneses: Claude Code redacta constitución, specs y planes, y audita; OpenCode (LongCat 2.5 Preview, high) hace tareas, implementación y validación técnica.
 - Specs críticas (auditoría de Claude obligatoria): 003, 004, 005 y 006.
 - Estrés sobre las fechas de la Fed 2026 (base y severamente adverso) más un escenario propio estanflacionario con alza de tasas.
@@ -24,6 +28,11 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 ## Aprendizajes y errores a evitar
 - Octubre 2025 no existe en CPI ni en desempleo (cierre del gobierno de EE. UU.): 2025T4 se promedia con dos meses y se documenta.
 - pandas-datareader < 0.11 falla con pandas 3; respaldo: `https://fred.stlouisfed.org/graph/fredgraph.csv?id=<SERIE>`.
+- FRED revisa el PIB: volver a descargar puede cambiar resultados. Congelar `data/raw/` con fecha y no volver a bajarlo.
+- `test_report_has_no_hand_typed_decimals` (tests/test_harness.py:93) solo detecta números con 2+ decimales: "0,8 pp" o "15 %" a mano pasan. Endurecerlo en la spec 001.
+- El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
 
 ## Próximos pasos
-- Claude Code: `/sdd-spec 001-datos ...` (texto completo en el playbook).
+1. `/fabrica 001-datos` en OpenCode. El plan ya cubre RNF-2 (`conftest.py` sin red) y RNF-4 (endurecer `tests/test_harness.py:93`).
+2. Al descargar, verificar en FRED las unidades de cada serie (sobre todo el año base de GDPC1).
+3. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).

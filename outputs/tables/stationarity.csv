@@ -1,0 +1,35 @@
+,variable,etiqueta,forma,n_obs,adf_stat,adf_p,adf_lags,kpss_stat,kpss_p,kpss_p_truncado,decision,orden
+0,dralacbs,Tasa de morosidad — todos los préstamos (%),tal cual,106,-2.8552812756784505,0.05080078435419349,1,0.37573822989746725,0.08761283194074687,,ambigua (primera diferencia),I(1)
+1,dralacbs,Tasa de morosidad — todos los préstamos (%),primera diferencia,106,-3.4431142331804945,0.009574030199181377,3,0.14006194360576257,0.1,">0,10",,
+2,dralacbs_logit,Logit de la morosidad — todos los préstamos,tal cual,106,-2.1488642218623646,0.22532509170401216,1,0.49672449988876605,0.04240439191694459,,primera diferencia,posible I(2)
+3,dralacbs_logit,Logit de la morosidad — todos los préstamos,primera diferencia,106,-2.7054330940083116,0.07310281600310545,0,0.17292093592272323,0.1,">0,10",,
+4,dralacbn,Tasa de morosidad sin desestacionalizar — todos los préstamos (%),tal cual,106,-2.815853816519098,0.05604460543395086,3,0.375922521194586,0.08753339603681637,,ambigua (primera diferencia),I(1)
+5,dralacbn,Tasa de morosidad sin desestacionalizar — todos los préstamos (%),primera diferencia,106,-3.7723628839590533,0.0032030792084453076,4,0.13808374164553416,0.1,">0,10",,
+6,dralacbn_logit,Logit de la morosidad sin desestacionalizar,tal cual,106,-3.1927220984791638,0.020409836667155175,4,0.49700088324270103,0.04234214341380608,,ambigua (primera diferencia),posible I(2)
+7,dralacbn_logit,Logit de la morosidad sin desestacionalizar,primera diferencia,106,-2.753813328511947,0.0651800652654095,4,0.16925738362169299,0.1,">0,10",,
+8,drclacbs,Tasa de morosidad — tarjetas de crédito (%),tal cual,106,-2.4587684605932716,0.1258313344862843,3,0.8355150661951963,0.01,"<0,01",primera diferencia,I(1)
+9,drclacbs,Tasa de morosidad — tarjetas de crédito (%),primera diferencia,106,-3.4135496540013164,0.010505546593264473,2,0.08353666212911644,0.1,">0,10",,
+10,drclacbs_logit,Logit de la morosidad — tarjetas de crédito,tal cual,106,-2.568954769385728,0.09958492993706791,3,0.8838154294246073,0.01,"<0,01",primera diferencia,I(1)
+11,drclacbs_logit,Logit de la morosidad — tarjetas de crédito,primera diferencia,106,-3.114916237174041,0.02546883318052604,2,0.09560683397173661,0.1,">0,10",,
+12,drblacbs,Tasa de morosidad — préstamos empresariales (%),tal cual,106,-2.524188864739963,0.10969928580032579,4,0.7484747604155915,0.01,"<0,01",primera diferencia,I(1)
+13,drblacbs,Tasa de morosidad — préstamos empresariales (%),primera diferencia,106,-4.3082426232339355,0.00042983710941684995,3,0.04570437347793911,0.1,">0,10",,
+14,drblacbs_logit,Logit de la morosidad — préstamos empresariales,tal cual,106,-3.3391105463336075,0.01321821740885189,3,0.8140482168184029,0.01,"<0,01",ambigua (primera diferencia),I(1)
+15,drblacbs_logit,Logit de la morosidad — préstamos empresariales,primera diferencia,106,-3.8564455824625647,0.002379821516060962,4,0.04886577765055103,0.1,">0,10",,
+16,drsreacbs,Tasa de morosidad — préstamos inmobiliarios (%),tal cual,106,-2.5432654992294434,0.10529901348383996,1,0.3057442816193634,0.1,">0,10",ambigua (primera diferencia),posible I(2)
+17,drsreacbs,Tasa de morosidad — préstamos inmobiliarios (%),primera diferencia,106,-2.4089149263871366,0.13923602997885032,0,0.19726315948234766,0.1,">0,10",,
+18,drsreacbs_logit,Logit de la morosidad — préstamos inmobiliarios,tal cual,106,-2.1410293919336874,0.2283395768619627,2,0.3361504364181626,0.1,">0,10",ambigua (primera diferencia),posible I(2)
+19,drsreacbs_logit,Logit de la morosidad — préstamos inmobiliarios,primera diferencia,106,-2.466723985529427,0.12378205924199476,1,0.23528355560904363,0.1,">0,10",,
+20,gdpc1_yoy,Variación interanual del PIB real (%),tal cual,106,-3.6204104497852168,0.005382600936011824,4,0.09882495872168659,0.1,">0,10",niveles,I(0)
+21,gdpc1_yoy,Variación interanual del PIB real (%),primera diferencia,106,-8.909763299029114,1.1124924713287604e-14,3,0.023854494736499497,0.1,">0,10",,
+22,gdp_yoy,Variación interanual del PIB nominal (%),tal cual,106,-2.9541937194952745,0.03939924518122097,4,0.21480212562816917,0.1,">0,10",niveles,I(0)
+23,gdp_yoy,Variación interanual del PIB nominal (%),primera diferencia,106,-7.50900093429222,4.062419026083788e-11,3,0.026247870287615563,0.1,">0,10",,
+24,cpiaucsl_yoy,Variación interanual del IPC (%),tal cual,106,-2.3368110739898635,0.16037029751827825,4,0.22876186308759608,0.1,">0,10",ambigua (primera diferencia),I(1)
+25,cpiaucsl_yoy,Variación interanual del IPC (%),primera diferencia,106,-4.529375055505287,0.00017395449835514993,4,0.02925455469121709,0.1,">0,10",,
+26,loans_yoy,Variación interanual de préstamos y arrendamientos (%),tal cual,106,-2.4550208274402423,0.12680519608727459,4,0.19391010062774536,0.1,">0,10",ambigua (primera diferencia),I(1)
+27,loans_yoy,Variación interanual de préstamos y arrendamientos (%),primera diferencia,106,-5.006135735975263,2.1580910162254154e-05,4,0.029137271396615975,0.1,">0,10",,
+28,unrate,Tasa de desempleo (%),tal cual,106,-2.89971667770537,0.04538095392113221,0,0.3407319026456067,0.1,">0,10",niveles,I(0)
+29,unrate,Tasa de desempleo (%),primera diferencia,106,-12.028181555115387,2.9156662725533655e-22,0,0.08733573951217131,0.1,">0,10",,
+30,fedfunds,Tasa de fondos federales (%),tal cual,106,-3.8174117755580137,0.0027341100893478543,2,0.273408459213007,0.1,">0,10",niveles,I(0)
+31,fedfunds,Tasa de fondos federales (%),primera diferencia,106,-4.236577143690884,0.0005710065772869964,0,0.13855515250218592,0.1,">0,10",,
+32,coralacbs,Tasa de castigos — todos los préstamos (%),tal cual,106,-3.6817555833528157,0.004377220915292207,3,0.328096430123595,0.1,">0,10",niveles,I(0)
+33,coralacbs,Tasa de castigos — todos los préstamos (%),primera diferencia,106,-4.128691880587543,0.000867999838899747,4,0.07237909288554598,0.1,">0,10",,
