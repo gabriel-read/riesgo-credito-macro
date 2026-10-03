@@ -1,7 +1,7 @@
 ---
 description: SDD · Redacta tasks.md desde una spec y un plan aprobados (y spec o plan solo como respaldo); nunca toca código
 mode: subagent
-model: opencode/longcat-2.5-preview-free#high
+model: opencode/nemotron-3-ultra-free
 permissions:
   - action: edit
     resource: "*"

@@ -5,7 +5,9 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - Fase 0: arnés instalado (AGENTS.md, constitución, skills, agentes, comandos, CI) y versionado en el commit `ca8e4cc`. Sin código ni datos todavía.
 - Constitución revisada el 2-oct-2026 con /sdd-constitution; se decidió dejarla como está (sin cambios, seis principios). Posible mejora futura: aclarar que la reproducibilidad parte de `data/raw/` congelado y quitar la excepción "salvo causalidad" del principio 5.
 - Spec 001-datos aprobada el 2-oct-2026 (clarificada y resuelta).
-- Plan 001-datos aprobado el 2-oct-2026 (`specs/001-datos/plan.md`). Decisión clave D1: `data --download` descarga; `data` y `all` construyen solo desde `data/raw/` congelado. Siguiente: `/fabrica 001-datos` en OpenCode (tareas, implementación, validación).
+- Plan 001-datos aprobado el 2-oct-2026 (`specs/001-datos/plan.md`). Decisión clave D1: `data --download` descarga; `data` y `all` construyen solo desde `data/raw/` congelado.
+- Spec 001-datos T1 implementada (2-oct-2026): `tests/conftest.py` con bloqueo de red autouse (RNF-2), `tests/test_network.py`, `find_hand_typed_numbers` en `tests/test_harness.py` (RNF-4) y `pythonpath = ["."]` en `pyproject.toml`. `uv run pytest -q`: 12 passed.
+- Spec 001-datos T2 implementada (2-oct-2026): `src/config.py` con constantes, `SERIES_META` y `COLUMN_LABELS` (25 etiquetas en español). `tests/test_config.py` con 16 tests. `uv run pytest -q`: 28 passed. Siguiente: T3 (`src/fred_io.py`).
 
 ## Calendario (entregar el jueves 15-oct antes de las 22:00; cierre oficial 16-oct 00:00)
 - 001 datos 3–4 oct · 002 literatura 4–6 oct · 003 modelo I 5–8 oct · 004 modelo II 8–10 oct

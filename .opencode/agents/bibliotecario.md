@@ -1,7 +1,7 @@
 ---
 description: Literatura · Busca estudios reales en OpenAlex y Crossref, los verifica y llena la matriz de literatura y references.bib; nunca cita de memoria
 mode: subagent
-model: opencode/longcat-2.5-preview-free#high
+model: opencode/nemotron-3-ultra-free
 permissions:
   - action: edit
     resource: "*"

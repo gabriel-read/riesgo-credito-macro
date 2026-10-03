@@ -1,8 +1,8 @@
 """Guardarraíles del arnés agéntico.
 
 Se ejecutan con `uv run pytest -q` y en GitHub Actions. No necesitan red ni dependencias.
-Comprueban que el contexto de los agentes siga corto y que las specs, tareas y citas
-respeten las reglas de la skill sdd y de la constitución.
+Comprueban que el contexto de los agentes siga corto y que las specs, tareas, citas y
+cifras respeten las reglas de la skill sdd y de la constitución.
 """
 
 from pathlib import Path
@@ -11,6 +11,26 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 SPEC_DIRS = sorted(p for p in (ROOT / "specs").glob("[0-9][0-9][0-9]-*") if p.is_dir())
 TASK_LINE = re.compile(r"^- \[[ xX]\] \*\*T\d+")
+
+# RNF-4: cifras escritas a mano en el informe. El lookbehind excluye números
+# precedidos de palabra, punto o coma (p. ej. «2000T1», «{{< var ... >}}»).
+HAND_TYPED_NUMBER_PATTERNS = (
+    re.compile(r"(?<![\w.,])\d+[.,]\d+"),
+    re.compile(r"(?<![\w.,])\d+\s?%"),
+)
+
+
+def find_hand_typed_numbers(text: str) -> list[str]:
+    """Devuelve las cifras escritas a mano en `text` (RNF-4).
+
+    Detecta decimales con coma o punto («0,8 pp», «3.1») y porcentajes
+    («15 %», «50%»). Pasa por alto trimestres («2000T1»), variables de
+    Quarto («{{< var datos.muestra_fin >}}») y fechas («2026-10-03»).
+    """
+    found: list[str] = []
+    for pattern in HAND_TYPED_NUMBER_PATTERNS:
+        found.extend(pattern.findall(text))
+    return found
 
 
 def _read(path: Path) -> str:
@@ -87,8 +107,18 @@ def test_report_citations_exist_in_bib():
         assert not missing, f"{qmd.name}: citas sin entrada en references.bib: {missing}"
 
 
-def test_report_has_no_hand_typed_decimals():
+def test_report_has_no_hand_typed_numbers():
     """Principio 5: las cifras del informe salen de report/_variables.yml con {{< var ... >}}."""
     for qmd in (ROOT / "report").glob("*.qmd"):
-        found = re.findall(r"(?<![\w.])\d+[.,]\d{2,}\b", _report_prose(_read(qmd)))
+        found = find_hand_typed_numbers(_report_prose(_read(qmd)))
         assert not found, f"{qmd.name}: cifras escritas a mano {found[:5]}; usa {{{{< var ... >}}}}"
+
+
+def test_find_hand_typed_numbers_detects_decimals_and_percent():
+    assert find_hand_typed_numbers("La morosidad subió 0,8 pp en el trimestre.")
+    assert find_hand_typed_numbers("El desempleo cae al 15 % anual.")
+
+
+def test_find_hand_typed_numbers_ignores_variables_and_quarters():
+    assert find_hand_typed_numbers("{{< var datos.muestra_fin >}}") == []
+    assert find_hand_typed_numbers("La muestra empieza en 2000T1.") == []
