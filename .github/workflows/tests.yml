@@ -1,0 +1,16 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Instalar dependencias (versiones de uv.lock)
+        run: uv sync --locked
+      - name: Tests (sin red, sobre data/raw congelado)
+        run: uv run pytest -q

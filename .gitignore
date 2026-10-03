@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Quarto (intermedios; los .docx, .pdf y .pptx finales sí se versionan)
+.quarto/
+report/*_files/
+report/_freeze/
+report/*.html
+
+# Local
+.env
+.DS_Store
+Thumbs.db
+.claude/settings.local.json
+CLAUDE.local.md
