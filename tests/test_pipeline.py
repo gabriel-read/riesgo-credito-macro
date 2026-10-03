@@ -111,9 +111,10 @@ def test_pipeline_modules_pure():
         "src/data_note.py",
         "src/report_vars.py",
         "src/config.py",
+        "src/references.py",
     ]
 
-    forbidden_imports = {"requests", "pandas_datareader", "matplotlib"}
+    forbidden_imports = {"requests", "pandas_datareader", "matplotlib", "urllib", "socket"}
 
     for mod_path in pure_modules:
         with open(mod_path, "r", encoding="utf-8") as f:
@@ -142,6 +143,7 @@ def test_pipeline_no_open_in_pure_modules():
         "src/report_vars.py",
         "src/figures.py",
         "src/config.py",
+        "src/references.py",
     ]
 
     for mod_path in pure_files:
