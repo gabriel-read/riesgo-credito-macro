@@ -12,11 +12,11 @@
    - RF-12 a RF-14, RNF-4 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_diagnostics.py tests/test_impulse_dummies.py` en verde; BG rechaza con e AR(1) 0,7 y no con e iid; Chow Wald rechaza con quiebre simulado en pendientes; White usa QR con pivoteo (grados de libertad = rango−1, no duplicados exactos); VIF >10 alerta; CUSUM sobre regresión reducida (sin dummies impulso y sin sus trimestres) falla con quiebre fuerte y pasa con proceso estable; coeficientes no dummy coinciden con regresión reducida (tol 1e-10); bloque no dummy de V definido positivo, rango reducido reportado como "esperado"; dummy sin variación fuera de R1 y tramo OOS lanza ModelDataError.
 
-4. 🔄 SIGUIENTE — **Implementer** — `src/forecast.py` (one_step, dynamic, to_level, naive, rmse, mae, diebold_mariano_hln, oos_verdicts) con `tests/test_forecast.py`.
+4. ✅ COMPLETADA — **Implementer** — `src/forecast.py` (one_step, dynamic, to_level, naive, rmse, mae, diebold_mariano_hln, oos_verdicts) con `tests/test_forecast.py`.
    - RF-18, RNF-3 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_forecast.py` en verde; `to_level` a un paso = DR(t−1) + ΔŶ, dinámico = ancla + cumsum(ΔŶ); `dynamic` encadena ŷ en y_lag; `naive` en sus dos modos; `diebold_mariano_hln` con n=5 calculado a mano (t(4)); `oos_verdicts` en 4 casos; DM divisor n, e = observado−pronóstico, corrección HLN, t(n−1).
 
-5. **Implementer** — `src/model1.py` (run_model1, coefficient_table, effects_table, model_stationarity_table) con `tests/test_model1.py` (parcial: principal, efectos, estacionariedad del modelo).
+5. 🔄 SIGUIENTE — **Implementer** — `src/model1.py` (run_model1, coefficient_table, effects_table, model_stationarity_table) con `tests/test_model1.py` (parcial: principal, efectos, estacionariedad del modelo).
    - RF-3, RF-4, RF-7, RF-9, RF-10, RF-15 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py -k "not robustez and not limitaciones and not desviaciones and not export and not oos"` en verde; `read_decisions` + `check_expected_forms` antes de estimar; `coefficient_table` con coef, EE HAC, z, p, IC 95%, signo esperado y coincidencia; pie con forma Y, muestra, n_obs, n_param, R², R²_adj, SER, HAC lags, truncamiento, nota dummies impulso; `effects_table` con impacto y largo plazo × {1 pp, 1 DE}, EE, p, IC 95%, en pp, "no reportado (1 − ρ ≤ 0,05)" si aplica; `model_stationarity_table` copia ADF/KPSS de la 001, decisión, orden, "no I(0)".
 
