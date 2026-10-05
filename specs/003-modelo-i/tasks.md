@@ -24,11 +24,11 @@
    - RF-5, RF-6, RF-8, RF-16, RF-17, RF-20, RF-21 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py` en verde (completo); `run_variant` R8 sin historia anterior a 2000T1 → "no estimada"; <30 GL o rango incompleto → "no estimada"; `robustness_estimates` 1 fila por variante×regresor macro con coef, EE HAC, p o "no estimada"; `robustness_summary` 5×10 celdas sí/no/no estimada + "k de n" excluyendo no estimadas; `limitations_table` incluye fijas + detectadas (diag fallidos, no I(0), posible I(2), R8, truncamiento); `deviations_table` con estado de R8; `stress_export` → JSON con params, cov_hac, terms, columns, credit_lag, sample, hac_lags, covid_quarters; `is_robust` signo×p<0,10.
 
-7. 🔄 SIGUIENTE — **Implementer** — `src/model1.py` (out_of_sample) con `tests/test_model1.py` (OOS).
+7. ✅ COMPLETADA — **Implementer** — `src/model1.py` (out_of_sample) con `tests/test_model1.py` (OOS).
    - RF-18, RF-19 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py -k "oos"` en verde; entrenamiento 2000T1–2019T4 sin dummies COVID; evaluación 2022T1–2026T2; pronóstico a un paso y dinámico con reconstrucción de nivel; ingenuo en ambos modos; RMSE, MAE, cocientes, DM-HLN (h=1, divisor n, corrección HLN, t(n−1)); veredictos pre-registrados; series para figura.
 
-8. **Implementer** — `src/figures.py` (plot_model1_coefficients, plot_model1_cusum, plot_model1_oos), `src/report_vars.py` (model1_variables), `tests/test_outputs_model1.py`, `tests/test_language.py`, ampliación de `tests/test_pipeline.py` (pureza módulos nuevos).
+8. 🔄 SIGUIENTE — **Implementer** — `src/figures.py` (plot_model1_coefficients, plot_model1_cusum, plot_model1_oos), `src/report_vars.py` (model1_variables), `tests/test_outputs_model1.py`, `tests/test_language.py`, ampliación de `tests/test_pipeline.py` (pureza módulos nuevos).
    - RF-11, RF-14, RF-19, RF-22, RF-23, RNF-6, RNF-7, RNF-8 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_outputs_model1.py tests/test_language.py tests/test_pipeline.py` en verde; figuras 8×4,5", 200 dpi, sin título, pie "Fuente: FRED; elaboración propia", metadata determinista; coeficientes: impacto por 1 DE ± IC 95%, línea en 0; CUSUM: bandas 5%; OOS: 4 series (obs, 1 paso, dinámico, ingenuo); `model1_variables` trae todas las claves §4 del plan, efectos no reportados como texto; pipeline modules puros (sin red/disco/gráficos, sin fillna); `test_language` detecta "causa"/"causal"/"provoca"/"debido a".
 

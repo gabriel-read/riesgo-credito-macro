@@ -5,19 +5,27 @@ largo plazo, por 1 pp y por 1 DE) y tabla de estacionariedad del modelo.
 Tarea 6: variantes de robustez R1–R8, criterio de robustez, conexión con los diagnósticos,
 tablas de limitaciones y desviaciones, exportación para la spec 005 y salida en Markdown y CSV
 como texto (la escritura a disco es de la etapa `models` del pipeline).
-La tarea 7 añadirá el fuera de muestra.
-Sin acceso a red, disco ni gráficos (RNF-6). RF-3 a RF-10, RF-15 a RF-17, RF-20, RF-21, RF-23.
+Tarea 7: validación fuera de muestra (a un paso y dinámico, ingenuo, Diebold-Mariano con HLN).
+Sin acceso a red, disco ni gráficos (RNF-6). RF-3 a RF-10, RF-15 a RF-18, RF-20, RF-21, RF-23.
 """
 
 from __future__ import annotations
 
+import dataclasses
 import json
 from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
 
-from src.design import Design, ModelDataError, build_design, check_expected_forms, read_decisions
+from src.design import (
+    Design,
+    ModelDataError,
+    build_design,
+    check_expected_forms,
+    dependent_series,
+    read_decisions,
+)
 from src.diagnostics import cusum, diagnostics_table
 from src.estimation import (
     Fit,
@@ -29,6 +37,16 @@ from src.estimation import (
     scale_effect,
     standardization_sd,
 )
+from src.forecast import (
+    diebold_mariano_hln,
+    dynamic,
+    mae,
+    naive,
+    one_step,
+    oos_verdicts,
+    rmse,
+    to_level,
+)
 from src.model1_config import (
     COVID_QUARTERS,
     EXPECTED_FORMS,
@@ -38,6 +56,9 @@ from src.model1_config import (
     MACRO_TERMS,
     MAIN,
     MAIN_START,
+    OOS_ANCHOR,
+    OOS_TEST_START,
+    OOS_TRAIN,
     PREREG_DEVIATIONS,
     ROBUST_ALPHA,
     TERM_LABELS,
@@ -70,8 +91,29 @@ class VariantOutcome:
 
 
 @dataclass(frozen=True)
+class OOSResult:
+    """Validación fuera de muestra (RF-18).
+
+    `series` trae, por trimestre evaluado, el nivel observado de la morosidad (pp), los
+    pronósticos del modelo a un paso y dinámico, y los dos comparadores ingenuos (paseo
+    aleatorio a un paso y constante desde el ancla), para la figura de RF-19.
+    """
+
+    table: pd.DataFrame
+    series: pd.DataFrame
+    train_fit: Fit
+    train_design: Design
+    test_design: Design
+    form: str
+    anchor_period: pd.Period
+    anchor_value: float  # Y observada en el ancla, en la forma del modelo (ΔDR si entra en Δ)
+    dm: dict
+    verdicts: dict
+
+
+@dataclass(frozen=True)
 class Model1Result:
-    """Resultado del Modelo I (tareas 5 y 6). La tarea 7 añadirá el fuera de muestra."""
+    """Resultado del Modelo I (tareas 5 a 7)."""
 
     decisions: dict[str, str]
     design: Design
@@ -85,6 +127,7 @@ class Model1Result:
     variants: list[VariantOutcome]
     robustness_estimates: pd.DataFrame
     robustness_summary: pd.DataFrame
+    oos: OOSResult
     limitations: pd.DataFrame
     deviations: pd.DataFrame
     stress: dict
@@ -432,6 +475,130 @@ def robustness_summary(main: Fit, outcomes: list[VariantOutcome]) -> pd.DataFram
     return pd.DataFrame(rows)
 
 
+# --- Validación fuera de muestra (RF-18) ---
+
+
+def _ratio(model_rmse: float, naive_rmse: float) -> float:
+    return model_rmse / naive_rmse if naive_rmse > 0 else float("nan")
+
+
+def out_of_sample(full: pd.DataFrame, decisions: dict[str, str], end: pd.Period) -> OOSResult:
+    """Validación fuera de muestra del Modelo I contra el paseo aleatorio (RF-18).
+
+    - Entrena en 2000T1–2019T4 sin dummies COVID (no hay trimestres COVID en ese tramo) y
+      evalúa en 2022T1–`end` con los regresores observados. 2020T1–2021T4 no se usa en
+      ninguno de los dos tramos y no hay reentrenamiento.
+    - A un paso: usa la Y(t−1) observada. Dinámico: parte de la Y observada en 2021T4 (en la
+      forma del modelo, ΔDR si entra en Δ) y encadena la Y pronosticada.
+    - Si Y está en Δ, el nivel se reconstruye así: a un paso, DR_obs(t−1) + ΔŶ(t); dinámico,
+      DR_obs(2021T4) + suma acumulada de ΔŶ. Todo se evalúa en el nivel de la morosidad (pp).
+    - Comparador ingenuo: a un paso, DR_obs(t−1); dinámico, DR_obs(2021T4) constante.
+    - Diebold-Mariano con corrección HLN solo para el pronóstico a un paso.
+    - Si el entrenamiento no tiene grados de libertad suficientes, o falta algún dato, se
+      detiene (RF-6, RF-2).
+    """
+    decision = decisions[MAIN.dependent]
+    train_end = pd.Period(OOS_TRAIN[1], "Q-DEC")
+    test_start = pd.Period(OOS_TEST_START, "Q-DEC")
+    anchor = pd.Period(OOS_ANCHOR, "Q-DEC")
+    if end < test_start:
+        raise ModelDataError(
+            f"fuera de muestra: el último trimestre común {quarter_label(end)} es anterior al "
+            f"inicio de la evaluación {quarter_label(test_start)}"
+        )
+
+    spec_train = dataclasses.replace(
+        MAIN, id="oos", label="Entrenamiento fuera de muestra", covid_dummies=False,
+        start=pd.Period(OOS_TRAIN[0], "Q-DEC"),
+    )
+    train_design = build_design(full, spec_train, decision, train_end)
+    reason = check_dof(train_design)
+    if reason:
+        raise ModelDataError(f"fuera de muestra: {reason}")
+    train_fit = fit_ols_hac(train_design)
+
+    spec_test = dataclasses.replace(
+        MAIN, id="oos_test", label="Evaluación fuera de muestra", covid_dummies=False,
+        start=test_start,
+    )
+    test_design = build_design(full, spec_test, decision, end)
+    X_test = test_design.X
+    if X_test.index[0] != test_start or X_test.index[-1] != end:
+        raise ModelDataError(
+            f"fuera de muestra: la evaluación es {quarter_label(X_test.index[0])}–"
+            f"{quarter_label(X_test.index[-1])} y debe ser {quarter_label(test_start)}–"
+            f"{quarter_label(end)}"
+        )
+    params = train_fit.params
+    if set(X_test.columns) != set(params.index):
+        raise ModelDataError("fuera de muestra: las columnas de evaluación no coinciden con las de entrenamiento")
+
+    level_obs = full[MAIN.dependent]
+    anchor_value = float(dependent_series(full, MAIN.dependent, decision).loc[anchor])
+    if not np.isfinite(anchor_value):
+        raise ModelDataError(f"fuera de muestra: no hay Y observada en el ancla {quarter_label(anchor)}")
+    form, idx = train_design.form, X_test.index
+
+    forecasts = {
+        "one_step": to_level(one_step(params, X_test), form, level_obs, anchor, "one_step"),
+        "dynamic": to_level(dynamic(params, X_test, anchor_value), form, level_obs, anchor, "dynamic"),
+    }
+    naives = {mode: naive(level_obs, idx, anchor, mode) for mode in ("one_step", "dynamic")}
+    observed = level_obs.loc[idx]
+    series = pd.DataFrame(
+        {
+            "observado": observed,
+            "un_paso": forecasts["one_step"],
+            "dinamico": forecasts["dynamic"],
+            "ingenuo_un_paso": naives["one_step"],
+            "ingenuo_dinamico": naives["dynamic"],
+        },
+        index=idx,
+    )
+
+    err = {mode: observed - forecasts[mode] for mode in forecasts}
+    err_naive = {mode: observed - naives[mode] for mode in naives}
+    dm = diebold_mariano_hln(err["one_step"], err_naive["one_step"])
+    metrics = {
+        mode: {
+            "rmse_modelo": rmse(err[mode]), "rmse_ingenuo": rmse(err_naive[mode]),
+            "mae_modelo": mae(err[mode]), "mae_ingenuo": mae(err_naive[mode]),
+        }
+        for mode in forecasts
+    }
+    ratios = {m: _ratio(v["rmse_modelo"], v["rmse_ingenuo"]) for m, v in metrics.items()}
+    verdicts = oos_verdicts(ratios["one_step"], ratios["dynamic"], dm["p"])
+
+    rows = []
+    for name, mode, verdict, signif, stat, p in (
+        ("a un paso", "one_step", verdicts["veredicto_un_paso"],
+         verdicts["significancia_un_paso"], dm["stat"], dm["p"]),
+        ("dinámico", "dynamic", verdicts["veredicto_dinamico"], "no aplica", np.nan, np.nan),
+    ):
+        rows.append({
+            "pronostico": name,
+            "n_trimestres": int(len(idx)),
+            **metrics[mode],
+            "cociente_rmse": ratios[mode],
+            "dm_estadistico": stat,
+            "dm_p": p,
+            "veredicto": verdict,
+            "significancia": signif,
+        })
+    return OOSResult(
+        table=pd.DataFrame(rows),
+        series=series,
+        train_fit=train_fit,
+        train_design=train_design,
+        test_design=test_design,
+        form=form,
+        anchor_period=anchor,
+        anchor_value=anchor_value,
+        dm=dm,
+        verdicts=verdicts,
+    )
+
+
 # --- Limitaciones (RF-20) y desviaciones (RF-21) ---
 
 
@@ -452,6 +619,14 @@ def _diagnostic_detail(row: pd.Series) -> str:
         detail += (
             "; con el rezago de la dependiente, MCO puede ser inconsistente (se declara como "
             "limitación; añadir rezagos tras ver el resultado exige un /sdd-change)"
+        )
+    elif prueba.startswith("Chow"):
+        if row.get("nota"):
+            detail += f"; {row['nota']}"
+        detail += (
+            "; el estadístico de Wald con errores HAC está sobredimensionado en muestra finita "
+            "(n pequeño y muchos parámetros), así que el rechazo se reporta tal cual y se lee con "
+            "cautela; el CUSUM sirve de contraste estructural"
         )
     elif prueba.startswith("VIF"):
         detail += "; posible multicolinealidad: se reporta y no se elimina ningún regresor"
@@ -598,7 +773,7 @@ def stress_export_json(export: dict) -> str:
 
 # --- Salida en Markdown y CSV como texto (RF-23) ---
 
-_P_COLUMNS = ("p", "p_valor")
+_P_COLUMNS = ("p", "p_valor", "dm_p")
 
 
 def fmt_p(p: float) -> str:
@@ -656,6 +831,7 @@ def render_model1_tables(result: Model1Result) -> dict[str, dict[str, str]]:
         "model1_stationarity": result.stationarity,
         "model1_robustness_estimates": result.robustness_estimates,
         "model1_robustness_summary": result.robustness_summary,
+        "model1_oos": result.oos.table,
         "model1_limitations": result.limitations,
         "model1_deviations": result.deviations,
     }
@@ -682,7 +858,8 @@ def run_model1(full: pd.DataFrame, stationarity: pd.DataFrame, end: pd.Period) -
        se detiene (RF-6).
     4. Estima por MCO con errores Newey-West (RF-7), calcula los diagnósticos (RF-12 a RF-14)
        y estima las variantes R1–R8 (RF-16, RF-17).
-    5. Construye las tablas de coeficientes, efectos, estacionariedad, limitaciones y
+    5. Valida fuera de muestra contra el paseo aleatorio (RF-18).
+    6. Construye las tablas de coeficientes, efectos, estacionariedad, limitaciones y
        desviaciones, y la exportación para la spec 005 (RF-8).
     """
     decisions = read_decisions(stationarity)
@@ -715,6 +892,7 @@ def run_model1(full: pd.DataFrame, stationarity: pd.DataFrame, end: pd.Period) -
         variants=outcomes,
         robustness_estimates=robustness_estimates(fit, outcomes),
         robustness_summary=robustness_summary(fit, outcomes),
+        oos=out_of_sample(full, decisions, end),
         limitations=limitations_table(model_stat, diagnostics, fit, outcomes, stationarity),
         deviations=deviations_table(outcomes, end),
         stress=stress_export(fit),

@@ -2,8 +2,8 @@
 
 T5: RF-3, RF-4, RF-7, RF-9, RF-10 y RF-15 (modelo principal, efectos, estacionariedad).
 T6: RF-5, RF-6, RF-8, RF-16, RF-17, RF-20, RF-21 y RF-23 (robusteces R1–R8, criterio de
-robustez, diagnósticos, limitaciones, desviaciones, exportación). La tarea 7 añadirá el fuera
-de muestra.
+robustez, diagnósticos, limitaciones, desviaciones, exportación).
+T7: RF-18 (validación fuera de muestra: a un paso y dinámico, ingenuo, DM-HLN, veredictos).
 
 Datos sintéticos con parámetros conocidos. X y el ruido de y salen de semillas
 independientes (con la misma semilla el ruido coincidiría con una columna de X y el
@@ -24,8 +24,11 @@ import src.model1 as model1
 from src.design import ModelDataError
 from src.estimation import hac_lags, inference, long_run, standardization_sd
 from src.design import build_design, read_decisions
+from src.estimation import fit_ols_hac
+from src.forecast import diebold_mariano_hln, oos_verdicts
 from src.model1 import (
     Model1Result,
+    OOSResult,
     VariantOutcome,
     coefficient_note,
     coefficient_table,
@@ -34,6 +37,7 @@ from src.model1 import (
     is_robust,
     limitations_table,
     model_stationarity_table,
+    out_of_sample,
     render_model1_tables,
     robustness_estimates,
     robustness_summary,
@@ -1019,8 +1023,8 @@ def test_run_model1_exposes_the_export_for_spec_005(result):
 
 EXPECTED_STEMS = [
     "model1_coefficients", "model1_effects", "model1_diagnostics", "model1_stationarity",
-    "model1_robustness_estimates", "model1_robustness_summary", "model1_limitations",
-    "model1_deviations",
+    "model1_robustness_estimates", "model1_robustness_summary", "model1_oos",
+    "model1_limitations", "model1_deviations",
 ]
 
 
@@ -1066,3 +1070,196 @@ def test_rendered_tables_use_association_language(result):
     text = " ".join(d["md"] + d["csv"] for d in out.values()).lower()
     for banned in ["causa", "causal", "provoca", "debido a"]:
         assert banned not in text, banned
+
+
+# =====================================================================================
+# Tarea 7: validación fuera de muestra (RF-18) y nota del Chow en las limitaciones (RF-20)
+# =====================================================================================
+
+
+@pytest.fixture(scope="module")
+def oos(full, decisions) -> OOSResult:
+    return out_of_sample(full, decisions, END)
+
+
+def test_oos_partition_trains_2000q1_2019q4_and_evaluates_2022q1_2026q2(oos):
+    X = oos.train_design.X
+    assert X.index[0] == Q("2000Q1") and X.index[-1] == Q("2019Q4") and len(X) == 80
+    assert not any(c.startswith("covid_") for c in X.columns)  # no hay trimestres COVID
+    assert list(oos.series.index) == list(pd.period_range("2022Q1", "2026Q2", freq="Q-DEC"))
+    assert len(oos.series) == 18
+    for q in pd.period_range("2020Q1", "2021Q4", freq="Q-DEC"):  # el hueco COVID no se usa
+        assert q not in X.index and q not in oos.series.index
+
+
+def test_oos_trained_params_are_the_ols_hac_fit_on_the_training_window(oos, full, decisions, result):
+    spec = dataclasses.replace(MAIN, id="oos", covid_dummies=False)
+    ref = fit_ols_hac(build_design(full, spec, decisions["dralacbs"], Q("2019Q4")))
+    np.testing.assert_allclose(oos.train_fit.params, ref.params, rtol=1e-12)
+    assert list(oos.train_fit.params.index) == ["const", "y_lag", *MACRO_TERMS]
+    assert oos.train_fit.params["const"] != pytest.approx(result.fit.params["const"], rel=1e-6)
+
+
+def test_oos_series_has_observed_forecasts_and_both_naive_benchmarks(oos):
+    assert list(oos.series.columns) == [
+        "observado", "un_paso", "dinamico", "ingenuo_un_paso", "ingenuo_dinamico"
+    ]
+    assert not oos.series.isna().any().any()
+
+
+def test_oos_one_step_level_is_previous_observed_level_plus_forecast_delta(oos, full):
+    X = oos.test_design.X
+    pred = X[list(oos.train_fit.params.index)].to_numpy() @ oos.train_fit.params.to_numpy()
+    expected = full["dralacbs"].shift(1).loc[X.index].to_numpy() + pred
+    np.testing.assert_allclose(oos.series["un_paso"], expected, rtol=1e-12)
+    np.testing.assert_allclose(oos.series["observado"], full["dralacbs"].loc[X.index])
+
+
+def test_oos_dynamic_chains_the_forecast_delta_from_the_2021q4_anchor(oos, full):
+    params, X = oos.train_fit.params, oos.test_design.X
+    y_prev = float(full["dralacbs"].diff().loc[Q("2021Q4")])
+    deltas = []
+    for t in X.index:
+        row = X.loc[t, params.index].copy()
+        row["y_lag"] = y_prev
+        y_prev = float(row.to_numpy() @ params.to_numpy())
+        deltas.append(y_prev)
+    expected = float(full["dralacbs"].loc[Q("2021Q4")]) + np.cumsum(deltas)
+    np.testing.assert_allclose(oos.series["dinamico"], expected, rtol=1e-12)
+
+
+def test_oos_anchor_is_the_observed_delta_not_the_level(oos, full):
+    delta = float(full["dralacbs"].diff().loc[Q("2021Q4")])
+    level = float(full["dralacbs"].loc[Q("2021Q4")])
+    assert oos.anchor_period == Q("2021Q4")
+    assert oos.anchor_value == pytest.approx(delta, rel=1e-12)
+    assert abs(oos.anchor_value - level) > 1.0
+    assert oos.test_design.X["y_lag"].iloc[0] == pytest.approx(delta)  # y_lag(2022T1) = Y(2021T4)
+
+
+def test_oos_naive_benchmarks_are_the_random_walk_in_both_modes(oos, full):
+    lvl, idx = full["dralacbs"], oos.series.index
+    np.testing.assert_allclose(oos.series["ingenuo_un_paso"], lvl.shift(1).loc[idx])
+    np.testing.assert_allclose(oos.series["ingenuo_dinamico"], np.full(18, lvl.loc[Q("2021Q4")]))
+
+
+def test_oos_table_has_one_row_per_forecast_type_with_the_rf18_columns(oos):
+    t = oos.table
+    assert list(t["pronostico"]) == ["a un paso", "dinámico"]
+    for col in ["n_trimestres", "rmse_modelo", "rmse_ingenuo", "mae_modelo", "mae_ingenuo",
+                "cociente_rmse", "dm_estadistico", "dm_p", "veredicto", "significancia"]:
+        assert col in t.columns
+    assert (t["n_trimestres"] == 18).all()
+
+
+def test_oos_metrics_are_rmse_mae_and_ratio_of_level_errors_in_pp(oos):
+    s, t = oos.series, oos.table.set_index("pronostico")
+    for name, fc, nv in [("a un paso", "un_paso", "ingenuo_un_paso"),
+                         ("dinámico", "dinamico", "ingenuo_dinamico")]:
+        em, en = s["observado"] - s[fc], s["observado"] - s[nv]
+        assert t.loc[name, "rmse_modelo"] == pytest.approx(np.sqrt(np.mean(em**2)), rel=1e-12)
+        assert t.loc[name, "rmse_ingenuo"] == pytest.approx(np.sqrt(np.mean(en**2)), rel=1e-12)
+        assert t.loc[name, "mae_modelo"] == pytest.approx(np.mean(np.abs(em)), rel=1e-12)
+        assert t.loc[name, "mae_ingenuo"] == pytest.approx(np.mean(np.abs(en)), rel=1e-12)
+        assert t.loc[name, "cociente_rmse"] == pytest.approx(
+            t.loc[name, "rmse_modelo"] / t.loc[name, "rmse_ingenuo"], rel=1e-12
+        )
+
+
+def test_oos_diebold_mariano_hln_only_for_the_one_step_forecast(oos):
+    s, t = oos.series, oos.table.set_index("pronostico")
+    ref = diebold_mariano_hln(s["observado"] - s["un_paso"], s["observado"] - s["ingenuo_un_paso"])
+    assert ref["n"] == 18
+    assert t.loc["a un paso", "dm_estadistico"] == pytest.approx(ref["stat"], rel=1e-12)
+    assert t.loc["a un paso", "dm_p"] == pytest.approx(ref["p"], rel=1e-12)
+    assert np.isnan(t.loc["dinámico", "dm_estadistico"]) and np.isnan(t.loc["dinámico", "dm_p"])
+    assert oos.dm == ref
+
+
+def test_oos_verdicts_are_the_preregistered_ones(oos):
+    t = oos.table.set_index("pronostico")
+    v = oos_verdicts(t.loc["a un paso", "cociente_rmse"], t.loc["dinámico", "cociente_rmse"],
+                     t.loc["a un paso", "dm_p"])
+    assert t.loc["a un paso", "veredicto"] == v["veredicto_un_paso"]
+    assert t.loc["dinámico", "veredicto"] == v["veredicto_dinamico"]
+    assert t.loc["a un paso", "significancia"] == v["significancia_un_paso"]
+    assert t.loc["dinámico", "significancia"] == "no aplica"  # DM mezcla horizontes: solo a un paso
+    assert oos.verdicts == v
+
+
+def test_oos_model_beats_the_random_walk_in_a_strong_synthetic_dgp(oos):
+    t = oos.table.set_index("pronostico")
+    assert oos.train_fit.rsquared < 0.999  # guarda contra ajuste degenerado
+    assert t.loc["a un paso", "cociente_rmse"] < 1.0
+    assert t.loc["dinámico", "cociente_rmse"] < 1.0
+    assert t.loc["a un paso", "veredicto"] == "supera al ingenuo"
+    assert t.loc["dinámico", "veredicto"] == "supera al ingenuo"
+
+
+def test_oos_is_deterministic(full, decisions, oos):
+    again = out_of_sample(full, decisions, END)
+    pd.testing.assert_frame_equal(oos.table, again.table)
+    pd.testing.assert_frame_equal(oos.series, again.series)
+
+
+def test_oos_with_a_level_dependent_forecasts_levels_directly(full, decisions):
+    res = out_of_sample(full, {**decisions, "dralacbs": "niveles"}, END)
+    assert res.form == "nivel"
+    X, params = res.test_design.X, res.train_fit.params
+    pred = X[list(params.index)].to_numpy() @ params.to_numpy()
+    np.testing.assert_allclose(res.series["un_paso"], pred, rtol=1e-12)
+    assert res.anchor_value == pytest.approx(float(full["dralacbs"].loc[Q("2021Q4")]), rel=1e-12)
+
+
+def test_oos_training_without_degrees_of_freedom_stops(full, decisions, monkeypatch):
+    """RF-6: la validación fuera de muestra se detiene (no se reporta «no estimada»)."""
+    monkeypatch.setattr(model1, "check_dof", lambda design: "grados de libertad insuficientes (< 30)")
+    with pytest.raises(ModelDataError, match="fuera de muestra.*grados de libertad"):
+        out_of_sample(full, decisions, END)
+
+
+def test_oos_missing_term_in_the_evaluation_window_stops_with_variable_and_quarter(full, decisions):
+    holey = full.copy()
+    holey.loc[Q("2023Q2"), "unrate_d"] = np.nan
+    with pytest.raises(ModelDataError, match=r"unrate_d.*2023Q2"):
+        out_of_sample(holey, decisions, END)
+
+
+def test_oos_stops_if_the_common_quarter_is_before_the_evaluation_start(full, decisions):
+    with pytest.raises(ModelDataError, match="2022T1"):
+        out_of_sample(full, decisions, Q("2021Q4"))
+
+
+def test_oos_stops_if_history_ends_before_the_common_quarter(full, decisions):
+    with pytest.raises(ModelDataError):
+        out_of_sample(full, decisions, Q("2026Q3"))
+
+
+def test_oos_is_part_of_run_model1_and_rendered_as_markdown_and_csv(result):
+    assert isinstance(result.oos, OOSResult)
+    out = render_model1_tables(result)["model1_oos"]
+    assert "a un paso" in out["md"] and "dinámico" in out["md"]
+    assert "no aplica" in out["md"]
+    assert out["csv"].splitlines()[0].startswith("pronostico,n_trimestres,rmse_modelo")
+    assert "nan" not in out["md"].lower()
+
+
+# --- Nota de muestra finita del Chow en las limitaciones (decisión: se reporta tal cual) ---
+
+
+def test_limitations_note_the_finite_sample_oversize_of_a_failed_chow_wald(result, stationarity):
+    diag = _diag([
+        ("Chow 2008Q3", 15.4, 0.031, "falla", "Wald HAC con interacciones"),
+        ("Breusch-Godfrey", 12.0, 0.017, "falla", ""),
+    ])
+    det = _limits(result, stationarity, diag=diag).query("origen == 'detectada'")
+    chow = det[det["limitacion"].str.startswith("Chow 2008Q3")].iloc[0]["detalle"]
+    assert "0,031" in chow
+    assert "sobredimensionado en muestra finita" in chow and "CUSUM" in chow
+    bg = det[det["limitacion"].str.startswith("Breusch-Godfrey")].iloc[0]["detalle"]
+    assert "sobredimensionado" not in bg  # la nota es solo del Chow
+
+
+def test_limitations_do_not_mention_the_chow_oversize_when_it_does_not_fail(result, stationarity):
+    tab = _limits(result, stationarity)
+    assert not tab["detalle"].str.contains("sobredimensionado").any()
