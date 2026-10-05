@@ -54,5 +54,11 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
    - Robusto = mismo signo y p < 0,10.
    - Variables bajo el prefijo `modelo1.`.
 
-   Pendiente: commit `spec(003-modelo-i): aprobada` (solo `specs/003-modelo-i/`) y luego `/sdd-plan 003-modelo-i`.
+   Commit del pre-registro: `667b313`. Plan aprobado el 5-oct-2026, tras la auditoría de `revisor-econometrico`: 10 cambios necesarios incorporados (`review-plan.md`, respuesta en la sección 12 del plan). Cambios a la spec C1–C3 (`/sdd-change`, antes de estimar, registrados en «Desviaciones del pre-registro»):
+   - C1: la DE de los efectos «por 1 DE» excluye 2020T2–2021T1.
+   - C2: los efectos base de 2021T2–2022T1 son limitación fija, con R1 como contraste.
+   - C3: la positividad de la matriz HAC se comprueba solo en el sub-bloque sin dummies de impulso.
+
+   Siguiente: `/sdd-tasks 003-modelo-i` y `/fabrica` en OpenCode. La tarea 9 es la primera estimación real.
+   - Lección: las dummies de impulso (valen 1 en un solo trimestre) dejan residuos nulos. Eso rompe el CUSUM de statsmodels, deja la matriz HAC con rango reducido y mete columnas colineales en White. Además, `use_correction` de HAC es `False` por defecto en statsmodels 0.15.
 2. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
