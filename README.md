@@ -26,7 +26,7 @@ Investigación individual (INTEC): ¿en qué medida el ciclo macroeconómico y l
 3. `git init -b main`, luego `uv sync` (crea `.venv` y `uv.lock`) y `uv run pytest -q`: deben pasar los tests del arnés.
 4. `git add -A` y `git commit -m "chore: arnés agéntico SDD"` (incluye `uv.lock`: la integración continua lo necesita).
 5. Crea un repositorio privado en GitHub, conéctalo con `git remote add origin <url>` y sube con `git push -u origin main`.
-6. Abre Warp con tres pestañas en esta carpeta: `claude`, `opencode` y una terminal libre.
+6. Abre este repositorio en Orca y lanza en él `claude`, `opencode` y una terminal libre.
 7. En OpenCode: `/models` → LongCat 2.5 Preview Free; Tab hasta el agente `coordinator`.
 
 ## Comandos

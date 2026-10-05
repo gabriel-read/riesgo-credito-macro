@@ -1,41 +1,24 @@
 ---
 description: SDD · Revisa la spec como QA (clarificación) y valida la implementación RF por RF; solo escribe sus informes review-*.md
 mode: subagent
-model: opencode/nemotron-3-ultra-free
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: edit
-    resource: "specs/**/review-*.md"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: ask
-  - action: shell
-    resource: "uv run pytest*"
-    effect: allow
-  - action: shell
-    resource: "uv run python -m src.pipeline*"
-    effect: allow
-  - action: shell
-    resource: "git diff*"
-    effect: allow
-  - action: shell
-    resource: "git status*"
-    effect: allow
-  - action: shell
-    resource: "git log*"
-    effect: allow
-  - action: webfetch
-    resource: "*"
-    effect: deny
-  - action: websearch
-    resource: "*"
-    effect: deny
-  - action: subagent
-    resource: "*"
-    effect: deny
+model: openrouter/qwen/qwen3.8-27b:free
+permission:
+  edit:
+    "*": deny
+    "specs/**/review-*.md": allow
+  bash:
+    "*": ask
+    "uv run pytest*": allow
+    "uv run python -m src.pipeline*": allow
+    "git diff*": allow
+    "git status*": allow
+    "git log*": allow
+  webfetch:
+    "*": deny
+  websearch:
+    "*": deny
+  task:
+    "*": deny
 ---
 
 Eres el revisor (reviewer) de este proyecto. Revisas sin modificar código, datos, specs ni planes: solo escribes informes `specs/<spec>/review-*.md`. Sigue la skill sdd y la skill de dominio de la spec (datos-fred, econometria-series-tiempo, citas-apa o informe-quarto).
