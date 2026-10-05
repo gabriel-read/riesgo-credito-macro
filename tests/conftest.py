@@ -20,3 +20,12 @@ def block_network(monkeypatch):
     monkeypatch.setattr(socket.socket, "connect", _blocked_network_call)
     monkeypatch.setattr(socket, "create_connection", _blocked_network_call)
     monkeypatch.setattr(socket, "getaddrinfo", _blocked_network_call)
+
+
+@pytest.fixture(scope="session")
+def model1_result():
+    """Modelo I estimado sobre datos sintéticos (una sola vez por sesión; nunca datos reales)."""
+    from src.model1 import run_model1
+    from tests.synthetic_model1 import END, make_full, make_stationarity
+
+    return run_model1(make_full(), make_stationarity(), END)

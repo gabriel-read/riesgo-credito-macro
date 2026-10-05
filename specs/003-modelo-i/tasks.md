@@ -28,11 +28,11 @@
    - RF-18, RF-19 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py -k "oos"` en verde; entrenamiento 2000T1–2019T4 sin dummies COVID; evaluación 2022T1–2026T2; pronóstico a un paso y dinámico con reconstrucción de nivel; ingenuo en ambos modos; RMSE, MAE, cocientes, DM-HLN (h=1, divisor n, corrección HLN, t(n−1)); veredictos pre-registrados; series para figura.
 
-8. 🔄 SIGUIENTE — **Implementer** — `src/figures.py` (plot_model1_coefficients, plot_model1_cusum, plot_model1_oos), `src/report_vars.py` (model1_variables), `tests/test_outputs_model1.py`, `tests/test_language.py`, ampliación de `tests/test_pipeline.py` (pureza módulos nuevos).
+8. ✅ COMPLETADA — **Implementer** — `src/figures.py` (plot_model1_coefficients, plot_model1_cusum, plot_model1_oos), `src/report_vars.py` (model1_variables), `tests/test_outputs_model1.py`, `tests/test_language.py`, ampliación de `tests/test_pipeline.py` (pureza módulos nuevos).
    - RF-11, RF-14, RF-19, RF-22, RF-23, RNF-6, RNF-7, RNF-8 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_outputs_model1.py tests/test_language.py tests/test_pipeline.py` en verde; figuras 8×4,5", 200 dpi, sin título, pie "Fuente: FRED; elaboración propia", metadata determinista; coeficientes: impacto por 1 DE ± IC 95%, línea en 0; CUSUM: bandas 5%; OOS: 4 series (obs, 1 paso, dinámico, ingenuo); `model1_variables` trae todas las claves §4 del plan, efectos no reportados como texto; pipeline modules puros (sin red/disco/gráficos, sin fillna); `test_language` detecta "causa"/"causal"/"provoca"/"debido a".
 
-9. **Implementer** — `src/pipeline.py` (stage_models) y `tests/test_frozen_model1.py`. **Primera tarea que estima con datos reales** (requiere pre-registro commiteado, RNF-1).
+9. 🔄 SIGUIENTE — **Implementer** — `src/pipeline.py` (stage_models) y `tests/test_frozen_model1.py`. **Primera tarea que estima con datos reales** (requiere pre-registro commiteado, RNF-1).
    - RF-1, RF-4, RF-5, RF-7, RF-8, RF-23, RNF-5 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_frozen_model1.py` en verde; `check_expected_forms` pasa; principal 2000T1–fin, 106 obs; R6=2001T1, R7=2002T1, R8 "no estimada"; `hac_lags==4`, `n_parametros==11`; dos corridas en tmp_path dejan bytes idénticos en tablas, figuras, JSON, _variables.yml; claves no modelo1 de _variables.yml byte a byte iguales.
 

@@ -207,7 +207,12 @@ def effective_window(
     if spec.truncate_start:
         # Primer trimestre con todos los términos disponibles (con rezago)
         needed_cols = _cols_for_lag_check(frame, spec)
-        first_valid = pd.concat(needed_cols, axis=1).dropna().index.min()
+        complete = pd.concat(needed_cols, axis=1).notna().all(axis=1)
+        if not complete.any():
+            raise ModelDataError(
+                f"ningún trimestre tiene todos los términos de la variante {spec.id}"
+            )
+        first_valid = complete.index[complete.to_numpy().argmax()]  # primer trimestre completo
         start = max(spec.start, first_valid)
     else:
         start = spec.start
