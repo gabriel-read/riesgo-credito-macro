@@ -1,6 +1,6 @@
 VEREDICTO: APROBADO
 
-# Validación técnica — Spec 003 Modelo I (tras las rondas 1 a 3 de auditoría)
+# Validación técnica — Spec 003 Modelo I (tras las rondas 1 a 4 de auditoría)
 
 **Fecha:** 2026-10-05
 **Quién la escribe y por qué:** Claude Code. OpenCode agotó su cuota gratuita en mitad de la fábrica (hizo la corrección 1 y dejó la 2 a medias) y `AGENTS.md` prevé que entonces Claude Code complete la tarea. Claude Code aplicó las correcciones 2 a 7 y ejecutó esta validación: es el mismo agente, así que **esta validación no sustituye a la auditoría independiente**, que queda pendiente para el cierre (segunda ronda de `review-audit.md`).
@@ -45,14 +45,14 @@ Estado de las variantes sobre la historia congelada: R1 estimada (98 observacion
 - [x] `uv run python -m src.pipeline all` reproduce todo y dos corridas no dejan diferencias.
 - [x] `uv run pytest -q` en verde, sin red.
 - [x] `review-validate.md` con `VEREDICTO: APROBADO` (este archivo).
-- [ ] `review-audit.md` con `VEREDICTO: APROBADO`: **pendiente**. La ronda 1 dio `CAMBIOS NECESARIOS`; falta la ronda 2 tras estas correcciones.
+- [x] `review-audit.md` con `VEREDICTO: APROBADO`: la ronda 4 (`review-audit.md`) lo da; las rondas 1 a 3 dieron `CAMBIOS NECESARIOS` y están en `review-audit-ronda1.md`, `review-audit-ronda2.md` y `review-audit-ronda3.md`.
 
 ## 5. Observaciones que no bloquean
 
 1. **El PNG de la spec 001 no coincidía en bytes con el comiteado (resuelto: se comitea aparte).** `outputs/figures/delinquency_unemployment_ffr.png` (128 314 bytes comiteados, 134 153 regenerados) se reescribe distinto con el entorno actual; es estable entre corridas pero no frente al commit. Las CSV de la 001 (`panel.csv`, `descriptives.csv`, `stationarity.csv`) sí son idénticas byte a byte a las comiteadas. Para que `git diff --exit-code outputs/` pase en este entorno se comitea el PNG regenerado en un commit propio (`chore(001)`). Es un asunto de la spec 001, no del modelo, y puede cambiar en otra máquina.
 2. **`git status` marca como modificadas tres CSV de la 001 que son idénticas** a las comiteadas (se verificó con `cmp` contra `git show HEAD:`). Es un efecto de `core.autocrlf=true` en Windows, no un cambio real.
 3. **Alcance de esta validación:** un solo entorno (Windows, Python 3.11, statsmodels 0.15). No se probó en CI ni en otro sistema operativo.
-4. **Opcionales de `review-audit.md` no aplicados** (no bloquean y son prosa o presentación): mostrar «—» en p e IC de las dummies COVID, marcar el hueco de 2020T2–2021T1 en el gráfico CUSUM, dibujar el ingenuo constante en el gráfico fuera de muestra, «≥ 0,10» y «< 0,001» en la tabla de estacionariedad y renombrar «ΔPIB».
+4. **Opcionales de `review-audit.md` no aplicados** (no bloquean y son prosa o presentación): mostrar «—» en p e IC de las dummies COVID, marcar el hueco de 2020T2–2021T1 en el gráfico CUSUM, dibujar el ingenuo constante en el gráfico fuera de muestra y renombrar «ΔPIB». (El formato «≥ 0,10» y «< 0,001» de la tabla de estacionariedad se aplicó en la ronda 3.)
 
 ## 6. Ronda 2 de auditoría (`review-audit.md`): menores resueltos
 
@@ -77,5 +77,4 @@ Reproducibilidad repetida tras estos cambios: dos corridas de `uv run python -m 
 - Dos corridas seguidas de `uv run python -m src.pipeline all` (código 0 las dos): los 30 archivos de `outputs/`, `data/processed/` y `report/` son **idénticos byte a byte**.
 - `git diff --exit-code`, sobre todo el repositorio, da código 0, y `git status --porcelain` no muestra ninguna línea sin preparar (ni modificados ni sin seguimiento). Es la comprobación equivalente a un árbol limpio tras el commit.
 
-El cierre de la spec sigue condicionado a una cuarta ronda de auditoría independiente con `VEREDICTO: APROBADO`.
-
+La cuarta ronda de auditoría independiente dio `VEREDICTO: APROBADO` y la spec pasa a «implementada».

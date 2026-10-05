@@ -1,5 +1,5 @@
 # Spec 003 — Modelo I: determinantes macroeconómicos de la morosidad
-Estado: aprobada · Crítica: sí
+Estado: implementada · Crítica: sí
 
 ## Contexto y objetivo
 La guía pide un primer modelo que relacione el ciclo macroeconómico con el riesgo de crédito y que se estime, se diagnostique y se interprete desde la gestión de riesgos. Esta spec fija ese modelo **antes de ver ningún resultado** (pre-registro, principio 2 de la constitución): variables, transformaciones, rezagos, estimador, signos esperados, diagnósticos, robusteces y validación fuera de muestra. La redactamos conociendo la tabla de estacionariedad de la spec 001 (un insumo de datos, no un resultado del modelo); ningún coeficiente se ha estimado.

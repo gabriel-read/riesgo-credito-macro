@@ -3,10 +3,9 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 
 ## Estado actual (5-oct-2026)
 - Spec 002-literatura COMPLETADA (5-oct-2026): 10/10 tareas, 187 tests en verde, `verify_refs.py` 21/21 con código 0 y auditoría independiente T10 APROBADA en la ronda 4 (`review-audit.md`, `review-validate.md`; el `APROBADO` previo de la fábrica no valía). Matriz: 17 estudios + 4 datos/método (2.1–2.4 = 2 cada una, 2.5 = 9); asiamah2026 y koskei2023 quedan pendiente-lectura (signo no respaldado por el resumen). Para la spec 006: justificar bernanke1995 en 2.1 y la clasificación de pesaran2006, segoviano2006 y gertler2015.
-- Spec 003-modelo-i (5-oct-2026): T1–T9 y rondas 1–3 de auditoría resueltas y commiteadas (504 tests; `all` ×2 idéntico, árbol limpio; `review-validate.md` APROBADO, escrito por Claude Code por cuota agotada de OpenCode; rondas 1 y 2 en `review-audit-ronda1/2.md`; la vigente, la 3, es `review-audit.md`). Ronda 3 resuelta: nota de rezagos de R1 y «< 0,001»/«≥ 0,10» en estacionariedad. Falta la ronda 4 de auditoría independiente; si APROBADO → spec «implementada». Pregunta nueva del profesor (3): si solo hay asociación, ¿qué afirmación para gestión de riesgos sobrevive?
-- Para la 005/006 (del audit): ΔFFR tiene signo negativo, así que un escenario con alzas de tasa baja la morosidad proyectada: decidir y pre-registrar el tratamiento ANTES de la 005. El dinámico pierde frente al ingenuo. Los únicos p < 0,05 (π y CRED) son los regresores no I(0).
+- Spec 003-modelo-i IMPLEMENTADA (5-oct-2026): T1–T10, 504 tests, `all` ×2 idéntico byte a byte, auditoría ronda 4 APROBADA (`review-audit.md`; rondas 1–3, cada una con solo menores, en `review-audit-ronda1/2/3.md`). `review-validate.md` lo escribió Claude Code por cuota agotada de OpenCode. Pre-registro `667b313`; C1–C3 antes de estimar.
 - Hallazgos 003 (datos reales): ρ = 0,63; con p < 0,05 solo π (+) y CRED(t−4) (+); PIB (−) y ΔU (+) con el signo esperado pero sin significancia; ΔFFR con signo contrario (−), sin significancia. BG pasa y CUSUM pasa; BP, White, JB, RESET y los dos Chow fallan. VIF de ΔU = 36,8 es artefacto de la dummy de 2020T2. Fuera de muestra: a un paso no se distingue del ingenuo (DM p = 0,94); el dinámico pierde frente al ingenuo constante.
-- Preguntas del profesor (ensayo): (1) ¿por qué creer los p-valores de inflación y crédito si no son I(0)? (2) ΔU se identifica con décimas de pp por trimestre y ΔFFR sale negativa: ¿cómo justifica usarlo en un estrés de varios pp de desempleo y alzas de tasa? (3) Con Chow (2008 y 2020) y RESET rechazando, ¿qué sobrevive?
+- Preguntas del profesor (ensayo): (1) ¿por qué creer los p-valores de inflación y crédito si figuran no I(0) y la dependiente es I(0)? (2) ΔFFR sale negativa y el dinámico se hunde en 2022–2023: ¿cómo lo usa en un estrés con alzas de tasa y varios pp de desempleo? (3) Chow y RESET rechazan pero el CUSUM pasa: ¿qué afirmación para gestión de riesgos sobrevive a endogeneidad, inestabilidad y no linealidad? (Si solo hay asociación, ¿cómo responde a «¿cómo afectan?»)
 - Migración (4-oct-2026): de Warp a Orca como harness; OpenRouter se intentó y se descartó (clave daba 401 y crear otra pedía billing). OpenCode sigue con OpenCode Zen: planner/coordinator nemotron-3-ultra-free; implementer longcat-2.5-preview-free; reviewer big-pickle; bibliotecario space-bunny-free (elección sin probar). Mientras OpenCode no funcione, Claude Code avanza la spec 002. Copia oficial: `~/orca/riesgo-credito-macro`, rama `spec/002-literatura`, commit `a39311e` sin push (la copia de Desktop/OneDrive queda como respaldo). Pendiente: `/connect` a Zen y probarlo (daba "User not found").
 - Constitución revisada el 2-oct (sin cambios, seis principios). Fase 0 (`ca8e4cc`), specs 001-datos y 002-literatura cerradas; detalle en `specs/001-*` y `specs/002-*`. D1 del plan 001: solo `data --download` usa la red.
 
@@ -38,23 +37,14 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - FRED revisa el PIB: volver a descargar puede cambiar resultados. Congelar `data/raw/` con fecha y no volver a bajarlo.
 - `test_report_has_no_hand_typed_decimals` (tests/test_harness.py:93) solo detecta números con 2+ decimales: "0,8 pp" o "15 %" a mano pasan. Endurecerlo en la spec 001.
 - El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
+- Dummies de impulso (valen 1 en un solo trimestre): residuo nulo, rompen el CUSUM de statsmodels, dejan `cov_hac` de rango reducido y meten columnas colineales en White. En statsmodels 0.15 `use_correction` de HAC es False por defecto.
+- En tests, `y` y `X` con semillas distintas: con la misma, el ruido coincide con una columna de X (R² = 1, V ≈ 0) y los tests de rango y de diagnósticos no miden nada.
+- Antes de dar una enmienda del plan por «incorporada», comprobar con grep que el código la implementa: la §12 dio por hechas dos notas que no existían (Chow 2020T2 y rezagos de R1) y costó dos rondas de auditoría.
+- Probar cada variante de robustez con datos sintéticos: `gdp_column` ignorado y `exclude` de R1 mal leído pasaron los tests de T1 y los destapó T6.
 
 ## Próximos pasos
-1. Spec 003 (Modelo I) RESUELTA y marcada aprobada (5-oct-2026, 23 RF; 69 hallazgos de `review-clarify.md` aplicados). Decisiones:
-   - Sin `/sdd-change 001`. R6 y R7 se truncan a la historia disponible (con la descarga de 1998 empiezan en 2001T1 y 2002T1); R8 queda «no estimada» si no hay historia anterior a 2000.
-   - La regla ADF/KPSS solo decide la forma de la dependiente (hoy todas en Δ); los regresores tienen forma fija y su no estacionariedad se declara como limitación.
-   - El largo plazo solo se reporta si 1 − ρ > 0,05.
-   - Si la matriz HAC no es definida positiva, truncamiento espectral.
-   - Chow como Wald HAC con interacciones.
-   - RF-4 se detiene si cambia la tabla de estacionariedad.
-   - Robusto = mismo signo y p < 0,10.
-   - Variables bajo el prefijo `modelo1.`.
-
-   Commit del pre-registro: `667b313`. Plan aprobado el 5-oct-2026, tras la auditoría de `revisor-econometrico`: 10 cambios necesarios incorporados (`review-plan.md`, respuesta en la sección 12 del plan). Cambios a la spec C1–C3 (`/sdd-change`, antes de estimar, registrados en «Desviaciones del pre-registro»):
-   - C1: la DE de los efectos «por 1 DE» excluye 2020T2–2021T1.
-   - C2: los efectos base de 2021T2–2022T1 son limitación fija, con R1 como contraste.
-   - C3: la positividad de la matriz HAC se comprueba solo en el sub-bloque sin dummies de impulso.
-
-   Siguiente: `/sdd-tasks 003-modelo-i` y `/fabrica` en OpenCode. La tarea 9 es la primera estimación real.
-   - Lección: las dummies de impulso (valen 1 en un solo trimestre) dejan residuos nulos. Eso rompe el CUSUM de statsmodels, deja la matriz HAC con rango reducido y mete columnas colineales en White. Además, `use_correction` de HAC es `False` por defecto en statsmodels 0.15.
-2. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
+1. Spec 004 (Modelo II, proyecciones locales; crítica): `/sdd-spec 004-modelo-ii`, clarificar, resolver y planificar con el revisor econométrico. Reutiliza `estimation`, `diagnostics` y `design.ModelDataError`.
+2. ANTES de la 005 (estrés): decidir y pre-registrar el tratamiento del signo negativo de ΔFFR (un escenario con alzas de tasa baja la morosidad proyectada); simular solo el bloque de `cov_hac` sin dummies (rango 7 de 11); dummies COVID en 0 en el horizonte; ΔU se identifica con ~0,3 pp por trimestre.
+3. Spec 006, heredado de `review-audit.md`: regresión desbalanceada con KPSS ambiguo para π y CRED; PIB significativo solo en el largo plazo; «supera al ingenuo» siempre con «no significativo»; CUSUM pasa y Chow falla; la nota de R1 es parcial. Opcionales sin aplicar: etiqueta «ΔPIB», ingenuo constante en la figura, hueco COVID en el CUSUM, gl de White/RESET, KPSS «> 0,10» unificado, coeficientes 2000–2019 sin exportar.
+4. PR: la rama `spec/003-modelo-i` trae también los commits de la 002 (no fusionada): decidir un PR único o separar. `git push` lo hace el usuario.
+5. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
