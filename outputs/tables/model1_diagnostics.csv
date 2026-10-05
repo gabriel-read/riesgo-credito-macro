@@ -1,0 +1,15 @@
+prueba,estadístico,p_valor,veredicto,nota
+Breusch-Godfrey,3.2516419986825618,0.516630484316889,pasa,
+Breusch-Pagan,21.98121570220097,0.015200581250396509,falla,
+White,91.75552848247278,6.354407133812856e-08,falla,
+Jarque-Bera,461.90781698931653,4.988752595944335e-101,falla,
+RESET,6.020894884084671,0.0034763128729325948,falla,
+VIF (y_lag),3.1738691526807212,,sin alerta,
+VIF (gdp_growth),3.28008603797447,,sin alerta,
+VIF (d_unemp),36.81059134560466,,alerta,
+VIF (inflation),1.329032957568596,,sin alerta,
+VIF (d_ffr),1.3426529755125813,,sin alerta,
+VIF (credit_growth),1.6041772705441497,,sin alerta,
+Chow 2008Q3,24.987486248143995,0.0007626858967395567,falla,"Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar"
+Chow 2020Q2,15.155377527366074,0.03405847679272711,falla,"Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar"
+CUSUM,,,pasa,los trimestres con dummy de impulso no aportan residuo recursivo

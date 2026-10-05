@@ -1,0 +1,8 @@
+termino,etiqueta,columna_panel,forma,adf_stat,adf_p,kpss_stat,kpss_p,decision,orden,no_i0,nota
+Y,Y(t) — dependiente (DRALACBS),dralacbs,primera diferencia,-3.4431142331804945,0.0095740301991813,0.1400619436057625,0.1,niveles,I(0),no,regla de la spec 001 aplicada a la fila «primera diferencia»; «niveles» = estacionaria en la forma en que entra
+y_lag,Y(t−1) — rezago de la dependiente,dralacbs,primera diferencia,-3.4431142331804945,0.0095740301991813,0.1400619436057625,0.1,niveles,I(0),no,"mismo proceso que Y, rezagado un trimestre; regla de la spec 001 aplicada a la fila «primera diferencia»; «niveles» = estacionaria en la forma en que entra"
+gdp_growth,"ΔPIB (variación interanual del PIB real, %)",gdpc1_yoy,tal cual,-3.6204104497852168,0.0053826009360118,0.0988249587216865,0.1,niveles,I(0),no,
+d_unemp,"ΔU (cambio trimestral del desempleo, pp)",unrate,primera diferencia,-12.028181555115388,2.9156662725533655e-22,0.0873357395121713,0.1,niveles,I(0),no,regla de la spec 001 aplicada a la fila «primera diferencia»; «niveles» = estacionaria en la forma en que entra
+inflation,"π (inflación interanual, %)",cpiaucsl_yoy,tal cual,-2.3368110739898635,0.1603702975182782,0.228761863087596,0.1,ambigua (primera diferencia),I(1),sí,
+d_ffr,"ΔFFR (cambio trimestral de la tasa de la Fed, pp)",fedfunds,primera diferencia,-4.236577143690884,0.0005710065772869,0.1385551525021859,0.1,niveles,I(0),no,regla de la spec 001 aplicada a la fila «primera diferencia»; «niveles» = estacionaria en la forma en que entra
+credit_growth,"CRED(t−4) (variación interanual de préstamos rezagada 4 trimestres, %)",loans_yoy,tal cual,-2.4550208274402423,0.1268051960872745,0.1939101006277453,0.1,ambigua (primera diferencia),I(1),sí,ADF/KPSS de loans_yoy sin rezagar

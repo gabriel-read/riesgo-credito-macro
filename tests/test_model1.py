@@ -1168,3 +1168,11 @@ def test_limitations_note_the_finite_sample_oversize_of_a_failed_chow_wald(resul
 def test_limitations_do_not_mention_the_chow_oversize_when_it_does_not_fail(result, stationarity):
     tab = _limits(result, stationarity)
     assert not tab["detalle"].str.contains("sobredimensionado").any()
+
+
+def test_limitations_write_tiny_p_values_as_less_than_0001_not_as_zero(result, stationarity):
+    diag = _diag([("White", 91.8, 0.0000004, "falla", ""), ("Breusch-Pagan", 22.0, 0.015, "falla", "")])
+    det = _limits(result, stationarity, diag=diag).query("origen == 'detectada'")
+    white = det[det["limitacion"].str.startswith("White")].iloc[0]["detalle"]
+    assert "p < 0,001" in white and "0,000" not in white
+    assert "p = 0,015" in det[det["limitacion"].str.startswith("Breusch-Pagan")].iloc[0]["detalle"]

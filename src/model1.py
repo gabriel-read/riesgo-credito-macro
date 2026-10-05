@@ -609,7 +609,8 @@ def _short_label(termino: str) -> str:
 def _diagnostic_detail(row: pd.Series) -> str:
     stat, p = row["estadístico"], row["p_valor"]
     if pd.notna(p):
-        detail = f"estadístico {fmt_es(stat, 3)}, p = {fmt_es(p, 3)}"
+        p_text = "p < 0,001" if p < 0.001 else f"p = {fmt_es(p, 3)}"
+        detail = f"estadístico {fmt_es(stat, 3)}, {p_text}"
     elif pd.notna(stat):
         detail = f"estadístico {fmt_es(stat, 3)}"
     else:
