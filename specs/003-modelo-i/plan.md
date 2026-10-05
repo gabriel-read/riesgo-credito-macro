@@ -304,7 +304,7 @@ Los valores de este bloque son ilustrativos; todos los calcula el código.
 **Claves de `report/_variables.yml` (RF-22).** Todas son textos ya formateados:
 - **Coeficientes, efectos y estadísticos:** 3 decimales.
 - **p-valores:** 3 decimales, o «< 0,001».
-- **Métricas fuera de muestra:** 2 decimales.
+- **Métricas fuera de muestra:** 3 decimales (enmienda de D12 del 5-oct-2026, tras `review-audit.md` punto 5).
 - **Trimestres:** en formato `AAAAT#`.
 
 En el informe se citan anidadas, por ejemplo `{{< var modelo1.efectos.d_unemp.impacto_pp >}}`.
@@ -359,7 +359,7 @@ uv run python -m src.pipeline all        # data → models → stress (pendiente
 | D11 | Las dummies sin variación se omiten y se anotan en `Design.dropped` solo en R1 y en el tramo de estimación fuera de muestra; en cualquier otra regresión, es un error. | La spec dice que en R1 (y fuera de muestra) las dummies desaparecen; en el resto, perder una dummy en silencio cambiaría la especificación. | Omitirlas en cualquier variante; o mantenerlas y que RF-6 marque R1 «no estimada». |
 | D15 | Con dummies de impulso, la positividad se comprueba solo en el bloque de V sin esas dummies. Su rango reducido se reporta como «esperado» y no como truncamiento, y sus EE llevan la nota «no informativo». | El residuo de un trimestre con dummy de impulso es 0, así que V tiene rango k − 4 por construcción. Si se comprobara la V completa, el truncamiento se activaría siempre y RF-20 listaría como fallo numérico una propiedad algebraica. Lo fija la spec (C3). | Truncar la V completa y declararlo siempre como limitación. |
 | D16 | La DE de RF-10 usa `ddof=1` sobre la muestra efectiva de la principal, excluyendo 2020T2–2021T1 (C1); el pie lo dice. | Es la convención de pandas, declarada antes de estimar. | `ddof=0`. |
-| D12 | Formato: 3 decimales en coeficientes y efectos, 2 en métricas y «< 0,001» para p-valores pequeños. | Con efectos de centésimas de pp, 2 decimales mostrarían «0,00». | 2 decimales en todo, como en la 001. |
+| D12 | Formato: 3 decimales en coeficientes, efectos y métricas fuera de muestra, y «< 0,001» para p-valores pequeños. **Enmienda (5-oct-2026, `review-audit.md` punto 5, aprobada por el autor):** las métricas fuera de muestra pasan de 2 a 3 decimales. | Con efectos de centésimas de pp, 2 decimales mostrarían «0,00». Con RMSE de centésimas, el del modelo y el del ingenuo se redondean al mismo valor a 2 decimales y el veredicto «supera al ingenuo» no se entiende; además la tabla y las variables del informe deben mostrar las mismas cifras. | 2 decimales en las métricas, como en la 001. |
 | D13 | Las limitaciones y desviaciones fijas viven como textos en `model1_config.py`, y las condicionales (diagnósticos fallidos, no I(0), posible I(2), R8 no estimada, truncamiento) se añaden por código. | RF-20 y RF-21: las cifras y los estados salen del código, nunca a mano. | Escribirlas en el informe: viola el principio 5. |
 | D14 | La exportación para la 005 se hace en JSON con nombres de términos y columnas. | Es legible por máquina y por humanos, se puede comparar con git y no añade dependencias. La 005 reconstruye X con las mismas columnas. | `pickle` del resultado de statsmodels: opaco y frágil entre versiones. |
 
