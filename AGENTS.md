@@ -2,7 +2,7 @@
 Investigación individual: cómo el ciclo macro y la política monetaria de EE. UU. se asocian con la morosidad bancaria (FRED: DRALACBS), con dos modelos econométricos y una prueba de estrés. Entrega: informe APA + diapositivas, jueves 15-oct-2026.
 
 ## Stack y estructura
-- Python 3.12 + uv · pandas, statsmodels, pandas-datareader ≥0.11, matplotlib · pytest · Quarto.
+- Python 3.11 + uv · pandas, statsmodels, pandas-datareader ≥0.11, matplotlib · pytest · Quarto.
 - `src/` lógica en funciones puras · `tests/` · `data/raw/` descargas de FRED con fecha (solo lectura) · `outputs/` tablas y figuras generadas.
 - `specs/NNN-nombre/` spec, plan, tasks y review-*.md · `research/` matriz de literatura · `report/` informe, diapositivas y references.bib.
 - `docs/guia-profesor.md` requisitos oficiales · `docs/constitution.md` principios innegociables.

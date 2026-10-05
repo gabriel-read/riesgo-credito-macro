@@ -204,7 +204,7 @@ def test_plot_functions_never_save_to_disk():
 TOP_KEYS = [
     "estimador", "forma_y", "muestra_inicio", "muestra_fin", "n_obs", "n_parametros",
     "rezagos_hac", "dummies_covid", "truncamiento_espectral", "r2", "r2_ajustado",
-    "ee_regresion", "variantes", "coef", "efectos", "signo", "diag", "robustez",
+    "ee_regresion", "variantes", "coef", "efectos", "efectos_nota", "signo", "diag", "robustez",
     "variantes_muestra", "oos", "no_i0", "limitaciones", "desviaciones",
 ]
 
@@ -282,7 +282,7 @@ def test_model1_variables_effects_in_pp_for_one_pp_and_one_sd(mv, model1_result)
     eff = model1_result.effects
     for term in MACRO_TERMS:
         e = mv["efectos"][term]
-        assert len(e) == 20
+        assert len(e) == 21  # 4 efectos × 5 subclaves + la DE del regresor
         for efecto, ek in (("impacto", "impacto"), ("largo plazo", "largo")):
             for escala, sk in (("por 1 pp", "pp"), ("por 1 DE", "de")):
                 row = eff[(eff["termino"] == term) & (eff["efecto"] == efecto) & (eff["escala"] == escala)].iloc[0]
@@ -332,8 +332,8 @@ def test_model1_variables_diagnostics_have_statistic_p_and_verdict(mv, model1_re
     assert list(d) == ["bg", "bp", "white", "jb", "reset", "chow_2008t3", "chow_2020t2", "cusum", "vif"]
     tab = model1_result.diagnostics.set_index("prueba")
     for key, name in [("bg", "Breusch-Godfrey"), ("bp", "Breusch-Pagan"), ("white", "White"),
-                      ("jb", "Jarque-Bera"), ("reset", "RESET"), ("chow_2008t3", "Chow 2008Q3"),
-                      ("chow_2020t2", "Chow 2020Q2")]:
+                      ("jb", "Jarque-Bera"), ("reset", "RESET"), ("chow_2008t3", "Chow 2008T3"),
+                      ("chow_2020t2", "Chow 2020T2")]:
         assert list(d[key]) == ["estadistico", "p", "veredicto"]
         assert d[key]["estadistico"] == fmt_es(tab.loc[name, "estadístico"], 3)
         assert d[key]["p"] == fmt_p(tab.loc[name, "p_valor"])
@@ -353,10 +353,10 @@ def test_model1_variables_out_of_sample_block(mv, model1_result):
         "dm_p", "veredicto_un_paso", "veredicto_dinamico", "significancia_un_paso",
     ]
     assert o["n_trimestres"] == "18"
-    assert o["rmse_modelo_un_paso"] == fmt_es(t.loc["a un paso", "rmse_modelo"], 2)
-    assert o["rmse_ingenuo_dinamico"] == fmt_es(t.loc["dinámico", "rmse_ingenuo"], 2)  # se conserva
-    assert o["cociente_dinamico"] == fmt_es(t.loc["dinámico", "cociente_rmse"], 2)
-    assert o["dm_estadistico"] == fmt_es(t.loc["a un paso", "dm_estadistico"], 2)
+    assert o["rmse_modelo_un_paso"] == fmt_es(t.loc["a un paso", "rmse_modelo"], 3)
+    assert o["rmse_ingenuo_dinamico"] == fmt_es(t.loc["dinámico", "rmse_ingenuo"], 3)  # se conserva
+    assert o["cociente_dinamico"] == fmt_es(t.loc["dinámico", "cociente_rmse"], 3)
+    assert o["dm_estadistico"] == fmt_es(t.loc["a un paso", "dm_estadistico"], 3)
     assert o["dm_p"] == fmt_p(t.loc["a un paso", "dm_p"])
     assert o["veredicto_un_paso"] == t.loc["a un paso", "veredicto"]
     assert o["significancia_un_paso"] == t.loc["a un paso", "significancia"]
@@ -415,3 +415,41 @@ def test_quarter_axis_labels_always_fall_on_the_same_quarter(model1_result, figs
         labels = [t.get_text() for t in fig.axes[0].get_xticklabels() if t.get_text()]
         assert len(labels) >= 3
         assert len({lab[-2:] for lab in labels}) == 1, labels  # mismo «T#» en todos
+
+
+# --- Correcciones 2 y 5: la DE y la nota de efectos; mismas cifras en tabla y variables ---
+
+
+def test_model1_variables_effects_carry_the_sd_of_each_regressor(mv, model1_result):
+    from src.estimation import standardization_sd
+
+    sd = standardization_sd(model1_result.design)
+    for term in MACRO_TERMS:
+        assert mv["efectos"][term]["de"] == fmt_es(sd[term], 3), term
+
+
+def test_model1_variables_effects_note_is_the_table_note(mv, model1_result):
+    from src.model1 import effects_note
+
+    assert mv["efectos_nota"] == effects_note(model1_result.fit)
+    assert mv["efectos_nota"].startswith("Nota:")
+
+
+def test_model1_variables_effects_sd_is_text_when_undefined(model1_result):
+    design = model1_result.fit.design
+    X = design.X.copy()
+    X["d_ffr"] = 0.5
+    fit = dataclasses.replace(model1_result.fit, design=dataclasses.replace(design, X=X))
+    out = model1_variables(dataclasses.replace(model1_result, effects=effects_table(fit)))
+    assert out["efectos"]["d_ffr"]["de"] == "no definida"
+
+
+def test_out_of_sample_variables_show_the_same_digits_as_the_markdown_table(mv, model1_result):
+    from src.model1 import render_model1_tables
+
+    md = render_model1_tables(model1_result)["model1_oos"]["md"]
+    for key, value in mv["oos"].items():
+        if key.startswith(("rmse_", "mae_", "cociente_")) or key in {"dm_estadistico", "dm_p"}:
+            assert value in md, f"{key} = {value} no aparece igual en la tabla"
+    # con 3 decimales la diferencia entre el modelo y el ingenuo no se pierde al redondear
+    assert len(mv["oos"]["rmse_modelo_un_paso"].split(",")[1]) == 3

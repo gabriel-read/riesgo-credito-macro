@@ -11,6 +11,6 @@
 | VIF (inflation) | 1,329 | — | sin alerta |  |
 | VIF (d_ffr) | 1,343 | — | sin alerta |  |
 | VIF (credit_growth) | 1,604 | — | sin alerta |  |
-| Chow 2008Q3 | 24,987 | < 0,001 | falla | Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar |
-| Chow 2020Q2 | 15,155 | 0,034 | falla | Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar |
+| Chow 2008T3 | 24,987 | < 0,001 | falla | Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar |
+| Chow 2020T2 | 15,155 | 0,034 | falla | Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; quedan 21 trimestres posteriores útiles para 7 restricciones: el tamaño empírico del contraste puede diferir del 5 % nominal |
 | CUSUM | — | — | pasa | los trimestres con dummy de impulso no aportan residuo recursivo |

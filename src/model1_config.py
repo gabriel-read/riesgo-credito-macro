@@ -28,6 +28,9 @@ LONG_START = pd.Period("1985Q1", "Q-DEC")
 COVID_QUARTERS = ["2020Q2", "2020Q3", "2020Q4", "2021Q1"]
 R1_EXCLUDED = ("2020Q1", "2021Q4")
 CHOW_BREAKS = ["2008Q3", "2020Q2"]
+# Quiebres cuya nota avisa de que el tamaño empírico del contraste puede diferir del nominal por
+# quedar pocos trimestres posteriores útiles (plan 003 §2, Chow; review-plan; review-audit r2).
+CHOW_SIZE_CAUTION_BREAKS = ["2020Q2"]
 BG_LAGS = 4
 
 # --- Fuera de muestra ---
@@ -107,7 +110,7 @@ MAIN = VariantSpec("main", "Especificación principal")
 
 VARIANTS: list[VariantSpec] = [
     VariantSpec("R1", "Sin 2020–2021", exclude=R1_EXCLUDED, covid_dummies=True),
-    VariantSpec("R2", "Desestacionalizada con dummies estacionales",
+    VariantSpec("R2", "DRALACBN sin desestacionalizar, con dummies estacionales",
                 dependent="dralacbn", seasonal_dummies=True),
     VariantSpec("R3_drclacbs", "Tarjetas de crédito", dependent="drclacbs"),
     VariantSpec("R3_drblacbs", "Préstamos empresariales", dependent="drblacbs"),

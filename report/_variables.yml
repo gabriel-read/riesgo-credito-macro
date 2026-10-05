@@ -70,7 +70,7 @@ modelo1:
   ee_regresion: 0,096
   variantes:
     R1: Sin 2020–2021
-    R2: Desestacionalizada con dummies estacionales
+    R2: DRALACBN sin desestacionalizar, con dummies estacionales
     R3_drclacbs: Tarjetas de crédito
     R3_drblacbs: Préstamos empresariales
     R3_drsreacbs: Préstamos inmobiliarios
@@ -148,6 +148,7 @@ modelo1:
       ic_sup: 0,007
   efectos:
     gdp_growth:
+      de: 1,778
       impacto_pp: -0,016
       impacto_pp_ee: 0,010
       impacto_pp_p: 0,110
@@ -169,6 +170,7 @@ modelo1:
       largo_de_ic_inf: -0,153
       largo_de_ic_sup: -0,002
     d_unemp:
+      de: 0,308
       impacto_pp: 0,077
       impacto_pp_ee: 0,062
       impacto_pp_p: 0,214
@@ -190,6 +192,7 @@ modelo1:
       largo_de_ic_inf: -0,019
       largo_de_ic_sup: 0,147
     inflation:
+      de: 1,637
       impacto_pp: 0,020
       impacto_pp_ee: 0,006
       impacto_pp_p: 0,001
@@ -211,6 +214,7 @@ modelo1:
       largo_de_ic_inf: 0,051
       largo_de_ic_sup: 0,123
     d_ffr:
+      de: 0,452
       impacto_pp: -0,044
       impacto_pp_ee: 0,040
       impacto_pp_p: 0,269
@@ -232,6 +236,7 @@ modelo1:
       largo_de_ic_inf: -0,135
       largo_de_ic_sup: 0,029
     credit_growth:
+      de: 4,114
       impacto_pp: 0,010
       impacto_pp_ee: 0,003
       impacto_pp_p: < 0,001
@@ -252,6 +257,13 @@ modelo1:
       largo_de_p: < 0,001
       largo_de_ic_inf: 0,077
       largo_de_ic_sup: 0,142
+  efectos_nota: 'Nota: DE de cada regresor (divisor n − 1, ddof = 1) sobre 102 trimestres,
+    2000T1–2026T2 sin 2020T2–2021T1 (C1: el modelo ya neutraliza esos trimestres con
+    sus dummies): ΔPIB = 1,778; ΔU = 0,308; π = 1,637; ΔFFR = 0,452; CRED(t−4) = 4,114.
+    Con Y en primera diferencia, el efecto de largo plazo es el cambio acumulado en
+    el nivel de la morosidad ante un aumento transitorio de 1 unidad del regresor
+    durante un trimestre. Cada efecto por 1 DE es el efecto por 1 pp multiplicado
+    por la DE de su regresor; todos están en pp de morosidad.'
   signo:
     gdp_growth: sí
     d_unemp: sí
@@ -377,17 +389,17 @@ modelo1:
       n_obs: —
   oos:
     n_trimestres: '18'
-    rmse_modelo_un_paso: 0,03
-    rmse_ingenuo_un_paso: 0,03
-    mae_modelo_un_paso: 0,03
-    mae_ingenuo_un_paso: 0,03
-    cociente_un_paso: 0,98
-    rmse_modelo_dinamico: 0,28
-    rmse_ingenuo_dinamico: 0,17
-    mae_modelo_dinamico: 0,26
-    mae_ingenuo_dinamico: 0,15
-    cociente_dinamico: 1,63
-    dm_estadistico: -0,08
+    rmse_modelo_un_paso: 0,033
+    rmse_ingenuo_un_paso: 0,034
+    mae_modelo_un_paso: 0,025
+    mae_ingenuo_un_paso: 0,026
+    cociente_un_paso: 0,978
+    rmse_modelo_dinamico: 0,276
+    rmse_ingenuo_dinamico: 0,170
+    mae_modelo_dinamico: 0,261
+    mae_ingenuo_dinamico: 0,145
+    cociente_dinamico: 1,625
+    dm_estadistico: -0,080
     dm_p: 0,937
     veredicto_un_paso: supera al ingenuo
     veredicto_dinamico: no supera al ingenuo
@@ -418,18 +430,16 @@ modelo1:
     implica para las conclusiones'
   - 'RESET: falla: estadístico 6,021, p = 0,003; se reporta y se discute qué implica
     para las conclusiones'
-  - 'VIF (d_unemp): alerta: estadístico 36,811; posible multicolinealidad: se reporta
-    y no se elimina ningún regresor'
-  - 'Chow 2008Q3: falla: estadístico 24,987, p < 0,001; Wald HAC con interacciones
-    de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; el estadístico de Wald
-    con errores HAC está sobredimensionado en muestra finita (n pequeño y muchos parámetros),
-    así que el rechazo se reporta tal cual y se lee con cautela; el CUSUM sirve de
-    contraste estructural'
-  - 'Chow 2020Q2: falla: estadístico 15,155, p = 0,034; Wald HAC con interacciones
-    de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; el estadístico de Wald
-    con errores HAC está sobredimensionado en muestra finita (n pequeño y muchos parámetros),
-    así que el rechazo se reporta tal cual y se lee con cautela; el CUSUM sirve de
-    contraste estructural'
+  - 'VIF (d_unemp): alerta: estadístico 36,811; con las dummies COVID dentro de X,
+    casi toda la varianza de ΔU es el salto de 2020T2, que su dummy absorbe: no es
+    colinealidad entre regresores macro, sino que el coeficiente de ΔU se identifica
+    con la variación fuera de la COVID; se reporta y no se elimina ningún regresor'
+  - 'Chow 2008T3: falla: estadístico 24,987, p < 0,001; Wald HAC con interacciones
+    de la constante, ρ y β₁–β₅; dummies COVID sin interactuar'
+  - 'Chow 2020T2: falla: estadístico 15,155, p = 0,034; Wald HAC con interacciones
+    de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; quedan 21 trimestres
+    posteriores útiles para 7 restricciones: el tamaño empírico del contraste puede
+    diferir del 5 % nominal'
   - 'Variante R8 no estimada: sin historia anterior a 2000T1'
   desviaciones:
   - 'PIB real (GDPC1) como regresor principal en lugar del GDP nominal (Guía, secciones

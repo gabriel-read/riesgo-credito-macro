@@ -251,6 +251,51 @@ def test_diagnostics_table_contains_all_rf12_tests():
     assert "Jarque-Bera" in pruebas
     assert "RESET" in pruebas
     assert any(p.startswith("VIF") for p in pruebas)
-    assert "Chow 2008Q3" in pruebas
-    assert "Chow 2020Q2" in pruebas
+    assert "Chow 2008T3" in pruebas
+    assert "Chow 2020T2" in pruebas
     assert "CUSUM" in pruebas
+
+
+# --- Chow: trimestres posteriores útiles y nota de tamaño del 2020T2 (plan §2, review-audit r2) ---
+
+
+def _chow_fit(n: int = 106):
+    X = _make_X_with_impulse_dummies(n)
+    y = 1.0 + 2.0 * X["y_lag"] + np.random.default_rng(SEED + 1).normal(0, 1, n)  # ruido independiente de X
+    return fit_ols_hac(_design_from_arrays(y, X))
+
+
+def test_chow_wald_counts_post_break_quarters_net_of_impulse_dummies():
+    fit = _chow_fit()
+    r = chow_wald(fit, "2020Q2")
+    assert (r["n_post"], r["n_post_util"]) == (25, 21)  # 2020T2–2026T2, menos 4 dummies de impulso
+    r2 = chow_wald(fit, "2008Q3")
+    assert (r2["n_post"], r2["n_post_util"]) == (72, 68)  # 2 + 68 + 2 trimestres; las 4 dummies también caen después
+
+
+def test_chow_wald_without_impulse_dummies_counts_every_post_break_quarter():
+    n = 106
+    X = _make_X_with_impulse_dummies(n)
+    X = X.drop(columns=[c for c in X.columns if c.startswith("covid_")])
+    y = 1.0 + 2.0 * X["y_lag"] + np.random.default_rng(SEED + 1).normal(0, 1, n)
+    r = chow_wald(fit_ols_hac(_design_from_arrays(y, X)), "2020Q2")
+    assert r["n_post"] == r["n_post_util"] == 25
+
+
+def test_only_the_2020t2_chow_note_warns_that_the_size_may_differ_from_5_percent():
+    table = diagnostics_table(_chow_fit()).set_index("prueba")
+    n2020 = table.loc["Chow 2020T2", "nota"]
+    assert "quedan 21 trimestres posteriores útiles para 7 restricciones" in n2020
+    assert "el tamaño empírico del contraste puede diferir del 5 % nominal" in n2020
+    n2008 = table.loc["Chow 2008T3", "nota"]
+    assert "diferir del 5 %" not in n2008 and "quedan" not in n2008
+    assert "Wald HAC con interacciones" in n2008 and "Wald HAC con interacciones" in n2020
+
+
+def test_the_2020t2_chow_note_is_neutral_and_does_not_change_the_verdict():
+    table = diagnostics_table(_chow_fit()).set_index("prueba")
+    row = table.loc["Chow 2020T2"]
+    assert row["veredicto"] == ("falla" if row["p_valor"] < 0.05 else "pasa")  # el veredicto sigue a p
+    nota = row["nota"].lower()
+    for banned in ["sobredimensionado", "sobrerrechaza", "causa", "causal", "provoca", "debido a"]:
+        assert banned not in nota

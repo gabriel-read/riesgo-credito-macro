@@ -23,10 +23,12 @@ from statsmodels.stats.stattools import jarque_bera
 
 from src.design import Design
 from src.estimation import Fit, fit_ols_hac, wald
+from src.tables import quarter_label
 from src.model1_config import (
     ALPHA,
     BG_LAGS,
     CHOW_BREAKS,
+    CHOW_SIZE_CAUTION_BREAKS,
     MACRO_TERMS,
     PSD_REL_TOL,
     VIF_ALERT,
@@ -290,6 +292,11 @@ def chow_wald(fit: Fit, break_q: str) -> dict:
     # post = 1{t >= break_q}
     post = (X.index >= break_period).astype(float)
 
+    # Trimestres posteriores al quiebre y los que sobreviven a las dummies de impulso
+    impulse_cols = _impulse_columns(X)
+    n_post = int(post.sum())
+    absorbed = sum(1 for c in impulse_cols if post[int(np.argmax(X[c].to_numpy()))] > 0)
+
     # Interacciones: post * cada columna de X que no es dummy de impulso
     # (en la principal: const, y_lag y los 5 términos macro)
     impulse = set(_impulse_columns(X))
@@ -319,6 +326,8 @@ def chow_wald(fit: Fit, break_q: str) -> dict:
 
     result = dict(wald(fit_aug.params, fit_aug.cov, R))
     result["veredicto"] = _veredicto(float(result["p"]))
+    result["n_post"] = n_post
+    result["n_post_util"] = n_post - absorbed
     result["nota"] = (
         "Wald HAC con interacciones de la constante, ρ y β₁–β₅; "
         "dummies COVID sin interactuar"
@@ -481,13 +490,19 @@ def diagnostics_table(fit: Fit) -> pd.DataFrame:
     # Chow
     for break_q in CHOW_BREAKS:
         cw = chow_wald(fit, break_q)
+        nota = cw["nota"]
+        if break_q in CHOW_SIZE_CAUTION_BREAKS:
+            nota += (
+                f"; quedan {cw['n_post_util']} trimestres posteriores útiles para {cw['df']} "
+                "restricciones: el tamaño empírico del contraste puede diferir del 5 % nominal"
+            )
         rows.append(
             {
-                "prueba": f"Chow {break_q}",
+                "prueba": f"Chow {quarter_label(pd.Period(break_q, 'Q-DEC'))}",
                 "estadístico": cw["stat"],
                 "p_valor": cw["p"],
                 "veredicto": cw["veredicto"],
-                "nota": cw["nota"],
+                "nota": nota,
             }
         )
 

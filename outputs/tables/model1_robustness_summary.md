@@ -5,3 +5,5 @@
 | inflation | π (inflación interanual, %) | sí | sí | sí | no | sí | sí | sí | sí | sí | no estimada | 8 | 9 | 8 de 9 |
 | d_ffr | ΔFFR (cambio trimestral de la tasa de la Fed, pp) | no | no | no | no | no | no | no | no | sí | no estimada | 1 | 9 | 1 de 9 |
 | credit_growth | CRED(t−4) (variación interanual de préstamos rezagada 4 trimestres, %) | sí | sí | sí | sí | sí | sí | sí | no | no | no estimada | 7 | 9 | 7 de 9 |
+
+Nota: criterio de robustez: mismo signo que la principal y p < 0,10 con errores HAC. R4 sustituye gdpc1_yoy por gdp_yoy; R6 sustituye CRED(t−4) por CRED(t−8); R7 sustituye CRED(t−4) por CRED(t−12): en esas columnas se compara un regresor distinto del de la principal. «k de n» cuenta solo las variantes estimadas. «sí» significa el mismo signo que la principal, aunque ese signo sea contrario al esperado.

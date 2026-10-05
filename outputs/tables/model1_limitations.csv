@@ -9,7 +9,7 @@ Breusch-Pagan: falla,"estadístico 21,981, p = 0,015; se reporta y se discute qu
 White: falla,"estadístico 91,756, p < 0,001; se reporta y se discute qué implica para las conclusiones",detectada
 Jarque-Bera: falla,"estadístico 461,908, p < 0,001; se reporta y se discute qué implica para las conclusiones",detectada
 RESET: falla,"estadístico 6,021, p = 0,003; se reporta y se discute qué implica para las conclusiones",detectada
-VIF (d_unemp): alerta,"estadístico 36,811; posible multicolinealidad: se reporta y no se elimina ningún regresor",detectada
-Chow 2008Q3: falla,"estadístico 24,987, p < 0,001; Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; el estadístico de Wald con errores HAC está sobredimensionado en muestra finita (n pequeño y muchos parámetros), así que el rechazo se reporta tal cual y se lee con cautela; el CUSUM sirve de contraste estructural",detectada
-Chow 2020Q2: falla,"estadístico 15,155, p = 0,034; Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; el estadístico de Wald con errores HAC está sobredimensionado en muestra finita (n pequeño y muchos parámetros), así que el rechazo se reporta tal cual y se lee con cautela; el CUSUM sirve de contraste estructural",detectada
+VIF (d_unemp): alerta,"estadístico 36,811; con las dummies COVID dentro de X, casi toda la varianza de ΔU es el salto de 2020T2, que su dummy absorbe: no es colinealidad entre regresores macro, sino que el coeficiente de ΔU se identifica con la variación fuera de la COVID; se reporta y no se elimina ningún regresor",detectada
+Chow 2008T3: falla,"estadístico 24,987, p < 0,001; Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar",detectada
+Chow 2020T2: falla,"estadístico 15,155, p = 0,034; Wald HAC con interacciones de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; quedan 21 trimestres posteriores útiles para 7 restricciones: el tamaño empírico del contraste puede diferir del 5 % nominal",detectada
 Variante R8 no estimada,sin historia anterior a 2000T1,detectada

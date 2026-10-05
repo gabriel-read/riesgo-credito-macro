@@ -12,7 +12,7 @@ import pandas as pd
 
 from src.panel import PanelResult
 from src.config import COLUMN_LABELS, MAIN_SERIES
-from src.model1 import Model1Result, fmt_p, term_label
+from src.model1 import Model1Result, effects_note, fmt_p, term_label
 from src.model1_config import COVID_QUARTERS, MACRO_TERMS
 from src.tables import fmt_es, quarter_label
 
@@ -100,7 +100,8 @@ def data_variables(
 
 # --- Bloque `modelo1:` (spec 003, tarea 8; RF-22) ---
 # Todo texto ya formateado, con coma decimal: coeficientes y efectos con 3 decimales, p-valores
-# con 3 decimales o «< 0,001», métricas fuera de muestra con 2 decimales y trimestres «AAAAT#».
+# con 3 decimales o «< 0,001», métricas fuera de muestra con 3 decimales (enmienda de D12) y
+# trimestres «AAAAT#».
 # Ninguna cifra se escribe a mano: todo sale de las tablas del `Model1Result`. Un efecto «no
 # reportado» o «no definido» va como texto, nunca como número.
 
@@ -120,7 +121,8 @@ def _m1_short(termino: str) -> str:
 def _m1_effects(effects: pd.DataFrame) -> dict:
     out: dict = {}
     for term in effects["termino"].unique():
-        block: dict = {}
+        de = effects.loc[effects["termino"] == term, "de"].iloc[0]
+        block: dict = {"de": fmt_es(de, 3) if pd.notna(de) else "no definida"}
         for efecto, ek in (("impacto", "impacto"), ("largo plazo", "largo")):
             for escala, sk in (("por 1 pp", "pp"), ("por 1 DE", "de")):
                 sel = (effects["termino"] == term) & (effects["efecto"] == efecto) & (effects["escala"] == escala)
@@ -169,12 +171,12 @@ def _m1_oos(table: pd.DataFrame) -> dict:
     uno, din = t.loc["a un paso"], t.loc["dinámico"]
     out = {"n_trimestres": str(int(uno["n_trimestres"]))}
     for suffix, row in (("un_paso", uno), ("dinamico", din)):
-        out[f"rmse_modelo_{suffix}"] = fmt_es(row["rmse_modelo"], 2)
-        out[f"rmse_ingenuo_{suffix}"] = fmt_es(row["rmse_ingenuo"], 2)
-        out[f"mae_modelo_{suffix}"] = fmt_es(row["mae_modelo"], 2)
-        out[f"mae_ingenuo_{suffix}"] = fmt_es(row["mae_ingenuo"], 2)
-        out[f"cociente_{suffix}"] = fmt_es(row["cociente_rmse"], 2)
-    out["dm_estadistico"] = fmt_es(uno["dm_estadistico"], 2)
+        out[f"rmse_modelo_{suffix}"] = fmt_es(row["rmse_modelo"], 3)
+        out[f"rmse_ingenuo_{suffix}"] = fmt_es(row["rmse_ingenuo"], 3)
+        out[f"mae_modelo_{suffix}"] = fmt_es(row["mae_modelo"], 3)
+        out[f"mae_ingenuo_{suffix}"] = fmt_es(row["mae_ingenuo"], 3)
+        out[f"cociente_{suffix}"] = fmt_es(row["cociente_rmse"], 3)
+    out["dm_estadistico"] = fmt_es(uno["dm_estadistico"], 3)
     out["dm_p"] = fmt_p(uno["dm_p"])
     out["veredicto_un_paso"] = str(uno["veredicto"])
     out["veredicto_dinamico"] = str(din["veredicto"])
@@ -223,6 +225,7 @@ def model1_variables(result: Model1Result) -> dict:
             for t, r in coef.iterrows()
         },
         "efectos": _m1_effects(result.effects),
+        "efectos_nota": effects_note(result.fit),
         "signo": {t: str(coef.loc[t, "coincide"]) for t in macro},
         "diag": _m1_diag(result.diagnostics),
         "robustez": {t: str(summary.loc[t, "robustez"]) for t in macro},

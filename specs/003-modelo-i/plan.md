@@ -274,7 +274,7 @@ Todas las tablas se escriben en `.csv` (con `float_format=None` y `lineterminato
 | Archivo | Contenido | RF |
 |---|---|---|
 | `outputs/tables/model1_coefficients.{csv,md}` | Términos × coef., EE HAC, z, p, IC 95 %, signo esperado y coincidencia. El `.md` cierra con el pie de RF-9 en un párrafo «Nota:». | RF-9 |
-| `outputs/tables/model1_effects.{csv,md}` | 5 regresores × {impacto, largo plazo} × {1 pp, 1 DE}: estimación, EE, p, IC 95 % o «no reportado (1 − ρ ≤ 0,05)» / «no definido». | RF-10 |
+| `outputs/tables/model1_effects.{csv,md}` | 5 regresores × {impacto, largo plazo} × {1 pp, 1 DE}: columna `de` (DE usada, divisor n − 1, sin 2020T2–2021T1), estimación, EE, p, IC 95 % o «no reportado (1 − ρ ≤ 0,05)» / «no definido». El `.md` cierra con una «Nota:» (`effects_note`) con las DE, la muestra y la lectura del largo plazo. | RF-10 |
 | `outputs/tables/model1_diagnostics.{csv,md}` | Prueba, estadístico, p-valor, veredicto y nota (VIF con una fila por regresor). | RF-12, RF-13, RF-14 |
 | `outputs/tables/model1_stationarity.{csv,md}` | Dependiente y 5 regresores en su forma: ADF/KPSS copiados de la 001, decisión, orden y «no I(0)». | RF-15 |
 | `outputs/tables/model1_robustness_estimates.{csv,md}` | Una fila por regresión × regresor macro, o una fila «no estimada» con su motivo. | RF-16 |
@@ -318,17 +318,18 @@ modelo1:
   r2: "…"   r2_ajustado: "…"   ee_regresion: "…"
   variantes: {R1: "Sin 2020–2021", R2: "...", ..., R8: "..."}
   coef: {<termino>: {coef, ee, p, ic_inf, ic_sup}}            # const, y_lag, 5 macro, 4 dummies
-  efectos: {<macro>: {impacto_pp, impacto_pp_ee, impacto_pp_p, impacto_pp_ic_inf, impacto_pp_ic_sup,
-                      impacto_de, ..._ic_sup, largo_pp, ..., largo_de, ...}}   # "no reportado (1 − ρ ≤ 0,05)" si aplica
+  efectos: {<macro>: {de, impacto_pp, impacto_pp_ee, impacto_pp_p, impacto_pp_ic_inf, impacto_pp_ic_sup,
+                      impacto_de, ..._ic_sup, largo_pp, ..., largo_de, ...}}   # "no reportado (1 − ρ ≤ 0,05)" / "no definido" si aplica; `de` = DE del regresor o "no definida"
+  efectos_nota: "Nota: DE de cada regresor ... lectura del largo plazo ..."   # generada por `effects_note`, no fija
   signo: {<macro>: "sí" | "no" | "sin contraste"}
   diag: {bg: {estadistico, p, veredicto}, bp: {...}, white: {...}, jb: {...}, reset: {...},
          chow_2008t3: {...}, chow_2020t2: {...}, cusum: {veredicto}, vif: {<termino>: {valor, veredicto}}}
   robustez: {<macro>: "k de n"}
-  variantes_muestra: {<id>: {estado, inicio, fin, n_obs}}     # id = R1, R2, R3_drclacbs, ..., R8
+  variantes_muestra: {<id>: {estado, motivo, inicio, fin, n_obs}}     # id = R1, R2, R3_drclacbs, ..., R8; «—» si no se estimó
   oos: {n_trimestres, rmse_modelo_un_paso, rmse_ingenuo_un_paso, mae_..., cociente_un_paso,
         rmse_modelo_dinamico, ..., cociente_dinamico, dm_estadistico, dm_p,
         veredicto_un_paso, veredicto_dinamico, significancia_un_paso}
-  no_i0: "π (inflación interanual) y CRED(t−4) (crédito interanual rezagado)"   # generado, no fijo
+  no_i0: "π y CRED(t−4)"   # generado, no fijo; «ninguno» si todos son I(0)
   limitaciones: ["...", ...]
   desviaciones: ["...", ...]
 ```
@@ -447,3 +448,17 @@ El revisor encontró tres puntos que no se podían resolver en el plan sin reint
 | 10 | `X_test` | Incorporada: `build_design` con `VariantSpec("oos_test")`; test de `y_anchor`. |
 | Opc. | R1 contiguo, D11 restringido, `hac_lags`/`n_parametros`, otras claves de `_variables.yml`, tamaño del Chow 2020T2 | Incorporadas las cinco. |
 | Spec | DE inflada y efectos base | Aplicadas como C1 y C2 (`/sdd-change` del 5-oct-2026). |
+
+## 13. Enmiendas posteriores a la aprobación
+Ninguna cambia la spec ni el pre-registro; fijan salidas y claves que la spec 006 va a citar.
+
+- **Enmienda 1 (5-oct-2026, `review-audit-ronda1.md` punto 5):** D12, métricas fuera de muestra con 3 decimales (ver su fila en §6).
+- **Enmienda 2 (5-oct-2026, `review-audit-ronda1.md` y `review-audit.md`, aprobada por el autor):**
+  - Claves nuevas de `_variables.yml`: `efectos.<macro>.de`, `efectos_nota` y `variantes_muestra.<id>.motivo` (ver §4).
+  - Columna nueva `de` en `model1_effects.csv` y «Nota:» de cierre en `model1_effects.md` y en `model1_robustness_summary.md` (esta última define el criterio de robustez y avisa de que en R4, R6 y R7 se compara otro regresor).
+  - `terminos_diferencia` indica las sustituciones de regresor («sustituye: gdpc1_yoy → gdp_yoy», «sustituye: CRED(t−4) → CRED(t−8)» y «→ CRED(t−12)»).
+  - La etiqueta de R2 es «DRALACBN sin desestacionalizar, con dummies estacionales».
+  - Los Chow se rotulan «Chow 2008T3» y «Chow 2020T2» (formato AAAAT#); las claves técnicas siguen siendo `chow_2008t3` y `chow_2020t2`.
+  - El texto de la alerta de VIF de ΔU explica el salto de 2020T2 absorbido por su dummy, sin cifras nuevas.
+- **Enmienda 3 (5-oct-2026, `review-audit.md` punto 1):** la nota de tamaño que el §2 pre-registra para el Chow 2020T2 se implementa: `chow_wald` devuelve `n_post` y `n_post_util` (trimestres posteriores al quiebre, y esos mismos menos los que absorben las dummies de impulso), y `diagnostics_table` añade a la nota de los quiebres de `CHOW_SIZE_CAUTION_BREAKS` («quedan N trimestres posteriores útiles para 7 restricciones: el tamaño empírico del contraste puede diferir del 5 % nominal»). La redacción es neutra, sin dirección, y el veredicto «falla» sigue a p. El Chow 2008T3 no lleva esa nota. Con esto, la fila «Opc.» de §12 queda cumplida.
+

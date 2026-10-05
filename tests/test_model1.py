@@ -33,6 +33,7 @@ from src.model1 import (
     coefficient_note,
     coefficient_table,
     deviations_table,
+    effects_note,
     effects_table,
     is_robust,
     limitations_table,
@@ -40,6 +41,7 @@ from src.model1 import (
     out_of_sample,
     render_model1_tables,
     robustness_estimates,
+    robustness_note,
     robustness_summary,
     run_model1,
     run_variant,
@@ -57,6 +59,7 @@ from src.model1_config import (
     VARIANTS,
     VariantSpec,
 )
+from src.tables import fmt_es
 
 from tests.synthetic_model1 import END, TRUE, make_full, make_stationarity
 
@@ -274,7 +277,7 @@ def test_effects_table_has_5_regressors_x_2_effects_x_2_scales(result):
     assert set(tab["termino"]) == set(MACRO_TERMS)
     assert set(tab["efecto"]) == {"impacto", "largo plazo"}
     assert set(tab["escala"]) == {"por 1 pp", "por 1 DE"}
-    for col in ["etiqueta", "estimacion", "ee", "p", "ic_inf", "ic_sup", "estado", "unidad"]:
+    for col in ["etiqueta", "de", "estimacion", "ee", "p", "ic_inf", "ic_sup", "estado", "unidad"]:
         assert col in tab.columns
     assert (tab["estado"] == "reportado").all()  # ρ ≈ 0,5: 1 − ρ > 0,05
 
@@ -372,6 +375,83 @@ def test_per_sd_is_undefined_when_sd_is_zero(result):
         assert pp["estado"] == "reportado"
     # los demás regresores no se ven afectados
     assert _effect(tab, "d_unemp", "impacto", "por 1 DE")["estado"] == "reportado"
+
+
+# --- Pie de la tabla de efectos (D16; review-audit punto 2) ---
+
+SHORT_LABELS = {"gdp_growth": "ΔPIB", "d_unemp": "ΔU", "inflation": "π", "d_ffr": "ΔFFR",
+                "credit_growth": "CRED(t−4)"}
+
+
+def _with_constant_ffr(result):
+    design = result.fit.design
+    X = design.X.copy()
+    X["d_ffr"] = 0.5  # DE = 0
+    return dataclasses.replace(result.fit, design=dataclasses.replace(design, X=X))
+
+
+def test_effects_table_has_a_de_column_with_the_sd_used_for_one_sd_effects(result):
+    sd = standardization_sd(result.design)
+    for term in MACRO_TERMS:
+        rows = result.effects[result.effects["termino"] == term]
+        assert len(rows) == 4
+        np.testing.assert_allclose(rows["de"].to_numpy(dtype=float), sd[term], rtol=1e-12)
+
+
+def test_effects_de_column_is_nan_when_the_sd_is_undefined(result):
+    tab = effects_table(_with_constant_ffr(result))
+    assert tab.loc[tab["termino"] == "d_ffr", "de"].isna().all()
+    assert tab.loc[tab["termino"] != "d_ffr", "de"].notna().all()
+
+
+def test_effects_note_lists_each_regressor_sd_with_its_readable_label(result):
+    note = effects_note(result.fit)
+    sd = standardization_sd(result.design)
+    assert note.startswith("Nota:")
+    for term, label in SHORT_LABELS.items():
+        assert f"{label} = {fmt_es(sd[term], 3)}" in note, term
+    assert "gdp_growth" not in note and "d_unemp" not in note  # etiquetas, no claves técnicas
+
+
+def test_effects_note_states_the_sample_the_count_and_the_c1_rule(result):
+    note = effects_note(result.fit)
+    n = result.fit.nobs - 4  # sin los cuatro trimestres COVID
+    assert "2000T1–2026T2 sin 2020T2–2021T1" in note
+    assert f"{n} trimestres" in note
+    assert "ddof = 1" in note and "C1" in note
+
+
+def test_effects_note_reads_the_long_run_with_y_in_first_difference(result):
+    note = effects_note(result.fit)
+    assert "cambio acumulado en el nivel de la morosidad" in note
+    assert "aumento transitorio de 1 unidad del regresor durante un trimestre" in note
+    assert "cambio permanente" not in note
+
+
+def test_effects_note_reads_the_long_run_with_y_in_levels(result):
+    design = result.fit.design
+    fit = dataclasses.replace(result.fit, design=dataclasses.replace(design, form="nivel"))
+    note = effects_note(fit)
+    assert "cambio permanente de 1 unidad del regresor" in note
+    assert "transitorio" not in note
+
+
+def test_effects_note_marks_an_undefined_sd(result):
+    note = effects_note(_with_constant_ffr(result))
+    assert "ΔFFR = no definida" in note
+    assert "ΔPIB = " in note and "no definida" not in note.replace("ΔFFR = no definida", "")
+
+
+def test_effects_note_closes_the_effects_markdown_and_is_not_in_the_csv(result):
+    out = render_model1_tables(result)["model1_effects"]
+    assert out["md"].rstrip().endswith(effects_note(result.fit))
+    assert "Nota:" not in out["csv"]
+
+
+def test_effects_note_uses_association_language(result):
+    note = effects_note(result.fit).lower()
+    for banned in ["causa", "causal", "provoca", "debido a"]:
+        assert banned not in note
 
 
 # --- model_stationarity_table ---
@@ -619,7 +699,7 @@ def test_run_model1_connects_all_t3_diagnostics(result):
     assert set(d["prueba"]) == {
         "Breusch-Godfrey", "Breusch-Pagan", "White", "Jarque-Bera", "RESET",
         "VIF (y_lag)", *(f"VIF ({t})" for t in MACRO_TERMS),
-        "Chow 2008Q3", "Chow 2020Q2", "CUSUM",
+        "Chow 2008T3", "Chow 2020T2", "CUSUM",
     }
     assert len(d) == 14
     assert set(d["veredicto"]) <= {"pasa", "falla", "alerta", "sin alerta"}
@@ -682,7 +762,7 @@ def test_robustness_estimates_declares_sample_form_terms_and_notes(result):
     assert "no está en pp" in first("R5")["nota"]
     assert first("R6")["inicio"] == "2001T1" and first("R7")["inicio"] == "2002T1"
     assert "historia disponible" in first("R6")["nota"]
-    assert first("R4")["terminos_diferencia"] == ""
+    assert first("R4")["terminos_diferencia"] == "sustituye: gdpc1_yoy → gdp_yoy"
     est = tab["estado"] == "estimada"
     assert (tab.loc[est, "forma_y"] == "primera diferencia").all()
     assert (tab.loc[est, "rezagos_hac"] > 0).all()
@@ -1149,20 +1229,21 @@ def test_oos_is_part_of_run_model1_and_rendered_as_markdown_and_csv(result):
     assert "nan" not in out["md"].lower()
 
 
-# --- Nota de muestra finita del Chow en las limitaciones (decisión: se reporta tal cual) ---
+# --- Chow en las limitaciones (decisión: se reporta tal cual, sin atenuante de muestra finita) ---
 
 
-def test_limitations_note_the_finite_sample_oversize_of_a_failed_chow_wald(result, stationarity):
+def test_limitations_report_the_chow_wald_statistic_and_note_without_oversize_caveat(result, stationarity):
     diag = _diag([
-        ("Chow 2008Q3", 15.4, 0.031, "falla", "Wald HAC con interacciones"),
+        ("Chow 2008T3", 15.4, 0.031, "falla", "Wald HAC con interacciones"),
         ("Breusch-Godfrey", 12.0, 0.017, "falla", ""),
     ])
     det = _limits(result, stationarity, diag=diag).query("origen == 'detectada'")
-    chow = det[det["limitacion"].str.startswith("Chow 2008Q3")].iloc[0]["detalle"]
+    chow = det[det["limitacion"].str.startswith("Chow 2008T3")].iloc[0]["detalle"]
     assert "0,031" in chow
-    assert "sobredimensionado en muestra finita" in chow and "CUSUM" in chow
+    assert "Wald HAC con interacciones" in chow
+    assert "sobredimensionado" not in chow and "CUSUM" not in chow
     bg = det[det["limitacion"].str.startswith("Breusch-Godfrey")].iloc[0]["detalle"]
-    assert "sobredimensionado" not in bg  # la nota es solo del Chow
+    assert "sobredimensionado" not in bg
 
 
 def test_limitations_do_not_mention_the_chow_oversize_when_it_does_not_fail(result, stationarity):
@@ -1176,3 +1257,122 @@ def test_limitations_write_tiny_p_values_as_less_than_0001_not_as_zero(result, s
     white = det[det["limitacion"].str.startswith("White")].iloc[0]["detalle"]
     assert "p < 0,001" in white and "0,000" not in white
     assert "p = 0,015" in det[det["limitacion"].str.startswith("Breusch-Pagan")].iloc[0]["detalle"]
+
+
+# --- Corrección 3 (RF-16): sustituciones de regresor en R4, R6 y R7 ---
+
+
+def _terms_diff(result, vid: str) -> str:
+    tab = result.robustness_estimates
+    return tab[tab["variante"] == vid].iloc[0]["terminos_diferencia"]
+
+
+def test_terms_difference_states_the_regressor_substitutions_in_r4_r6_r7(result):
+    assert _terms_diff(result, "R4") == "sustituye: gdpc1_yoy → gdp_yoy"
+    assert _terms_diff(result, "R6") == "sustituye: CRED(t−4) → CRED(t−8)"
+    assert _terms_diff(result, "R7") == "sustituye: CRED(t−4) → CRED(t−12)"
+
+
+def test_terms_difference_is_empty_when_only_the_dependent_or_the_sample_changes(result):
+    for vid in ["R3_drclacbs", "R3_drblacbs", "R3_drsreacbs", "R5"]:
+        assert _terms_diff(result, vid) == "", vid
+
+
+def test_terms_difference_keeps_the_added_and_removed_terms(result):
+    assert _terms_diff(result, "R1").startswith("quita: covid_2020q2")
+    assert _terms_diff(result, "R2") == "añade: seasonal_q2, seasonal_q3, seasonal_q4"
+
+
+def test_terms_difference_combines_substitutions_with_added_terms(full, decisions, result):
+    spec = VariantSpec("Rz", "combinada", gdp_column="gdp_yoy", credit_lag=8,
+                       seasonal_dummies=True, truncate_start=True)
+    o = run_variant(full, spec, decisions, END)
+    tab = robustness_estimates(result.fit, [o])
+    assert tab.iloc[0]["terminos_diferencia"] == (
+        "sustituye: gdpc1_yoy → gdp_yoy; sustituye: CRED(t−4) → CRED(t−8); "
+        "añade: seasonal_q2, seasonal_q3, seasonal_q4"
+    )
+
+
+def test_robustness_note_defines_the_criterion_and_flags_the_substituted_regressors(result):
+    note = robustness_note(result.variants)
+    assert note.startswith("Nota:")
+    for needle in [
+        "mismo signo que la principal", "p < 0,10", "errores HAC",
+        "R4 sustituye gdpc1_yoy por gdp_yoy",
+        "R6 sustituye CRED(t−4) por CRED(t−8)",
+        "R7 sustituye CRED(t−4) por CRED(t−12)",
+        "regresor distinto", "«k de n» cuenta solo las variantes estimadas",
+        "contrario al esperado",
+    ]:
+        assert needle in note, needle
+
+
+def test_robustness_note_omits_the_substitution_sentence_when_there_are_none(result):
+    only = [o for o in result.variants if o.spec.id in {"R1", "R2", "R5"}]
+    note = robustness_note(only)
+    assert "sustituye" not in note and "regresor distinto" not in note
+    assert "mismo signo que la principal" in note
+
+
+def test_robustness_summary_markdown_closes_with_the_note(result):
+    out = render_model1_tables(result)["model1_robustness_summary"]
+    assert out["md"].rstrip().endswith(robustness_note(result.variants))
+    assert "Nota:" not in out["csv"]
+
+
+# --- Corrección 4: el VIF de ΔU no es multicolinealidad entre regresores macro ---
+
+
+def test_vif_alert_on_unemployment_is_explained_by_the_2020q2_jump(result, stationarity):
+    diag = _diag([("VIF (d_unemp)", 36.8, np.nan, "alerta", "")])
+    det = _limits(result, stationarity, diag=diag).query("origen == 'detectada'")
+    detail = det[det["limitacion"].str.contains("VIF")].iloc[0]["detalle"]
+    assert "estadístico 36,800" in detail
+    assert "2020T2" in detail and "dummy" in detail and "fuera de la COVID" in detail
+    assert "posible multicolinealidad" not in detail
+    assert "no se elimina ningún regresor" in detail
+
+
+def test_vif_alert_on_another_regressor_keeps_the_generic_wording(result, stationarity):
+    diag = _diag([("VIF (gdp_growth)", 14.2, np.nan, "alerta", "")])
+    det = _limits(result, stationarity, diag=diag).query("origen == 'detectada'")
+    detail = det[det["limitacion"].str.contains("VIF")].iloc[0]["detalle"]
+    assert "posible multicolinealidad" in detail and "2020T2" not in detail
+
+
+# --- Corrección 6: etiqueta de R2 ---
+
+
+def test_r2_label_says_dralacbn_is_not_seasonally_adjusted():
+    assert spec_of("R2").label == "DRALACBN sin desestacionalizar, con dummies estacionales"
+    assert "Desestacionalizada" not in spec_of("R2").label
+
+
+# --- Corrección 7: los Chow se rotulan con el formato AAAAT# ---
+
+
+def test_diagnostics_name_the_chow_tests_with_the_aaaat_format(result):
+    names = list(result.diagnostics["prueba"])
+    assert "Chow 2008T3" in names and "Chow 2020T2" in names
+    assert not any(n.startswith("Chow") and "Q" in n for n in names)
+
+
+# --- Chow 2020T2: nota de tamaño que el plan pre-registra (review-audit r2, punto 1) ---
+
+
+def test_run_model1_diagnostics_carry_the_2020t2_size_note_with_computed_quarters(result):
+    d = result.diagnostics.set_index("prueba")
+    nota = d.loc["Chow 2020T2", "nota"]
+    assert "quedan 21 trimestres posteriores útiles para 7 restricciones" in nota
+    assert "puede diferir del 5 % nominal" in nota
+    assert "diferir" not in d.loc["Chow 2008T3", "nota"]
+
+
+def test_limitations_keep_the_2020t2_size_note_when_that_chow_fails(result, stationarity):
+    row = result.diagnostics.set_index("prueba").loc["Chow 2020T2"]
+    diag = _diag([("Chow 2020T2", 15.2, 0.034, "falla", row["nota"])])
+    det = _limits(result, stationarity, diag=diag).query("origen == 'detectada'")
+    detail = det[det["limitacion"].str.startswith("Chow 2020T2")].iloc[0]["detalle"]
+    assert "0,034" in detail and "puede diferir del 5 % nominal" in detail
+    assert "sobredimensionado" not in detail  # sigue sin la frase con dirección de la corrección 1

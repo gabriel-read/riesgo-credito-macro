@@ -209,7 +209,7 @@ def coefficient_table(fit: Fit) -> tuple[pd.DataFrame, dict]:
 # --- Tabla de efectos (RF-10) ---
 
 
-def _effect_row(term: str, efecto: str, escala: str, eff: dict, estado: str) -> dict:
+def _effect_row(term: str, efecto: str, escala: str, eff: dict, estado: str, de: float) -> dict:
     reported = bool(eff.get("reported", False))
     unit = f"pp de morosidad por 1 {'DE' if escala == 'por 1 DE' else 'pp'} del regresor"
     return {
@@ -217,6 +217,7 @@ def _effect_row(term: str, efecto: str, escala: str, eff: dict, estado: str) -> 
         "etiqueta": term_label(term),
         "efecto": efecto,
         "escala": escala,
+        "de": de,
         "estimacion": eff["estimate"] if reported else np.nan,
         "ee": eff["se"] if reported else np.nan,
         "p": eff["p"] if reported else np.nan,
@@ -227,13 +228,55 @@ def _effect_row(term: str, efecto: str, escala: str, eff: dict, estado: str) -> 
     }
 
 
+def effects_note(fit: Fit) -> str:
+    """Párrafo «Nota:» que cierra la tabla de efectos (D16; review-audit, punto 2).
+
+    Da la DE (divisor n − 1) de cada regresor macro, la muestra en que se calcula (la principal
+    sin 2020T2–2021T1, cambio C1) y la lectura del efecto de largo plazo según la forma de Y.
+    Todas las cifras salen del ajuste.
+    """
+    sds = standardization_sd(fit.design)
+    index = fit.design.X.index
+    covid = [pd.Period(q, "Q-DEC") for q in COVID_QUARTERS]
+    n = int((~index.isin(covid)).sum())
+    sample = (
+        f"{quarter_label(index.min())}–{quarter_label(index.max())} "
+        f"sin {quarter_label(covid[0])}–{quarter_label(covid[-1])}"
+    )
+    sd_parts = []
+    for term in MACRO_TERMS:
+        if term in fit.params.index:
+            sd = float(sds.get(term, np.nan))
+            defined = bool(np.isfinite(sd) and sd != 0.0)
+            sd_parts.append(f"{term_label(term).split(' (')[0]} = " + (fmt_es(sd, 3) if defined else "no definida"))
+    if fit.design.form == "primera diferencia":
+        reading = (
+            "Con Y en primera diferencia, el efecto de largo plazo es el cambio acumulado en el "
+            "nivel de la morosidad ante un aumento transitorio de 1 unidad del regresor durante "
+            "un trimestre"
+        )
+    else:
+        reading = (
+            "Con Y en nivel, el efecto de largo plazo es el cambio de largo plazo de la "
+            "morosidad ante un cambio permanente de 1 unidad del regresor"
+        )
+    return (
+        f"Nota: DE de cada regresor (divisor n − 1, ddof = 1) sobre {n} trimestres, {sample} "
+        "(C1: el modelo ya neutraliza esos trimestres con sus dummies): "
+        + "; ".join(sd_parts)
+        + f". {reading}. Cada efecto por 1 DE es el efecto por 1 pp multiplicado por la DE de su "
+        "regresor; todos están en pp de morosidad."
+    )
+
+
 def effects_table(fit: Fit) -> pd.DataFrame:
     """Efectos de impacto y de largo plazo de los 5 regresores macro (RF-10).
 
     Impacto = β (error HAC); largo plazo = β/(1 − ρ) (error por método delta). Cada uno por
     1 pp del regresor y por 1 DE (DE con divisor n − 1 sin 2020T2–2021T1, C1), en pp de
-    morosidad. Si 1 − ρ ≤ 0,05 solo se reporta el impacto; si la DE es 0 o no existe, el
-    efecto por 1 DE figura como «no definido».
+    morosidad. La columna `de` trae la DE usada. Si 1 − ρ ≤ 0,05 solo se reporta el impacto; si
+    la DE es 0 o no existe, el efecto por 1 DE figura como «no definido». El pie de la tabla es
+    `effects_note(fit)`.
     """
     inf = inference(fit.params, fit.cov)
     sds = standardization_sd(fit.design)
@@ -252,18 +295,19 @@ def effects_table(fit: Fit) -> pd.DataFrame:
         long = long_run(fit.params, fit.cov, term)
         sd = float(sds.get(term, np.nan))
         sd_defined = bool(np.isfinite(sd) and sd != 0.0)
+        de = sd if sd_defined else np.nan
         for efecto, eff in (("impacto", impact), ("largo plazo", long)):
             if not eff["reported"]:  # 1 − ρ ≤ 0,05 (solo el largo plazo)
                 for escala in ("por 1 pp", "por 1 DE"):
-                    rows.append(_effect_row(term, efecto, escala, eff, LONG_RUN_NOT_REPORTED))
+                    rows.append(_effect_row(term, efecto, escala, eff, LONG_RUN_NOT_REPORTED, de))
                 continue
-            rows.append(_effect_row(term, efecto, "por 1 pp", eff, "reportado"))
+            rows.append(_effect_row(term, efecto, "por 1 pp", eff, "reportado", de))
             if sd_defined:
                 scaled = scale_effect(eff, sd)
                 scaled["p"] = eff["p"]  # el p-valor no depende de la escala
-                rows.append(_effect_row(term, efecto, "por 1 DE", scaled, "reportado"))
+                rows.append(_effect_row(term, efecto, "por 1 DE", scaled, "reportado", de))
             else:
-                rows.append(_effect_row(term, efecto, "por 1 DE", {"reported": False}, UNDEFINED))
+                rows.append(_effect_row(term, efecto, "por 1 DE", {"reported": False}, UNDEFINED, de))
     return pd.DataFrame(rows)
 
 
@@ -377,18 +421,44 @@ def is_robust(main_coef: float, coef: float, p: float, alpha: float = ROBUST_ALP
     return bool(np.sign(main_coef) == np.sign(coef) and p < alpha)
 
 
-def _terms_difference(main: Fit, design: Design | None) -> str:
+def _substitutions(spec: VariantSpec) -> list[tuple[str, str]]:
+    """Regresores que la variante sustituye por otro con el mismo nombre de columna en X."""
+    out = []
+    if spec.gdp_column != MAIN.gdp_column:
+        out.append((MAIN.gdp_column, spec.gdp_column))
+    if spec.credit_lag != MAIN.credit_lag:
+        out.append((f"CRED(t−{MAIN.credit_lag})", f"CRED(t−{spec.credit_lag})"))
+    return out
+
+
+def _terms_difference(main: Fit, design: Design | None, spec: VariantSpec) -> str:
     if design is None:
         return ""
     main_cols, cols = list(main.design.X.columns), list(design.X.columns)
     added = [c for c in cols if c not in main_cols]
     removed = [c for c in main_cols if c not in cols]
-    parts = []
+    parts = [f"sustituye: {a} → {b}" for a, b in _substitutions(spec)]
     if added:
         parts.append("añade: " + ", ".join(added))
     if removed:
         parts.append("quita: " + ", ".join(removed))
     return "; ".join(parts)
+
+
+def robustness_note(outcomes: list[VariantOutcome]) -> str:
+    """Párrafo «Nota:» que cierra la tabla resumen de robustez (RF-17; review-audit, punto 3).
+
+    Define el criterio y avisa de las columnas en que el regresor es otro (R4, R6 y R7).
+    """
+    subs = [f"{o.spec.id} sustituye {a} por {b}" for o in outcomes for a, b in _substitutions(o.spec)]
+    note = "Nota: criterio de robustez: mismo signo que la principal y p < 0,10 con errores HAC."
+    if subs:
+        note += f" {'; '.join(subs)}: en esas columnas se compara un regresor distinto del de la principal."
+    note += (
+        " «k de n» cuenta solo las variantes estimadas. «sí» significa el mismo signo que la "
+        "principal, aunque ese signo sea contrario al esperado."
+    )
+    return note
 
 
 def _variant_note(o: VariantOutcome) -> str:
@@ -432,7 +502,7 @@ def robustness_estimates(main: Fit, outcomes: list[VariantOutcome]) -> pd.DataFr
             rows.append({
                 **base,
                 "forma_y": o.design.form,
-                "terminos_diferencia": _terms_difference(main, o.design),
+                "terminos_diferencia": _terms_difference(main, o.design, o.spec),
                 "inicio": quarter_label(index.min()),
                 "fin": quarter_label(index.max()),
                 "n_obs": int(o.fit.nobs),
@@ -621,13 +691,13 @@ def _diagnostic_detail(row: pd.Series) -> str:
             "; con el rezago de la dependiente, MCO puede ser inconsistente (se declara como "
             "limitación; añadir rezagos tras ver el resultado exige un /sdd-change)"
         )
-    elif prueba.startswith("Chow"):
-        if row.get("nota"):
-            detail += f"; {row['nota']}"
+    elif prueba == "VIF (d_unemp)":
+        jump = quarter_label(pd.Period(COVID_QUARTERS[0], "Q-DEC"))
         detail += (
-            "; el estadístico de Wald con errores HAC está sobredimensionado en muestra finita "
-            "(n pequeño y muchos parámetros), así que el rechazo se reporta tal cual y se lee con "
-            "cautela; el CUSUM sirve de contraste estructural"
+            f"; con las dummies COVID dentro de X, casi toda la varianza de ΔU es el salto de {jump}, "
+            "que su dummy absorbe: no es colinealidad entre regresores macro, sino que el "
+            "coeficiente de ΔU se identifica con la variación fuera de la COVID; se reporta y no "
+            "se elimina ningún regresor"
         )
     elif prueba.startswith("VIF"):
         detail += "; posible multicolinealidad: se reporta y no se elimina ningún regresor"
@@ -836,7 +906,11 @@ def render_model1_tables(result: Model1Result) -> dict[str, dict[str, str]]:
         "model1_limitations": result.limitations,
         "model1_deviations": result.deviations,
     }
-    notes = {"model1_coefficients": coefficient_note(result.coef_footer)}
+    notes = {
+        "model1_coefficients": coefficient_note(result.coef_footer),
+        "model1_effects": effects_note(result.fit),
+        "model1_robustness_summary": robustness_note(result.variants),
+    }
     out: dict[str, dict[str, str]] = {}
     for stem, df in tables.items():
         md = to_markdown(_format_for_markdown(df))
