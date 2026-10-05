@@ -310,17 +310,21 @@ class TestBuildDesign:
         with pytest.raises(ModelDataError, match="gdpc1_yoy.*2010Q1.*main"):
             build_design(full, MAIN, "ambigua (primera diferencia)", end)
 
-    def test_r1_includes_covid_dummies(self):
+    def test_r1_excludes_the_whole_2020_2021_range_and_drops_the_covid_dummies(self):
+        """Spec/plan D11: R1 excluye 2020T1–2021T4 (8 trimestres, rango inclusivo) y las cuatro
+        dummies COVID desaparecen porque sus trimestres quedan fuera; se anotan en `dropped`."""
         full = _make_full_history()
         end = pd.Period("2026Q2", "Q-DEC")
         r1 = VARIANTS[0]  # R1
         design = build_design(full, r1, "ambigua (primera diferencia)", end)
 
-        # R1 debe incluir las dummies COVID (corrección R1: covid_dummies=True)
-        covid_cols = [c for c in design.X.columns if c.startswith("covid_")]
-        assert len(covid_cols) == 4  # 4 trimestres COVID
-        # Y no debe anotarlas en dropped
-        assert len(design.dropped) == 0
+        for q in pd.period_range("2020Q1", "2021Q4", freq="Q-DEC"):
+            assert q not in design.X.index
+        assert len(design.X) == 106 - 8
+        assert not any(c.startswith("covid_") for c in design.X.columns)
+        assert sorted(design.dropped) == [
+            "covid_2020q2", "covid_2020q3", "covid_2020q4", "covid_2021q1"
+        ]
 
 
 # --- effective_window ---

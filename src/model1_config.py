@@ -96,7 +96,7 @@ class VariantSpec:
     credit_lag: int = 4
     start: pd.Period = MAIN_START
     end: pd.Period | None = None          # None = último trimestre común
-    exclude: tuple[str, str] | None = None
+    exclude: tuple[str, str] | None = None  # rango inclusivo (primer, último) trimestre excluido
     covid_dummies: bool = True
     seasonal_dummies: bool = False
     truncate_start: bool = False          # True en R6, R7 y R8
@@ -117,4 +117,77 @@ VARIANTS: list[VariantSpec] = [
     VariantSpec("R6", "Crédito rezagado 8 trimestres", credit_lag=8, truncate_start=True),
     VariantSpec("R7", "Crédito rezagado 12 trimestres", credit_lag=12, truncate_start=True),
     VariantSpec("R8", "Muestra larga desde 1985T1", start=LONG_START, truncate_start=True),
+]
+
+
+# --- Textos fijos de limitaciones y desviaciones (RF-20, RF-21; D13) ---
+# Solo texto: ninguna cifra a mano. Los estados y las cifras detectadas los añade el código.
+
+FIXED_LIMITATIONS: list[tuple[str, str]] = [
+    (
+        "Endogeneidad de la tasa de fondos federales",
+        "La Fed reacciona a la economía: ΔFFR se asocia con la morosidad, pero esa asociación "
+        "no identifica el efecto de la política monetaria.",
+    ),
+    (
+        "Simultaneidad de los regresores contemporáneos",
+        "PIB, desempleo, inflación y ΔFFR se determinan junto con la morosidad del mismo "
+        "trimestre: los coeficientes son asociaciones condicionales, no efectos aislados.",
+    ),
+    (
+        "Potencia baja de Diebold-Mariano",
+        "La evaluación fuera de muestra tiene pocos trimestres, por lo que la prueba de "
+        "Diebold-Mariano tiene poca potencia.",
+    ),
+    (
+        "Efectos base de 2021T2–2022T1 sin dummy",
+        "El rebote interanual del PIB y el crecimiento del crédito asociado al programa PPP, "
+        "que entra en CRED(t−4) entre 2021T2 y 2022T1, no llevan dummy; la robustez R1 "
+        "(sin 2020–2021) sirve de contraste.",
+    ),
+]
+
+# (decisión, referencia, motivo)
+FIXED_DEVIATIONS: list[tuple[str, str, str]] = [
+    (
+        "PIB real (GDPC1) como regresor principal en lugar del GDP nominal",
+        "Guía, secciones 3.3 y 11",
+        "Evita la doble contabilidad con la inflación; el GDP nominal de la guía queda como "
+        "robustez R4.",
+    ),
+    (
+        "Regresores con forma fija en lugar de la regla de estacionariedad para todas las series",
+        "Skill de econometría de series de tiempo",
+        "Conservan su interpretación económica (tasas de variación); su no estacionariedad "
+        "residual se declara como limitación.",
+    ),
+    (
+        "ΔFFR como variable única de tasas para las secciones 3.3 y 3.4",
+        "Guía, secciones 3.3 y 3.4",
+        "La guía lista la tasa de interés entre las variables macro (3.3) y, aparte, el cambio "
+        "de la FFR como variable de política monetaria (3.4); el Modelo I usa una sola.",
+    ),
+]
+
+# Entradas de «Desviaciones del pre-registro» de la spec 003: (fecha, cambio, motivo)
+PREREG_DEVIATIONS: list[tuple[str, str, str]] = [
+    (
+        "2026-10-05",
+        "C1: la DE de los efectos «por 1 DE» excluye 2020T2–2021T1",
+        "Con esos trimestres la DE quedaría dominada por el salto atípico de 2020T2, que el "
+        "modelo ya neutraliza con sus dummies.",
+    ),
+    (
+        "2026-10-05",
+        "C2: los efectos base de 2021T2–2022T1 se declaran como limitación fija, con R1 como "
+        "contraste y sin nuevas dummies",
+        "Son puntos de alto apalancamiento que la ventana COVID no cubre.",
+    ),
+    (
+        "2026-10-05",
+        "C3: la comprobación de matriz no definida positiva se acota al sub-bloque sin dummies "
+        "de impulso",
+        "La reducción de rango por esas dummies es una propiedad algebraica (residuo nulo), no "
+        "un fallo numérico.",
+    ),
 ]

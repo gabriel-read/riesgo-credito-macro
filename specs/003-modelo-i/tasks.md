@@ -20,11 +20,11 @@
    - RF-3, RF-4, RF-7, RF-9, RF-10, RF-15 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py -k "not robustez and not limitaciones and not desviaciones and not export and not oos"` en verde; `read_decisions` + `check_expected_forms` antes de estimar; `coefficient_table` con coef, EE HAC, z, p, IC 95%, signo esperado y coincidencia; pie con forma Y, muestra, n_obs, n_param, R², R²_adj, SER, HAC lags, truncamiento, nota dummies impulso; `effects_table` con impacto y largo plazo × {1 pp, 1 DE}, EE, p, IC 95%, en pp, "no reportado (1 − ρ ≤ 0,05)" si aplica; `model_stationarity_table` copia ADF/KPSS de la 001, decisión, orden, "no I(0)".
 
-6. 🔄 SIGUIENTE — **Implementer** — `src/model1.py` (run_variant, robustness_estimates, robustness_summary, limitations_table, deviations_table, stress_export, is_robust) completando `tests/test_model1.py`.
+6. ✅ COMPLETADA — **Implementer** — `src/model1.py` (run_variant, robustness_estimates, robustness_summary, limitations_table, deviations_table, stress_export, is_robust) completando `tests/test_model1.py`.
    - RF-5, RF-6, RF-8, RF-16, RF-17, RF-20, RF-21 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py` en verde (completo); `run_variant` R8 sin historia anterior a 2000T1 → "no estimada"; <30 GL o rango incompleto → "no estimada"; `robustness_estimates` 1 fila por variante×regresor macro con coef, EE HAC, p o "no estimada"; `robustness_summary` 5×10 celdas sí/no/no estimada + "k de n" excluyendo no estimadas; `limitations_table` incluye fijas + detectadas (diag fallidos, no I(0), posible I(2), R8, truncamiento); `deviations_table` con estado de R8; `stress_export` → JSON con params, cov_hac, terms, columns, credit_lag, sample, hac_lags, covid_quarters; `is_robust` signo×p<0,10.
 
-7. **Implementer** — `src/model1.py` (out_of_sample) con `tests/test_model1.py` (OOS).
+7. 🔄 SIGUIENTE — **Implementer** — `src/model1.py` (out_of_sample) con `tests/test_model1.py` (OOS).
    - RF-18, RF-19 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_model1.py -k "oos"` en verde; entrenamiento 2000T1–2019T4 sin dummies COVID; evaluación 2022T1–2026T2; pronóstico a un paso y dinámico con reconstrucción de nivel; ingenuo en ambos modos; RMSE, MAE, cocientes, DM-HLN (h=1, divisor n, corrección HLN, t(n−1)); veredictos pre-registrados; series para figura.
 

@@ -138,6 +138,17 @@ def dependent_series(full: pd.DataFrame, column: str, decision: str) -> pd.Serie
     return full[column].diff()
 
 
+def _panel_column(term: str, spec: VariantSpec) -> str:
+    """Columna del panel de un término macro en una variante.
+
+    Es la de MACRO_TERMS, salvo el PIB, que cada variante elige con spec.gdp_column
+    (R4 usa la variación interanual del GDP nominal en lugar de la del GDPC1).
+    """
+    if term == "gdp_growth":
+        return spec.gdp_column
+    return MACRO_TERMS[term]
+
+
 def _cols_for_lag_check(frame: pd.DataFrame, spec: VariantSpec) -> list[pd.Series]:
     """Series de la historia necesarias para el primer trimestre válido.
 
@@ -156,7 +167,8 @@ def _cols_for_lag_check(frame: pd.DataFrame, spec: VariantSpec) -> list[pd.Serie
         Series alineadas al índice de frame, con el rezago aplicado donde corresponda
     """
     cols = [frame[spec.dependent]]
-    for term, col in MACRO_TERMS.items():
+    for term in MACRO_TERMS:
+        col = _panel_column(term, spec)
         if term == "credit_growth":
             cols.append(frame[col].shift(spec.credit_lag))
         else:
@@ -223,7 +235,7 @@ def build_design(
     1. Construye todas las columnas sobre full completo, desde 1998 y reindexado
        sin huecos. Así shift(1) y shift(k) son de verdad t−1 y t−k.
     2. Calcula la ventana con effective_window.
-    3. Recorta a la ventana y quita los trimestres de spec.exclude.
+    3. Recorta a la ventana y quita el rango (inicio, fin), inclusivo, de spec.exclude.
     4. Si queda cualquier NaN, lanza ModelDataError(variable, trimestre, spec.id).
     5. Cada dummy COVID vale 1 en su trimestre. Las estacionales son de T2, T3
        y T4, con T1 como base. Una dummy sin variación en la muestra se omite
@@ -253,7 +265,8 @@ def build_design(
     work["y_lag"] = work["y"].shift(1)
 
     # Términos macro
-    for term, col in MACRO_TERMS.items():
+    for term in MACRO_TERMS:
+        col = _panel_column(term, spec)
         if term == "credit_growth":
             work[term] = full[col].shift(spec.credit_lag)
         else:
@@ -284,8 +297,8 @@ def build_design(
     # Paso 3: recortar a la ventana y quitar exclusiones
     window = work.loc[start:eff_end].copy()
     if spec.exclude:
-        exclude_periods = [pd.Period(q, "Q-DEC") for q in spec.exclude]
-        window = window[~window.index.isin(exclude_periods)]
+        ex_start, ex_end = (pd.Period(q, "Q-DEC") for q in spec.exclude)
+        window = window[(window.index < ex_start) | (window.index > ex_end)]
 
     # Paso 4: verificar NaN
     all_cols = ["y", "y_lag"] + list(MACRO_TERMS.keys())
@@ -295,7 +308,7 @@ def build_design(
             if nan_mask.any():
                 first_nan_q = window.index[nan_mask][0]
                 # Traducir nombre de término a columna para el mensaje
-                col_label = MACRO_TERMS.get(col, col)
+                col_label = _panel_column(col, spec) if col in MACRO_TERMS else col
                 raise ModelDataError(
                     f"{col_label}: NaN en {first_nan_q} (variante {spec.id})"
                 )
