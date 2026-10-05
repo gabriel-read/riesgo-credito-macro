@@ -1,6 +1,6 @@
 VEREDICTO: APROBADO
 
-# Validación técnica — Spec 003 Modelo I (tras las rondas 1 y 2 de auditoría)
+# Validación técnica — Spec 003 Modelo I (tras las rondas 1 a 3 de auditoría)
 
 **Fecha:** 2026-10-05
 **Quién la escribe y por qué:** Claude Code. OpenCode agotó su cuota gratuita en mitad de la fábrica (hizo la corrección 1 y dejó la 2 a medias) y `AGENTS.md` prevé que entonces Claude Code complete la tarea. Claude Code aplicó las correcciones 2 a 7 y ejecutó esta validación: es el mismo agente, así que **esta validación no sustituye a la auditoría independiente**, que queda pendiente para el cierre (segunda ronda de `review-audit.md`).
@@ -11,7 +11,7 @@ Este informe valida lo técnico: tests, reproducibilidad y que cada corrección 
 
 | Comprobación | Resultado |
 |---|---|
-| `uv run pytest -q` (sin red, bloqueada por `conftest.py`) | **487 passed**, 0 failed |
+| `uv run pytest -q` (sin red, bloqueada por `conftest.py`) | **504 passed**, 0 failed |
 | Tests nuevos o cambiados en esta ronda | `tests/test_model1.py`, `tests/test_outputs_model1.py`, `tests/test_diagnostics.py` (tests escritos antes que el código y vistos en rojo) |
 
 ## 2. Reproducibilidad (RNF-5, criterio de finalización)
@@ -64,5 +64,18 @@ Estado de las variantes sobre la historia congelada: R1 estimada (98 observacion
 
 Reproducibilidad repetida tras estos cambios: dos corridas de `uv run python -m src.pipeline all` dejan los 30 archivos idénticos byte a byte y `git diff --exit-code outputs/ report/_variables.yml` da código 0.
 
-El cierre de la spec sigue condicionado a una tercera ronda de auditoría independiente con `VEREDICTO: APROBADO`.
+## 7. Ronda 3 de auditoría (`review-audit.md`): menor resuelto y opcional repetido
+
+| # | Observación | Resuelto |
+|---|---|---|
+| 1 | El pie de R1 no decía que los rezagos de 2022 salen de trimestres excluidos | `_variant_note` añade, cuando hay exclusión, una frase con los trimestres calculados por código. En R1: «Y(t−1) de 2022T1 y CRED(t−4) de 2022T1–2022T4 se toman de trimestres excluidos (historia transformada)». Se escribe en las 5 filas de R1 del `.md` y del `.csv`. 6 tests nuevos, incluidos casos con otra exclusión y otro rezago de crédito |
+| Opc. | Formato de p en `model1_stationarity.md` | ADF «< 0,001» y KPSS «≥ 0,10» o «≤ 0,01» (el recorte de statsmodels, `fmt_kpss_p`), solo en el Markdown; `model1_stationarity.csv` conserva los valores. 5 tests nuevos, incluido que el CSV no cambia |
+| Plan | La §12 daba por incorporada la nota de R1 | `plan.md` §13, enmienda 4 |
+
+**Reproducibilidad y árbol de trabajo, repetidos tras estos cambios.** Con todo el contenido del commit preparado en el índice:
+- `uv run pytest -q`: **504 passed**, sin red.
+- Dos corridas seguidas de `uv run python -m src.pipeline all` (código 0 las dos): los 30 archivos de `outputs/`, `data/processed/` y `report/` son **idénticos byte a byte**.
+- `git diff --exit-code`, sobre todo el repositorio, da código 0, y `git status --porcelain` no muestra ninguna línea sin preparar (ni modificados ni sin seguimiento). Es la comprobación equivalente a un árbol limpio tras el commit.
+
+El cierre de la spec sigue condicionado a una cuarta ronda de auditoría independiente con `VEREDICTO: APROBADO`.
 

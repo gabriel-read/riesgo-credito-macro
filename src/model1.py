@@ -461,6 +461,35 @@ def robustness_note(outcomes: list[VariantOutcome]) -> str:
     return note
 
 
+def _quarters_text(quarters: list[pd.Period]) -> str:
+    """«2022T1» si es uno; «2022T1–2022T4» si son varios consecutivos."""
+    if len(quarters) == 1:
+        return quarter_label(quarters[0])
+    return f"{quarter_label(quarters[0])}–{quarter_label(quarters[-1])}"
+
+
+def _excluded_lag_note(o: VariantOutcome) -> str:
+    """Rezagos de la muestra que se toman de trimestres excluidos (historia transformada).
+
+    Con la exclusión [a, b], Y(t−1) sale de un trimestre excluido para los t de la muestra con
+    a ≤ t − 1 ≤ b, y CRED(t−L) para los que cumplen a ≤ t − L ≤ b. Los trimestres salen del
+    código, no se escriben a mano.
+    """
+    first, last = (pd.Period(q, "Q-DEC") for q in o.spec.exclude)
+    lag = o.spec.credit_lag
+    sample = list(o.design.X.index)
+    affected_y = [t for t in sample if first <= t - 1 <= last]
+    affected_c = [t for t in sample if first <= t - lag <= last]
+    parts = []
+    if affected_y:
+        parts.append(f"Y(t−1) de {_quarters_text(affected_y)}")
+    if affected_c:
+        parts.append(f"CRED(t−{lag}) de {_quarters_text(affected_c)}")
+    if not parts:
+        return ""
+    return " y ".join(parts) + " se toman de trimestres excluidos (historia transformada)"
+
+
 def _variant_note(o: VariantOutcome) -> str:
     notes = []
     spec = o.spec
@@ -470,6 +499,10 @@ def _variant_note(o: VariantOutcome) -> str:
             f"excluye {a}–{b}; los trimestres vecinos de la exclusión se tratan como contiguos "
             "en la ventana HAC"
         )
+        if o.design is not None:
+            lag_note = _excluded_lag_note(o)
+            if lag_note:
+                notes.append(lag_note)
     if not spec.in_pp:
         notes.append("el logit no está en pp: solo se evalúan signo y significancia")
     if spec.id.startswith("R3_"):
@@ -844,7 +877,7 @@ def stress_export_json(export: dict) -> str:
 
 # --- Salida en Markdown y CSV como texto (RF-23) ---
 
-_P_COLUMNS = ("p", "p_valor", "dm_p")
+_P_COLUMNS = ("p", "p_valor", "dm_p", "adf_p")
 
 
 def fmt_p(p: float) -> str:
@@ -852,6 +885,20 @@ def fmt_p(p: float) -> str:
     if pd.isna(p):
         return "—"
     return "< 0,001" if p < 0.001 else fmt_es(p, 3)
+
+
+def fmt_kpss_p(p: float) -> str:
+    """p de KPSS: statsmodels lo interpola entre 0,01 y 0,10 y lo recorta fuera de ese rango.
+
+    Por eso 0,10 significa «≥ 0,10» y 0,01 significa «≤ 0,01»; en medio, 3 decimales.
+    """
+    if pd.isna(p):
+        return "—"
+    if p >= 0.10 - 1e-12:
+        return "≥ 0,10"
+    if p <= 0.01 + 1e-12:
+        return "≤ 0,01"
+    return fmt_es(p, 3)
 
 
 def coefficient_note(footer: dict) -> str:
@@ -878,6 +925,8 @@ def _format_for_markdown(df: pd.DataFrame) -> pd.DataFrame:
         col = df[c]
         if c in _P_COLUMNS:
             out[c] = [fmt_p(v) for v in col]
+        elif c == "kpss_p":
+            out[c] = [fmt_kpss_p(v) for v in col]
         elif pd.api.types.is_bool_dtype(col):
             out[c] = ["sí" if v else "no" for v in col]
         elif pd.api.types.is_integer_dtype(col):

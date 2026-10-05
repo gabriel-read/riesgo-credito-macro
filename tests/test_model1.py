@@ -35,6 +35,7 @@ from src.model1 import (
     deviations_table,
     effects_note,
     effects_table,
+    fmt_kpss_p,
     is_robust,
     limitations_table,
     model_stationarity_table,
@@ -1376,3 +1377,97 @@ def test_limitations_keep_the_2020t2_size_note_when_that_chow_fails(result, stat
     detail = det[det["limitacion"].str.startswith("Chow 2020T2")].iloc[0]["detalle"]
     assert "0,034" in detail and "puede diferir del 5 % nominal" in detail
     assert "sobredimensionado" not in detail  # sigue sin la frase con dirección de la corrección 1
+
+
+# --- Ronda 3 de auditoría: nota de rezagos de R1 y formato de p en estacionariedad ---
+
+
+def _note(result, vid: str) -> str:
+    tab = result.robustness_estimates
+    return tab[tab["variante"] == vid].iloc[0]["nota"]
+
+
+def test_r1_note_says_which_lags_come_from_excluded_quarters(result):
+    note = _note(result, "R1")
+    assert (
+        "Y(t−1) de 2022T1 y CRED(t−4) de 2022T1–2022T4 se toman de trimestres excluidos "
+        "(historia transformada)"
+    ) in note
+    assert "excluye 2020T1–2021T4" in note and "contiguos" in note  # lo anterior se conserva
+
+
+def test_r1_lag_note_is_written_on_every_r1_row(result):
+    tab = result.robustness_estimates
+    r1 = tab[tab["variante"] == "R1"]
+    assert len(r1) == 5 and r1["nota"].str.contains("se toman de trimestres excluidos").all()
+
+
+def test_lag_note_quarters_are_computed_from_the_exclusion_and_the_credit_lag(full, decisions, result):
+    spec = VariantSpec("Rw", "otra exclusión", exclude=("2010Q1", "2010Q2"), credit_lag=8,
+                       truncate_start=True)
+    o = run_variant(full, spec, decisions, END)
+    note = robustness_estimates(result.fit, [o]).iloc[0]["nota"]
+    # Y(t−1): solo 2010T3 (su rezago es 2010T2); CRED(t−8): 2012T1–2012T2 (sus rezagos son 2010T1–T2)
+    assert "Y(t−1) de 2010T3 y CRED(t−8) de 2012T1–2012T2 se toman de trimestres excluidos" in note
+
+
+def test_lag_note_uses_a_single_quarter_without_a_range(full, decisions, result):
+    spec = VariantSpec("Rv", "un solo trimestre", exclude=("2010Q1", "2010Q1"))
+    o = run_variant(full, spec, decisions, END)
+    note = robustness_estimates(result.fit, [o]).iloc[0]["nota"]
+    assert "Y(t−1) de 2010T2 y CRED(t−4) de 2011T1 se toman de trimestres excluidos" in note
+
+
+def test_variants_without_exclusion_have_no_excluded_lag_note(result):
+    for vid in ["R2", "R3_drclacbs", "R4", "R5", "R6", "R7"]:
+        assert "excluidos" not in _note(result, vid), vid
+
+
+def test_r1_lag_note_is_part_of_the_markdown_and_csv(result):
+    out = render_model1_tables(result)["model1_robustness_estimates"]
+    assert "se toman de trimestres excluidos" in out["md"] and "se toman de trimestres excluidos" in out["csv"]
+
+
+@pytest.mark.parametrize("p, esperado", [
+    (0.10, "≥ 0,10"), (0.1000001, "≥ 0,10"), (0.35, "≥ 0,10"),
+    (0.01, "≤ 0,01"), (0.0099, "≤ 0,01"),
+    (0.0876, "0,088"), (0.04, "0,040"), (float("nan"), "—"),
+])
+def test_fmt_kpss_p_truth_table(p, esperado):
+    assert fmt_kpss_p(p) == esperado
+
+
+def _md_cell(md: str, termino: str, col: str) -> str:
+    """Celda `col` de la fila `termino` de una tabla Markdown pipe."""
+    rows = [[c.strip() for c in line.strip().strip("|").split("|")] for line in md.splitlines()
+            if line.startswith("|")]
+    header = rows[0]
+    row = next(r for r in rows[2:] if r[0] == termino)
+    return row[header.index(col)]
+
+
+def test_stationarity_markdown_shows_adf_p_as_less_than_0001_and_kpss_p_as_a_bound(result):
+    stat = result.stationarity.copy()
+    stat.loc[stat["termino"] == "d_unemp", "adf_p"] = 0.0004
+    md = render_model1_tables(dataclasses.replace(result, stationarity=stat))["model1_stationarity"]["md"]
+    assert _md_cell(md, "d_unemp", "adf_p") == "< 0,001"
+    assert _md_cell(md, "d_unemp", "kpss_p") == "≥ 0,10"
+    # en toda la tabla, ninguna celda de p queda como «0,000» o «0,100»
+    for term in stat["termino"]:
+        assert _md_cell(md, term, "adf_p") not in {"0,000"}
+        assert _md_cell(md, term, "kpss_p") not in {"0,100"}
+
+
+def test_stationarity_markdown_writes_a_truncated_kpss_lower_bound_as_at_most_001(result):
+    stat = result.stationarity.copy()
+    stat.loc[stat["termino"] == "inflation", "kpss_p"] = 0.01
+    md = render_model1_tables(dataclasses.replace(result, stationarity=stat))["model1_stationarity"]["md"]
+    assert "≤ 0,01" in md
+
+
+def test_stationarity_csv_keeps_the_raw_p_values(result):
+    stat = result.stationarity.copy()
+    stat.loc[stat["termino"] == "d_unemp", "adf_p"] = 0.0004
+    csv = render_model1_tables(dataclasses.replace(result, stationarity=stat))["model1_stationarity"]["csv"]
+    assert "0.0004" in csv and "0.1" in csv
+    assert "≥" not in csv and "≤" not in csv and "< 0,001" not in csv
