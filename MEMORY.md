@@ -44,5 +44,15 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
 
 ## Próximos pasos
-1. Spec 003 (Modelo I): redactar spec y plan con GDPC1 principal y muestra 2000T1–2026T2 (robustez 1985T1 y GDP nominal pre-registradas); aprobar y commitear antes de la primera estimación (pre-registro). Es crítica: auditoría de Claude.
+1. Spec 003 (Modelo I) RESUELTA y marcada aprobada (5-oct-2026, 23 RF; 69 hallazgos de `review-clarify.md` aplicados). Decisiones:
+   - Sin `/sdd-change 001`. R6 y R7 se truncan a la historia disponible (con la descarga de 1998 empiezan en 2001T1 y 2002T1); R8 queda «no estimada» si no hay historia anterior a 2000.
+   - La regla ADF/KPSS solo decide la forma de la dependiente (hoy todas en Δ); los regresores tienen forma fija y su no estacionariedad se declara como limitación.
+   - El largo plazo solo se reporta si 1 − ρ > 0,05.
+   - Si la matriz HAC no es definida positiva, truncamiento espectral.
+   - Chow como Wald HAC con interacciones.
+   - RF-4 se detiene si cambia la tabla de estacionariedad.
+   - Robusto = mismo signo y p < 0,10.
+   - Variables bajo el prefijo `modelo1.`.
+
+   Pendiente: commit `spec(003-modelo-i): aprobada` (solo `specs/003-modelo-i/`) y luego `/sdd-plan 003-modelo-i`.
 2. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
