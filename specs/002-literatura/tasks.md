@@ -1,22 +1,22 @@
 # Tasks — Spec 002 Literatura
 
-1. **Implementer** — `src/references.py`: dataclasses (`BibEntry`, `MatrixRow`, `Mismatch`), constantes (`MATRIX_COLUMNS`, `STATES`, `TYPES`, `GUIDE_VARIABLES`, `SUPPORTS`, `DATA_METHOD_KEYS`, `KEY_PATTERN`, `SIGN_WORDS`) y funciones de lectura y normalización (`parse_bib`, `parse_matrix`, `normalize_doi`, `normalize_title`, `normalize_surname`, `first_author_surname`, `is_institutional`).
+1. ✅ COMPLETADA — **Implementer** — `src/references.py`: dataclasses (`BibEntry`, `MatrixRow`, `Mismatch`), constantes (`MATRIX_COLUMNS`, `STATES`, `TYPES`, `GUIDE_VARIABLES`, `SUPPORTS`, `DATA_METHOD_KEYS`, `KEY_PATTERN`, `SIGN_WORDS`) y funciones de lectura y normalización (`parse_bib`, `parse_matrix`, `normalize_doi`, `normalize_title`, `normalize_surname`, `first_author_surname`, `is_institutional`).
    - RF-4 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_references.py::test_parse_bib`, `test_parse_matrix`, `test_normalize_doi`, `test_normalize_title`, `test_normalize_surname`, `test_first_author_surname` en verde; `parse_bib("@article{a,{...}")` falla con el número de línea si usa comillas.
 
-2. **Implementer** — `src/references.py`: validación y comparación (`validate_matrix`, `summary_counts`, `validate_summary`, `check_minimums`, `validate_bib`, `check_coherence`, `crossref_url`, `parse_crossref`, `crossref_years`, `compare_record`), más sus tests; añadir `src/references.py` a las listas de módulos puros y a los imports prohibidos de `tests/test_pipeline.py`.
+2. ✅ COMPLETADA — **Implementer** — `src/references.py`: validación y comparación (`validate_matrix`, `summary_counts`, `validate_summary`, `check_minimums`, `validate_bib`, `check_coherence`, `crossref_url`, `parse_crossref`, `crossref_years`, `compare_record`), más sus tests; añadir `src/references.py` a las listas de módulos puros y a los imports prohibidos de `tests/test_pipeline.py`.
    - RF-5, RF-6, RF-7, RF-10, RF-11, RF-13, RF-15, RF-20, RF-22, RF-23, RF-24, RF-25, RNF-6 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_references.py` en verde con todo lo anterior; `check_minimums` con 15 estudios o 2.3 con 1 devuelve error; `compare_record` detecta título/autor/año distintos; `tests/test_pipeline.py` en verde sin `requests`, `urllib`, `socket` ni `open` en `src/references.py`.
 
-3. **Implementer** — Plantilla vacía de la matriz (`research/matriz-literatura.md`: cabecera, «Resumen» en cero, «Matriz» sin filas) y `.bib` inicial (comentario UTF-8 + entrada FRED de la spec 001 ya congelada); `tests/test_literature_files.py` que parses ambos archivos y valida que `validate_matrix`, `validate_summary`, `validate_bib` y `check_coherence` devuelven `[]`.
+3. ✅ COMPLETADA — **Implementer** — Plantilla vacía de la matriz (`research/matriz-literatura.md`: cabecera, «Resumen» en cero, «Matriz» sin filas) y `.bib` inicial (comentario UTF-8 + entrada FRED de la spec 001 ya congelada); `tests/test_literature_files.py` que parses ambos archivos y valida que `validate_matrix`, `validate_summary`, `validate_bib` y `check_coherence` devuelven `[]`.
    - RF-4, RF-9, RF-12, RF-20 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_literature_files.py` en verde sobre los archivos reales; `check_minimums` no se incluye aún (D14).
 
-4. **Implementer** — `scripts/verify_refs.py` (E/S: `http_get`, `get_with_retries`, `check_doi_entry`, `check_url_entry`, `run`, `main`) y sus tests con `fetch`/`sleep` inyectados.
+4. ✅ COMPLETADA — **Implementer** — `scripts/verify_refs.py` (E/S: `http_get`, `get_with_retries`, `check_doi_entry`, `check_url_entry`, `run`, `main`) y sus tests con `fetch`/`sleep` inyectados.
    - RF-13 a RF-19, RF-26, RNF-1 · agente: implementer
    - Hecho cuando: `uv run pytest -q tests/test_verify_refs.py` en verde; DOI 404 → «no existe» en una sola llamada; 503 persistente → «no verificable» con 4 llamadas y `sleep([1, 2, 4])`; sin `doi` ni `url` → «sin url»; código de salida correcto en cada caso; `.bib` no se modifica.
 
-5. **Bibliotecario** — Referencias de datos y método: `fred2026`, `frb2026`, `newey1987`, `jorda2005` (4 filas en la matriz con Tipo = «datos/método», Estado = «verificado»; 4 entradas en `references.bib`).
+5. 🔄 SIGUIENTE — **Bibliotecario** — Referencias de datos y método: `fred2026`, `frb2026`, `newey1987`, `jorda2005` (4 filas en la matriz con Tipo = «datos/método», Estado = «verificado»; 4 entradas en `references.bib`).
    - RF-7, RF-9 a RF-12, RF-25 · agente: bibliotecario
    - Hecho cuando: `uv run pytest -q tests/test_literature_files.py` en verde; `fred2026.note` contiene los códigos de `src.config.ALL_SERIES`; `newey1987` y `jorda2005` llevan `doi`; `fred2026` y `frb2026` llevan `url`; las claves coinciden entre matriz y `.bib`.
 
