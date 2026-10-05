@@ -12,6 +12,7 @@ import pytest
 from src.config import ALL_SERIES
 from src.references import (
     check_coherence,
+    check_minimums,
     parse_bib,
     parse_matrix,
     validate_bib,
@@ -60,3 +61,8 @@ def test_bib_is_valid(entries):
 def test_matrix_and_bib_are_coherent(matrix, entries):
     _, rows = matrix
     assert check_coherence(rows, entries) == []
+
+
+def test_real_files_meet_minimums(matrix):
+    _, rows = matrix
+    assert check_minimums(rows) == []

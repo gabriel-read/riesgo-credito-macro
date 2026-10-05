@@ -101,6 +101,18 @@ def test_invalid_json_persistent():
     assert len(calls) == 4
 
 
+def test_url_ok_with_non_json_body_one_call():
+    calls = []
+
+    def fetch(u, t):
+        calls.append(u)
+        return HttpResult(200, "observation_date,DRALACBS\n2000-01-01,1.5\n")
+
+    state, msgs = check_url_entry(_entry("a2020", url="https://x.org/data.csv"), fetch, lambda d: None)
+    assert state == "verificado"
+    assert len(calls) == 1
+
+
 def test_url_ok():
     fetch = lambda u, t: HttpResult(200, "ok")
     sleep = lambda d: None
@@ -152,3 +164,23 @@ def test_get_with_retries_timeout_passed():
     sleep = lambda d: None
     get_with_retries("https://x.org", fetch, sleep)
     assert seen == [10]  # timeout=10
+
+
+def test_http_get_custom_user_agent_only_for_crossref(monkeypatch):
+    import scripts.verify_refs as vr
+
+    seen = {}
+
+    class _R:
+        status_code = 200
+        text = ""
+
+    def fake_get(url, timeout, headers, stream):
+        seen[url] = headers
+        return _R()
+
+    monkeypatch.setattr(vr.requests, "get", fake_get)
+    vr.http_get("https://api.crossref.org/works/10.1/x", 5)
+    vr.http_get("https://fred.stlouisfed.org/graph/fredgraph.csv?id=X", 5)
+    assert "User-Agent" in seen["https://api.crossref.org/works/10.1/x"]
+    assert "User-Agent" not in seen["https://fred.stlouisfed.org/graph/fredgraph.csv?id=X"]

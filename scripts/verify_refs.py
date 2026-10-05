@@ -4,6 +4,10 @@ import time
 from dataclasses import dataclass
 from typing import Callable
 
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
 import requests
 
 from src.references import BibEntry, Mismatch, crossref_url, normalize_doi, parse_bib, compare_record, parse_crossref
@@ -17,7 +21,9 @@ class HttpResult:
 
 def http_get(url: str, timeout: float) -> HttpResult:
     try:
-        r = requests.get(url, timeout=timeout, headers={"User-Agent": "riesgo-credito-macro/0.1 (scripts/verify_refs.py)"}, stream=True)
+        # FRED deja colgada la petición con un User-Agent propio; solo Crossref lo recibe.
+        headers = {"User-Agent": "riesgo-credito-macro/0.1 (scripts/verify_refs.py)"} if "crossref.org" in url else {}
+        r = requests.get(url, timeout=timeout, headers=headers, stream=True)
         return HttpResult(r.status_code, r.text)
     except requests.RequestException:
         return HttpResult(None, "")
@@ -27,10 +33,10 @@ def is_service_error(result: HttpResult) -> bool:
     return result.status is None or result.status == 429 or 500 <= result.status < 600
 
 
-def get_with_retries(url: str, fetch: Callable, sleep: Callable, delays=(1, 2, 4), timeout=10) -> HttpResult | None:
+def get_with_retries(url: str, fetch: Callable, sleep: Callable, delays=(1, 2, 4), timeout=10, expect_crossref=True) -> HttpResult | None:
     r = fetch(url, timeout)
     for d in delays:
-        if not is_service_error(r) and (r.status != 200 or parse_crossref(r.text) is not None):
+        if not is_service_error(r) and (not expect_crossref or r.status != 200 or parse_crossref(r.text) is not None):
             return r
         sleep(d)
         r = fetch(url, timeout)
@@ -61,7 +67,7 @@ def check_url_entry(entry: BibEntry, fetch: Callable, sleep: Callable) -> tuple[
     url = entry.fields.get("url", "")
     if not url:
         return "sin url", [f"[SIN URL] {entry.key}: la entrada no tiene campo url."]
-    r = get_with_retries(url, fetch, sleep)
+    r = get_with_retries(url, fetch, sleep, expect_crossref=False)
     if r is None:
         return "no verificable", [f"[NO VERIFICABLE] {entry.key}: error de red persistente tras reintentos."]
     if 200 <= r.status < 300:
