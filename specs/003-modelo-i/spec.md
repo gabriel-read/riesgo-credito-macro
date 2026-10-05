@@ -41,10 +41,11 @@ Frontera con el Modelo II (spec 004): el Modelo I mide la asociación **contempo
 - **Distribución de referencia**: los estadísticos t, los p-valores y los IC 95 % de todos los coeficientes y efectos usan la normal estándar (inferencia asintótica HAC), no la t de Student.
 - **Robusto (criterio pre-registrado)**: un coeficiente de la especificación principal es robusto en una regresión de robustez si en ella conserva el signo de la principal **y** tiene p < 0,10 bilateral con errores HAC. La exigencia de p < 0,10 impide que un coeficiente cercano a cero cuente como robusto por un signo debido al ruido.
 - **Ventana HAC**: floor(4·(T/100)^(2/9)) rezagos, con T = observaciones efectivas de cada regresión, kernel de Bartlett. Para cualquier T ≥ 1 la fórmula da al menos 1 rezago.
-- **Matriz HAC no definida positiva**: el kernel de Bartlett garantiza en teoría una matriz semidefinida positiva. Si numéricamente algún valor propio es ≤ 0 (o inferior a una tolerancia declarada en el plan), se aplica truncamiento espectral: los valores propios se elevan a ese piso, se reconstruye la matriz y el ajuste se declara en el pie de la tabla de esa regresión.
+- **Dummy de impulso**: dummy que vale 1 en un solo trimestre de la muestra (las COVID). El residuo de ese trimestre es exactamente 0, así que su columna no aporta a la matriz de puntuaciones de Newey-West, y la covarianza HAC completa tiene rango k − (número de dummies de impulso) por construcción. Esa reducción de rango es esperada: no es un fallo numérico y no se trata como tal. Los EE HAC de las dummies de impulso se reportan con la nota «EE HAC no informativo: dummy de impulso con residuo nulo».
+- **Matriz HAC no definida positiva**: la comprobación se hace sobre el sub-bloque de la covarianza HAC de los términos que no son dummies de impulso (constante, ρ, regresores macro y, si los hay, dummies estacionales). El kernel de Bartlett lo garantiza semidefinido positivo en teoría. Si numéricamente algún valor propio de ese sub-bloque es ≤ 0 (o inferior a una tolerancia declarada en el plan), se aplica truncamiento espectral: los valores propios se elevan a ese piso, se reconstruye el sub-bloque y el ajuste se declara en el pie de la tabla de esa regresión.
 - **Efecto de impacto**: el coeficiente β del regresor.
 - **Efecto de largo plazo**: β/(1 − ρ), con ρ el coeficiente del rezago de Y. Su error estándar sale del método delta con la covarianza HAC, y su p-valor y su IC 95 % se calculan con la distribución de referencia (z = estimación / error delta). Si Y está en nivel, es el cambio de largo plazo de la morosidad ante un cambio permanente de 1 unidad del regresor. Si Y está en primera diferencia (el caso esperado), es el cambio acumulado en el **nivel** de la morosidad ante un aumento transitorio de 1 unidad del regresor durante un trimestre. **Solo se reporta si 1 − ρ̂ > 0,05**; si 1 − ρ̂ ≤ 0,05 (ρ̂ ≥ 0,95), se reporta solo el efecto de impacto y el largo plazo figura como «no reportado (1 − ρ ≤ 0,05)».
-- **Por 1 DE**: efecto multiplicado por la desviación estándar del regresor, en la forma en que entra, en la muestra efectiva de la especificación principal. Si esa desviación estándar es 0, el efecto por 1 DE figura como «no definido».
+- **Por 1 DE**: efecto multiplicado por la desviación estándar muestral (divisor n − 1) del regresor, en la forma en que entra, calculada sobre la muestra efectiva de la especificación principal **sin los trimestres con dummy COVID (2020T2–2021T1)**. El modelo ya neutraliza esos trimestres con sus dummies, y con ellos dentro la DE quedaría dominada por el salto atípico (por ejemplo, el del desempleo en 2020T2). Si esa desviación estándar es 0, el efecto por 1 DE figura como «no definido».
 - **Lenguaje de asociación**: «efecto de impacto» y «efecto de largo plazo» son nombres técnicos de cantidades del modelo y se definen en el informe como asociaciones condicionales, no causales.
 
 ## Especificación pre-registrada
@@ -151,7 +152,7 @@ Cada variante cambia **un solo aspecto** de la especificación principal (la mue
   - coeficiente, error HAC, estadístico z, p-valor e IC 95 %;
   - signo esperado y si el signo estimado coincide: «sí», «no» o «sin contraste» (este último para π, ρ, la constante y las dummies).
 
-  El pie de la tabla traerá: forma de Y, muestra efectiva (primer y último trimestre), número de observaciones, número de parámetros, R² y R² ajustado, error estándar de la regresión, rezagos de la ventana HAC y si se aplicó truncamiento espectral.
+  El pie de la tabla traerá: forma de Y, muestra efectiva (primer y último trimestre), número de observaciones, número de parámetros, R² y R² ajustado, error estándar de la regresión, rezagos de la ventana HAC, si se aplicó truncamiento espectral al sub-bloque sin dummies de impulso y, si hay dummies de impulso, la nota «rango reducido por dummies de impulso (esperado)».
 - RF-10: EL SISTEMA producirá una tabla de efectos con, por regresor macro (β₁–β₅), el efecto de impacto y el de largo plazo, cada uno por 1 pp del regresor y por 1 DE. De cada efecto dará el error (HAC en el impacto, delta en el largo plazo), el p-valor y el IC 95 %, en pp de morosidad. SI 1 − ρ̂ ≤ 0,05, ENTONCES la tabla mostrará solo el efecto de impacto y el largo plazo como «no reportado (1 − ρ ≤ 0,05)».
 - RF-11: EL SISTEMA producirá un gráfico de coeficientes con el efecto de impacto por 1 DE de cada regresor macro y su IC 95 %, con:
   - una línea vertical en cero;
@@ -199,9 +200,10 @@ Cada variante cambia **un solo aspecto** de la especificación principal (la mue
   - la simultaneidad de los regresores contemporáneos;
   - los regresores marcados «no I(0)» en RF-15;
   - las dependientes con orden «posible I(2)»;
-  - la potencia baja de Diebold-Mariano con pocos trimestres.
+  - la potencia baja de Diebold-Mariano con pocos trimestres;
+  - los efectos base de las tasas interanuales fuera de la ventana COVID: el PIB interanual de 2021T2–2022T1 (rebote sobre la caída de 2020) y el crecimiento del crédito asociado al programa PPP, que entra en CRED(t−4) entre 2021T2 y 2022T1. No llevan dummy, y la robustez R1 (sin 2020–2021) sirve de contraste.
 
-  Además, incluirá cada diagnóstico con veredicto «falla» o «alerta» y cada truncamiento espectral aplicado.
+  Además, incluirá cada diagnóstico con veredicto «falla» o «alerta» y cada truncamiento espectral aplicado al sub-bloque sin dummies de impulso. La reducción de rango por dummies de impulso no figura como limitación.
 - RF-21: EL SISTEMA producirá una tabla de desviaciones y decisiones frente a la guía y a las reglas del proyecto, con:
   - el PIB real (GDPC1) como principal en lugar del GDP nominal de la guía, que queda como R4;
   - la muestra hasta 2026T2, cuando el ejemplo de la guía corta en 2026-01-01;
@@ -242,7 +244,8 @@ Cada variante cambia **un solo aspecto** de la especificación principal (la mue
 ## Casos límite
 - **Una dependiente sale «ambigua»** (es el caso de DRALACBS): entra en primera diferencia, y el largo plazo se interpreta como acumulado sobre el nivel.
 - **1 − ρ̂ ≤ 0,05:** se reporta solo el impacto (RF-10).
-- **La matriz HAC no es numéricamente definida positiva:** se aplica truncamiento espectral y se declara (Definiciones, RF-20).
+- **El sub-bloque de la covarianza HAC sin dummies de impulso no es numéricamente definido positivo:** se aplica truncamiento espectral y se declara (Definiciones, RF-20). La reducción de rango por las dummies de impulso es esperada y solo se anota en el pie.
+- **Efectos base en 2021T2–2022T1:** el rebote interanual del PIB y el crédito del PPP rezagado entran sin dummy y se declaran como limitación (RF-20). No se añaden dummies; R1 es el contraste.
 - **Un regresor tiene el signo contrario al esperado:** se reporta «no» en la coincidencia y se discute en la spec 006. No se quita el regresor ni se cambia su forma.
 - **Breusch-Godfrey rechaza con el rezago de la dependiente:** se declara la posible inconsistencia de MCO como limitación. Añadir rezagos después de ver el resultado exige un `/sdd-change`.
 - **Algún regresor tiene VIF > 10:** se reporta la alerta y no se elimina ningún regresor.
@@ -281,7 +284,10 @@ Cada variante cambia **un solo aspecto** de la especificación principal (la mue
 - `specs/003-modelo-i/review-validate.md` y `specs/003-modelo-i/review-audit.md` con `VEREDICTO: APROBADO`.
 
 ## Desviaciones del pre-registro
-(vacío)
+- 2026-10-05 · `/sdd-change` tras la auditoría del plan (`review-plan.md`), **antes de cualquier estimación con datos reales** (pre-registro original: commit `667b313`).
+  - (C1) La DE de los efectos «por 1 DE» excluye 2020T2–2021T1. Motivo: con esos trimestres la DE de ΔU sería unas 3,4 veces la de un trimestre típico (1,05 frente a 0,31 pp).
+  - (C2) Los efectos base de 2021T2–2022T1 (PIB interanual y crédito del PPP) se declaran como limitación fija, con R1 como contraste y sin nuevas dummies. Motivo: son puntos de alto apalancamiento que la ventana COVID no cubre.
+  - (C3) La comprobación de matriz no definida positiva se acota al sub-bloque sin dummies de impulso, y la reducción de rango por esas dummies se reporta como esperada. Motivo: es una propiedad algebraica de las dummies de impulso (residuo nulo), no un fallo numérico.
 
 ## Dependencias externas (no bloquean esta spec)
 - La aceptación de la muestra larga por el profesor está pendiente (`MEMORY.md`). R8 es condicional y ya figura en la tabla de desviaciones (RF-21), así que la respuesta no cambia esta spec.
