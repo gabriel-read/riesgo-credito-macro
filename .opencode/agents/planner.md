@@ -1,17 +1,15 @@
 ---
 description: SDD · Redacta tasks.md desde una spec y un plan aprobados (y spec o plan solo como respaldo); nunca toca código
 mode: subagent
-model: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free
+model: opencode/nemotron-3-ultra-free
 permission:
   edit:
     "*": deny
     "specs/**": allow
   bash:
     "*": deny
-  webfetch:
-    "*": deny
-  websearch:
-    "*": deny
+  webfetch: deny
+  websearch: deny
   task:
     "*": deny
 ---

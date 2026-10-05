@@ -1,7 +1,7 @@
 ---
 description: SDD · Revisa la spec como QA (clarificación) y valida la implementación RF por RF; solo escribe sus informes review-*.md
 mode: subagent
-model: openrouter/qwen/qwen3.8-27b:free
+model: opencode/big-pickle
 permission:
   edit:
     "*": deny
@@ -13,10 +13,8 @@ permission:
     "git diff*": allow
     "git status*": allow
     "git log*": allow
-  webfetch:
-    "*": deny
-  websearch:
-    "*": deny
+  webfetch: deny
+  websearch: deny
   task:
     "*": deny
 ---

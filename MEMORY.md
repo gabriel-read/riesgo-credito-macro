@@ -2,7 +2,7 @@
 Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). Máximo ~50 líneas: resume o elimina lo que ya no aporte.
 
 ## Estado actual (4-oct-2026)
-- Migración (4-oct-2026): de Warp a Orca como harness; OpenCode pasa de OpenCode Zen a OpenRouter con modelos `:free` (planner/coordinator Nemotron 3 Ultra 550B; implementer cohere/north-mini-code; reviewer qwen3.8-27b; bibliotecario inkling). Copia oficial: `~/orca/riesgo-credito-macro`, rama `spec/002-literatura`, commit `a39311e` sin push (la copia de Desktop/OneDrive queda como respaldo). Pendiente: probar OpenCode con OpenRouter (una prueba dio "User not found" por usar Zen/copia vieja).
+- Migración (4-oct-2026): de Warp a Orca como harness; OpenRouter se intentó y se descartó (clave daba 401 y crear otra pedía billing). OpenCode sigue con OpenCode Zen: planner/coordinator nemotron-3-ultra-free; implementer longcat-2.5-preview-free; reviewer big-pickle; bibliotecario space-bunny-free (elección sin probar). Mientras OpenCode no funcione, Claude Code avanza la spec 002. Copia oficial: `~/orca/riesgo-credito-macro`, rama `spec/002-literatura`, commit `a39311e` sin push (la copia de Desktop/OneDrive queda como respaldo). Pendiente: `/connect` a Zen y probarlo (daba "User not found").
 - Fase 0: arnés instalado (AGENTS.md, constitución, skills, agentes, comandos, CI) y versionado en el commit `ca8e4cc`. Sin código ni datos todavía.
 - Constitución revisada el 2-oct-2026 con /sdd-constitution; se decidió dejarla como está (sin cambios, seis principios). Posible mejora futura: aclarar que la reproducibilidad parte de `data/raw/` congelado y quitar la excepción "salvo causalidad" del principio 5.
 - Spec 001-datos aprobada el 2-oct-2026 (clarificada y resuelta).
@@ -30,7 +30,7 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 
 ## Aprendizajes y errores a evitar
 - OpenCode usa `permission` (singular, objeto; gana la última regla coincidente), no `permissions` como lista: con la lista las protecciones se ignoraban. Ya corregido en `opencode.jsonc` y los 5 agentes; verificar con una prueba real (`git push` y leer `.env` deben rechazarse).
-- Con los modelos `:free` de OpenRouter el límite diario es bajo (~50 peticiones sin crédito, dato sin verificar): al agotarse, seguir con Claude Code.
+- Los modelos gratuitos tienen cuota limitada: al agotarse, seguir con Claude Code.
 - Octubre 2025 no existe en CPI ni en desempleo (cierre del gobierno de EE. UU.): 2025T4 se promedia con dos meses y se documenta.
 - pandas-datareader < 0.11 falla con pandas 3; respaldo: `https://fred.stlouisfed.org/graph/fredgraph.csv?id=<SERIE>`.
 - FRED revisa el PIB: volver a descargar puede cambiar resultados. Congelar `data/raw/` con fecha y no volver a bajarlo.
@@ -38,5 +38,5 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
 
 ## Próximos pasos
-1. Probar OpenCode desde Orca (modelo `openrouter/...`, permisos, coordinator) y continuar `/fabrica 002-literatura` desde T4.
+1. Probar OpenCode desde Orca (modelo `opencode/...`, permisos, coordinator) y continuar `/fabrica 002-literatura` desde T4.
 2. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).

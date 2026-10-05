@@ -1,7 +1,7 @@
 ---
 description: SDD · Coordina la fábrica de una spec aprobada (tareas → implementación → validación) con planner, implementer, reviewer y bibliotecario, y transmite el contexto entre fases
 mode: primary
-model: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free
+model: opencode/nemotron-3-ultra-free
 color: "#2f80ed"
 permission:
   edit:
@@ -10,10 +10,8 @@ permission:
     "*": deny
     "uv run pytest*": allow
     "git status*": allow
-  webfetch:
-    "*": deny
-  websearch:
-    "*": deny
+  webfetch: deny
+  websearch: deny
   task:
     "*": deny
     "planner": allow

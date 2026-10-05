@@ -1,17 +1,15 @@
 ---
 description: Literatura · Busca estudios reales en OpenAlex y Crossref, los verifica y llena la matriz de literatura y references.bib; nunca cita de memoria
 mode: subagent
-model: openrouter/thinkingmachines/inkling:free
+model: opencode/space-bunny-free
 permission:
   edit:
     "*": deny
     "research/**": allow
     "report/references.bib": allow
     "specs/**/tasks.md": allow
-  webfetch:
-    "*": allow
-  websearch:
-    "*": allow
+  webfetch: allow
+  websearch: allow
   bash:
     "*": deny
     "uv run python scripts/verify_refs.py*": allow

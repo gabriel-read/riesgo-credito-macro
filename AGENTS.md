@@ -6,7 +6,7 @@ Investigación individual: cómo el ciclo macro y la política monetaria de EE. 
 - `src/` lógica en funciones puras · `tests/` · `data/raw/` descargas de FRED con fecha (solo lectura) · `outputs/` tablas y figuras generadas.
 - `specs/NNN-nombre/` spec, plan, tasks y review-*.md · `research/` matriz de literatura · `report/` informe, diapositivas y references.bib.
 - `docs/guia-profesor.md` requisitos oficiales · `docs/constitution.md` principios innegociables.
-- Harness: Orca (aloja y lanza Claude Code y OpenCode). OpenCode usa OpenRouter con modelos `:free` (config en `opencode.jsonc` y `.opencode/agents/`). La clave la guarda OpenCode (`/connect`), nunca el repo. Si se agota la cuota gratuita, Claude Code completa la tarea.
+- Harness: Orca (aloja y lanza Claude Code y OpenCode). OpenCode usa OpenCode Zen con modelos `*-free` (OpenRouter descartado: pedía billing; config en `opencode.jsonc` y `.opencode/agents/`). La sesión la guarda OpenCode (`/connect`), nunca el repo. Si se agota la cuota gratuita, Claude Code completa la tarea.
 
 ## Comandos
 - Instalar: `uv sync` · Tests: `uv run pytest -q`

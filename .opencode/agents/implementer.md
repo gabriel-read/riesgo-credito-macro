@@ -1,7 +1,7 @@
 ---
 description: SDD · Implementa UNA tarea de un plan aprobado con tests primero (datos, modelos, estrés, tablas, figuras, Quarto); no rediseña
 mode: subagent
-model: openrouter/cohere/north-mini-code:free
+model: opencode/longcat-2.5-preview-free
 permission:
   edit:
     "*": allow
@@ -17,10 +17,8 @@ permission:
     "git push*": deny
     "uv add*": ask
     "rm -rf*": deny
-  webfetch:
-    "*": deny
-  websearch:
-    "*": deny
+  webfetch: deny
+  websearch: deny
   task:
     "*": deny
 ---
