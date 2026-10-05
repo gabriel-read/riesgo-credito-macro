@@ -2,7 +2,7 @@
 Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). Máximo ~50 líneas: resume o elimina lo que ya no aporte.
 
 ## Estado actual (5-oct-2026)
-- Spec 002-literatura COMPLETADA y APROBADA (5-oct-2026): veredicto `APROBADO` en `specs/002-literatura/review-validate.md` (ronda 3 de T10). `verify_refs.py`: 20/20 entradas verificadas; `uv run pytest -q`: 187 passed. Matriz (`research/matriz-literatura.md`) y `report/references.bib` cerradas. Siguiente: spec 003 (Modelo I).
+- Spec 002-literatura COMPLETADA (5-oct-2026): 10/10 tareas, 187 tests en verde, `verify_refs.py` 21/21 con código 0 y auditoría independiente T10 APROBADA en la ronda 4 (`review-audit.md`, `review-validate.md`; el `APROBADO` previo de la fábrica no valía). Matriz: 17 estudios + 4 datos/método (2.1–2.4 = 2 cada una, 2.5 = 9); asiamah2026 y koskei2023 quedan pendiente-lectura (signo no respaldado por el resumen). Para la spec 006: justificar bernanke1995 en 2.1 y la clasificación de pesaran2006, segoviano2006 y gertler2015.
 - Migración (4-oct-2026): de Warp a Orca como harness; OpenRouter se intentó y se descartó (clave daba 401 y crear otra pedía billing). OpenCode sigue con OpenCode Zen: planner/coordinator nemotron-3-ultra-free; implementer longcat-2.5-preview-free; reviewer big-pickle; bibliotecario space-bunny-free (elección sin probar). Mientras OpenCode no funcione, Claude Code avanza la spec 002. Copia oficial: `~/orca/riesgo-credito-macro`, rama `spec/002-literatura`, commit `a39311e` sin push (la copia de Desktop/OneDrive queda como respaldo). Pendiente: `/connect` a Zen y probarlo (daba "User not found").
 - Fase 0: arnés instalado (AGENTS.md, constitución, skills, agentes, comandos, CI) y versionado en el commit `ca8e4cc`. Sin código ni datos todavía.
 - Constitución revisada el 2-oct-2026 con /sdd-constitution; se decidió dejarla como está (sin cambios, seis principios). Posible mejora futura: aclarar que la reproducibilidad parte de `data/raw/` congelado y quitar la excepción "salvo causalidad" del principio 5.
@@ -13,7 +13,6 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - Spec 002-literatura APROBADA el 3-oct-2026 (`specs/002-literatura/spec.md`; dudas resueltas: BCBS 2018 "Stress testing principles", Fed "2026 Stress Test Scenarios", FRED como una sola referencia): 20 RF, mínimo 16 estudios verificados (2 por sección 2.1–2.4, 6 empíricos en 2.5) + 4 refs de datos/método que no cuentan; script `scripts/verify_refs.py` contra Crossref. Clarificada y resuelta el 3-oct-2026 (26 RF, mínimo 20 filas verificadas: 16 estudios + 4 datos/método). 
 - Plan 002-literatura aprobado el 3-oct-2026 (`specs/002-literatura/plan.md`, D1–D15): `src/references.py` puro + `scripts/verify_refs.py` (único con red, `fetch`/`sleep` inyectados); matriz y .bib son curados, fuera de `src.pipeline`. Skill citas-apa alineada con el formato de 16 columnas. Siguiente: `/fabrica 002-literatura` en OpenCode.
 
-- Spec 002 (5-oct-2026): T1–T9 hechas, 187 tests en verde, `verify_refs.py` 20/20 con código 0. Auditoría T10 independiente: CAMBIOS NECESARIOS (Obradović a 2.5 principal; frecuencia «anual» no respaldada en tanaskovic2015, bayar2019, koju2018, zawadzki2023). NO cerrada hasta aplicarlo y repetir la T10; el `review-validate.md` de OpenCode (APROBADO) no vale todavía.
 
 ## Calendario (entregar el jueves 15-oct antes de las 22:00; cierre oficial 16-oct 00:00)
 - 001 datos 3–4 oct · 002 literatura 4–6 oct · 003 modelo I 5–8 oct · 004 modelo II 8–10 oct
@@ -33,6 +32,9 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - Confirmar con el profesor que la muestra larga 1985T1 como robustez y el PDF son aceptables.
 
 ## Aprendizajes y errores a evitar
+- No fiarse del `APROBADO` de la fábrica sin auditoría independiente: en la 002 marcó T4 y T10 como hechas con tests en rojo o sin auditar. Validar (OpenCode) y auditar (`verificador-citas` con solo rutas) son cosas distintas.
+- Un estudio que estima coeficientes macro sobre morosidad es sección 2.5 aunque encaje conceptualmente en 2.2; no reasignar para cuadrar mínimos.
+- FRED cuelga las peticiones con User-Agent propio: usar el predeterminado.
 - OpenCode usa `permission` (singular, objeto; gana la última regla coincidente), no `permissions` como lista: con la lista las protecciones se ignoraban. Ya corregido en `opencode.jsonc` y los 5 agentes; verificar con una prueba real (`git push` y leer `.env` deben rechazarse).
 - Los modelos gratuitos tienen cuota limitada: al agotarse, seguir con Claude Code.
 - Octubre 2025 no existe en CPI ni en desempleo (cierre del gobierno de EE. UU.): 2025T4 se promedia con dos meses y se documenta.
@@ -42,5 +44,5 @@ Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). M�
 - El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
 
 ## Próximos pasos
-1. Spec 003 (Modelo I): redactar spec y plan, aprobar y commitear antes de la primera estimación (pre-registro, ver `specs/003-modelo-i/`).
+1. Spec 003 (Modelo I): redactar spec y plan con GDPC1 principal y muestra 2000T1–2026T2 (robustez 1985T1 y GDP nominal pre-registradas); aprobar y commitear antes de la primera estimación (pre-registro). Es crítica: auditoría de Claude.
 2. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
