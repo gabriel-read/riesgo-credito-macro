@@ -21,6 +21,7 @@ LP_BAND_Z = float(norm.ppf(0.95))    # 1,6449: banda del 90 % de las proyeccione
 RHO_WARN = 0.95
 CHOW_POST_MIN = 30                   # nota de tamaño del Chow si los posteriores útiles son menos
 PEAK_TIE_TOL = 1e-12                 # empate del pico de |ψ_h|: gana el menor h (D18)
+IC_TIE_TOL = 1e-9                    # empate de AIC o BIC entre dos K: gana el menor K
 EXCLUDE_COVID = ("2020Q1", "2021Q4")  # R2: rango inclusivo
 EXPECTED_FORM = "ambigua (primera diferencia)"   # DRALACBS, RF-2
 EVIDENCE = ("evidencia fuerte", "evidencia parcial", "sin evidencia")
