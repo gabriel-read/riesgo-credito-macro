@@ -16,7 +16,7 @@ Orden de dependencia del §9 del plan. Una sola tarea cada vez: tests primero (e
   - Incluye: `src/dynamics.py` (`cumulative_effects`, `multipliers`, `peak_horizon`, `granger_lags`, `hypotheses`, `evidence_reading`, `select_k`) y `PEAK_TIE_TOL` en la configuración.
   - Hecho cuando: `uv run pytest -q tests/test_dynamics.py` en verde. Con θ y ρ conocidos, S, S_rez, ψ_h y R(h) coinciden con una forma cerrada; `peak_horizon` resuelve el empate al menor h; `granger_lags` rechaza con θ_j ≠ 0 y no con θ_j = 0 (proceso E); `hypotheses` y `evidence_reading` en sus tres resultados y con la marca de signo contrario; `select_k` recupera K = 3 por BIC (proceso B) y resuelve el empate al menor K; proceso A: θ_j, ρ y γ dentro de 0,05 y S y S_rez dentro de 0,10.
 
-- [ ] **T3. Proyecciones locales.** RF-14 a RF-17, RNF-4 · agente: implementer
+- [x] **T3. Proyecciones locales.** RF-14 a RF-17, RNF-4 · agente: implementer
   - Incluye: `src/localproj.py` (`local_projection`, `run_local_projections`, `detection_horizon`, `compare_with_trajectory`).
   - Hecho cuando: `uv run pytest -q tests/test_localproj.py` en verde. Proceso C: |β_h − R(h)| ≤ 0,12 para h = 0..12 y |φ_h − 1| ≤ 0,20 para h = 1..12; φ₀ = 1 exacto con EE y banda «—» y sin `inf` ni `NaN`; la ventana HAC es max(fórmula, h + 1); un horizonte sin grados de libertad sale «no estimada» sin afectar a los demás; β₀ es θ₀ de la principal con el mismo EE; `detection_horizon` («ninguno» incluido) y el recuento «k de n» sin h = 0.
 
