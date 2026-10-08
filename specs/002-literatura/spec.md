@@ -1,5 +1,5 @@
 # Spec 002 — Literatura
-Estado: aprobada · Crítica: no
+Estado: implementada · Crítica: no
 
 ## Contexto y objetivo
 La sección 2 del informe (revisión de literatura) y las hipótesis de signo de las specs 003 y 004 necesitan una base bibliográfica en la que cada referencia exista y diga lo que se le atribuye. Los modelos de lenguaje inventan citas con facilidad, y la constitución (principio 5) prohíbe cualquier referencia sin DOI o URL verificada. Esta spec fija cómo se buscan, verifican y registran los estudios, y cómo se comprueba por código que ninguno es inventado.
