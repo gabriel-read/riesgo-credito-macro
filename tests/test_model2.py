@@ -57,11 +57,11 @@ def _texts(res) -> list[str]:
 # --- RF-2: forma de DRALACBS ---
 
 
-def test_stops_if_dralacbs_form_is_not_the_expected_one():
+def test_stops_if_dralacbs_form_is_not_the_expected_one(model1_result):
     st = make_stationarity()
     st.loc[(st["variable"] == "dralacbs") & (st["forma"] == "tal cual"), "decision"] = "niveles"
     with pytest.raises(ModelDataError) as e:
-        run_model2(make_full2(), st, END)
+        run_model2(make_full2(), st, END, model1_result)
     msg = str(e.value)
     assert "dralacbs" in msg and EXPECTED_FORM in msg and "niveles" in msg
 
@@ -103,10 +103,10 @@ def test_main_is_k_bic_and_matches_a_direct_estimation(result):
     assert np.allclose(result.main_fit.params, direct.params) and result.main_fit.hac_lags == 4
 
 
-def test_stops_naming_k_when_degrees_of_freedom_are_insufficient():
+def test_stops_naming_k_when_degrees_of_freedom_are_insufficient(model1_result):
     full = make_full2(n=53, start="2010Q1")            # M de 44 observaciones: K = 4 deja 29 gl
     with pytest.raises(ModelDataError) as e:
-        run_model2(full, make_stationarity(), full.index[-1])
+        run_model2(full, make_stationarity(), full.index[-1], model1_result)
     assert "K = 4" in str(e.value)
 
 

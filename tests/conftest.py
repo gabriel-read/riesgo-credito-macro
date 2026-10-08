@@ -32,10 +32,10 @@ def model1_result():
 
 
 @pytest.fixture(scope="session")
-def model2_result():
+def model2_result(model1_result):
     """Modelo II estimado sobre datos sintéticos (una sola vez por sesión; nunca datos reales)."""
     from src.model2 import run_model2
     from tests.synthetic_model1 import make_stationarity
     from tests.synthetic_model2 import END, make_full2
 
-    return run_model2(make_full2(), make_stationarity(), END)
+    return run_model2(make_full2(), make_stationarity(), END, model1_result)

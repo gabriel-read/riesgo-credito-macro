@@ -2,21 +2,28 @@
 
 Estima un modelo por K = 1..8 sobre la muestra común M, elige K por BIC (principal) y AIC (R1),
 calcula efectos acumulados, trayectoria, Granger, lectura de la evidencia, proyecciones locales y
-su comparación, diagnósticos y estacionariedad. Devuelve un `Model2Result` con tablas como
-DataFrame y sus notas de pie como texto. Las robusteces, limitaciones, desviaciones, exportación y la
-salida en Markdown/CSV se añaden en la tarea 6. Sin acceso a red, disco ni gráficos (RNF-7).
-RF-2 a RF-21.
+su comparación, diagnósticos y estacionariedad, las robusteces R1–R3, las limitaciones, las
+desviaciones, los insumos de la sección 6.3, la exportación para la spec 005 y la salida en Markdown y
+CSV como texto (sin escribir a disco). Devuelve un `Model2Result`. Sin acceso a red, disco ni gráficos
+(RNF-7). RF-2 a RF-27, RF-29, RF-30.
 """
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
 
 from src.design import Design, ModelDataError, check_expected_forms, diff_form_stationary, read_decisions
-from src.design2 import build_columns, build_design2, common_window
+from src.design2 import (
+    build_columns,
+    build_design2,
+    common_window,
+    covid_lag_leaks,
+    lagged_from_excluded,
+)
 from src.diagnostics import (
     breusch_godfrey,
     breusch_pagan,
@@ -38,19 +45,28 @@ from src.dynamics import (
 )
 from src.estimation import Fit, _impulse_dummy_cols, check_dof, fit_ols_hac, inference
 from src.localproj import compare_with_trajectory, run_local_projections
-from src.model1_config import ALPHA, CHOW_BREAKS, VIF_ALERT
+from src.model1 import fmt_p, is_robust
+from src.model1_config import CHOW_BREAKS, MAIN_START, ROBUST_ALPHA
 from src.model2_config import (
     CHOW_POST_MIN,
     CONTROLS,
+    COVID_QUARTERS,
     EXPECTED_FORM,
+    FIXED_DEVIATIONS2,
+    FIXED_LIMITATIONS2,
+    K_MAX,
     K_RANGE,
+    LP_BAND_Z,
     MAIN2,
+    PREREG_DEVIATIONS2,
     RHO_WARN,
+    ROBUST2,
+    Spec2,
     dffr_cols,
     term_label2,
 )
 from src.stationarity import is_stationary
-from src.tables import fmt_es, quarter_label
+from src.tables import fmt_es, quarter_label, to_markdown
 
 IMPULSE_SE_NOTE = "EE HAC no informativo: dummy de impulso con residuo nulo"
 RANK_NOTE = "rango reducido por dummies de impulso (esperado)"
@@ -60,8 +76,33 @@ _DASH = "—"
 
 
 @dataclass(frozen=True)
+class VariantOutcome2:
+    """Resultado de una robustez: estimada, «no estimada» con su motivo o «no aplica» (RF-22, RF-23)."""
+
+    spec: Spec2
+    status: str            # "estimada" | "no estimada" | "no aplica"
+    reason: str            # "" si está estimada
+    design: Design | None
+    fit: Fit | None
+    effects: dict | None
+    peak: dict | None
+    hyp: dict | None
+
+    @property
+    def estimated(self) -> bool:
+        return self.status == "estimada" and self.fit is not None
+
+    @property
+    def K(self) -> int | None:
+        """K de la variante: ΔFFR(t..t−K) en su diseño."""
+        if self.design is None:
+            return None
+        return sum(c.startswith("d_ffr_l") for c in self.design.X.columns) - 1
+
+
+@dataclass(frozen=True)
 class Model2Result:
-    """Resultado del Modelo II hasta la tarea 5 (las robusteces y exportaciones llegan en la tarea 6)."""
+    """Resultado del Modelo II."""
 
     decision: str
     window: tuple[pd.Period, pd.Period]
@@ -95,6 +136,16 @@ class Model2Result:
     cusum: dict
     stationarity: pd.DataFrame
     stationarity_note: str
+    lp_note: str
+    variants: list[VariantOutcome2]
+    robustness_estimates: pd.DataFrame
+    robustness_summary: pd.DataFrame
+    robustness_note: str
+    limitations: pd.DataFrame
+    deviations: pd.DataFrame
+    inputs63: pd.DataFrame
+    inputs63_note: str
+    export: dict
 
 
 # --- Selección (RF-3, RF-7) ---
@@ -255,12 +306,14 @@ def reading_table2(granger: dict, effects: dict, reading: dict, K: int) -> pd.Da
     s_rez = effects["S_rez"]
     label = reading["etiqueta"] + (" · signo contrario al esperado" if reading["signo_contrario"] else "")
     rows = [
-        (f"Granger: θ1 = … = θ{K} = 0", granger["stat"], float(granger["df"]), granger["p"], granger["veredicto"]),
+        (f"Granger: θ1 = … = θ{K} = 0", granger["stat"], granger["df"], granger["p"], granger["veredicto"]),
         ("C1: Granger rechaza al 5 %", np.nan, np.nan, np.nan, "sí" if reading["c1"] else "no"),
-        ("C2: S_rez > 0 con p < 0,05", s_rez["chi2"], 1.0, s_rez["p"], "sí" if reading["c2"] else "no"),
+        ("C2: S_rez > 0 con p < 0,05", s_rez["chi2"], 1, s_rez["p"], "sí" if reading["c2"] else "no"),
         ("Lectura de «¿hay efectos rezagados?»", np.nan, np.nan, np.nan, label),
     ]
-    return pd.DataFrame(rows, columns=["elemento", "estadistico", "gl", "p", "resultado"])
+    df = pd.DataFrame(rows, columns=["elemento", "estadistico", "gl", "p", "resultado"])
+    df["gl"] = df["gl"].astype("Int64")
+    return df
 
 
 def reading_note2(K: int) -> str:
@@ -402,17 +455,405 @@ def stationarity_note2() -> str:
     )
 
 
-# --- Orquestación (RF-2 a RF-21) ---
+# --- Proyecciones locales: pie (RF-14 a RF-16) ---
 
 
-def run_model2(full: pd.DataFrame, stationarity: pd.DataFrame, end: pd.Period) -> Model2Result:
-    """Estima el Modelo II hasta la especificación principal y sus tablas.
+def lp_note2() -> str:
+    return (
+        "Nota: β_h es el coeficiente de ΔFFR(t) en la regresión de DR(t+h) − DR(t−1) y φ_h el de la regresión de "
+        "FFR(t+h) − FFR(t−1), con los mismos controles y las dummies COVID fechadas en t; cada horizonte usa su "
+        "propia muestra, que termina h trimestres antes del último común; ventana HAC de max(fórmula, h + 1) "
+        f"rezagos; banda del 90 % = estimación ± {fmt_es(LP_BAND_Z, 4)}·EE. En h = 0, φ_0 = 1 por construcción "
+        "(identidad) y no lleva error ni banda; un horizonte «no estimada» no afecta a los demás."
+    )
+
+
+# --- Robusteces (RF-22 a RF-24) ---
+
+
+def run_variant2(full: pd.DataFrame, spec: Spec2, K_main: int, k_aic: int, decision: str,
+                 window: tuple[pd.Period, pd.Period], end: pd.Period) -> VariantOutcome2:
+    """Estima una robustez con el mismo estimador y las mismas reglas que la principal (RF-22, RF-23).
+
+    R1 usa K_AIC y es «no aplica» si coincide con K_BIC; R2 y R3 usan el K de la principal y omiten las
+    dummies COVID. Menos de 30 grados de libertad o rango incompleto: «no estimada» con su motivo. Un
+    faltante dentro de la muestra es un error (RF-4), no una variante «no estimada».
+    """
+    K = K_main
+    if spec.k_source == "aic":
+        if k_aic == K_main:
+            return VariantOutcome2(spec, "no aplica", "AIC y BIC eligen el mismo K", None, None, None, None, None)
+        K = k_aic
+    design = build_design2(full, spec, K, decision, window, end)
+    reason = check_dof(design)
+    if reason:
+        return VariantOutcome2(spec, "no estimada", reason, design, None, None, None, None)
+    fit = fit_ols_hac(design)
+    effects = cumulative_effects(fit, K)
+    peak = peak_horizon(multipliers(fit.params, K)["psi"])
+    return VariantOutcome2(spec, "estimada", "", design, fit, effects, peak, hypotheses(effects, peak))
+
+
+def _ranges_text(quarters: list[pd.Period]) -> str:
+    """«2009T1–2015T4, 2020T2–2021T1»: trimestres consecutivos agrupados en rangos."""
+    if not quarters:
+        return ""
+    groups: list[list[pd.Period]] = [[quarters[0]]]
+    for q in quarters[1:]:
+        if q.ordinal - groups[-1][-1].ordinal == 1:
+            groups[-1].append(q)
+        else:
+            groups.append([q])
+    return ", ".join(
+        quarter_label(g[0]) if len(g) == 1 else f"{quarter_label(g[0])}–{quarter_label(g[-1])}" for g in groups
+    )
+
+
+def _excluded_quarters(o: VariantOutcome2, window: tuple[pd.Period, pd.Period]) -> list[pd.Period]:
+    if o.design is None:
+        return []
+    kept = set(o.design.X.index)
+    return [q for q in pd.period_range(window[0], window[1], freq="Q-DEC") if q not in kept]
+
+
+def _variant_note2(o: VariantOutcome2, window: tuple[pd.Period, pd.Period]) -> str:
+    if o.spec.k_source == "aic":
+        return "K elegido por AIC sobre la misma muestra M"
+    parts = []
+    excluded = _excluded_quarters(o, window)
+    if excluded:
+        parts.append(f"excluye {_ranges_text(excluded)}; los trimestres vecinos se tratan como contiguos en la "
+                     "ventana HAC")
+    if not o.spec.covid_dummies:
+        parts.append("sin dummies COVID")
+    return "; ".join(parts)
+
+
+def robustness_estimates2(outcomes: list[VariantOutcome2],
+                          window: tuple[pd.Period, pd.Period] | None = None) -> pd.DataFrame:
+    """Una fila por variante: K, muestra, observaciones, ventana HAC, S y S_rez, h* y H1 (RF-22).
+
+    «no estimada» y «no aplica» llevan su estado y motivo y «—» en el resto.
+    """
+    rows = []
+    for o in outcomes:
+        base = {"variante": o.spec.id, "etiqueta": o.spec.label, "estado": o.status, "motivo": o.reason}
+        if not o.estimated:
+            rows.append({**base, "K": pd.NA, "inicio": _DASH, "fin": _DASH, "n_obs": pd.NA, "rezagos_hac": pd.NA,
+                         "S": np.nan, "ee_S": np.nan, "p_S": np.nan, "S_rez": np.nan, "ee_S_rez": np.nan,
+                         "p_S_rez": np.nan, "h_estrella": pd.NA, "h1": _DASH, "nota": ""})
+            continue
+        index = o.design.X.index
+        e = o.effects
+        rows.append({
+            **base, "K": o.K, "inicio": quarter_label(index.min()), "fin": quarter_label(index.max()),
+            "n_obs": int(o.fit.nobs), "rezagos_hac": int(o.fit.hac_lags),
+            "S": e["S"]["est"], "ee_S": e["S"]["se"], "p_S": e["S"]["p"],
+            "S_rez": e["S_rez"]["est"], "ee_S_rez": e["S_rez"]["se"], "p_S_rez": e["S_rez"]["p"],
+            "h_estrella": o.peak["h_star"],
+            "h1": f"{o.hyp['h1_signo']}; {'respaldada' if o.hyp['h1_respaldada'] == 'sí' else 'no respaldada'}",
+            "nota": _variant_note2(o, window) if window else "",
+        })
+    df = pd.DataFrame(rows)
+    for col in ("K", "n_obs", "rezagos_hac", "h_estrella"):
+        df[col] = df[col].astype("Int64")
+    return df
+
+
+def robustness_summary2(main_effects: dict, outcomes: list[VariantOutcome2]) -> pd.DataFrame:
+    """S_rez (y S) por variante: «sí», «no», «no estimada» o «no aplica», y el recuento «k de n» (RF-24).
+
+    Criterio pre-registrado: mismo signo que la principal y p < 0,10 con errores HAC. n cuenta solo las
+    variantes estimadas.
+    """
+    rows = []
+    for key, label in (("S_rez", "S_rez (efecto de los rezagos)"), ("S", "S (efecto acumulado)")):
+        row: dict = {"termino": key, "etiqueta": label, "p_principal": main_effects[key]["p"]}
+        k = n = 0
+        for o in outcomes:
+            if not o.estimated:
+                row[o.spec.id] = o.status
+                continue
+            ok = is_robust(main_effects[key]["est"], o.effects[key]["est"], o.effects[key]["p"], ROBUST_ALPHA)
+            row[o.spec.id] = "sí" if ok else "no"
+            k += int(ok)
+            n += 1
+        row.update({"k": k, "n": n, "robustez": f"{k} de {n}"})
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def robustness_note2(outcomes: list[VariantOutcome2], window: tuple[pd.Period, pd.Period]) -> str:
+    """Pie de la tabla resumen de robustez (RF-24): criterio, K, exclusiones y rezagos que salen de ellas."""
+    ks = ", ".join(f"{o.spec.id} = {o.K}" if o.K is not None else f"{o.spec.id} {o.status}" for o in outcomes)
+    parts = [
+        "criterio de robustez: mismo signo que la principal y p < 0,10 con errores HAC, aplicado a S_rez (se "
+        "reporta también S); «k de n» cuenta solo las variantes estimadas («no estimada» y «no aplica» salen del "
+        "denominador); «sí» significa el mismo signo que la principal, aunque ese signo sea contrario al "
+        "esperado",
+        f"K: {ks}",
+    ]
+    leaks = []
+    for o in outcomes:
+        if o.spec.k_source == "aic":
+            continue
+        excluded = _excluded_quarters(o, window)
+        if not excluded:
+            continue
+        if o.spec.exclude_zero_rate:
+            parts.append(f"{o.spec.id} excluye {len(excluded)} trimestres de tasa cero ({_ranges_text(excluded)})")
+        else:
+            parts.append(f"{o.spec.id} excluye {_ranges_text(excluded)}")
+        lagged = lagged_from_excluded(o.design, o.K, set(excluded))
+        if lagged:
+            leaks.append(f"{o.spec.id}: {_ranges_text(lagged)}")
+    if leaks:
+        parts.append("trimestres cuyos rezagos salen de trimestres excluidos (historia transformada), calculados "
+                     "por código: " + "; ".join(leaks))
+    return "Nota: " + "; ".join(parts) + "."
+
+
+# --- Limitaciones (RF-25) ---
+
+
+def _diagnostic_detail2(row: pd.Series) -> str:
+    stat, p = row["estadístico"], row["p_valor"]
+    if pd.notna(p):
+        detail = f"estadístico {fmt_es(stat, 3)}, {'p < 0,001' if p < 0.001 else f'p = {fmt_es(p, 3)}'}"
+    elif pd.notna(stat):
+        detail = f"estadístico {fmt_es(stat, 3)}"
+    else:
+        detail = "sin estadístico"
+    prueba = str(row["prueba"])
+    if prueba == "Breusch-Godfrey":
+        detail += ("; con el rezago de la dependiente, MCO puede ser inconsistente (se declara como limitación; "
+                   "añadir rezagos tras ver el resultado exige un /sdd-change)")
+    elif prueba.startswith("VIF"):
+        detail += "; posible multicolinealidad: se reporta y no se elimina ningún regresor"
+    elif row["nota"]:
+        detail += f"; {row['nota']}"
+    else:
+        detail += "; se reporta y se discute qué implica para las conclusiones"
+    return detail
+
+
+def limitations_table2(K: int, k_aic: int, k_bic: int, diagnostics: pd.DataFrame, fit: Fit,
+                       outcomes: list[VariantOutcome2], lp: pd.DataFrame, model_stationarity: pd.DataFrame,
+                       window: tuple[pd.Period, pd.Period]) -> pd.DataFrame:
+    """Limitaciones fijas más las detectadas por el código (RF-25)."""
+    rows = [{"limitacion": n, "detalle": d, "origen": "fija"} for n, d in FIXED_LIMITATIONS2]
+
+    def add(name: str, detail: str) -> None:
+        rows.append({"limitacion": name, "detalle": detail, "origen": "detectada"})
+
+    for label, value in (("K_BIC", k_bic), ("K_AIC", k_aic)):
+        if value == K_MAX:
+            add(f"{label} = {K_MAX}", f"el óptimo según {label[2:]} puede estar fuera del rango 1..{K_MAX}; el "
+                                       "rango no se amplía")
+    for _, r in diagnostics[diagnostics["veredicto"].isin(["falla", "alerta"])].iterrows():
+        add(f"{r['prueba']}: {r['veredicto']}", _diagnostic_detail2(r))
+    for _, r in diagnostics[diagnostics["veredicto"] == NOT_CALCULABLE].iterrows():
+        add(f"{r['prueba']}: {NOT_CALCULABLE}", str(r["nota"]))
+    if fit.psd_adjusted or any(o.estimated and o.fit.psd_adjusted for o in outcomes):
+        where = (["principal"] if fit.psd_adjusted else []) + [o.spec.id for o in outcomes
+                                                               if o.estimated and o.fit.psd_adjusted]
+        add("Truncamiento espectral de la covarianza HAC",
+            "Se aplicó al sub-bloque sin dummies de impulso en: " + ", ".join(where) + ".")
+    for o in outcomes:
+        if o.status == "no estimada":
+            add(f"Variante {o.spec.id} no estimada", o.reason)
+    off = lp[lp["estado"] == "no estimada"]
+    if len(off):
+        hs = ", ".join(f"h = {int(h)}" for h in off["h"])
+        add("Horizontes de las proyecciones locales no estimados", f"{hs}: {'; '.join(sorted(set(off['motivo'])))}")
+    flagged = [str(e).split(" — ")[0].split(" (")[0] for e in
+               model_stationarity.loc[model_stationarity["no_i0"] == "sí", "etiqueta"]]
+    if flagged:
+        add("Regresores no I(0)",
+            f"{', '.join(flagged)}: no son I(0) según la regla de la spec 001; entran en su forma fija y su no "
+            "estacionariedad residual se declara como limitación.")
+    leaks = covid_lag_leaks(fit.design, K)
+    if leaks:
+        first, last = (quarter_label(pd.Period(q, "Q-DEC")) for q in (COVID_QUARTERS[0], COVID_QUARTERS[-1]))
+        add(f"Rezagos de ΔFFR o ΔDR desde {first}–{last} sin dummy",
+            f"En {_ranges_text(leaks)} de la muestra principal, algún rezago de ΔFFR o de ΔDR sale de {first}–{last} "
+            "y esos rezagos no llevan dummy propia.")
+    return pd.DataFrame(rows, columns=["limitacion", "detalle", "origen"])
+
+
+# --- Desviaciones (RF-26) ---
+
+
+def deviations_table2(window: tuple[pd.Period, pd.Period], nobs: int) -> pd.DataFrame:
+    """Desviaciones y decisiones frente a la guía y a la spec 003 (RF-26)."""
+    first, last = (quarter_label(q) for q in window)
+    rows = [(
+        f"Muestra M {first}–{last} (n = {nobs}) en lugar de la del Modelo I, que empieza en "
+        f"{quarter_label(MAIN_START)}",
+        "Spec 003 y guía, sección 11",
+        f"M empieza un trimestre después de la del Modelo I por los {K_MAX} rezagos de ΔFFR que exige el rango de "
+        f"K; termina en {last}, el último trimestre común, y no en el 2026-01-01 del ejemplo de descarga de la guía.",
+    )]
+    rows.extend(FIXED_DEVIATIONS2)
+    rows.extend((f"{fecha} · {cambio}", "Pre-registro de la spec 004", motivo)
+                for fecha, cambio, motivo in PREREG_DEVIATIONS2)
+    return pd.DataFrame(rows, columns=["decision", "referencia", "motivo"])
+
+
+# --- Insumos de la sección 6.3 (RF-27) ---
+
+
+def comparison_inputs(main_fit: Fit, window: tuple[pd.Period, pd.Period], coef1: pd.DataFrame,
+                      footer1: dict) -> tuple[pd.DataFrame, str]:
+    """θ0 del Modelo II y el coeficiente de ΔFFR(t) del Modelo I (leído de sus salidas), con su EE, p, muestra,
+    observaciones y forma de los controles (RF-27)."""
+    m1 = coef1.set_index("termino").loc["d_ffr"]
+    inf = inference(main_fit.params, main_fit.cov).loc["d_ffr_l0"]
+    rows = [
+        {"modelo": "Modelo I (spec 003)", "termino": "ΔFFR(t)", "coef": float(m1["coef"]),
+         "ee_hac": float(m1["ee_hac"]), "p": float(m1["p"]),
+         "muestra": f"{footer1['muestra_inicio']}–{footer1['muestra_fin']}", "n_obs": int(footer1["n_obs"]),
+         "controles": "contemporáneos (PIB, ΔU, π y ΔFFR del mismo trimestre; CRED rezagado 4 trimestres)"},
+        {"modelo": "Modelo II (spec 004)", "termino": "θ0 = ΔFFR(t)", "coef": float(inf["coef"]),
+         "ee_hac": float(inf["se"]), "p": float(inf["p"]),
+         "muestra": f"{quarter_label(window[0])}–{quarter_label(window[1])}", "n_obs": int(main_fit.nobs),
+         "controles": "rezagados (PIB, ΔU y π un trimestre; CRED cuatro trimestres)"},
+    ]
+    note = (
+        "Nota: insumos para la comparación de la sección 6.3; el coeficiente del Modelo I se lee de las salidas de "
+        "la spec 003; ambos son asociaciones condicionales con errores HAC y los controles de cada modelo entran en "
+        "la forma indicada; la redacción de la comparación corresponde a la spec 006."
+    )
+    return pd.DataFrame(rows), note
+
+
+# --- Exportación para la spec 005 (RF-29) ---
+
+
+def _term_source(term: str) -> dict | None:
+    if term == "y_lag":
+        return {"column": "dralacbs", "lag": 1}
+    if term.startswith("d_ffr_l"):
+        return {"column": "fedfunds_d", "lag": int(term.removeprefix("d_ffr_l"))}
+    if term in CONTROLS:
+        column, lag = CONTROLS[term]
+        return {"column": column, "lag": lag}
+    return None
+
+
+def export2(fit: Fit, K: int, trajectory: pd.DataFrame, peak: dict, reading: dict) -> dict:
+    """Coeficientes, covarianza HAC, K, muestra, trayectoria y lectura para la prueba de estrés (RF-29)."""
+    index = fit.design.X.index
+    return {
+        "spec": "004-modelo-ii",
+        "dependent": "dralacbs",
+        "form": fit.design.form,
+        "k": int(K),
+        "k_criterion": "BIC",
+        "terms": list(fit.params.index),
+        "columns": {t: _term_source(t) for t in fit.params.index},
+        "params": fit.params.to_numpy(dtype=float).tolist(),
+        "cov_hac": fit.cov.to_numpy(dtype=float).tolist(),
+        "psd_adjusted": bool(fit.psd_adjusted),
+        "hac_lags": int(fit.hac_lags),
+        "sample_start": quarter_label(index.min()),
+        "sample_end": quarter_label(index.max()),
+        "nobs": int(fit.nobs),
+        "covid_quarters": [quarter_label(pd.Period(q, "Q-DEC")) for q in COVID_QUARTERS],
+        "psi": trajectory["psi"].astype(float).tolist(),
+        "response": trajectory["R"].astype(float).tolist(),
+        "h_star": {"h": int(peak["h_star"]), "signo": peak["signo"]},
+        "reading": {"etiqueta": reading["etiqueta"], "c1": bool(reading["c1"]), "c2": bool(reading["c2"])},
+    }
+
+
+def export2_json(export: dict) -> str:
+    """JSON determinista (claves en orden, floats con precisión completa, sin NaN)."""
+    return json.dumps(export, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
+
+
+# --- Salida en Markdown y CSV como texto (RF-30) ---
+
+
+def fmt_kpss_p2(p: float) -> str:
+    """p de KPSS como en la spec 001: statsmodels lo trunca a [0,01; 0,10]; «> 0,10» y «< 0,01» (D9)."""
+    if pd.isna(p):
+        return _DASH
+    if p >= 0.10 - 1e-12:
+        return "> 0,10"
+    if p <= 0.01 + 1e-12:
+        return "< 0,01"
+    return fmt_es(p, 3)
+
+
+def _is_p_column(name: str) -> bool:
+    return name in ("p", "p_valor", "adf_p") or name.startswith("p_")
+
+
+def _format_cell(column: str, value) -> str:
+    if value is None or value is pd.NA or (isinstance(value, float) and np.isnan(value)):
+        return _DASH
+    if column == "kpss_p":
+        return fmt_kpss_p2(float(value))
+    if _is_p_column(column) and not isinstance(value, str):
+        return fmt_p(float(value))
+    if isinstance(value, (bool, np.bool_)):
+        return "sí" if value else "no"
+    if isinstance(value, (int, np.integer)):
+        return str(int(value))
+    if isinstance(value, (float, np.floating)):
+        return fmt_es(float(value), 3)
+    return str(value)
+
+
+def _format_for_markdown2(df: pd.DataFrame) -> pd.DataFrame:
+    return pd.DataFrame({c: [_format_cell(c, v) for v in df[c]] for c in df.columns}, index=df.index)
+
+
+def render_model2_tables(result: Model2Result) -> dict[str, dict[str, str]]:
+    """Las 14 tablas del Modelo II como texto Markdown y CSV, sin escribir a disco (RF-30).
+
+    El Markdown usa coma decimal, «< 0,001» y «—» para los valores nulos; el CSV conserva la precisión
+    completa con punto decimal y «—» en los nulos. Las tablas que lo exigen cierran con su nota.
+    """
+    tables = {
+        "model2_selection": (result.selection, result.selection_note),
+        "model2_coefficients": (result.coefficients, result.coef_note),
+        "model2_effects": (result.effects, result.effects_note),
+        "model2_trajectory": (result.trajectory, result.trajectory_note),
+        "model2_reading": (result.reading_table, result.reading_note),
+        "model2_lp": (result.lp, result.lp_note),
+        "model2_comparison": (result.comparison, result.comparison_note),
+        "model2_diagnostics": (result.diagnostics, ""),
+        "model2_stationarity": (result.stationarity, result.stationarity_note),
+        "model2_robustness_estimates": (result.robustness_estimates, ""),
+        "model2_robustness_summary": (result.robustness_summary, result.robustness_note),
+        "model2_limitations": (result.limitations, ""),
+        "model2_deviations": (result.deviations, ""),
+        "model2_inputs63": (result.inputs63, result.inputs63_note),
+    }
+    out: dict[str, dict[str, str]] = {}
+    for stem, (df, note) in tables.items():
+        md = to_markdown(_format_for_markdown2(df))
+        if note:
+            md += "\n\n" + note
+        out[stem] = {"md": md, "csv": df.to_csv(index=False, lineterminator="\n", na_rep=_DASH)}
+    return out
+
+
+# --- Orquestación (RF-2 a RF-27) ---
+
+
+def run_model2(full: pd.DataFrame, stationarity: pd.DataFrame, end: pd.Period, result1) -> Model2Result:
+    """Estima el Modelo II completo: selección, principal, robusteces y tablas.
 
     1. Comprueba la forma de DRALACBS (RF-2) antes de estimar nada.
     2. Calcula la muestra común M con K = 8 (RF-3) y estima un modelo por K = 1..8 sobre ella; si alguno
        no tiene grados de libertad o rango completo, se detiene nombrando el K (RF-5).
     3. K_BIC es el principal (RF-6); calcula efectos, trayectoria, Granger, lectura (RF-10 a RF-13),
        proyecciones locales y su comparación (RF-14 a RF-17), diagnósticos y estacionariedad.
+    4. Estima R1–R3 (RF-22 a RF-24), arma limitaciones, desviaciones, insumos de la 6.3 (con el coeficiente de
+       ΔFFR(t) que `result1`, el Modelo I, ya calculó) y la exportación para la spec 005.
     """
     decisions = read_decisions(stationarity)
     check_expected_forms(decisions, {"dralacbs": EXPECTED_FORM})
@@ -440,6 +881,10 @@ def run_model2(full: pd.DataFrame, stationarity: pd.DataFrame, end: pd.Period) -
     trajectory = trajectory_table(traj, peak)
     comparison, counts = compare_with_trajectory(trajectory, lp)
     footer = coefficient_footer2(main, K)
+    variants = [run_variant2(full, spec, K, sel["k_aic"], decision, window, end) for spec in ROBUST2]
+    diagnostics = diagnostics_table2(main, K)
+    stationarity2 = stationarity_table2(stationarity)
+    inputs63, inputs63_note = comparison_inputs(main, window, result1.coefficients, result1.coef_footer)
     return Model2Result(
         decision=decision, window=window, nobs=nobs, K=K, k_aic=sel["k_aic"], k_bic=sel["k_bic"],
         fits=fits, main_fit=main,
@@ -451,6 +896,14 @@ def run_model2(full: pd.DataFrame, stationarity: pd.DataFrame, end: pd.Period) -
         granger=granger, reading=reading, reading_table=reading_table2(granger, effects, reading, K),
         reading_note=reading_note2(K),
         lp=lp, comparison=comparison, comparison_counts=counts, comparison_note=comparison_note2(counts),
-        diagnostics=diagnostics_table2(main, K), cusum=cusum(main),
-        stationarity=stationarity_table2(stationarity), stationarity_note=stationarity_note2(),
+        diagnostics=diagnostics, cusum=cusum(main),
+        stationarity=stationarity2, stationarity_note=stationarity_note2(),
+        lp_note=lp_note2(), variants=variants,
+        robustness_estimates=robustness_estimates2(variants, window),
+        robustness_summary=robustness_summary2(effects, variants),
+        robustness_note=robustness_note2(variants, window),
+        limitations=limitations_table2(K, sel["k_aic"], sel["k_bic"], diagnostics, main, variants, lp,
+                                       stationarity2, window),
+        deviations=deviations_table2(window, nobs), inputs63=inputs63, inputs63_note=inputs63_note,
+        export=export2(main, K, trajectory, peak, reading),
     )
