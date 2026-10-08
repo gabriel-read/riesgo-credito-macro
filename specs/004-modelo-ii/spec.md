@@ -139,7 +139,7 @@ Sobre la especificación principal: Breusch-Godfrey con 4 rezagos (LM), Breusch-
 - RF-18: EL SISTEMA producirá un gráfico con dos paneles: la respuesta acumulada de la morosidad (β_h con su banda del 90 % y R(h) superpuesta) y la respuesta de la tasa (φ_h con su banda), con ejes y leyenda en español y el pie de fuente.
 
 ### Diagnósticos y estacionariedad
-- RF-19: EL SISTEMA producirá la tabla de diagnósticos con estadístico, p-valor y veredicto de cada prueba (con las reglas de veredicto de la spec 003 para el CUSUM y el VIF, que no tienen p), y el gráfico CUSUM con bandas al 5 %.
+- RF-19: EL SISTEMA producirá la tabla de diagnósticos con estadístico, p-valor y veredicto de cada prueba (con las reglas de veredicto de la spec 003 para el CUSUM y el VIF, que no tienen p), y el gráfico CUSUM con bandas al 5 %. SI en White n − rango(Z_aux) < 30 (el umbral de grados de libertad de la spec 003) o la auxiliar tiene más columnas que observaciones, ENTONCES la fila de White figurará como «no calculable» con su motivo y sin veredicto.
 - RF-20: La nota de cada fila de Chow indicará los trimestres útiles anteriores y posteriores al quiebre, calculados por código. SI los posteriores son menos de 30, ENTONCES la nota añadirá, sin dirección: «el tamaño empírico del contraste puede diferir del 5 % nominal». SI el bloque de interacciones tiene rango incompleto, ENTONCES la fila figurará como «no calculable» con su motivo y sin veredicto. En los demás casos, el veredicto sigue a p.
 - RF-21: EL SISTEMA producirá una tabla de estacionariedad del modelo con ΔDR, ΔFFR y los cuatro controles en la forma en que entran, con el ADF y el KPSS copiados de la tabla de la spec 001, su decisión y su orden de integración, y la marca «no I(0)». El ADF se escribe «< 0,001» si procede y el KPSS truncado de statsmodels se escribe «> 0,10» o «< 0,01», como en la spec 001; los CSV conservan los valores.
 
@@ -192,7 +192,7 @@ Sobre la especificación principal: Breusch-Godfrey con 4 rezagos (LM), Breusch-
 - RNF-3 (tests de efectos, trayectoria y lectura): S, S_rez, sus Wald, ψ_h y R(h) (comprobados con una forma cerrada), h\*, el empate de h\*, la prueba de Granger y la regla de lectura (sus tres resultados y la marca de signo contrario) tienen tests con datos sintéticos. Granger rechaza con θ_j ≠ 0 y no rechaza con θ_j = 0.
 - RNF-4 (tests de las proyecciones locales): con un proceso simulado en que ΔFFR es ruido blanco y los controles son independientes, β_h recupera R(h) y φ_h recupera la respuesta de la tasa, dentro de una tolerancia declarada en el plan; y la ventana HAC es al menos h + 1.
 - RNF-5 (tests de las notas): cada nota de pie que esta spec exige (RF-8, RF-11, RF-17, RF-20, RF-24 y las de limitaciones) tiene un test que comprueba su texto y que sus cifras salen del código.
-- RNF-6 (tests de los diagnósticos): el Chow con K + 7 interacciones, el CUSUM sin los trimestres de las dummies y White con eliminación por rango tienen tests con procesos simulados: Breusch-Godfrey rechaza con errores AR(1) de coeficiente 0,7 y no con errores independientes, y el Chow rechaza con un quiebre simulado en las pendientes y no sin él.
+- RNF-6 (tests de los diagnósticos): el Chow con K + 7 interacciones, el CUSUM sin los trimestres de las dummies y White con eliminación por rango tienen tests con procesos simulados: Breusch-Godfrey rechaza con errores AR(1) de coeficiente 0,7 y no con errores independientes, y el Chow rechaza con un quiebre simulado en las pendientes y no sin él. Con la dimensión del Modelo II (n = 105), White da «no calculable» con K = 8 y un resultado válido con K = 1.
 - RNF-7 (semillas): en los tests de simulación, X y el ruido de y salen de semillas independientes.
 - RNF-8 (reproducibilidad): dos corridas del pipeline sobre los mismos datos congelados producen tablas, figuras, JSON y variables idénticos byte a byte.
 - RNF-9 (sin red, lógica separada): los tests no usan la red; la estimación, la selección, los efectos, las proyecciones y los diagnósticos son funciones puras sin red, disco ni gráficos, y no rellenan ni descartan faltantes.
@@ -209,6 +209,7 @@ Sobre la especificación principal: Breusch-Godfrey con 4 rezagos (LM), Breusch-
 - **ρ̂ cerca de 1:** R(h) se calcula igual (es finita para h ≤ 12) y el pie avisa (ρ̂ ≥ 0,95, y |ρ̂| ≥ 1 como dinámica explosiva).
 - **Breusch-Godfrey rechaza con ΔDR(t−1) en la ecuación:** se declara la posible inconsistencia de MCO como limitación; añadir rezagos tras ver el resultado exige un `/sdd-change`.
 - **Bloque de interacciones del Chow con rango incompleto:** la fila es «no calculable» (RF-20).
+- **White con más columnas que observaciones, o con n − rango(Z_aux) < 30:** la fila es «no calculable» con su motivo (RF-19). Con la muestra M de 105 observaciones ocurre desde K = 4.
 - **Un horizonte de la proyección local sin grados de libertad suficientes:** «no estimada» solo para ese h.
 - **Ninguna banda de la proyección excluye el cero:** el horizonte de detección es «ninguno».
 - **La decisión de estacionariedad de DRALACBS cambia en la spec 001:** se detiene (RF-2).
@@ -227,6 +228,7 @@ Sobre la especificación principal: Breusch-Godfrey con 4 rezagos (LM), Breusch-
 - El uso del efecto de la tasa en el estrés más allá de la regla heredada (spec 005).
 - La redacción de la interpretación, de la discusión y de la comparación narrativa con el Modelo I (spec 006).
 - Unificar en la spec 003 la notación del KPSS truncado con la de la 001.
+- Cambiar el método de White (sin productos cruzados o caso especial en ŷ y ŷ²): se pre-registra la regla «no calculable» y el método se mantiene.
 
 ## Criterios de finalización
 - Spec aprobada y commiteada antes de la primera estimación (RNF-1).
@@ -237,7 +239,8 @@ Sobre la especificación principal: Breusch-Godfrey con 4 rezagos (LM), Breusch-
 - `specs/004-modelo-ii/review-validate.md` y `specs/004-modelo-ii/review-audit.md` con `VEREDICTO: APROBADO`.
 
 ## Desviaciones del pre-registro
-(vacío)
+- 2026-10-08 · `/sdd-change` tras la auditoría del plan (`review-plan.md`), **antes de cualquier estimación del Modelo II** (pre-registro original: commit `ec983d0`).
+  - (C1) White pasa a «no calculable», con su motivo y sin veredicto, cuando n − rango(Z_aux) < 30 o la auxiliar tiene más columnas que observaciones (RF-19, casos límite, RNF-6 y fuera de alcance). Motivo: con n = 105 la auxiliar completa tiene más columnas que observaciones desde K = 4 (119 con K = 4 y 189 con K = 8) y la función de la spec 003 lanzaba un error; la regla se fija ahora, sin conocer K, en vez de decidir cómo calcular White después de ver el K elegido.
 
 ## Dudas abiertas
 (ninguna)
