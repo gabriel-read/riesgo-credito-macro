@@ -62,3 +62,27 @@ ROBUST2 = [
     Spec2("R2", "Sin 2020–2021", exclude_range=EXCLUDE_COVID, covid_dummies=False),
     Spec2("R3", "Sin tramos de tasa cero", exclude_zero_rate=True, covid_dummies=False),
 ]
+
+
+# --- Etiquetas en español ---
+
+TERM_LABELS2: dict[str, str] = {
+    "const": "Constante",
+    "y_lag": "ΔDR(t−1) — rezago de la dependiente",
+    "d_ffr_l0": "ΔFFR(t) (cambio trimestral de la tasa de la Fed, pp)",
+    **{f"d_ffr_l{j}": f"ΔFFR(t−{j})" for j in range(1, K_MAX + 1)},
+    "gdp_l1": "PIB(t−1) (variación interanual del PIB real, %)",
+    "d_unemp_l1": "ΔU(t−1) (cambio trimestral del desempleo, pp)",
+    "inflation_l1": "π(t−1) (inflación interanual, %)",
+    "credit_l4": "CRED(t−4) (variación interanual de préstamos, %)",
+}
+
+
+def term_label2(term: str) -> str:
+    """Etiqueta en español de un término del Modelo II (incluidas las dummies COVID)."""
+    if term in TERM_LABELS2:
+        return TERM_LABELS2[term]
+    if term.startswith("covid_"):
+        year, q = term.removeprefix("covid_").split("q")
+        return f"Dummy COVID {year}T{q}"
+    return term
