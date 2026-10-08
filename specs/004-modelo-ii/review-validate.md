@@ -2,17 +2,17 @@ VEREDICTO: APROBADO
 
 # Validación de la spec 004 — Modelo II (`specs/004-modelo-ii/`)
 
-- **Qué se validó:** HEAD `c6d14c1` (T1–T8 implementadas; `spec.md` aprobada con el cambio C1; `plan.md` aprobado).
+- **Qué se validó:** HEAD `b2cd4f4` (T1–T8 implementadas más las correcciones de la ronda 1 de la auditoría, sección 8; `spec.md` aprobada con el cambio C1; `plan.md` aprobado). La primera versión de este informe validó `c6d14c1` (756 tests); se rehízo tras las correcciones.
 - **Quién valida:** Claude Code. Es una excepción de roles autorizada por el autor por indisponibilidad de cuota en OpenCode: quien valida es también quien implementó, así que **esta validación no es independiente**. La independencia la aporta `review-audit.md` (`revisor-econometrico`, que recibe solo rutas de archivos).
 - **Qué no hace este informe:** no interpreta los resultados económicos ni los usa para decidir nada; comprueba que la implementación cumple la spec y el plan.
 
 ## 1. Ejecución
 
-**Suite.** `uv run pytest -q` → **756 passed**, 0 fallos, 4 min (la máquina está lenta: ni `import pandas, statsmodels` baja de 14 s). Sin red: el fixture autouse `block_network` de `tests/conftest.py` hace fallar cualquier acceso. Tests de la 004 por archivo: `test_design2` 24 · `test_dynamics` 21 · `test_localproj` 13 · `test_diagnostics2` 15 · `test_model2` 28 · `test_model2_outputs` 27 · `test_outputs_model2` 18 · `test_model2_purity` 35 · `test_model2_language` 26 · `test_frozen_model2` 19 · `test_model1_nonregression` 23 (suma 249, más los 3 de `test_estimation` añadidos en T1).
+**Suite.** `uv run pytest -q` → **767 passed**, 0 fallos, 4 min (la máquina está lenta: ni `import pandas, statsmodels` baja de 14 s). Sin red: el fixture autouse `block_network` de `tests/conftest.py` hace fallar cualquier acceso. Tests de la 004 por archivo: `test_design2` 24 · `test_dynamics` 21 · `test_localproj` 13 · `test_diagnostics2` 15 · `test_model2` 28 · `test_model2_outputs` 27 · `test_outputs_model2` 18 · `test_model2_purity` 35 · `test_model2_language` 26 · `test_frozen_model2` 20 · `test_model2_notation` 10 · `test_model1_nonregression` 23 (suma 260, más los 3 de `test_estimation` añadidos en T1).
 
 **No regresión del Modelo I.** `tests/test_model1_nonregression.py` (23 tests) rehace la etapa `models` sobre `data/raw/` congelado y compara byte a byte las 9 tablas (`.csv` y `.md`), las 3 figuras y el JSON del Modelo I con lo comiteado, y el bloque `modelo1:` y `datos:` de `report/_variables.yml`: idénticos.
 
-**Doble corrida desde un clon limpio.** `git clone` del HEAD a un directorio temporal; `python -m src.pipeline all` dos veces (rc = 0 en ambas):
+**Doble corrida desde un clon limpio** (repetida sobre `b2cd4f4` tras las correcciones de la ronda 1; el resultado fue el mismo que sobre `c6d14c1`). `git clone` del HEAD a un directorio temporal; `python -m src.pipeline all` dos veces (rc = 0 en ambas):
 - 63 archivos (todo lo versionado en `outputs/`, con las salidas de las specs 001, 003 y 004, más `report/_variables.yml`): **las dos corridas son idénticas** (sha256; textos con el fin de línea normalizado, PNG byte a byte).
 - Los 63 son además **idénticos a lo comiteado** en el HEAD (mismo criterio).
 - `git diff --ignore-cr-at-eol --stat`: vacío. En el repositorio de trabajo, `git status --porcelain`: 0 líneas.
@@ -26,7 +26,7 @@ VEREDICTO: APROBADO
 | Salidas de RF-7 a RF-27: 14 tablas (`.md` y `.csv`) y 3 figuras | Cumple | `outputs/tables/model2_*` (28 archivos) y `model2_profile.png`, `model2_response.png`, `model2_cusum.png`; `test_models_stage_writes_the_14_tables_in_markdown_and_csv`, `test_models_stage_writes_the_three_figures_at_200_dpi` |
 | Variables `modelo2.*` (RF-28) y exportación para la 005 (RF-29) | Cumple | `report/_variables.yml` (clave `modelo2:`), `outputs/models/model2_main.json`; tests de la sección 3 |
 | `pipeline all` desde un clon limpio y dos corridas sin diferencias (RNF-8) | Cumple en contenido | sección 1; reserva de fin de línea en O1 |
-| `uv run pytest -q` en verde, sin red | Cumple | 756 passed |
+| `uv run pytest -q` en verde, sin red | Cumple | 767 passed |
 | `review-validate.md` y `review-audit.md` con `VEREDICTO: APROBADO` | **Parcial** | este informe: APROBADO; `review-audit.md`: pendiente (primera ronda en curso). T9 no se marca como hecha hasta entonces |
 
 ## 3. Requisitos funcionales
@@ -102,6 +102,17 @@ Los 9 puntos de `review-plan.md` y las decisiones D14 a D18 tienen su comprobaci
 - **O4. Tiempo de la suite.** 4 a 6 minutos por la lentitud del entorno; no hay un test de la 004 que domine el tiempo (los más lentos son de las specs 001 y 003).
 - **O5. Independencia.** Ver la cabecera: el autor del código y de esta validación coinciden; la auditoría independiente es el contrapeso.
 
-## 8. Conclusión
+## 8. Correcciones de la ronda 1 de la auditoría (`review-audit-ronda1.md`)
 
-La implementación cumple la spec y el plan en lo que esta validación puede comprobar: 30 RF y 11 RNF con evidencia ejecutada, no regresión del Modelo I, reproducibilidad entre corridas y contra lo comiteado, y pre-registro anterior a la primera estimación. **VEREDICTO: APROBADO** para la validación; la spec 004 se cierra con `review-audit.md`.
+La auditoría independiente de la ronda 1 dio `CAMBIOS NECESARIOS` con dos cambios; el resto de sus puntos (3 a 6 y los opcionales) son contenido para la spec 006 y quedaron en `MEMORY.md`.
+
+1. **Bloqueante: `columns.y_lag` de `model2_main.json`.** Exportaba `{{"column": "dralacbs", "lag": 1}}`, el nivel de la morosidad, cuando el plan (§4) pide la columna del panel que entra al modelo. Ahora exporta `dralacbs_d` (ΔDR). Comprobado antes de corregir que `dralacbs_d` existe en el panel (`data/processed/panel.csv`). Tests: `test_export_y_lag_points_to_the_differenced_series`, `test_every_exported_column_exists_in_the_panel_and_is_the_series_in_the_design` (para cada término, la serie `columns[t]` desplazada su rezago coincide con la columna de X; la constante y las dummies COVID figuran sin columna) y `test_the_differenced_column_is_the_one_that_enters_the_model` en `tests/test_model2_notation.py`; sobre el panel real, `test_json_columns_exist_in_the_real_panel_and_y_lag_is_the_differenced_series` en `tests/test_frozen_model2.py`. Los datos sintéticos ganaron la columna `dralacbs_d` para que el test use la misma estructura que el panel.
+2. **Menor: notación con K = 1.** Con K = 1 salían «θ0+…+θ1», «θ1 = … = θ1 = 0», «θ1..θ1» y «ΔFFR(t..t−1)». Ahora, con K = 1: «θ0 + θ1», «θ1», «θ1 = 0» y «ΔFFR(t) y ΔFFR(t−1)»; con K ≥ 2 se mantiene la forma general. Afecta a `model2_effects`, `model2_reading`, `model2_diagnostics` y `model2_limitations` (esta última por la nota del Chow). De paso reordené la frase del Chow («constante, ρ, los cuatro controles, ΔFFR(t) y ΔFFR(t−1)») para que no quedara una «y» doble. Tests: `test_effects_labels_k1_and_general`, `test_effects_note_k1_and_general`, `test_reading_labels_k1_and_general`, `test_chow_note_k1_and_general` y, de extremo a extremo con datos de K verdadero = 1, `test_k1_outputs_have_no_broken_notation` y `test_k1_limitations_carry_the_k1_chow_note`; `test_general_k_outputs_keep_the_general_notation` fija que con K ≥ 2 nada cambió.
+
+**Alcance del cambio en las salidas.** Al regenerar con `uv run python -m src.pipeline models` cambiaron 10 archivos (`model2_main.json`, `model2_effects`, `model2_reading`, `model2_diagnostics`, `model2_limitations` en `.csv` y `.md` donde aplica, y `report/_variables.yml`) y solo en esas etiquetas y en esa clave del JSON; ninguna cifra cambió (comprobado con `git diff` línea a línea sobre el JSON, `model2_effects.csv`, `model2_reading.csv` y `_variables.yml`). Las figuras no cambiaron. Las salidas del Modelo I siguen idénticas (`test_model1_nonregression`, 23 tests, y comparación de los 19 archivos del Modelo I con el HEAD anterior).
+
+**Una corrección a mi propio informe anterior:** escribí que los tests de no regresión eran 19 y los de `test_frozen_model2` 16; los reales son 23 y 19 (ahora 20).
+
+## 9. Conclusión
+
+La implementación, con las correcciones de la ronda 1, cumple la spec y el plan en lo que esta validación puede comprobar: 30 RF y 11 RNF con evidencia ejecutada, no regresión del Modelo I, reproducibilidad entre corridas y contra lo comiteado, y pre-registro anterior a la primera estimación. **VEREDICTO: APROBADO** para la validación; la spec 004 se cierra con `review-audit.md`.
