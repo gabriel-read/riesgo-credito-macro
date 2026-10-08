@@ -467,3 +467,508 @@ modelo1:
   - '2026-10-05 · C3: la comprobación de matriz no definida positiva se acota al sub-bloque
     sin dummies de impulso (Pre-registro de la spec 003): La reducción de rango por
     esas dummies es una propiedad algebraica (residuo nulo), no un fallo numérico.'
+modelo2:
+  estimador: MCO con errores Newey-West (HAC, kernel de Bartlett)
+  forma_y: primera diferencia
+  k_elegido: '1'
+  criterio: BIC
+  k_bic: '1'
+  k_aic: '1'
+  muestra_inicio: 2000T2
+  muestra_fin: 2026T2
+  n_obs: '105'
+  n_parametros: '12'
+  rezagos_hac: '4'
+  dummies_covid: 2020T2, 2020T3, 2020T4 y 2021T1
+  truncamiento_espectral: 'no'
+  r2: 0,844
+  r2_ajustado: 0,826
+  ee_regresion: 0,094
+  seleccion:
+    k1:
+      n_parametros: '12'
+      aic: -188,310
+      bic: -156,463
+    k2:
+      n_parametros: '13'
+      aic: -187,578
+      bic: -153,076
+    k3:
+      n_parametros: '14'
+      aic: -188,227
+      bic: -151,071
+    k4:
+      n_parametros: '15'
+      aic: -187,238
+      bic: -147,428
+    k5:
+      n_parametros: '16'
+      aic: -186,520
+      bic: -144,056
+    k6:
+      n_parametros: '17'
+      aic: -184,607
+      bic: -139,490
+    k7:
+      n_parametros: '18'
+      aic: -183,454
+      bic: -135,683
+    k8:
+      n_parametros: '19'
+      aic: -181,609
+      bic: -131,184
+  coef:
+    const:
+      coef: -0,100
+      ee: 0,024
+      p: < 0,001
+      ic_inf: -0,146
+      ic_sup: -0,054
+    y_lag:
+      coef: 0,699
+      ee: 0,084
+      p: < 0,001
+      ic_inf: 0,535
+      ic_sup: 0,864
+    d_ffr_l0:
+      coef: -0,084
+      ee: 0,064
+      p: 0,190
+      ic_inf: -0,210
+      ic_sup: 0,042
+    d_ffr_l1:
+      coef: 0,036
+      ee: 0,039
+      p: 0,355
+      ic_inf: -0,040
+      ic_sup: 0,111
+    gdp_l1:
+      coef: 0,001
+      ee: 0,005
+      p: 0,823
+      ic_inf: -0,009
+      ic_sup: 0,011
+    d_unemp_l1:
+      coef: 0,110
+      ee: 0,053
+      p: 0,039
+      ic_inf: 0,005
+      ic_sup: 0,215
+    inflation_l1:
+      coef: 0,024
+      ee: 0,010
+      p: 0,015
+      ic_inf: 0,005
+      ic_sup: 0,042
+    credit_l4:
+      coef: 0,007
+      ee: 0,003
+      p: 0,009
+      ic_inf: 0,002
+      ic_sup: 0,012
+    covid_2020q2:
+      coef: -0,114
+      ee: 0,078
+      p: 0,147
+      ic_inf: -0,267
+      ic_sup: 0,040
+    covid_2020q3:
+      coef: -0,876
+      ee: 0,470
+      p: 0,062
+      ic_inf: -1,797
+      ic_sup: 0,045
+    covid_2020q4:
+      coef: 0,455
+      ee: 0,228
+      p: 0,046
+      ic_inf: 0,008
+      ic_sup: 0,901
+    covid_2021q1:
+      coef: 0,156
+      ee: 0,110
+      p: 0,156
+      ic_inf: -0,059
+      ic_sup: 0,371
+  efectos:
+    s:
+      est: -0,048
+      ee: 0,038
+      chi2: 1,641
+      p: 0,200
+      ic_inf: -0,122
+      ic_sup: 0,026
+    s_rez:
+      est: 0,036
+      ee: 0,039
+      chi2: 0,857
+      p: 0,355
+      ic_inf: -0,040
+      ic_sup: 0,111
+    h1:
+      signo: 'no'
+      respaldada: 'no'
+  trayectoria:
+    psi:
+      h0: -0,084
+      h1: -0,023
+      h2: -0,016
+      h3: -0,011
+      h4: -0,008
+      h5: -0,006
+      h6: -0,004
+      h7: -0,003
+      h8: -0,002
+      h9: -0,001
+      h10: -0,001
+      h11: -0,001
+      h12: -0,000
+    r:
+      h0: -0,084
+      h1: -0,107
+      h2: -0,123
+      h3: -0,134
+      h4: -0,142
+      h5: -0,148
+      h6: -0,152
+      h7: -0,154
+      h8: -0,156
+      h9: -0,157
+      h10: -0,158
+      h11: -0,159
+      h12: -0,159
+    h_estrella:
+      h: '0'
+      signo: −
+    h2: 'no'
+    aviso_rho: ''
+  granger:
+    chi2: 0,857
+    gl: '1'
+    p: 0,355
+    veredicto: no rechaza
+  lectura:
+    etiqueta: sin evidencia
+    c1: 'no'
+    c2: 'no'
+    signo_contrario: 'no'
+  lp:
+    h0:
+      beta: -0,084
+      ee: 0,064
+      ic90_inf: -0,189
+      ic90_sup: 0,021
+      n_obs: '105'
+      rezagos_hac: '4'
+      estado: estimada
+      phi: 1,000
+      phi_ee: —
+      phi_ic90_inf: —
+      phi_ic90_sup: —
+    h1:
+      beta: -0,148
+      ee: 0,092
+      ic90_inf: -0,300
+      ic90_sup: 0,003
+      n_obs: '104'
+      rezagos_hac: '4'
+      estado: estimada
+      phi: 1,717
+      phi_ee: 0,186
+      phi_ic90_inf: 1,411
+      phi_ic90_sup: 2,024
+    h2:
+      beta: -0,204
+      ee: 0,125
+      ic90_inf: -0,410
+      ic90_sup: 0,001
+      n_obs: '103'
+      rezagos_hac: '4'
+      estado: estimada
+      phi: 2,265
+      phi_ee: 0,360
+      phi_ic90_inf: 1,674
+      phi_ic90_sup: 2,857
+    h3:
+      beta: -0,300
+      ee: 0,186
+      ic90_inf: -0,605
+      ic90_sup: 0,005
+      n_obs: '102'
+      rezagos_hac: '4'
+      estado: estimada
+      phi: 2,763
+      phi_ee: 0,512
+      phi_ic90_inf: 1,921
+      phi_ic90_sup: 3,605
+    h4:
+      beta: -0,414
+      ee: 0,268
+      ic90_inf: -0,856
+      ic90_sup: 0,027
+      n_obs: '101'
+      rezagos_hac: '5'
+      estado: estimada
+      phi: 3,049
+      phi_ee: 0,581
+      phi_ic90_inf: 2,094
+      phi_ic90_sup: 4,005
+    h5:
+      beta: -0,516
+      ee: 0,346
+      ic90_inf: -1,085
+      ic90_sup: 0,053
+      n_obs: '100'
+      rezagos_hac: '6'
+      estado: estimada
+      phi: 3,233
+      phi_ee: 0,660
+      phi_ic90_inf: 2,148
+      phi_ic90_sup: 4,319
+    h6:
+      beta: -0,558
+      ee: 0,406
+      ic90_inf: -1,226
+      ic90_sup: 0,109
+      n_obs: '99'
+      rezagos_hac: '7'
+      estado: estimada
+      phi: 3,224
+      phi_ee: 0,724
+      phi_ic90_inf: 2,032
+      phi_ic90_sup: 4,415
+    h7:
+      beta: -0,546
+      ee: 0,486
+      ic90_inf: -1,345
+      ic90_sup: 0,254
+      n_obs: '98'
+      rezagos_hac: '8'
+      estado: estimada
+      phi: 3,287
+      phi_ee: 0,825
+      phi_ic90_inf: 1,930
+      phi_ic90_sup: 4,643
+    h8:
+      beta: -0,454
+      ee: 0,495
+      ic90_inf: -1,268
+      ic90_sup: 0,360
+      n_obs: '97'
+      rezagos_hac: '9'
+      estado: estimada
+      phi: 3,223
+      phi_ee: 0,857
+      phi_ic90_inf: 1,813
+      phi_ic90_sup: 4,633
+    h9:
+      beta: -0,344
+      ee: 0,512
+      ic90_inf: -1,186
+      ic90_sup: 0,499
+      n_obs: '96'
+      rezagos_hac: '10'
+      estado: estimada
+      phi: 3,061
+      phi_ee: 0,841
+      phi_ic90_inf: 1,678
+      phi_ic90_sup: 4,444
+    h10:
+      beta: -0,157
+      ee: 0,483
+      ic90_inf: -0,952
+      ic90_sup: 0,638
+      n_obs: '95'
+      rezagos_hac: '11'
+      estado: estimada
+      phi: 2,930
+      phi_ee: 0,814
+      phi_ic90_inf: 1,591
+      phi_ic90_sup: 4,269
+    h11:
+      beta: 0,060
+      ee: 0,440
+      ic90_inf: -0,663
+      ic90_sup: 0,784
+      n_obs: '94'
+      rezagos_hac: '12'
+      estado: estimada
+      phi: 2,726
+      phi_ee: 0,769
+      phi_ic90_inf: 1,460
+      phi_ic90_sup: 3,991
+    h12:
+      beta: 0,285
+      ee: 0,414
+      ic90_inf: -0,397
+      ic90_sup: 0,966
+      n_obs: '93'
+      rezagos_hac: '13'
+      estado: estimada
+      phi: 2,476
+      phi_ee: 0,732
+      phi_ic90_inf: 1,272
+      phi_ic90_sup: 3,680
+  lp_resumen:
+    k_de_n: 10 de 12
+    horizonte_deteccion: ninguno
+  diag:
+    bg:
+      estadistico: 3,409
+      p: 0,492
+      veredicto: pasa
+    bp:
+      estadistico: 33,784
+      p: < 0,001
+      veredicto: falla
+    white:
+      estadistico: 90,710
+      p: < 0,001
+      veredicto: falla
+    jb:
+      estadistico: 209,207
+      p: < 0,001
+      veredicto: falla
+    reset:
+      estadistico: 10,448
+      p: < 0,001
+      veredicto: falla
+    chow_2008t3:
+      estadistico: 11,644
+      p: 0,168
+      veredicto: pasa
+    chow_2020t2:
+      estadistico: 28,123
+      p: < 0,001
+      veredicto: falla
+    cusum:
+      veredicto: pasa
+    vif:
+      y_lag:
+        valor: 3,122
+        veredicto: sin alerta
+      d_ffr_l0:
+        valor: 2,521
+        veredicto: sin alerta
+      d_ffr_l1:
+        valor: 2,664
+        veredicto: sin alerta
+      gdp_l1:
+        valor: 3,008
+        veredicto: sin alerta
+      d_unemp_l1:
+        valor: 33,154
+        veredicto: alerta
+      inflation_l1:
+        valor: 1,414
+        veredicto: sin alerta
+      credit_l4:
+        valor: 1,548
+        veredicto: sin alerta
+  robustez:
+    r1:
+      estado: no aplica
+      motivo: AIC y BIC eligen el mismo K
+      k: —
+      muestra_inicio: —
+      muestra_fin: —
+      n_obs: —
+      s: —
+      s_rez: —
+      p_s_rez: —
+      h_estrella: —
+      h1: —
+    r2:
+      estado: estimada
+      motivo: ''
+      k: '1'
+      muestra_inicio: 2000T2
+      muestra_fin: 2026T2
+      n_obs: '97'
+      s: -0,043
+      s_rez: 0,040
+      p_s_rez: 0,303
+      h_estrella: '0'
+      h1: 'no'
+    r3:
+      estado: estimada
+      motivo: ''
+      k: '1'
+      muestra_inicio: 2000T2
+      muestra_fin: 2026T2
+      n_obs: '69'
+      s: -0,000
+      s_rez: 0,061
+      p_s_rez: 0,293
+      h_estrella: '0'
+      h1: 'no'
+  robustez_resumen:
+    r1: no aplica
+    r2: 'no'
+    r3: 'no'
+    p_principal: 0,355
+  no_i0: π(t−1) y CRED(t−4)
+  limitaciones:
+  - 'Endogeneidad de la tasa de fondos federales: La Fed reacciona a la economía y
+    los controles van rezagados un trimestre, por lo que ΔFFR(t) conserva esa reacción:
+    θ0, S y β_h pueden arrastrar esa endogeneidad.'
+  - 'ΔFFR es una variación observada, no un shock identificado: La asociación dinámica
+    entre ΔFFR y la morosidad no identifica el efecto de la política monetaria.'
+  - 'Tramos de tasa cero: En los tramos con promedio trimestral de la tasa ≤ 0,25
+    % ΔFFR casi no varía, y los θ_j se identifican con pocos trimestres; R3 excluye
+    esos tramos.'
+  - 'COVID y proyecciones locales: Las dummies COVID neutralizan 2020T2–2021T1 en
+    la principal, pero las ventanas de resultado de las proyecciones locales (t +
+    h) que tocan ese período arrastran su efecto sin dummy.'
+  - 'Efectos base de 2021T2–2022T2 sin dummy: El rebote interanual del PIB, que entra
+    en 2021T3–2022T2 por el rezago, y el crédito del PPP, que entra en 2021T2–2022T1,
+    no llevan dummy; R2 (sin 2020–2021) sirve de contraste.'
+  - 'No estacionariedad de π y CRED(t−4): π y CRED(t−4) figuran «no I(0)» en la spec
+    001 y entran en su forma fija: la regresión es desbalanceada y los Wald pueden
+    no seguir su distribución asintótica.'
+  - 'Granger mide precedencia: La prueba de Granger mide precedencia temporal condicional
+    a los rezagos incluidos; no identifica el efecto de la política monetaria.'
+  - 'Inferencia condicional al K elegido: K se elige con los mismos datos con que
+    se estima, y la inferencia posterior no incorpora la incertidumbre de esa elección.'
+  - 'Breusch-Pagan: falla: estadístico 33,784, p < 0,001; se reporta y se discute
+    qué implica para las conclusiones'
+  - 'White: falla: estadístico 90,710, p < 0,001; se reporta y se discute qué implica
+    para las conclusiones'
+  - 'Jarque-Bera: falla: estadístico 209,207, p < 0,001; se reporta y se discute qué
+    implica para las conclusiones'
+  - 'RESET: falla: estadístico 10,448, p < 0,001; se reporta y se discute qué implica
+    para las conclusiones'
+  - 'VIF (d_unemp_l1): alerta: estadístico 33,154; posible multicolinealidad: se reporta
+    y no se elimina ningún regresor'
+  - 'Chow 2020T2: falla: estadístico 28,123, p < 0,001; Wald HAC con interacciones
+    de 8 términos (constante, ρ, ΔFFR(t..t−1) y los cuatro controles); dummies COVID
+    sin interactuar; trimestres útiles anteriores: 80; posteriores: 21; el tamaño
+    empírico del contraste puede diferir del 5 % nominal'
+  - 'Regresores no I(0): π(t−1), CRED(t−4): no son I(0) según la regla de la spec
+    001; entran en su forma fija y su no estacionariedad residual se declara como
+    limitación.'
+  - 'Rezagos de ΔFFR o ΔDR desde 2020T2–2021T1 sin dummy: En 2020T3–2021T2 de la muestra
+    principal, algún rezago de ΔFFR o de ΔDR sale de 2020T2–2021T1 y esos rezagos
+    no llevan dummy propia.'
+  desviaciones:
+  - 'Muestra M 2000T2–2026T2 (n = 105) en lugar de la del Modelo I, que empieza en
+    2000T1 (Spec 003 y guía, sección 11): M empieza un trimestre después de la del
+    Modelo I por los 8 rezagos de ΔFFR que exige el rango de K; termina en 2026T2,
+    el último trimestre común, y no en el 2026-01-01 del ejemplo de descarga de la
+    guía.'
+  - 'K elegido por BIC en la principal y por AIC como robustez R1 (Skill de econometría
+    de series de tiempo): La skill pide AIC y BIC sobre la misma muestra efectiva;
+    cuando difieren, la principal usa BIC y la otra va como robustez.'
+  - 'Controles rezagados y forma fija de los regresores en lugar de la regla de estacionariedad
+    para todas las series (Skill de econometría de series de tiempo): PIB, ΔU y π
+    se rezagan un trimestre para no condicionar sobre variables macro del mismo trimestre;
+    conservan su interpretación económica y su no estacionariedad residual se declara
+    como limitación.'
+  - 'Tramo de tasa cero definido por regla (promedio trimestral de FEDFUNDS ≤ 0,25
+    %) (Spec 004, robustez R3): La regla fija los trimestres excluidos sin mirar resultados.'
+  - 'El GDP nominal no se prueba como robustez y la muestra larga desde 1985 queda
+    fuera (Guía, secciones 3.3 y 11): El PIB es aquí un control rezagado y no la variable
+    de interés, y la historia congelada empieza en 1998.'
+  - '2026-10-08 · C1: White es «no calculable» si n − rango(Z_aux) < 30 (Pre-registro
+    de la spec 004): Con la muestra M la auxiliar completa tiene más columnas que
+    observaciones desde K = 4; la regla se fijó antes de estimar y sin conocer K.'

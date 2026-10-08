@@ -44,22 +44,9 @@ def _model1_files(root: Path) -> list[Path]:
 
 
 @pytest.fixture(scope="module")
-def runs(tmp_path_factory):
-    """Raíz A: copia de data/raw, etapa `data` y etapa `models`. Raíz B: copia de A antes de `models`."""
-    mp = pytest.MonkeyPatch()
-    a = tmp_path_factory.mktemp("frozen_a")
-    b = tmp_path_factory.mktemp("frozen_b") / "root"
-    shutil.copytree(RAW, a / "data" / "raw")
-    raw_before = {p.name: _digest(p) for p in (a / "data" / "raw").iterdir()}
-    mp.setenv("PIPELINE_ROOT", str(a))
-    assert main(["data"]) == 0
-    variables_before = (a / "report" / "_variables.yml").read_text(encoding="utf-8")
-    shutil.copytree(a, b)
-    assert main(["models"]) == 0
-    mp.setenv("PIPELINE_ROOT", str(b))
-    assert main(["models"]) == 0
-    mp.undo()
-    yield {"a": a, "b": b, "variables_before": variables_before, "raw_before": raw_before}
+def runs(frozen_runs):
+    """Las corridas sobre los datos congelados las hace el fixture de sesión de conftest.py."""
+    return frozen_runs
 
 
 # --- Salidas escritas ---
@@ -108,7 +95,7 @@ def test_variables_yml_keeps_the_other_keys_byte_for_byte(runs):
     assert after.startswith(before)  # la sección `datos:` queda idéntica, byte a byte
     assert "\nmodelo1:\n" in after
     loaded = yaml.safe_load(after)
-    assert list(loaded) == ["datos", "modelo1"]
+    assert list(loaded) == ["datos", "modelo1", "modelo2"]
     assert loaded["datos"] == yaml.safe_load(before)["datos"]
 
 

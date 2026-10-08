@@ -1,0 +1,4 @@
+variante,etiqueta,estado,motivo,K,inicio,fin,n_obs,rezagos_hac,S,ee_S,p_S,S_rez,ee_S_rez,p_S_rez,h_estrella,h1,nota
+R1,K elegido por AIC,no aplica,AIC y BIC eligen el mismo K,—,—,—,—,—,—,—,—,—,—,—,—,—,
+R2,Sin 2020–2021,estimada,,1,2000T2,2026T2,97,3,-0.042830964154092675,0.03620043296346979,0.23674508684283202,0.03980010652436992,0.0386666948635925,0.30333292212839436,0,no; no respaldada,excluye 2020T1–2021T4; los trimestres vecinos se tratan como contiguos en la ventana HAC; sin dummies COVID
+R3,Sin tramos de tasa cero,estimada,,1,2000T2,2026T2,69,3,-0.00035010676888027475,0.03932926381599102,0.992897372871055,0.061087533269516464,0.05811879445554997,0.2932216055378464,0,no; no respaldada,"excluye 2009T1–2015T4, 2020T2–2022T1; los trimestres vecinos se tratan como contiguos en la ventana HAC; sin dummies COVID"

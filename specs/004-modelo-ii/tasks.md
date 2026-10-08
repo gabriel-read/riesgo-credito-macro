@@ -36,7 +36,7 @@ Orden de dependencia del §9 del plan. Una sola tarea cada vez: tests primero (e
   - Incluye: `plot_model2_profile` y `plot_model2_response` en `src/figures.py`; `model2_variables` en `src/report_vars.py`; `tests/test_outputs_model2.py`; ampliación de `tests/test_language.py` y `tests/test_pipeline.py`.
   - Hecho cuando: `uv run pytest -q tests/test_outputs_model2.py tests/test_model2_language.py tests/test_model2_purity.py` en verde. Figuras de 8×4,5 pulgadas, 200 dpi, sin título y con el pie de fuente, con las series esperadas y bytes deterministas; `model2_variables` trae todas las claves del §4 del plan, solo texto, con los mismos dígitos que las tablas y sin cifras escritas a mano (escaneo con `ast`); sin «causa», «causal», «provoca» ni «debido a» en tablas, variables ni figuras; los módulos nuevos son puros y no usan `fillna` ni `dropna`.
 
-- [ ] **T8. Etapa `models` y tests sobre los datos congelados.** RF-30, RNF-8 · agente: implementer
+- [x] **T8. Etapa `models` y tests sobre los datos congelados.** RF-30, RNF-8 · agente: implementer
   - Incluye: la extensión de `pipeline.stage_models` y `tests/test_frozen_model2.py`. **Primera tarea que estima el Modelo II con datos reales** (el plan está aprobado y comiteado, `7f732ce`).
   - Hecho cuando: `uv run pytest -q tests/test_frozen_model2.py tests/test_model1_nonregression.py` en verde. Existen las 14 tablas (`.md` y `.csv`), las 3 figuras, el JSON y `modelo2:`; `modelo1:` y `datos:` quedan idénticos; M = 2000T2–2026T2 con 105 observaciones; 36 trimestres de tasa cero; `hac_lags == 4` y K + 11 parámetros en la principal; dos corridas dejan bytes idénticos; las salidas del Modelo I son idénticas a las comiteadas. Este test no compara coeficientes con valores esperados.
 

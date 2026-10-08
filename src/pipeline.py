@@ -125,13 +125,14 @@ def stage_data(download: bool = False) -> int:
 
 
 def stage_models() -> int:
-    """Ejecuta el Modelo I sobre las descargas congeladas de data/raw/ (spec 003, RF-23).
+    """Ejecuta el Modelo I (spec 003) y el Modelo II (spec 004) sobre las descargas congeladas de data/raw/.
 
     Sin red. Reconstruye en memoria la historia transformada desde 1998 (plan 003, D1) y lee la
     decisión niveles/diferencias de `outputs/tables/stationarity.csv` (la deja la etapa `data`).
     Escribe: las 9 tablas (.csv y .md), las 3 figuras (.png a 200 dpi), el JSON para la spec 005
-    y la clave `modelo1:` de `report/_variables.yml` (las demás claves no se tocan). No contiene
-    cálculo: llama a funciones puras de src/.
+    y la clave `modelo1:` de `report/_variables.yml` (las demás claves no se tocan). Del Modelo II
+    escribe las 14 tablas (.csv y .md), las 3 figuras, `outputs/models/model2_main.json` y la clave
+    `modelo2:`. No contiene cálculo: llama a funciones puras de src/.
     """
     ROOT, DATA_RAW, DATA_PROCESSED, OUTPUTS, OUTPUTS_TABLES, OUTPUTS_FIGURES, REPORT = _get_paths()
 
@@ -139,11 +140,18 @@ def stage_models() -> int:
     import pandas as pd
     import yaml
 
-    from src.figures import plot_model1_coefficients, plot_model1_cusum, plot_model1_oos
+    from src.figures import (
+        plot_model1_coefficients,
+        plot_model1_cusum,
+        plot_model1_oos,
+        plot_model2_profile,
+        plot_model2_response,
+    )
     from src.fred_io import load_latest_raw
     from src.model1 import render_model1_tables, run_model1, stress_export_json
+    from src.model2 import export2_json, render_model2_tables, run_model2
     from src.panel import build_panel
-    from src.report_vars import model1_variables
+    from src.report_vars import model1_variables, model2_variables
 
     stationarity_path = OUTPUTS_TABLES / "stationarity.csv"
     if not stationarity_path.exists():
@@ -156,6 +164,8 @@ def stage_models() -> int:
     stationarity = pd.read_csv(stationarity_path, index_col=0)
     print("Estimando el Modelo I...")
     result = run_model1(panel.full, stationarity, panel.end)
+    print("Estimando el Modelo II...")
+    result2 = run_model2(panel.full, stationarity, panel.end, result)
 
     models_dir = OUTPUTS / "models"
     OUTPUTS_TABLES.mkdir(parents=True, exist_ok=True)
@@ -168,11 +178,19 @@ def stage_models() -> int:
         (OUTPUTS_TABLES / f"{stem}.md").write_text(text["md"] + "\n", encoding="utf-8", newline="\n")
         (OUTPUTS_TABLES / f"{stem}.csv").write_text(text["csv"], encoding="utf-8", newline="\n")
 
+    for stem, text in render_model2_tables(result2).items():
+        (OUTPUTS_TABLES / f"{stem}.md").write_text(text["md"] + "\n", encoding="utf-8", newline="\n")
+        (OUTPUTS_TABLES / f"{stem}.csv").write_text(text["csv"], encoding="utf-8", newline="\n")
+
     # Figuras: 8×4,5 pulgadas a 200 dpi; sin marca de versión para que los bytes sean deterministas
     figures = {
         "model1_coefficients.png": plot_model1_coefficients(result.effects),
         "model1_cusum.png": plot_model1_cusum(result.cusum),
         "model1_oos.png": plot_model1_oos(result.oos),
+        "model2_profile.png": plot_model2_profile(result2.coefficients, result2.peak),
+        "model2_response.png": plot_model2_response(
+            result2.lp, result2.trajectory, result2.comparison_counts["horizonte_deteccion"]),
+        "model2_cusum.png": plot_model1_cusum(result2.cusum),
     }
     for name, fig in figures.items():
         fig.savefig(OUTPUTS_FIGURES / name, dpi=200, metadata={"Software": None})
@@ -183,19 +201,29 @@ def stage_models() -> int:
         stress_export_json(result.stress), encoding="utf-8", newline="\n"
     )
 
-    # _variables.yml: solo se reescribe la clave `modelo1:`
+    # Coeficientes y covarianza HAC de la principal del Modelo II y su trayectoria, para la spec 005
+    (models_dir / "model2_main.json").write_text(
+        export2_json(result2.export), encoding="utf-8", newline="\n"
+    )
+
+    # _variables.yml: solo se reescriben las claves `modelo1:` y `modelo2:`
     variables_path = REPORT / "_variables.yml"
     existing: dict = {}
     if variables_path.exists():
         with open(variables_path, "r", encoding="utf-8") as f:
             existing = yaml.safe_load(f) or {}
     existing["modelo1"] = model1_variables(result)
+    existing["modelo2"] = model2_variables(result2)
     with open(variables_path, "w", encoding="utf-8", newline="\n") as f:
         yaml.dump(existing, f, allow_unicode=True, sort_keys=False)
 
     print(f"Modelo I: {result.coef_footer['n_obs']} trimestres "
           f"({result.coef_footer['muestra_inicio']}–{result.coef_footer['muestra_fin']}), "
           f"{result.coef_footer['n_parametros']} parámetros, {result.coef_footer['rezagos_hac']} rezagos HAC")
+    print(f"Modelo II: {result2.coef_footer['n_obs']} trimestres "
+          f"({result2.coef_footer['muestra_inicio']}–{result2.coef_footer['muestra_fin']}), "
+          f"K = {result2.K} (BIC) y K_AIC = {result2.k_aic}, "
+          f"{result2.coef_footer['n_parametros']} parámetros, {result2.coef_footer['rezagos_hac']} rezagos HAC")
     print("Etapa models completada.")
     return 0
 
