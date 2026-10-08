@@ -319,7 +319,7 @@ def test_export_keys_order_and_values(result):
     assert set(d["reading"]) == {"etiqueta", "c1", "c2"} and d["reading"]["etiqueta"] == result.reading["etiqueta"]
     assert d["columns"]["d_ffr_l2"] == {"column": "fedfunds_d", "lag": 2}
     assert d["columns"]["credit_l4"] == {"column": "loans_yoy", "lag": 4}
-    assert d["columns"]["y_lag"] == {"column": "dralacbs", "lag": 1}
+    assert d["columns"]["y_lag"] == {"column": "dralacbs_d", "lag": 1}
     assert d["columns"]["const"] is None and d["columns"]["covid_2020q2"] is None
 
 

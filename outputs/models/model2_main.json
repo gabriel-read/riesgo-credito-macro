@@ -21,7 +21,7 @@
   "columns": {
     "const": null,
     "y_lag": {
-      "column": "dralacbs",
+      "column": "dralacbs_d",
       "lag": 1
     },
     "d_ffr_l0": {

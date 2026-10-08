@@ -12,6 +12,6 @@ White: falla,"estadístico 90,710, p < 0,001; se reporta y se discute qué impli
 Jarque-Bera: falla,"estadístico 209,207, p < 0,001; se reporta y se discute qué implica para las conclusiones",detectada
 RESET: falla,"estadístico 10,448, p < 0,001; se reporta y se discute qué implica para las conclusiones",detectada
 VIF (d_unemp_l1): alerta,"estadístico 33,154; posible multicolinealidad: se reporta y no se elimina ningún regresor",detectada
-Chow 2020T2: falla,"estadístico 28,123, p < 0,001; Wald HAC con interacciones de 8 términos (constante, ρ, ΔFFR(t..t−1) y los cuatro controles); dummies COVID sin interactuar; trimestres útiles anteriores: 80; posteriores: 21; el tamaño empírico del contraste puede diferir del 5 % nominal",detectada
+Chow 2020T2: falla,"estadístico 28,123, p < 0,001; Wald HAC con interacciones de 8 términos (constante, ρ, los cuatro controles, ΔFFR(t) y ΔFFR(t−1)); dummies COVID sin interactuar; trimestres útiles anteriores: 80; posteriores: 21; el tamaño empírico del contraste puede diferir del 5 % nominal",detectada
 Regresores no I(0),"π(t−1), CRED(t−4): no son I(0) según la regla de la spec 001; entran en su forma fija y su no estacionariedad residual se declara como limitación.",detectada
 Rezagos de ΔFFR o ΔDR desde 2020T2–2021T1 sin dummy,"En 2020T3–2021T2 de la muestra principal, algún rezago de ΔFFR o de ΔDR sale de 2020T2–2021T1 y esos rezagos no llevan dummy propia.",detectada

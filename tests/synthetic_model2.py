@@ -63,6 +63,7 @@ def make_full2(n: int = N_QUARTERS, seed_x: int = SEED2, seed_e: int = SEED2 + 1
     return pd.DataFrame(
         {
             "dralacbs": 20.0 + np.cumsum(dy),
+            "dralacbs_d": np.diff(20.0 + np.cumsum(dy), prepend=np.nan),   # ΔDR, como en el panel real
             "gdpc1_yoy": gdp,
             "unrate_d": d_unemp,
             "cpiaucsl_yoy": infl,

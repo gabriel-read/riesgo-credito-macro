@@ -279,3 +279,19 @@ def test_running_models_twice_on_the_same_root_changes_nothing(runs):
     assert runs["b_first"] == runs["b_second"]
     assert any(name.endswith("model2_main.json") for name in runs["b_first"])
     assert len([n for n in runs["b_first"] if "model2_" in n]) == 14 * 2 + 3 + 1
+
+
+# --- Ronda 1 de la auditoría: el contrato `columns` del JSON apunta a series reales del panel ---
+
+
+def test_json_columns_exist_in_the_real_panel_and_y_lag_is_the_differenced_series(runs, export):
+    raw, _ = load_latest_raw(runs["a"] / "data" / "raw")
+    full = build_panel(raw).full
+    for term, src in export["columns"].items():
+        if src is None:
+            assert term == "const" or term.startswith("covid_"), term
+            continue
+        assert src["column"] in full.columns, f"{term}: {src['column']} no existe en el panel"
+    assert export["columns"]["y_lag"] == {"column": "dralacbs_d", "lag": 1}
+    assert np.allclose(full["dralacbs_d"].iloc[1:], full["dralacbs"].diff().iloc[1:], rtol=0, atol=1e-12,
+                       equal_nan=True)

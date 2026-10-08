@@ -941,8 +941,8 @@ modelo2:
   - 'VIF (d_unemp_l1): alerta: estadístico 33,154; posible multicolinealidad: se reporta
     y no se elimina ningún regresor'
   - 'Chow 2020T2: falla: estadístico 28,123, p < 0,001; Wald HAC con interacciones
-    de 8 términos (constante, ρ, ΔFFR(t..t−1) y los cuatro controles); dummies COVID
-    sin interactuar; trimestres útiles anteriores: 80; posteriores: 21; el tamaño
+    de 8 términos (constante, ρ, los cuatro controles, ΔFFR(t) y ΔFFR(t−1)); dummies
+    COVID sin interactuar; trimestres útiles anteriores: 80; posteriores: 21; el tamaño
     empírico del contraste puede diferir del 5 % nominal'
   - 'Regresores no I(0): π(t−1), CRED(t−4): no son I(0) según la regla de la spec
     001; entran en su forma fija y su no estacionariedad residual se declara como

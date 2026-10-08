@@ -239,13 +239,43 @@ def coefficient_note2(f: dict) -> str:
     return "Nota: " + "; ".join(parts) + "."
 
 
+# --- Etiquetas que dependen de K (auditoría 004, ronda 1, punto 2) ---
+# Con K = 1 la forma general («θ0+…+θ1») se lee como un error: se escribe la suma completa. Con K ≥ 2 se
+# mantiene la forma general.
+
+
+def _s_label(K: int) -> str:
+    """θ0 + … + θK (el efecto acumulado S)."""
+    return "θ0 + θ1" if K == 1 else f"θ0+…+θ{K}"
+
+
+def _s_rez_label(K: int) -> str:
+    """θ1 + … + θK (el efecto de los rezagos S_rez)."""
+    return "θ1" if K == 1 else f"θ1+…+θ{K}"
+
+
+def _granger_null(K: int) -> str:
+    """H0 de Granger: θ1 = … = θK = 0."""
+    return "θ1 = 0" if K == 1 else f"θ1 = … = θ{K} = 0"
+
+
+def _granger_terms(K: int) -> str:
+    """Los coeficientes que contrasta Granger: θ1..θK."""
+    return "θ1" if K == 1 else f"θ1..θ{K}"
+
+
+def _dffr_span(K: int) -> str:
+    """Los términos de ΔFFR del modelo: ΔFFR(t..t−K)."""
+    return "ΔFFR(t) y ΔFFR(t−1)" if K == 1 else f"ΔFFR(t..t−{K})"
+
+
 # --- Efectos acumulados (RF-10) ---
 
 
 def effects_table2(effects: dict, hyp: dict, K: int) -> pd.DataFrame:
     """S y S_rez con error HAC, χ²(1), p e IC 95 %, y H1 sobre S (RF-10)."""
     rows = []
-    for key, desc in (("S", f"θ0+…+θ{K}"), ("S_rez", f"θ1+…+θ{K}")):
+    for key, desc in (("S", _s_label(K)), ("S_rez", _s_rez_label(K))):
         e = effects[key]
         rows.append({
             "efecto": key, "descripcion": desc, "est": e["est"], "ee_hac": e["se"], "chi2": e["chi2"],
@@ -259,7 +289,7 @@ def effects_table2(effects: dict, hyp: dict, K: int) -> pd.DataFrame:
 
 def effects_note2(K: int) -> str:
     return (
-        f"Nota: S = θ0+…+θ{K} y S_rez = θ1+…+θ{K}, en pp de morosidad por 1 pp de ΔFFR; Wald HAC "
+        f"Nota: S = {_s_label(K)} y S_rez = {_s_rez_label(K)}, en pp de morosidad por 1 pp de ΔFFR; Wald HAC "
         "χ²(1) (H0: la suma es cero) e IC 95 % normal; H1: S > 0 (signo puntual) y «respaldada» si además "
         "p < 0,05."
     )
@@ -306,7 +336,7 @@ def reading_table2(granger: dict, effects: dict, reading: dict, K: int) -> pd.Da
     s_rez = effects["S_rez"]
     label = reading["etiqueta"] + (" · signo contrario al esperado" if reading["signo_contrario"] else "")
     rows = [
-        (f"Granger: θ1 = … = θ{K} = 0", granger["stat"], granger["df"], granger["p"], granger["veredicto"]),
+        (f"Granger: {_granger_null(K)}", granger["stat"], granger["df"], granger["p"], granger["veredicto"]),
         ("C1: Granger rechaza al 5 %", np.nan, np.nan, np.nan, "sí" if reading["c1"] else "no"),
         ("C2: S_rez > 0 con p < 0,05", s_rez["chi2"], 1, s_rez["p"], "sí" if reading["c2"] else "no"),
         ("Lectura de «¿hay efectos rezagados?»", np.nan, np.nan, np.nan, label),
@@ -318,7 +348,7 @@ def reading_table2(granger: dict, effects: dict, reading: dict, K: int) -> pd.Da
 
 def reading_note2(K: int) -> str:
     return (
-        f"Nota: la prueba de Granger es un Wald HAC χ²({K}) sobre θ1..θ{K} (se excluye θ0, que es simultáneo) y "
+        f"Nota: la prueba de Granger es un Wald HAC χ²({K}) sobre {_granger_terms(K)} (se excluye θ0, que es simultáneo) y "
         "mide precedencia temporal de la tasa respecto de la morosidad; la lectura usa solo lo rezagado: "
         "«evidencia fuerte» si se cumplen C1 y C2, «evidencia parcial» si se cumple una y «sin evidencia» "
         "si ninguna."
@@ -344,8 +374,8 @@ def comparison_note2(counts: dict) -> str:
 
 def _chow_note(cw: dict, K: int, break_q: str) -> str:
     base = (
-        f"Wald HAC con interacciones de {K + 7} términos (constante, ρ, ΔFFR(t..t−{K}) y los cuatro "
-        f"controles); dummies COVID sin interactuar; trimestres útiles anteriores: {cw['n_pre_util']}; "
+        f"Wald HAC con interacciones de {K + 7} términos (constante, ρ, los cuatro "
+        f"controles, {_dffr_span(K)}); dummies COVID sin interactuar; trimestres útiles anteriores: {cw['n_pre_util']}; "
         f"posteriores: {cw['n_post_util']}"
     )
     if not cw["calculable"]:
@@ -732,7 +762,8 @@ def comparison_inputs(main_fit: Fit, window: tuple[pd.Period, pd.Period], coef1:
 
 def _term_source(term: str) -> dict | None:
     if term == "y_lag":
-        return {"column": "dralacbs", "lag": 1}
+        # ΔDR del panel (`dralacbs_d`), no el nivel `dralacbs`: es la serie que entra como y_lag
+        return {"column": "dralacbs_d", "lag": 1}
     if term.startswith("d_ffr_l"):
         return {"column": "fedfunds_d", "lag": int(term.removeprefix("d_ffr_l"))}
     if term in CONTROLS:
