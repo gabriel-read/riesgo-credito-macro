@@ -161,3 +161,73 @@ def plot_model1_oos(oos) -> plt.Figure:
     ax.set_ylabel("Tasa de morosidad (%)")
     _quarter_axis(ax, s.index)
     return fig
+
+
+# --- Modelo II (spec 004) ---
+
+
+def plot_model2_profile(coefficients: pd.DataFrame, peak: dict) -> plt.Figure:
+    """Perfil de los coeficientes θ_j (j = 0..K) con su IC 95 % HAC y una línea en cero (RF-9).
+
+    Usa las filas ΔFFR(t−j) de la tabla de coeficientes. Si el trimestre de efecto máximo h* de la
+    trayectoria cae dentro de 0..K, se marca con una línea vertical.
+    """
+    rows = coefficients[coefficients["termino"].str.startswith("d_ffr_l")].reset_index(drop=True)
+    if rows.empty:
+        raise ValueError("no hay coeficientes de ΔFFR que dibujar")
+    j = np.array([int(t.removeprefix("d_ffr_l")) for t in rows["termino"]])
+    est = rows["coef"].to_numpy(dtype=float)
+    yerr = [est - rows["ic_inf"].to_numpy(dtype=float), rows["ic_sup"].to_numpy(dtype=float) - est]
+    fig, ax = _model1_figure()
+    ax.errorbar(j, est, yerr=yerr, fmt="o", color="#1f77b4", ecolor="#1f77b4", elinewidth=1.6,
+                capsize=3, label="θ_j con IC 95 % (HAC)")
+    ax.axhline(0, color="gray", linewidth=1, linestyle="--")
+    if peak["h_star"] <= j.max():
+        ax.axvline(peak["h_star"], color="#d62728", linewidth=1.1, linestyle=":",
+                   label=f"Trimestre de efecto máximo h* = {peak['h_star']}")
+    ax.set_xticks(j)
+    ax.set_xlabel("Rezago j (trimestres)")
+    ax.set_ylabel("pp de morosidad por 1 pp de ΔFFR(t−j)")
+    ax.legend(loc="best", frameon=False)
+    return fig
+
+
+def _num(series: pd.Series) -> np.ndarray:
+    return pd.to_numeric(series, errors="coerce").to_numpy(dtype=float)
+
+
+def plot_model2_response(lp: pd.DataFrame, trajectory: pd.DataFrame, detection: str) -> plt.Figure:
+    """Dos paneles (RF-18): respuesta acumulada de la morosidad y respuesta de la tasa, h = 0..12.
+
+    Izquierda: β_h con su banda del 90 % HAC y R(h) del modelo de rezagos distribuidos superpuesta; si
+    hay horizonte de detección se marca con una línea vertical. Derecha: φ_h con su banda del 90 %
+    (φ_0 = 1 por construcción, sin banda). Los horizontes «no estimada» quedan como huecos.
+    """
+    h = _num(lp["h"])
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4.5), dpi=200)
+    fig.subplots_adjust(left=0.09, right=0.98, top=0.96, bottom=0.36, wspace=0.28)
+    fig.text(0.01, 0.01, _FOOTER, fontsize=8, ha="left", va="bottom")
+
+    beta = _num(lp["beta"])
+    ax1.fill_between(h, _num(lp["ic90_inf"]), _num(lp["ic90_sup"]), color="#1f77b4", alpha=0.2,
+                     linewidth=0, label="Banda al 90 % (HAC)")
+    ax1.plot(h, beta, color="#1f77b4", marker="o", markersize=3, linewidth=1.5, label="β_h (proyección local)")
+    ax1.plot(_num(trajectory["h"]), _num(trajectory["R"]), color="black", linestyle="--", linewidth=1.2,
+             label="R(h) (rezagos distribuidos)")
+    ax1.axhline(0, color="gray", linewidth=1)
+    if detection != "ninguno":
+        ax1.axvline(float(detection.removeprefix("h")), color="#d62728", linestyle=":", linewidth=1.1,
+                    label=f"Horizonte de detección ({detection.replace('h', 'h = ')})")
+    ax1.set_xlabel("Horizonte h (trimestres)")
+    ax1.set_ylabel("pp de morosidad por 1 pp de ΔFFR(t)")
+    ax1.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), frameon=False, fontsize=7)
+
+    ax2.fill_between(h, _num(lp["phi_ic90_inf"]), _num(lp["phi_ic90_sup"]), color="#2ca02c", alpha=0.2,
+                     linewidth=0, label="Banda al 90 % (HAC)")
+    ax2.plot(h, _num(lp["phi"]), color="#2ca02c", marker="o", markersize=3, linewidth=1.5,
+             label="φ_h (respuesta de la tasa)")
+    ax2.axhline(0, color="gray", linewidth=1)
+    ax2.set_xlabel("Horizonte h (trimestres)")
+    ax2.set_ylabel("pp de la tasa por 1 pp de ΔFFR(t)")
+    ax2.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), frameon=False, fontsize=7)
+    return fig

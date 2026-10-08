@@ -14,7 +14,11 @@ from src.panel import PanelResult
 from src.config import COLUMN_LABELS, MAIN_SERIES
 from src.model1 import Model1Result, effects_note, fmt_p, term_label
 from src.model1_config import COVID_QUARTERS, MACRO_TERMS
+from src.model2 import Model2Result, rho_warning
+from src.model2_config import COVID_QUARTERS as M2_COVID_QUARTERS
 from src.tables import fmt_es, quarter_label
+
+_DASH = "—"
 
 
 def data_variables(
@@ -231,6 +235,140 @@ def model1_variables(result: Model1Result) -> dict:
         "robustez": {t: str(summary.loc[t, "robustez"]) for t in macro},
         "variantes_muestra": {o.spec.id: _m1_sample(o) for o in result.variants},
         "oos": _m1_oos(result.oos.table),
+        "no_i0": _m1_join_es(flagged),
+        "limitaciones": [f"{r.limitacion}: {r.detalle}" for r in result.limitations.itertuples()],
+        "desviaciones": [
+            f"{r.decision} ({r.referencia}): {r.motivo}" for r in result.deviations.itertuples()
+        ],
+    }
+
+
+# --- Bloque `modelo2:` (spec 004, RF-28) ---
+# Ninguna cifra se escribe a mano: todo sale de las tablas del `Model2Result`. Un horizonte o una variante
+# «no estimada» o «no aplica» va como texto, nunca como número.
+
+
+def _m2_num(value, decimals: int = 3) -> str:
+    """Número con coma decimal, o «—» si es nulo."""
+    return _DASH if value is None or pd.isna(value) else fmt_es(float(value), decimals)
+
+
+def _m2_p(value) -> str:
+    return _DASH if value is None or pd.isna(value) else fmt_p(float(value))
+
+
+def _m2_yes(flag: bool) -> str:
+    return "sí" if flag else "no"
+
+
+def _m2_horizon(lp: pd.DataFrame) -> dict:
+    out: dict = {}
+    for _, r in lp.iterrows():
+        if r["estado"] == "estimada":
+            out[f"h{int(r['h'])}"] = {
+                "beta": _m2_num(r["beta"]), "ee": _m2_num(r["ee"]),
+                "ic90_inf": _m2_num(r["ic90_inf"]), "ic90_sup": _m2_num(r["ic90_sup"]),
+                "n_obs": str(int(r["n_obs"])), "rezagos_hac": str(int(r["rezagos_hac"])), "estado": "estimada",
+                "phi": _m2_num(r["phi"]), "phi_ee": _m2_num(r["phi_ee"]),
+                "phi_ic90_inf": _m2_num(r["phi_ic90_inf"]), "phi_ic90_sup": _m2_num(r["phi_ic90_sup"]),
+            }
+        else:
+            out[f"h{int(r['h'])}"] = {
+                k: "no estimada" for k in ("beta", "ee", "ic90_inf", "ic90_sup", "phi", "phi_ee",
+                                           "phi_ic90_inf", "phi_ic90_sup")
+            } | {"n_obs": "—", "rezagos_hac": "—", "estado": "no estimada", "motivo": str(r["motivo"])}
+    return out
+
+
+def _m2_variant(o) -> dict:
+    if not o.estimated:
+        return {"estado": o.status, "motivo": o.reason, "k": "—", "muestra_inicio": "—", "muestra_fin": "—",
+                "n_obs": "—", "s": "—", "s_rez": "—", "p_s_rez": "—", "h_estrella": "—", "h1": "—"}
+    index = o.design.X.index
+    return {
+        "estado": "estimada", "motivo": "", "k": str(o.K),
+        "muestra_inicio": quarter_label(index.min()), "muestra_fin": quarter_label(index.max()),
+        "n_obs": str(int(o.fit.nobs)), "s": _m2_num(o.effects["S"]["est"]),
+        "s_rez": _m2_num(o.effects["S_rez"]["est"]), "p_s_rez": _m2_p(o.effects["S_rez"]["p"]),
+        "h_estrella": str(o.peak["h_star"]), "h1": _m2_yes(o.hyp["h1_signo"] == "sí"),
+    }
+
+
+def model2_variables(result: Model2Result) -> dict:
+    """Construye el bloque `modelo2:` de `report/_variables.yml` (RF-28).
+
+    Se cita en el informe como `{{< var modelo2.efectos.s.est >}}`. Todo es texto ya formateado (coma
+    decimal, 3 decimales, «< 0,001»), con los mismos dígitos que las 14 tablas. La etapa `models` del
+    pipeline reescribe solo esta clave y conserva las demás.
+    """
+    f = result.coef_footer
+    eff = result.effects_raw
+    summary = result.robustness_summary.set_index("termino").loc["S_rez"]
+    flagged = [
+        str(e).split(" — ")[0].split(" (")[0]
+        for e in result.stationarity.loc[result.stationarity["no_i0"] == "sí", "etiqueta"]
+    ]
+
+    def effect(key: str) -> dict:
+        e = eff[key]
+        return {"est": _m2_num(e["est"]), "ee": _m2_num(e["se"]), "chi2": _m2_num(e["chi2"]),
+                "p": _m2_p(e["p"]), "ic_inf": _m2_num(e["ic_inf"]), "ic_sup": _m2_num(e["ic_sup"])}
+
+    traj = result.trajectory
+    return {
+        "estimador": "MCO con errores Newey-West (HAC, kernel de Bartlett)",
+        "forma_y": f["forma_y"],
+        "k_elegido": str(result.K),
+        "criterio": f["criterio"],
+        "k_bic": str(result.k_bic),
+        "k_aic": str(result.k_aic),
+        "muestra_inicio": f["muestra_inicio"],
+        "muestra_fin": f["muestra_fin"],
+        "n_obs": str(f["n_obs"]),
+        "n_parametros": str(f["n_parametros"]),
+        "rezagos_hac": str(f["rezagos_hac"]),
+        "dummies_covid": _m1_join_es([quarter_label(pd.Period(q, "Q-DEC")) for q in M2_COVID_QUARTERS]),
+        "truncamiento_espectral": _m2_yes(f["truncamiento_espectral"]),
+        "r2": _m2_num(f["r2"]),
+        "r2_ajustado": _m2_num(f["r2_ajustado"]),
+        "ee_regresion": _m2_num(f["ee_regresion"]),
+        "seleccion": {
+            f"k{int(r.K)}": {"n_parametros": str(int(r.n_params)), "aic": _m2_num(r.aic), "bic": _m2_num(r.bic)}
+            for r in result.selection.itertuples()
+        },
+        "coef": {
+            r.termino: {"coef": _m2_num(r.coef), "ee": _m2_num(r.ee_hac), "p": _m2_p(r.p),
+                        "ic_inf": _m2_num(r.ic_inf), "ic_sup": _m2_num(r.ic_sup)}
+            for r in result.coefficients.itertuples()
+        },
+        "efectos": {
+            "s": effect("S"), "s_rez": effect("S_rez"),
+            "h1": {"signo": result.hyp["h1_signo"], "respaldada": result.hyp["h1_respaldada"]},
+        },
+        "trayectoria": {
+            "psi": {f"h{int(r.h)}": _m2_num(r.psi) for r in traj.itertuples()},
+            "r": {f"h{int(r.h)}": _m2_num(r.R) for r in traj.itertuples()},
+            "h_estrella": {"h": str(result.peak["h_star"]), "signo": result.peak["signo"]},
+            "h2": result.hyp["h2"],
+            "aviso_rho": rho_warning(float(result.main_fit.params["y_lag"])),
+        },
+        "granger": {
+            "chi2": _m2_num(result.granger["stat"]), "gl": str(int(result.granger["df"])),
+            "p": _m2_p(result.granger["p"]), "veredicto": result.granger["veredicto"],
+        },
+        "lectura": {
+            "etiqueta": result.reading["etiqueta"], "c1": _m2_yes(result.reading["c1"]),
+            "c2": _m2_yes(result.reading["c2"]), "signo_contrario": _m2_yes(result.reading["signo_contrario"]),
+        },
+        "lp": _m2_horizon(result.lp),
+        "lp_resumen": {"k_de_n": result.comparison_counts["k_de_n"],
+                       "horizonte_deteccion": result.comparison_counts["horizonte_deteccion"]},
+        "diag": _m1_diag(result.diagnostics),
+        "robustez": {o.spec.id.lower(): _m2_variant(o) for o in result.variants},
+        "robustez_resumen": {
+            **{o.spec.id.lower(): str(summary[o.spec.id]) for o in result.variants},
+            "p_principal": _m2_p(summary["p_principal"]),
+        },
         "no_i0": _m1_join_es(flagged),
         "limitaciones": [f"{r.limitacion}: {r.detalle}" for r in result.limitations.itertuples()],
         "desviaciones": [

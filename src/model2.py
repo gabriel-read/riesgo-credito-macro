@@ -287,7 +287,7 @@ def trajectory_table(traj: pd.DataFrame, peak: dict) -> pd.DataFrame:
 def trajectory_note(rho: float, peak: dict, hyp: dict) -> str:
     """Pie de la trayectoria: sin bandas, h* con su signo, H2 y avisos de ρ (RF-11)."""
     parts = [
-        "ψ_h es la respuesta de ΔDR (pp por trimestre) y R(h) la del nivel de la morosidad (pp) a un shock "
+        "ψ_h es la respuesta de ΔDR (pp por trimestre) y R(h) la respuesta acumulada del nivel de la morosidad (pp) a un shock "
         "de 1 pp en ΔFFR",
         f"h* = {peak['h_star']} (signo {peak['signo']}), el h con mayor |ψ_h|",
         f"H2 (h* ≥ 1): {hyp['h2']}",
