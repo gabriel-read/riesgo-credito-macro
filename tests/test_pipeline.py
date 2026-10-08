@@ -3,6 +3,7 @@
 CLI, orquestación, escritura de salidas, RNF-1 (reproducibilidad), pureza módulos.
 """
 
+import ast
 import os
 import sys
 import tempfile
@@ -111,9 +112,16 @@ def test_pipeline_modules_pure():
         "src/data_note.py",
         "src/report_vars.py",
         "src/config.py",
+        "src/references.py",
+        "src/design.py",
+        "src/estimation.py",
+        "src/diagnostics.py",
+        "src/forecast.py",
+        "src/model1.py",
+        "src/model1_config.py",
     ]
 
-    forbidden_imports = {"requests", "pandas_datareader", "matplotlib"}
+    forbidden_imports = {"requests", "pandas_datareader", "matplotlib", "urllib", "socket"}
 
     for mod_path in pure_modules:
         with open(mod_path, "r", encoding="utf-8") as f:
@@ -142,6 +150,13 @@ def test_pipeline_no_open_in_pure_modules():
         "src/report_vars.py",
         "src/figures.py",
         "src/config.py",
+        "src/references.py",
+        "src/design.py",
+        "src/estimation.py",
+        "src/diagnostics.py",
+        "src/forecast.py",
+        "src/model1.py",
+        "src/model1_config.py",
     ]
 
     for mod_path in pure_files:
@@ -154,3 +169,58 @@ def test_pipeline_no_open_in_pure_modules():
             for node in ast.walk(tree):
                 if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "open":
                     pytest.fail(f"{mod_path}: contiene open()")
+
+
+MODEL1_PURE_MODULES = [
+    "src/design.py",
+    "src/estimation.py",
+    "src/diagnostics.py",
+    "src/forecast.py",
+    "src/model1.py",
+    "src/model1_config.py",
+]
+MODEL1_FORBIDDEN_IMPORTS = {
+    "requests", "pandas_datareader", "matplotlib", "urllib", "socket",
+    "pathlib", "os", "shutil", "subprocess", "tempfile",
+}
+MISSING_DATA_OPS = {"fillna", "ffill", "bfill", "interpolate", "dropna"}
+
+
+def _imported_roots(tree) -> set[str]:
+    roots: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            roots.update(alias.name.split(".")[0] for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            roots.add(node.module.split(".")[0])
+    return roots
+
+
+def test_model1_modules_are_pure_and_never_fill_or_drop_missing_data():
+    """Spec 003, RNF-6 y RF-2: sin red, disco ni gráficos; sin rellenar ni descartar faltantes."""
+    for mod_path in MODEL1_PURE_MODULES:
+        with open(mod_path, "r", encoding="utf-8") as f:
+            tree = ast.parse(f.read(), filename=mod_path)
+        bad = _imported_roots(tree) & MODEL1_FORBIDDEN_IMPORTS
+        assert not bad, f"{mod_path}: importa {sorted(bad)}"
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "open":
+                pytest.fail(f"{mod_path}: contiene open()")
+            if isinstance(node, ast.Attribute) and node.attr in MISSING_DATA_OPS:
+                pytest.fail(f"{mod_path}:{node.lineno}: usa .{node.attr}() sobre datos del modelo")
+
+
+def test_report_vars_model1_functions_never_fill_or_drop_missing_data():
+    """Solo las funciones del bloque `modelo1:` (las de la spec 001 no se tocan)."""
+    with open("src/report_vars.py", "r", encoding="utf-8") as f:
+        tree = ast.parse(f.read(), filename="src/report_vars.py")
+    checked = 0
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef) and (node.name == "model1_variables" or node.name.startswith("_m1_")):
+            checked += 1
+            for sub in ast.walk(node):
+                if isinstance(sub, ast.Attribute):
+                    assert sub.attr not in MISSING_DATA_OPS, f"{node.name}: usa .{sub.attr}()"
+                if isinstance(sub, ast.Call) and isinstance(sub.func, ast.Name) and sub.func.id == "open":
+                    pytest.fail(f"{node.name}: contiene open()")
+    assert checked >= 2

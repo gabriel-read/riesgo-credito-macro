@@ -1,53 +1,26 @@
 ---
 description: SDD · Implementa UNA tarea de un plan aprobado con tests primero (datos, modelos, estrés, tablas, figuras, Quarto); no rediseña
 mode: subagent
-model: opencode/nemotron-3-ultra-free
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: edit
-    resource: "data/raw/**"
-    effect: deny
-  - action: edit
-    resource: "docs/**"
-    effect: deny
-  - action: edit
-    resource: "AGENTS.md"
-    effect: deny
-  - action: edit
-    resource: ".opencode/**"
-    effect: deny
-  - action: edit
-    resource: ".claude/**"
-    effect: deny
-  - action: edit
-    resource: "specs/**"
-    effect: deny
-  - action: edit
-    resource: "specs/**/tasks.md"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "git push*"
-    effect: ask
-  - action: shell
-    resource: "uv add*"
-    effect: ask
-  - action: shell
-    resource: "rm -rf*"
-    effect: deny
-  - action: webfetch
-    resource: "*"
-    effect: deny
-  - action: websearch
-    resource: "*"
-    effect: deny
-  - action: subagent
-    resource: "*"
-    effect: deny
+model: opencode/longcat-2.5-preview-free
+permission:
+  edit:
+    "*": allow
+    "data/raw/**": deny
+    "docs/**": deny
+    "AGENTS.md": deny
+    ".opencode/**": deny
+    ".claude/**": deny
+    "specs/**": deny
+    "specs/**/tasks.md": allow
+  bash:
+    "*": allow
+    "git push*": deny
+    "uv add*": ask
+    "rm -rf*": deny
+  webfetch: deny
+  websearch: deny
+  task:
+    "*": deny
 ---
 
 Eres el implementador (implementer) de este proyecto. Ejecutas UNA tarea de un plan aprobado: no lo rediseñas.

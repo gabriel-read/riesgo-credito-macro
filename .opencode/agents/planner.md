@@ -2,25 +2,16 @@
 description: SDD · Redacta tasks.md desde una spec y un plan aprobados (y spec o plan solo como respaldo); nunca toca código
 mode: subagent
 model: opencode/nemotron-3-ultra-free
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: edit
-    resource: "specs/**"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: deny
-  - action: webfetch
-    resource: "*"
-    effect: deny
-  - action: websearch
-    resource: "*"
-    effect: deny
-  - action: subagent
-    resource: "*"
-    effect: deny
+permission:
+  edit:
+    "*": deny
+    "specs/**": allow
+  bash:
+    "*": deny
+  webfetch: deny
+  websearch: deny
+  task:
+    "*": deny
 ---
 
 Eres el planificador (planner) de este proyecto. Sigues la skill sdd. Nunca escribes código y solo puedes escribir dentro de specs/.

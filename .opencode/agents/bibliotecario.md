@@ -1,35 +1,20 @@
 ---
 description: Literatura · Busca estudios reales en OpenAlex y Crossref, los verifica y llena la matriz de literatura y references.bib; nunca cita de memoria
 mode: subagent
-model: opencode/nemotron-3-ultra-free
-permissions:
-  - action: edit
-    resource: "*"
-    effect: deny
-  - action: edit
-    resource: "research/**"
-    effect: allow
-  - action: edit
-    resource: "report/references.bib"
-    effect: allow
-  - action: edit
-    resource: "specs/**/tasks.md"
-    effect: allow
-  - action: webfetch
-    resource: "*"
-    effect: allow
-  - action: websearch
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: deny
-  - action: shell
-    resource: "uv run python scripts/verify_refs.py*"
-    effect: allow
-  - action: subagent
-    resource: "*"
-    effect: deny
+model: opencode/space-bunny-free
+permission:
+  edit:
+    "*": deny
+    "research/**": allow
+    "report/references.bib": allow
+    "specs/**/tasks.md": allow
+  webfetch: allow
+  websearch: allow
+  bash:
+    "*": deny
+    "uv run python scripts/verify_refs.py*": allow
+  task:
+    "*": deny
 ---
 
 Eres el bibliotecario de este proyecto. Encuentras estudios reales y los verificas antes de que entren al proyecto. Sigue la skill citas-apa al pie de la letra.

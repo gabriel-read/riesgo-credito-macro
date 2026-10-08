@@ -55,3 +55,415 @@ datos:
     fedfunds: I(0)
     coralacbs: I(0)
   n_ambiguas: '8'
+modelo1:
+  estimador: MCO con errores Newey-West (HAC, kernel de Bartlett)
+  forma_y: primera diferencia
+  muestra_inicio: 2000T1
+  muestra_fin: 2026T2
+  n_obs: '106'
+  n_parametros: '11'
+  rezagos_hac: '4'
+  dummies_covid: 2020T2, 2020T3, 2020T4 y 2021T1
+  truncamiento_espectral: 'no'
+  r2: 0,832
+  r2_ajustado: 0,814
+  ee_regresion: 0,096
+  variantes:
+    R1: Sin 2020–2021
+    R2: DRALACBN sin desestacionalizar, con dummies estacionales
+    R3_drclacbs: Tarjetas de crédito
+    R3_drblacbs: Préstamos empresariales
+    R3_drsreacbs: Préstamos inmobiliarios
+    R4: PIB nominal
+    R5: Logit de la morosidad
+    R6: Crédito rezagado 8 trimestres
+    R7: Crédito rezagado 12 trimestres
+    R8: Muestra larga desde 1985T1
+  coef:
+    const:
+      coef: -0,066
+      ee: 0,024
+      p: 0,006
+      ic_inf: -0,112
+      ic_sup: -0,019
+    y_lag:
+      coef: 0,626
+      ee: 0,093
+      p: < 0,001
+      ic_inf: 0,444
+      ic_sup: 0,809
+    gdp_growth:
+      coef: -0,016
+      ee: 0,010
+      p: 0,110
+      ic_inf: -0,036
+      ic_sup: 0,004
+    d_unemp:
+      coef: 0,077
+      ee: 0,062
+      p: 0,214
+      ic_inf: -0,045
+      ic_sup: 0,199
+    inflation:
+      coef: 0,020
+      ee: 0,006
+      p: 0,001
+      ic_inf: 0,008
+      ic_sup: 0,032
+    d_ffr:
+      coef: -0,044
+      ee: 0,040
+      p: 0,269
+      ic_inf: -0,122
+      ic_sup: 0,034
+    credit_growth:
+      coef: 0,010
+      ee: 0,003
+      p: < 0,001
+      ic_inf: 0,005
+      ic_sup: 0,015
+    covid_2020q2:
+      coef: -0,888
+      ee: 0,619
+      p: 0,152
+      ic_inf: -2,102
+      ic_sup: 0,326
+    covid_2020q3:
+      coef: 0,322
+      ee: 0,260
+      p: 0,216
+      ic_inf: -0,188
+      ic_sup: 0,831
+    covid_2020q4:
+      coef: 0,094
+      ee: 0,127
+      p: 0,458
+      ic_inf: -0,155
+      ic_sup: 0,343
+    covid_2021q1:
+      coef: -0,055
+      ee: 0,031
+      p: 0,082
+      ic_inf: -0,116
+      ic_sup: 0,007
+  efectos:
+    gdp_growth:
+      de: 1,778
+      impacto_pp: -0,016
+      impacto_pp_ee: 0,010
+      impacto_pp_p: 0,110
+      impacto_pp_ic_inf: -0,036
+      impacto_pp_ic_sup: 0,004
+      impacto_de: -0,029
+      impacto_de_ee: 0,018
+      impacto_de_p: 0,110
+      impacto_de_ic_inf: -0,065
+      impacto_de_ic_sup: 0,007
+      largo_pp: -0,044
+      largo_pp_ee: 0,022
+      largo_pp_p: 0,043
+      largo_pp_ic_inf: -0,086
+      largo_pp_ic_sup: -0,001
+      largo_de: -0,078
+      largo_de_ee: 0,038
+      largo_de_p: 0,043
+      largo_de_ic_inf: -0,153
+      largo_de_ic_sup: -0,002
+    d_unemp:
+      de: 0,308
+      impacto_pp: 0,077
+      impacto_pp_ee: 0,062
+      impacto_pp_p: 0,214
+      impacto_pp_ic_inf: -0,045
+      impacto_pp_ic_sup: 0,199
+      impacto_de: 0,024
+      impacto_de_ee: 0,019
+      impacto_de_p: 0,214
+      impacto_de_ic_inf: -0,014
+      impacto_de_ic_sup: 0,062
+      largo_pp: 0,207
+      largo_pp_ee: 0,137
+      largo_pp_p: 0,131
+      largo_pp_ic_inf: -0,062
+      largo_pp_ic_sup: 0,476
+      largo_de: 0,064
+      largo_de_ee: 0,042
+      largo_de_p: 0,131
+      largo_de_ic_inf: -0,019
+      largo_de_ic_sup: 0,147
+    inflation:
+      de: 1,637
+      impacto_pp: 0,020
+      impacto_pp_ee: 0,006
+      impacto_pp_p: 0,001
+      impacto_pp_ic_inf: 0,008
+      impacto_pp_ic_sup: 0,032
+      impacto_de: 0,032
+      impacto_de_ee: 0,010
+      impacto_de_p: 0,001
+      impacto_de_ic_inf: 0,012
+      impacto_de_ic_sup: 0,052
+      largo_pp: 0,053
+      largo_pp_ee: 0,011
+      largo_pp_p: < 0,001
+      largo_pp_ic_inf: 0,031
+      largo_pp_ic_sup: 0,075
+      largo_de: 0,087
+      largo_de_ee: 0,018
+      largo_de_p: < 0,001
+      largo_de_ic_inf: 0,051
+      largo_de_ic_sup: 0,123
+    d_ffr:
+      de: 0,452
+      impacto_pp: -0,044
+      impacto_pp_ee: 0,040
+      impacto_pp_p: 0,269
+      impacto_pp_ic_inf: -0,122
+      impacto_pp_ic_sup: 0,034
+      impacto_de: -0,020
+      impacto_de_ee: 0,018
+      impacto_de_p: 0,269
+      impacto_de_ic_inf: -0,055
+      impacto_de_ic_sup: 0,015
+      largo_pp: -0,117
+      largo_pp_ee: 0,092
+      largo_pp_p: 0,202
+      largo_pp_ic_inf: -0,298
+      largo_pp_ic_sup: 0,063
+      largo_de: -0,053
+      largo_de_ee: 0,042
+      largo_de_p: 0,202
+      largo_de_ic_inf: -0,135
+      largo_de_ic_sup: 0,029
+    credit_growth:
+      de: 4,114
+      impacto_pp: 0,010
+      impacto_pp_ee: 0,003
+      impacto_pp_p: < 0,001
+      impacto_pp_ic_inf: 0,005
+      impacto_pp_ic_sup: 0,015
+      impacto_de: 0,041
+      impacto_de_ee: 0,011
+      impacto_de_p: < 0,001
+      impacto_de_ic_inf: 0,019
+      impacto_de_ic_sup: 0,063
+      largo_pp: 0,027
+      largo_pp_ee: 0,004
+      largo_pp_p: < 0,001
+      largo_pp_ic_inf: 0,019
+      largo_pp_ic_sup: 0,034
+      largo_de: 0,109
+      largo_de_ee: 0,016
+      largo_de_p: < 0,001
+      largo_de_ic_inf: 0,077
+      largo_de_ic_sup: 0,142
+  efectos_nota: 'Nota: DE de cada regresor (divisor n − 1, ddof = 1) sobre 102 trimestres,
+    2000T1–2026T2 sin 2020T2–2021T1 (C1: el modelo ya neutraliza esos trimestres con
+    sus dummies): ΔPIB = 1,778; ΔU = 0,308; π = 1,637; ΔFFR = 0,452; CRED(t−4) = 4,114.
+    Con Y en primera diferencia, el efecto de largo plazo es el cambio acumulado en
+    el nivel de la morosidad ante un aumento transitorio de 1 unidad del regresor
+    durante un trimestre. Cada efecto por 1 DE es el efecto por 1 pp multiplicado
+    por la DE de su regresor; todos están en pp de morosidad.'
+  signo:
+    gdp_growth: sí
+    d_unemp: sí
+    inflation: sin contraste
+    d_ffr: 'no'
+    credit_growth: sí
+  diag:
+    bg:
+      estadistico: 3,252
+      p: 0,517
+      veredicto: pasa
+    bp:
+      estadistico: 21,981
+      p: 0,015
+      veredicto: falla
+    white:
+      estadistico: 91,756
+      p: < 0,001
+      veredicto: falla
+    jb:
+      estadistico: 461,908
+      p: < 0,001
+      veredicto: falla
+    reset:
+      estadistico: 6,021
+      p: 0,003
+      veredicto: falla
+    chow_2008t3:
+      estadistico: 24,987
+      p: < 0,001
+      veredicto: falla
+    chow_2020t2:
+      estadistico: 15,155
+      p: 0,034
+      veredicto: falla
+    cusum:
+      veredicto: pasa
+    vif:
+      y_lag:
+        valor: 3,174
+        veredicto: sin alerta
+      gdp_growth:
+        valor: 3,280
+        veredicto: sin alerta
+      d_unemp:
+        valor: 36,811
+        veredicto: alerta
+      inflation:
+        valor: 1,329
+        veredicto: sin alerta
+      d_ffr:
+        valor: 1,343
+        veredicto: sin alerta
+      credit_growth:
+        valor: 1,604
+        veredicto: sin alerta
+  robustez:
+    gdp_growth: 3 de 9
+    d_unemp: 1 de 9
+    inflation: 8 de 9
+    d_ffr: 1 de 9
+    credit_growth: 7 de 9
+  variantes_muestra:
+    R1:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '98'
+    R2:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '106'
+    R3_drclacbs:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '106'
+    R3_drblacbs:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '106'
+    R3_drsreacbs:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '106'
+    R4:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '106'
+    R5:
+      estado: estimada
+      motivo: ''
+      inicio: 2000T1
+      fin: 2026T2
+      n_obs: '106'
+    R6:
+      estado: estimada
+      motivo: ''
+      inicio: 2001T1
+      fin: 2026T2
+      n_obs: '102'
+    R7:
+      estado: estimada
+      motivo: ''
+      inicio: 2002T1
+      fin: 2026T2
+      n_obs: '98'
+    R8:
+      estado: no estimada
+      motivo: sin historia anterior a 2000T1
+      inicio: —
+      fin: —
+      n_obs: —
+  oos:
+    n_trimestres: '18'
+    rmse_modelo_un_paso: 0,033
+    rmse_ingenuo_un_paso: 0,034
+    mae_modelo_un_paso: 0,025
+    mae_ingenuo_un_paso: 0,026
+    cociente_un_paso: 0,978
+    rmse_modelo_dinamico: 0,276
+    rmse_ingenuo_dinamico: 0,170
+    mae_modelo_dinamico: 0,261
+    mae_ingenuo_dinamico: 0,145
+    cociente_dinamico: 1,625
+    dm_estadistico: -0,080
+    dm_p: 0,937
+    veredicto_un_paso: supera al ingenuo
+    veredicto_dinamico: no supera al ingenuo
+    significancia_un_paso: no significativo
+  no_i0: π y CRED(t−4)
+  limitaciones:
+  - 'Endogeneidad de la tasa de fondos federales: La Fed reacciona a la economía:
+    ΔFFR se asocia con la morosidad, pero esa asociación no identifica el efecto de
+    la política monetaria.'
+  - 'Simultaneidad de los regresores contemporáneos: PIB, desempleo, inflación y ΔFFR
+    se determinan junto con la morosidad del mismo trimestre: los coeficientes son
+    asociaciones condicionales, no efectos aislados.'
+  - 'Potencia baja de Diebold-Mariano: La evaluación fuera de muestra tiene pocos
+    trimestres, por lo que la prueba de Diebold-Mariano tiene poca potencia.'
+  - 'Efectos base de 2021T2–2022T1 sin dummy: El rebote interanual del PIB y el crecimiento
+    del crédito asociado al programa PPP, que entra en CRED(t−4) entre 2021T2 y 2022T1,
+    no llevan dummy; la robustez R1 (sin 2020–2021) sirve de contraste.'
+  - 'Regresores no I(0): π, CRED(t−4): no son I(0) según la regla de la spec 001;
+    entran en su forma fija y su no estacionariedad residual se declara como limitación
+    del modelo.'
+  - 'Dependientes con orden «posible I(2)»: drsreacbs (R3_drsreacbs), dralacbs_logit
+    (R5)'
+  - 'Breusch-Pagan: falla: estadístico 21,981, p = 0,015; se reporta y se discute
+    qué implica para las conclusiones'
+  - 'White: falla: estadístico 91,756, p < 0,001; se reporta y se discute qué implica
+    para las conclusiones'
+  - 'Jarque-Bera: falla: estadístico 461,908, p < 0,001; se reporta y se discute qué
+    implica para las conclusiones'
+  - 'RESET: falla: estadístico 6,021, p = 0,003; se reporta y se discute qué implica
+    para las conclusiones'
+  - 'VIF (d_unemp): alerta: estadístico 36,811; con las dummies COVID dentro de X,
+    casi toda la varianza de ΔU es el salto de 2020T2, que su dummy absorbe: no es
+    colinealidad entre regresores macro, sino que el coeficiente de ΔU se identifica
+    con la variación fuera de la COVID; se reporta y no se elimina ningún regresor'
+  - 'Chow 2008T3: falla: estadístico 24,987, p < 0,001; Wald HAC con interacciones
+    de la constante, ρ y β₁–β₅; dummies COVID sin interactuar'
+  - 'Chow 2020T2: falla: estadístico 15,155, p = 0,034; Wald HAC con interacciones
+    de la constante, ρ y β₁–β₅; dummies COVID sin interactuar; quedan 21 trimestres
+    posteriores útiles para 7 restricciones: el tamaño empírico del contraste puede
+    diferir del 5 % nominal'
+  - 'Variante R8 no estimada: sin historia anterior a 2000T1'
+  desviaciones:
+  - 'PIB real (GDPC1) como regresor principal en lugar del GDP nominal (Guía, secciones
+    3.3 y 11): Evita la doble contabilidad con la inflación; el GDP nominal de la
+    guía queda como robustez R4.'
+  - 'Muestra hasta 2026T2 (último trimestre común) (Guía, sección 11): El ejemplo
+    de descarga de la guía corta en 2026-01-01; se usan todos los trimestres completos
+    disponibles.'
+  - 'Muestra larga desde 1985T1 (fuera del período 2000–2026 de la guía) (Guía, sección
+    11): R8 no estimada: sin historia anterior a 2000T1'
+  - 'Regresores con forma fija en lugar de la regla de estacionariedad para todas
+    las series (Skill de econometría de series de tiempo): Conservan su interpretación
+    económica (tasas de variación); su no estacionariedad residual se declara como
+    limitación.'
+  - 'ΔFFR como variable única de tasas para las secciones 3.3 y 3.4 (Guía, secciones
+    3.3 y 3.4): La guía lista la tasa de interés entre las variables macro (3.3) y,
+    aparte, el cambio de la FFR como variable de política monetaria (3.4); el Modelo
+    I usa una sola.'
+  - '2026-10-05 · C1: la DE de los efectos «por 1 DE» excluye 2020T2–2021T1 (Pre-registro
+    de la spec 003): Con esos trimestres la DE quedaría dominada por el salto atípico
+    de 2020T2, que el modelo ya neutraliza con sus dummies.'
+  - '2026-10-05 · C2: los efectos base de 2021T2–2022T1 se declaran como limitación
+    fija, con R1 como contraste y sin nuevas dummies (Pre-registro de la spec 003):
+    Son puntos de alto apalancamiento que la ventana COVID no cubre.'
+  - '2026-10-05 · C3: la comprobación de matriz no definida positiva se acota al sub-bloque
+    sin dummies de impulso (Pre-registro de la spec 003): La reducción de rango por
+    esas dummies es una propiedad algebraica (residuo nulo), no un fallo numérico.'

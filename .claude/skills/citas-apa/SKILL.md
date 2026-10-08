@@ -18,7 +18,7 @@ Los modelos de lenguaje inventan referencias con facilidad. En este proyecto una
 - La lista semilla del playbook es un punto de partida, no una verdad: se verifica igual que cualquier candidato.
 
 ## Matriz de literatura (`research/matriz-literatura.md`)
-Una fila por estudio: Clave · Autor(es) y año · País y muestra · Variable dependiente · Regresores · Método · Hallazgo principal (una línea, con signo) · Sección de la guía (2.1–2.5) · Estado (verificado | pendiente-lectura | descartado) · URL de verificación.
+Una fila por estudio o referencia. El formato exacto (16 columnas, tabla «Resumen» previa, valores admitidos, «no aplica», motivo de descarte con prefijo «Descartado: ») lo fijan `specs/002-literatura/spec.md` (RF-4, RF-20 a RF-24) y `specs/002-literatura/plan.md` (§4). Si esta skill y la spec difieren, manda la spec. Resumen de columnas: Clave · Autor(es) y año · País · Frecuencia · Período · Variable dependiente · Regresores · Variables de la guía · Método · Hallazgo o aporte · Sección principal · Secciones secundarias · Respalda · Tipo · Estado (verificado | pendiente-lectura | descartado) · URL de verificación.
 
 ## BibTeX (`report/references.bib`)
 - Clave `apellidoaño` en minúsculas, sin tildes, ñ ni guiones (`jimenez2006`, `bernanke1995`, `frb2026`); campo `doi` siempre que exista. Los tests del arnés solo reconocen ese formato.

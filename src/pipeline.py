@@ -124,25 +124,101 @@ def stage_data(download: bool = False) -> int:
     return 0
 
 
+def stage_models() -> int:
+    """Ejecuta el Modelo I sobre las descargas congeladas de data/raw/ (spec 003, RF-23).
+
+    Sin red. Reconstruye en memoria la historia transformada desde 1998 (plan 003, D1) y lee la
+    decisión niveles/diferencias de `outputs/tables/stationarity.csv` (la deja la etapa `data`).
+    Escribe: las 9 tablas (.csv y .md), las 3 figuras (.png a 200 dpi), el JSON para la spec 005
+    y la clave `modelo1:` de `report/_variables.yml` (las demás claves no se tocan). No contiene
+    cálculo: llama a funciones puras de src/.
+    """
+    ROOT, DATA_RAW, DATA_PROCESSED, OUTPUTS, OUTPUTS_TABLES, OUTPUTS_FIGURES, REPORT = _get_paths()
+
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    import yaml
+
+    from src.figures import plot_model1_coefficients, plot_model1_cusum, plot_model1_oos
+    from src.fred_io import load_latest_raw
+    from src.model1 import render_model1_tables, run_model1, stress_export_json
+    from src.panel import build_panel
+    from src.report_vars import model1_variables
+
+    stationarity_path = OUTPUTS_TABLES / "stationarity.csv"
+    if not stationarity_path.exists():
+        raise FileNotFoundError(
+            f"No existe {stationarity_path}: ejecuta primero `uv run python -m src.pipeline data`"
+        )
+
+    raw, _ = load_latest_raw(DATA_RAW)
+    panel = build_panel(raw)
+    stationarity = pd.read_csv(stationarity_path, index_col=0)
+    print("Estimando el Modelo I...")
+    result = run_model1(panel.full, stationarity, panel.end)
+
+    models_dir = OUTPUTS / "models"
+    OUTPUTS_TABLES.mkdir(parents=True, exist_ok=True)
+    OUTPUTS_FIGURES.mkdir(parents=True, exist_ok=True)
+    models_dir.mkdir(parents=True, exist_ok=True)
+    REPORT.mkdir(parents=True, exist_ok=True)
+
+    # Tablas: Markdown (coma decimal) y CSV (precisión completa); fin de línea "\n" en todo SO
+    for stem, text in render_model1_tables(result).items():
+        (OUTPUTS_TABLES / f"{stem}.md").write_text(text["md"] + "\n", encoding="utf-8", newline="\n")
+        (OUTPUTS_TABLES / f"{stem}.csv").write_text(text["csv"], encoding="utf-8", newline="\n")
+
+    # Figuras: 8×4,5 pulgadas a 200 dpi; sin marca de versión para que los bytes sean deterministas
+    figures = {
+        "model1_coefficients.png": plot_model1_coefficients(result.effects),
+        "model1_cusum.png": plot_model1_cusum(result.cusum),
+        "model1_oos.png": plot_model1_oos(result.oos),
+    }
+    for name, fig in figures.items():
+        fig.savefig(OUTPUTS_FIGURES / name, dpi=200, metadata={"Software": None})
+        plt.close(fig)
+
+    # Coeficientes y covarianza HAC de la principal, para la prueba de estrés (spec 005)
+    (models_dir / "model1_main.json").write_text(
+        stress_export_json(result.stress), encoding="utf-8", newline="\n"
+    )
+
+    # _variables.yml: solo se reescribe la clave `modelo1:`
+    variables_path = REPORT / "_variables.yml"
+    existing: dict = {}
+    if variables_path.exists():
+        with open(variables_path, "r", encoding="utf-8") as f:
+            existing = yaml.safe_load(f) or {}
+    existing["modelo1"] = model1_variables(result)
+    with open(variables_path, "w", encoding="utf-8", newline="\n") as f:
+        yaml.dump(existing, f, allow_unicode=True, sort_keys=False)
+
+    print(f"Modelo I: {result.coef_footer['n_obs']} trimestres "
+          f"({result.coef_footer['muestra_inicio']}–{result.coef_footer['muestra_fin']}), "
+          f"{result.coef_footer['n_parametros']} parámetros, {result.coef_footer['rezagos_hac']} rezagos HAC")
+    print("Etapa models completada.")
+    return 0
+
+
 def stage_placeholder(name: str) -> int:
-    """Etapa pendiente (specs 003, 004, 005, 006)."""
+    """Etapa pendiente (specs 004, 005, 006)."""
     print(f"Etapa {name} pendiente (spec correspondiente no implementada)")
     return 0
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Pipeline riesgo crédito-macro (spec 001)")
     parser.add_argument("stage", choices=["data", "models", "stress", "report", "all"],
                         help="Etapa a ejecutar")
     parser.add_argument("--download", action="store_true",
                         help="Descargar datos de FRED (solo para stage data)")
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.stage == "data":
         return stage_data(download=args.download)
     elif args.stage == "models":
-        return stage_placeholder("models")
+        return stage_models()
     elif args.stage == "stress":
         return stage_placeholder("stress")
     elif args.stage == "report":
@@ -152,7 +228,10 @@ def main() -> int:
         rc = stage_data(download=False)
         if rc != 0:
             return rc
-        for st in ["models", "stress", "report"]:
+        rc = stage_models()
+        if rc != 0:
+            return rc
+        for st in ["stress", "report"]:
             rc = stage_placeholder(st)
             if rc != 0:
                 return rc
