@@ -20,7 +20,7 @@ Orden de dependencia del §9 del plan. Una sola tarea cada vez: tests primero (e
   - Incluye: `src/localproj.py` (`local_projection`, `run_local_projections`, `detection_horizon`, `compare_with_trajectory`).
   - Hecho cuando: `uv run pytest -q tests/test_localproj.py` en verde. Proceso C: |β_h − R(h)| ≤ 0,12 para h = 0..12 y |φ_h − 1| ≤ 0,20 para h = 1..12; φ₀ = 1 exacto con EE y banda «—» y sin `inf` ni `NaN`; la ventana HAC es max(fórmula, h + 1); un horizonte sin grados de libertad sale «no estimada» sin afectar a los demás; β₀ es θ₀ de la principal con el mismo EE; `detection_horizon` («ninguno» incluido) y el recuento «k de n» sin h = 0.
 
-- [ ] **T4. Diagnósticos del Modelo II.** RF-19, RF-20, RNF-6 · agente: implementer
+- [x] **T4. Diagnósticos del Modelo II.** RF-19, RF-20, RNF-6 · agente: implementer
   - Incluye: `vif(fit, terms=None)`, `chow_wald` con `n_pre`, `n_pre_util` y `calculable` (rango comprobado antes de estimar) y `white` sin caída y con «no calculable» (D14, D17), en `src/diagnostics.py`.
   - Hecho cuando: `uv run pytest -q tests/test_diagnostics.py tests/test_model1_nonregression.py` en verde. Con la dimensión del Modelo II (proceso F, n = 105): White da «no calculable» con K = 8 y un resultado válido con K = 1; el Chow con K = 8 usa K + 7 = 15 interacciones; el CUSUM va sobre la regresión sin las 4 dummies de impulso; con rango incompleto no se llama a `fit_ols_hac` ni a `wald` y la fila es «no calculable»; Breusch-Godfrey y el Chow rechazan y no rechazan según el proceso F; las salidas del Modelo I son idénticas a las comiteadas.
 

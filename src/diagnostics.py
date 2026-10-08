@@ -30,6 +30,7 @@ from src.model1_config import (
     CHOW_BREAKS,
     CHOW_SIZE_CAUTION_BREAKS,
     MACRO_TERMS,
+    MIN_DOF,
     PSD_REL_TOL,
     VIF_ALERT,
 )
@@ -122,11 +123,18 @@ def _white_aux_matrix(X: pd.DataFrame) -> np.ndarray:
     Z_nc = pd.DataFrame(z_dict, index=X.index)
 
     # QR con pivoteo para eliminar colinealidad por rango
-    _, R, P = qr(Z_nc.to_numpy(), pivoting=True)
+    # (modo económico: con más columnas que observaciones R es de min(n, m) × m y su diagonal solo
+    # tiene min(n, m) pasos de pivoteo; las columnas más allá del rango posible no se conservan)
+    # Con más columnas que observaciones menos una, la constante más las conservadas excedería n:
+    # se pivotea sobre columnas centradas, de modo que [const, conservadas] tenga rango completo.
+    pivot_on = Z_nc.to_numpy()
+    if Z_nc.shape[1] > n - 1:
+        pivot_on = pivot_on - pivot_on.mean(axis=0)
+    _, R, P = qr(pivot_on, mode="economic", pivoting=True)
     diag = np.abs(np.diag(R))
     tol = PSD_REL_TOL * diag[0] if diag[0] > 0 else 0.0
     keep = diag > tol
-    kept_cols = [Z_nc.columns[P[j]] for j in range(len(P)) if keep[j]]
+    kept_cols = [Z_nc.columns[P[j]] for j in range(len(diag)) if keep[j]]
 
     # Z_aux = [const, columnas conservadas]
     return np.column_stack([np.ones(n), Z_nc[kept_cols].to_numpy()])
@@ -139,16 +147,28 @@ def white(fit: Fit) -> dict:
     Elimina colinealidad por rango (QR con pivoteo).
     LM = n·R²_aux ~ chi2(rango(Z_aux) - 1).
 
+    Regla C1 (spec 004): si n − rango(Z_aux) < MIN_DOF (30), la prueba es «no calculable»: con tan
+    pocos grados de libertad la auxiliar se satura y el contraste no tiene potencia. No hay estadístico,
+    p-valor ni veredicto, solo el motivo.
+
     Returns
     -------
     dict
-        {"stat": LM, "df": rango-1, "p": p_valor, "veredicto": "pasa"/"falla"}
+        {"stat": LM, "df": rango-1, "p": p_valor, "veredicto": "pasa"/"falla", "calculable": True}
+        o, si no es calculable, {"stat": None, "df": None, "p": None, "veredicto": None,
+        "calculable": False, "motivo": ...}
     """
     e = fit.resid.to_numpy(dtype=float)
     X = fit.design.X
     n = len(e)
 
     Z_aux = _white_aux_matrix(X)
+    if n - Z_aux.shape[1] < MIN_DOF:
+        return {
+            "stat": None, "df": None, "p": None, "veredicto": None, "calculable": False,
+            "motivo": (f"n − rango(Z_aux) = {n} − {Z_aux.shape[1]} = {n - Z_aux.shape[1]} < {MIN_DOF}: "
+                       "la regresión auxiliar de White queda sin grados de libertad suficientes"),
+        }
 
     # Regresión auxiliar: e² ~ Z_aux
     e2 = e**2
@@ -168,6 +188,7 @@ def white(fit: Fit) -> dict:
         "df": int(df),
         "p": p,
         "veredicto": _veredicto(p),
+        "calculable": True,
     }
 
 
@@ -224,10 +245,11 @@ def reset(fit: Fit) -> dict:
 # --- VIF ---
 
 
-def vif(fit: Fit) -> pd.DataFrame:
+def vif(fit: Fit, terms: list[str] | None = None) -> pd.DataFrame:
     """Factor de inflación de la varianza (VIF) para y_lag y los 5 términos macro.
 
-    VIF > VIF_ALERT → «alerta»; si no, «sin alerta».
+    Con `terms` (spec 004) calcula el VIF de esos términos, en ese orden, en lugar de los del
+    Modelo I. VIF > VIF_ALERT → «alerta»; si no, «sin alerta».
 
     Returns
     -------
@@ -235,7 +257,8 @@ def vif(fit: Fit) -> pd.DataFrame:
         Filas: y_lag y 5 términos macro. Columnas: term, vif, veredicto.
     """
     X = fit.design.X
-    terms = ["y_lag"] + list(MACRO_TERMS.keys())
+    if terms is None:
+        terms = ["y_lag"] + list(MACRO_TERMS.keys())
     terms = [t for t in terms if t in X.columns]
 
     X_np = X.to_numpy(dtype=float)
@@ -280,10 +303,16 @@ def chow_wald(fit: Fit, break_q: str) -> dict:
     como en fit_ols_hac (truncamiento + rango reducido dummies impulso).
     chi2(7).
 
+    Spec 004: el rango de la matriz ampliada se comprueba ANTES de estimar (con la tolerancia por
+    defecto de np.linalg.matrix_rank); si es incompleto devuelve calculable = False con su motivo, sin
+    estadístico, p-valor ni veredicto, y no llama a fit_ols_hac ni a wald. Añade los trimestres útiles
+    anteriores al quiebre (n_pre, n_pre_util).
+
     Returns
     -------
     dict
-        {"stat": W, "df": 7, "p": p_valor, "veredicto": "pasa"/"falla", "nota": ...}
+        {"stat": W, "df": q, "p": p_valor, "veredicto": "pasa"/"falla", "nota": ...,
+         "n_post", "n_post_util", "n_pre", "n_pre_util", "calculable": True}
     """
     break_period = pd.Period(break_q, "Q-DEC")
     X = fit.design.X
@@ -295,7 +324,9 @@ def chow_wald(fit: Fit, break_q: str) -> dict:
     # Trimestres posteriores al quiebre y los que sobreviven a las dummies de impulso
     impulse_cols = _impulse_columns(X)
     n_post = int(post.sum())
+    n_pre = int(len(post) - n_post)
     absorbed = sum(1 for c in impulse_cols if post[int(np.argmax(X[c].to_numpy()))] > 0)
+    absorbed_pre = len(impulse_cols) - absorbed
 
     # Interacciones: post * cada columna de X que no es dummy de impulso
     # (en la principal: const, y_lag y los 5 términos macro)
@@ -304,6 +335,20 @@ def chow_wald(fit: Fit, break_q: str) -> dict:
     X_aug = X.copy()
     for c in interact_cols:
         X_aug[f"post×{c}"] = post * X[c]
+
+    counts = {
+        "n_post": n_post, "n_post_util": n_post - absorbed,
+        "n_pre": n_pre, "n_pre_util": n_pre - absorbed_pre,
+    }
+    q = len(interact_cols)
+    rank = int(np.linalg.matrix_rank(X_aug.to_numpy(dtype=float)))
+    if rank < X_aug.shape[1]:
+        return {
+            "stat": None, "df": q, "p": None, "veredicto": None, "calculable": False,
+            "motivo": (f"rango incompleto de la matriz ampliada ({rank} de {X_aug.shape[1]} columnas): "
+                       "alguna interacción es colineal"),
+            "nota": "", **counts,
+        }
 
     # Crear Design ampliado
     design_aug = Design(
@@ -320,14 +365,13 @@ def chow_wald(fit: Fit, break_q: str) -> dict:
 
     # Wald H0: todas las interacciones = 0
     k = X.shape[1]
-    q = len(interact_cols)
     R = np.zeros((q, k + q))
     R[:, k:] = np.eye(q)
 
     result = dict(wald(fit_aug.params, fit_aug.cov, R))
     result["veredicto"] = _veredicto(float(result["p"]))
-    result["n_post"] = n_post
-    result["n_post_util"] = n_post - absorbed
+    result.update(counts)
+    result["calculable"] = True
     result["nota"] = (
         "Wald HAC con interacciones de la constante, ρ y β₁–β₅; "
         "dummies COVID sin interactuar"
