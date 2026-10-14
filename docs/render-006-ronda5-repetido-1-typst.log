@@ -1,0 +1,27 @@
+Etapa report completada; espejo de variables verificado por SHA-256.
+
+pandoc 
+  to: typst-citations
+  output-file: anexo-tecnico.typ
+  standalone: true
+  default-image-extension: svg
+  wrap: none
+  toc: true
+  
+metadata
+  lang: es
+  toc-title: Índice
+  bibliography:
+    - ../report/references.bib
+  csl: ../report/apa.csl
+  title: 'Anexo técnico: riesgo de crédito y macroeconomía'
+  subtitle: 'NEG-LIF309-01 Control y gestión de riesgos · Profesor: Ramfis Félix Tatis'
+  author: Gabriel Read
+  affiliation: Instituto Tecnológico de Santo Domingo (INTEC)
+  date: 16 de octubre de 2026
+  cover-date: 16 de octubre de 2026
+  
+[typst]: Compiling anexo-tecnico.typ to anexo-tecnico.pdf...DONE
+
+Output created: ..\outputs\repro-006-ronda5\report\anexo-tecnico.pdf
+

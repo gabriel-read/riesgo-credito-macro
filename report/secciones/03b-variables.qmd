@@ -1,0 +1,9 @@
+## 3.2 Variable dependiente
+
+El riesgo de crédito se aproxima mediante DRALACBS, la tasa de morosidad de los préstamos bancarios [@fred2026].
+Su unidad es el punto porcentual de morosidad; no constituye una estimación del monto de pérdidas en dólares.
+El panel conserva su nivel y las transformaciones previstas para el análisis y las robusteces.
+
+La dependiente principal entra en la misma forma en ambos modelos: {{< var modelo1.forma_y >}}.
+Esta elección se conserva desde las especificaciones pre-registradas; no se modifica tras observar significancia o diagnósticos.
+La combinación de ADF y KPSS y las advertencias sobre órdenes de integración se documentan en el Anexo A y las tablas de cada modelo.

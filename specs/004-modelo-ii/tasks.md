@@ -40,8 +40,9 @@ Orden de dependencia del §9 del plan. Una sola tarea cada vez: tests primero (e
   - Incluye: la extensión de `pipeline.stage_models` y `tests/test_frozen_model2.py`. **Primera tarea que estima el Modelo II con datos reales** (el plan está aprobado y comiteado, `7f732ce`).
   - Hecho cuando: `uv run pytest -q tests/test_frozen_model2.py tests/test_model1_nonregression.py` en verde. Existen las 14 tablas (`.md` y `.csv`), las 3 figuras, el JSON y `modelo2:`; `modelo1:` y `datos:` quedan idénticos; M = 2000T2–2026T2 con 105 observaciones; 36 trimestres de tasa cero; `hac_lags == 4` y K + 11 parámetros en la principal; dos corridas dejan bytes idénticos; las salidas del Modelo I son idénticas a las comiteadas. Este test no compara coeficientes con valores esperados.
 
-- [ ] **T9. Validación y auditoría.** Criterios de finalización · agente: claude
+- [x] **T9. Validación y auditoría.** Criterios de finalización · agente: claude
   - Hecho cuando: `specs/004-modelo-ii/review-validate.md` y `specs/004-modelo-ii/review-audit.md` con `VEREDICTO: APROBADO`; `uv run pytest -q` en verde; dos corridas de `uv run python -m src.pipeline all` sin diferencias y `git status --porcelain` limpio.
+  - Registro de cierre (Codex, 11-oct-2026, solicitado por el usuario): validación APROBADA en `2f4c401`; auditoría independiente de Claude ronda 2 APROBADA sobre ese mismo HEAD, con 774 tests y doble corrida en raíces temporales idéntica a las salidas actuales. Código, tests versionados, panel, salidas y variables sin diferencias frente a HEAD al reconciliar la evidencia; no se repiten pruebas ni estimaciones. La comprobación histórica de checkout limpio consta en `review-validate.md` (sobre el código corregido); el checkout actual NO está limpio por cambios documentales/arnés conservados y borradores de 005, no por una regeneración o modificación de la implementación. Se conserva el criterio original, sin afirmar limpieza actual ni hacer commit. Ronda 1 preservada; menores trasladados a 006 sin implementarlos. El contenido aprobado de spec y plan no se modifica.
 
 ## Tabla RF → tareas
 

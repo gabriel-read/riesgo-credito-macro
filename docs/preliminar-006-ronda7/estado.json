@@ -1,0 +1,12 @@
+{
+  "status": "preliminary_not_final",
+  "reason": "Generated-text check found remaining Model II tautology; output discarded as final validation, history preserved. Outline geometry check identified page separator offset, clicks did reach expected pages.",
+  "delivered_sha256": {
+    "C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006-ronda7-preliminar/report/anexo-tecnico.docx": "1d98c7817cfeb9cc8cc98c30d25e78f2540600c7b9a4470a48acd808ec78361e",
+    "C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006-ronda7-preliminar/report/anexo-tecnico.md": "c502f8cac4d3bd038d466c4dc2496207a225915135e0065d550466415511ec76",
+    "C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006-ronda7-preliminar/report/anexo-tecnico.pdf": "2598d59ebec93994a9dec110659e910615d954719bdacb3de4153a5851602247",
+    "C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006-ronda7-preliminar/report/informe.docx": "65f72ff77676325d034c6b8056ad6f4f79e45a943fc1ab655b0081877df36ddc",
+    "C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006-ronda7-preliminar/report/informe.md": "6704875411ad0d4baf8732606521f1950d0638337eaa1ddeef8e9e70ece6002c",
+    "C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006-ronda7-preliminar/report/informe.pdf": "ffb0629904723b847f236bfebaf996a9fcfc714d0f72ceef0f87caa43b68ac05"
+  }
+}

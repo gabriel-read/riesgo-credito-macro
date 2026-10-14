@@ -1,51 +1,50 @@
 # MEMORY.md — Riesgo de crédito y macroeconomía
-Memoria del proyecto entre sesiones y entre arneses (Claude Code y OpenCode). Máximo ~50 líneas: resume o elimina lo que ya no aporte.
-
-## Estado actual (5-oct-2026)
-- Spec 002-literatura COMPLETADA (5-oct-2026): 10/10 tareas, 187 tests en verde, `verify_refs.py` 21/21 con código 0 y auditoría independiente T10 APROBADA en la ronda 4 (`review-audit.md`, `review-validate.md`; el `APROBADO` previo de la fábrica no valía). Matriz: 17 estudios + 4 datos/método (2.1–2.4 = 2 cada una, 2.5 = 9); asiamah2026 y koskei2023 quedan pendiente-lectura (signo no respaldado por el resumen). Para la spec 006: justificar bernanke1995 en 2.1 y la clasificación de pesaran2006, segoviano2006 y gertler2015.
-- Spec 003-modelo-i IMPLEMENTADA (5-oct-2026): T1–T10, 504 tests, `all` ×2 idéntico byte a byte, auditoría ronda 4 APROBADA (`review-audit.md`; rondas 1–3, cada una con solo menores, en `review-audit-ronda1/2/3.md`). `review-validate.md` lo escribió Claude Code por cuota agotada de OpenCode. Pre-registro `667b313`; C1–C3 antes de estimar.
-- Hallazgos 003 (datos reales): ρ = 0,63; con p < 0,05 solo π (+) y CRED(t−4) (+); PIB (−) y ΔU (+) con el signo esperado pero sin significancia; ΔFFR con signo contrario (−), sin significancia. BG pasa y CUSUM pasa; BP, White, JB, RESET y los dos Chow fallan. VIF de ΔU = 36,8 es artefacto de la dummy de 2020T2. Fuera de muestra: a un paso no se distingue del ingenuo (DM p = 0,94); el dinámico pierde frente al ingenuo constante.
-- Preguntas del profesor (ensayo): (1) ¿por qué creer los p-valores de inflación y crédito si figuran no I(0) y la dependiente es I(0)? (2) ΔFFR sale negativa y el dinámico se hunde en 2022–2023: ¿cómo lo usa en un estrés con alzas de tasa y varios pp de desempleo? (3) Chow y RESET rechazan pero el CUSUM pasa: ¿qué afirmación para gestión de riesgos sobrevive a endogeneidad, inestabilidad y no linealidad? (Si solo hay asociación, ¿cómo responde a «¿cómo afectan?»)
-- Preguntas del profesor, Modelo II (auditoría 004, ronda 1): (1) con K = 1 y β_h negativo hasta h = 10, ¿el modelo dice que subir tasas reduce la morosidad? ¿cómo se separa de la endogeneidad sin shock identificado?; (2) RESET y Chow 2020T2 rechazan: ¿por qué creer «sin evidencia» con un modelo lineal mal especificado e inestable?; (3) φ_h ≈ 3,2: el «shock de 1 pp» es en realidad un ciclo de ~3 pp de alzas; con la tasa en cero por la regla heredada, ¿cómo responde el estrés a la pregunta de la guía?
-- Migración (4-oct-2026): de Warp a Orca como harness; OpenRouter se intentó y se descartó (clave daba 401 y crear otra pedía billing). OpenCode sigue con OpenCode Zen: planner/coordinator nemotron-3-ultra-free; implementer longcat-2.5-preview-free; reviewer big-pickle; bibliotecario space-bunny-free (elección sin probar). Mientras OpenCode no funcione, Claude Code avanza la spec 002. Copia oficial: `~/orca/riesgo-credito-macro`, rama `spec/002-literatura`, commit `a39311e` sin push (la copia de Desktop/OneDrive queda como respaldo). Pendiente: `/connect` a Zen y probarlo (daba "User not found").
-- Constitución revisada el 2-oct (sin cambios, seis principios). Fase 0 (`ca8e4cc`), specs 001-datos y 002-literatura cerradas; detalle en `specs/001-*` y `specs/002-*`. D1 del plan 001: solo `data --download` usa la red.
-
-## Calendario (entregar el jueves 15-oct antes de las 22:00; cierre oficial 16-oct 00:00)
-- 001 datos 3–4 oct · 002 literatura 4–6 oct · 003 modelo I 5–8 oct · 004 modelo II 8–10 oct
-- 005 estrés 10–11 oct · 006 informe 11–14 oct · 007 diapositivas 13–14 oct · evaluación y ensayo 14–15 oct
-
-## Decisiones (y por qué)
-- Frecuencia trimestral: la dependiente (DRALACBS) es trimestral; las mensuales se promedian por trimestre.
-- Muestra principal 2000T1–2026T2 (106 trimestres); se descarga desde 1998 para calcular variaciones interanuales sin perder 2000. Robustez de muestra larga 1985T1–2026T2, pre-registrada en las specs 003–005. Desviación frente a la guía (que corta en 2026-01-01): declararla en el informe. (Resuelto el 5-oct-2026.)
-- PIB: GDPC1 (real) es el regresor principal, para evitar doble contabilidad con la inflación; GDP (nominal, el de la guía) se pre-registra como robustez. (Resuelto el 5-oct-2026.)
-- Informe: PDF generado con Quarto en APA 7 (`apa.csl`, números desde `report/_variables.yml`). (Resuelto el 5-oct-2026.)
-- Reparto de arneses: Claude Code redacta constitución, specs y planes, y audita; OpenCode (LongCat 2.5 Preview, high) hace tareas, implementación y validación técnica.
-- Specs críticas (auditoría de Claude obligatoria): 003, 004, 005 y 006.
-- Estrés sobre las fechas de la Fed 2026 (base y severamente adverso) más un escenario propio estanflacionario con alza de tasas.
-
-## Decisiones pendientes
-- Formato exigido de la exposición (diapositivas).
-- Confirmar con el profesor que la muestra larga 1985T1 como robustez y el PDF son aceptables.
-
-## Aprendizajes y errores a evitar
-- No fiarse del `APROBADO` de la fábrica sin auditoría independiente: en la 002 marcó T4 y T10 como hechas con tests en rojo o sin auditar. Validar (OpenCode) y auditar (`verificador-citas` con solo rutas) son cosas distintas.
-- Un estudio que estima coeficientes macro sobre morosidad es sección 2.5 aunque encaje conceptualmente en 2.2; no reasignar para cuadrar mínimos.
-- FRED cuelga las peticiones con User-Agent propio: usar el predeterminado.
-- OpenCode usa `permission` (singular, objeto; gana la última regla coincidente), no `permissions` como lista: con la lista las protecciones se ignoraban. Ya corregido en `opencode.jsonc` y los 5 agentes; verificar con una prueba real (`git push` y leer `.env` deben rechazarse).
-- Los modelos gratuitos tienen cuota limitada: al agotarse, seguir con Claude Code.
-- Octubre 2025 no existe en CPI ni en desempleo (cierre del gobierno de EE. UU.): 2025T4 se promedia con dos meses y se documenta.
-- pandas-datareader < 0.11 falla con pandas 3; respaldo: `https://fred.stlouisfed.org/graph/fredgraph.csv?id=<SERIE>`.
-- FRED revisa el PIB: volver a descargar puede cambiar resultados. Congelar `data/raw/` con fecha y no volver a bajarlo.
-- `test_report_has_no_hand_typed_decimals` (tests/test_harness.py:93) solo detecta números con 2+ decimales: "0,8 pp" o "15 %" a mano pasan. Endurecerlo en la spec 001.
-- El pre-registro se demuestra con git: aprobar y commitear cada spec de modelo antes de la primera estimación.
-- Dummies de impulso (valen 1 en un solo trimestre): residuo nulo, rompen el CUSUM de statsmodels, dejan `cov_hac` de rango reducido y meten columnas colineales en White. En statsmodels 0.15 `use_correction` de HAC es False por defecto.
-- En tests, `y` y `X` con semillas distintas: con la misma, el ruido coincide con una columna de X (R² = 1, V ≈ 0) y los tests de rango y de diagnósticos no miden nada.
-- Antes de dar una enmienda del plan por «incorporada», comprobar con grep que el código la implementa: la §12 dio por hechas dos notas que no existían (Chow 2020T2 y rezagos de R1) y costó dos rondas de auditoría.
-- Probar cada variante de robustez con datos sintéticos: `gdp_column` ignorado y `exclude` de R1 mal leído pasaron los tests de T1 y los destapó T6.
-
-## Próximos pasos
-1. Spec 004 (Modelo II): spec y plan aprobados (sello `ec983d0`, C1 `45c43d5`, plan `7f732ce`); tareas T1–T8 hechas por Claude (OpenCode sin cuota); primera estimación real en T8 (`7325ff2`, 756 tests). T9: `review-validate.md` APROBADO (`f2f720c`); `review-audit-ronda1.md` = CAMBIOS NECESARIOS, ya corregidos (JSON `columns.y_lag` → `dralacbs_d`; notación con K = 1; 767 tests); ronda 2 en curso. Para la 006 (del informe de la ronda 1): discutir BP/White/JB/RESET/Chow, el VIF de ΔU es artefacto de las dummies COVID, φ_h ≈ 3,2 (el «shock de 1 pp» es un ciclo), con K = 1 C1 y C2 son el mismo Wald. Resultado pre-registrado, tal como salió: K_BIC = K_AIC = 1 (R1 «no aplica»), S = −0,048 (p = 0,200), S_rez = 0,036 (p = 0,355), Granger no rechaza, lectura «sin evidencia» ⇒ la 005 pone el efecto de la tasa en cero (regla heredada); H1 no; h* = 0 (H2 no); LP sin horizonte de detección; BP, White, JB, RESET y Chow 2020T2 fallan (reportados). Pendiente menor: fmt_es escribe «−0,000» en ψ_h chicos (cambiarlo altera bytes del Modelo I).
-2. ANTES de la 005 (estrés): decidir y pre-registrar el tratamiento del signo negativo de ΔFFR (un escenario con alzas de tasa baja la morosidad proyectada); simular solo el bloque de `cov_hac` sin dummies (rango 7 de 11); dummies COVID en 0 en el horizonte; ΔU se identifica con ~0,3 pp por trimestre.
-3. Spec 006, heredado de `review-audit.md`: regresión desbalanceada con KPSS ambiguo para π y CRED; PIB significativo solo en el largo plazo; «supera al ingenuo» siempre con «no significativo»; CUSUM pasa y Chow falla; la nota de R1 es parcial. Opcionales sin aplicar: etiqueta «ΔPIB», ingenuo constante en la figura, hueco COVID en el CUSUM, gl de White/RESET, KPSS «> 0,10» unificado, coeficientes 2000–2019 sin exportar.
-4. PR: la rama `spec/003-modelo-i` trae también los commits de la 002 (no fusionada): decidir un PR único o separar. `git push` lo hace el usuario.
-5. Si `uv run` falla con "os error 998" en el `.venv`: `uv sync` lo recrea (pasó el 2-oct).
+Copia activa única: C:/Users/gabri/orca/riesgo-credito-macro. Desktop/OneDrive atrasada, no sincronizar ni reiniciar 002.
+## Estado (14-oct-2026)
+- Codex: implementación, pruebas, pipeline y validación del autor. Claude: metodología, specs/planes y auditoría independiente. Una sola herramienta escribe en el checkout. OpenCode histórico/inactivo; arnés local preservado sin formalización adicional.
+- HEAD 7a3dd2a, rama spec/004-modelo-ii; no push. Fuentes 005 commit 5ba4ada (5 archivos) antes del pre-registro 7a3dd2a (spec/plan v6 y 4 revisiones). Preparaci?n de commits solicitada el 14-oct; a?n no ejecutados.
+- 001 datos y 002 literatura cerradas. 002: 17 estudios + 4 datos/método, auditoría ronda 4 aprobada; asiamah2026/koskei2023 pendiente-lectura. No reiniciar T4 ni corregir FRED/T3 histórico; observación reservada para 006.
+- 003 implementada, auditoría ronda 4 aprobada; pre-registro 667b313 y C1–C3 anteriores a resultados. Validación histórica 504 tests y all ×2. No modificar contrato ni código/salidas por menores.
+- 004 implementación y validación aprobadas, auditoría independiente ronda 2 APROBADA sobre 2f4c401; T9 marcada completa. Ronda 1 intacta; revisiones/T9 locales sin commit conservadas, no incluidas en commits de 005.
+- 005 CERRADA, T1–T10 completas: validación del autor ronda 3 APROBADA y auditoría independiente ronda 3 APROBADA; Codex cotejó seis SHA actuales (código/test/dos MD/spec/plan) con el informe. Cierre autorizado condicionalmente por el usuario el 12-oct; contratos originales intactos, rondas 1/2 conservadas y opcionales sin aplicar. SHA spec 6d9713dd1917b4b9b5a2ffc87c7f202869981e9102c9e8e11bf60daac99c77bb; plan 8b0fc56b3ba2577a0c142a8ab70568af96caed9bf2bbcf18949f42c8ad3d232a. Encabezados originales borrador conservados; no reabrir aprobación ni cambiar bytes.
+- Preservación de pre-registro: blobs spec/plan sin filtros CRLF/LF para coincidir con SHA aprobado; .gitattributes solo tres CSV Fed exactos. No ampliar reglas ni corregir opcionales.
+## Implementación y evidencia 005
+- Código: src/scenarios.py, stress.py, stress_tables.py, stress_figures.py; etapa stress y all en src/pipeline.py. Sin nuevas dependencias, escritura en raw ni modificación de 003/004.
+- Tests primero por tarea/bloqueante; última suite 837 passed, 567 warnings, 855.75 s, rc 0; presentación 7 passed. Regresión 0,0105 primero en rojo, luego verde. Advertencias de clases ya existentes; no repetir por notas/documentación.
+- CLI stress rc 0 en copia activa. Ocho tablas CSV/MD, dos PNG y bloque estres en report/_variables.yml; bloques datos/modelo1/modelo2 preservados.
+- all ×2 anterior conservado en docs/reproducibilidad-005-2026-10-12.json: 79 archivos idénticos, 54 modelos iguales en contenido (LF/PNG por bytes). Ronda 2: stress ×2 en pytest-682/stress0050 idéntica; stress activa rc 0, 18 salidas y YAML coincidentes por bytes; 103 archivos protegidos intactos. Huellas: docs/reproducibilidad-005-ronda2-2026-10-12.json.
+- T9 corrigió warmup CRED de 1998 (fuera de muestra), formato de columna mixta/booleanos, nombre de modelo en error Cholesky y validación de panel guardado. No imputar ni relajar tolerancias.
+- Validación del autor ronda 3: specs/005-estres/review-validate.md; auditoría independiente ronda 3 APROBADA: review-audit.md, cuatro SHA exactos de corrección más spec/plan. Rondas 1/2 de ambas revisiones conservadas. Paquete actualizado con rutas absolutas y SHA: docs/paquete-auditoria-005-2026-10-12.md; independencia es de Claude/revisor, no de Codex.
+- Bloqueantes 1–5: árbol exacto estres/24 hojas renombradas; conteos/extremos y notas fuera de rango; diferencia de picos; Markdown/encabezados españoles; negativos RNF-5 frente a δ independiente y lenguaje en 16 textos/estres. Solo stress.py, stress_tables.py y tests de estrés; nueve opcionales sin aplicar.
+- Única cifra derivada corregida: estres.dif_modelos.{severo,propio}.delta_pico 0,626→0,612 pp (max(Δ_I)−max(Δ_II)); no confundir con max(Δ_I−Δ_II). Trayectorias/bandas/sensibilidades/PNG y demás valores YAML intactos tras renombres.
+- Ronda 3: solo stress_tables.py (tres float) y test de redondeo. Solo stress_levels.md/stress_delta.md cambian 0,010→0,011 en el pie; 0,0105 exacto y YAML intactos. Stress ×2 pytest-684 más activa coinciden; 192 archivos protegidos intactos. Evidencia: docs/reproducibilidad-005-ronda3-2026-10-12.json; opcionales rondas 1/2 sin aplicar.
+- Fuentes Fed congeladas: data/scenarios/fed/2026-final/2026-10-11/ (fecha local; hora UTC en manifiesto). SHA propios recalculados 3/3 coinciden con plan/blobs; bytes originales CRLF.
+- Vintage FRED 2026-10-02 fijado por nombres/fecha/filas/último dato/SHA LF; trimestre común 2026T2. PanelResult.full tiene historia desde 1998 y cola parcial; panel.csv termina en 2026T2.
+## Decisiones científicas conservadas
+- Frecuencia trimestral; principal 2000T1–2026T2 (106), descarga desde 1998 para transformaciones. GDP nominal y muestra larga 1985T1 son robusteces pre-registradas; declarar desviación de corte de la guía.
+- PIB principal GDPC1; PIB/CPI/crédito en variación interanual logarítmica. CPI y desempleo 2025T4 usan noviembre/diciembre por ausencia de octubre; nunca rellenar silenciosamente.
+- 005: origen 2026T2, 13 pasos hasta 2029T3, Fed 2026Q1–2029Q1 adaptada; RF-12a recorta 11, RF-12c compara 13 desde 2025T4 por paso.
+- D cambia solo tasa (2022T1–2023T3 y luego ceros), no es estanflacionario; coincide con severo en principal y difiere en sensibilidad. Decisión del autor conservada.
+- Crédito lag 4 observado hasta 2027T2; desde 2027T3 fijo a loans_yoy de 2026T2, común; sensibilidades cero/media sobre niveles. Sin equivalente en dólares.
+- Tasa cero por regla heredada sin evidencia fuerte; sensibilidad separada con coeficientes libres, pareo y distribución marginal. No condicionamiento/reestimación restringida ni límites IC acumulado.
+- Bandas solo de parámetros, sin innovaciones ni incertidumbre de escenario/especificación/endogeneidad; no intervalos de predicción. No descartar réplicas explosivas ni truncar niveles.
+- Ajuste OOS 003: entrenamiento 2000T1–2019T4, ancla 2021T4, evaluación 2022T1–2026T2; reconstruir procedimiento aprobado, no nueva selección ni usar JSON principal como entrenamiento.
+## Para 006/007 y defensa
+- 003: rho≈0.63; inflación/crédito significativos y no I(0); ΔFFR negativa no significativa. BG/CUSUM pasan, BP/White/JB/RESET/Chow fallan. Dinámico pierde frente a ingenuo; a un paso no se distingue significativamente.
+- 004: K_AIC=K_BIC=1, sin evidencia rezagada positiva; Granger/C2 mismo Wald. S≈−0.048 (p≈0.200), S_rez≈0.036 (p≈0.355); phi_h≈3.2 describe ciclo, no alza aislada. VIF de ΔU artefacto de dummies COVID; discutir diagnósticos fallidos.
+- No implementar menores de 004: columna_panel/forma, −0.000, ubicación h_star en perfil y hueco CUSUM; explicar en 006. Rondas y autoría original intactas.
+- 006 T4: n_series conciliado a 13 códigos del manifiesto; historia 1998T1, literatura 17/8/3/4 y D 7/6 desde fuentes. Justificar clasificación bernanke1995/pesaran2006/segoviano2006/gertler2015; C2 sin estadístico separado, no inventarlo. Cifras de outputs/variables, asociación y límites.
+- 006 change editorial aprobado: spec v4 SHA481537c0… y plan v3 SHA668dece3…; versiones previas exactas conservadas. Tasks v3 conT13–T15/nuevoorden; ledger change-editorial-applied.md. Fecha/formato y material separado pendientes profesor.
+## Límites y aprendizajes
+- No .env/credenciales, push, raw/guía editados ni commits sin autorización. Conservar cambios ajenos del arnés/docs/006/debug.log; no incluirlos en trabajo de 005.
+- Auditoría independiente obligatoria para 003–006; tests verdes y validación del implementador no sustituyen auditoría. Si falta cuota, registrar continuidad y no transferirla al implementador.
+- FRED User-Agent predeterminado; no redescargar por revisiones de PIB. pandas-datareader≥0.11; variantes probadas con sintéticos y semillas independientes X/ruido.
+- Dummies de impulso: residuo nulo, rango HAC reducido; simular solo bloque sin dummies; White elimina colinealidad por rango. Pre-registro antes de resultados, change ante cambios de contrato.
+- Formato: convertir escalares NumPy a float antes de fmt_es en pies, igual que celdas/variables; round(np.float64(0.0105)) y round(float) difieren a tres decimales. Test de mitad protege esa consistencia.
+## Cierre de sesión / muestra 007 (13-oct)
+- 006 R7: 974 tests y auditoría independiente ronda6 aprobados, entregables congelados. Change Google Docs aplicado; ensayo del autor, condiciones de entrega y cierre 006/T12 pendientes. Ledgers históricos conservados.
+- 007 faseA: Codex asume T1–T7 incluida redacción T2; Claude detenido. T1–T7 completadas técnicamente; tres páginas PPTX/PDF/PNG en outputs/deck/. Solo encabezados de estado de spec/plan normalizados por autorización posterior; requisitos y copias aprobadas conservados.
+- 007 D2(B) aplicada solo en página4: tabla nativa de coeficientes por pp/IC HAC/p desde CSV, sin efectos estandarizados. Estrés con rótulos anuales, datos trimestrales/central/p05/p95 intactos y mayor altura útil medida. PDF/PPTX muestra-D2B e imágenes en outputs/deck/.
+- Validación vigente 007: review-validate-muestra-D2B.md; 17 focalizados, suite completa 989 passed/567 warnings/1104.45s/rc0, sin exclusiones. Encabezado ya resuelto y test intacto. Dos corridas/PNG/PDF render iguales; 122 R7/25 módulos preservados; manifiesto D2B nuevo y muestra previa archivada.
+- Entrega acad?mica: ambos PDF R7 cotejados por SHA completo el 14-oct, sin render ni tests repetidos; coinciden con paquete aprobado. 007 es LinkedIn separado, fuera de la asignaci?n; commits separados preparados en docs/preparacion-commits-2026-10-14/, no ejecutados.
+- Siguiente: autor revisa muestra D2(B) y lee PDF sin zoom en teléfono real. D2 página4 resuelta; página6 separada. FaseB T8–T13 no ejecutada y 007 abierta; sin auditoría independiente ni lectura real afirmadas. Sin dependencias nuevas, publicación, commit ni push.

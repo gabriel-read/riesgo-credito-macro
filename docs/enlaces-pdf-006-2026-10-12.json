@@ -1,0 +1,660 @@
+{
+  "source_sha256": {
+    "informe": "49fcfe2ac7b742f68ae66350746d842833da09668854f1594e066f19bb62e16a",
+    "anexo-tecnico": "4db7863782aba0bfe33759177f7652835c41e27db924712bffbe9f574729b6c0"
+  },
+  "internal_destinations_clicked": {
+    "informe": 53,
+    "anexo-tecnico": 160
+  },
+  "uri_destinations_clicked": 23,
+  "uri_records": [
+    {
+      "uri": "anexo-tecnico.pdf",
+      "source_page": 21,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/anexo-tecnico.pdf",
+        "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/pdf_embedder.css",
+        "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/index.html"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/anexo-tecnico.pdf",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/anexo-tecnico.pdf",
+          "status": 200
+        },
+        {
+          "url": "chrome-extension://mhjfbmdgcfjbbpaeojofohoefgiehjai/index.html",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "anexo-tecnico.docx",
+      "source_page": 21,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/anexo-tecnico.docx"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "download": {
+        "frameId": "0D8E50AB12B02067FC7D8BF0D4BB43A9",
+        "guid": "bf623a08-5fdd-4aa3-84de-73afde5aaef8",
+        "url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/anexo-tecnico.docx",
+        "suggestedFilename": "anexo-tecnico.docx"
+      },
+      "verified": true,
+      "download_sha256": "84a675d9e37756ef8950f9fb8106b8c24ace2799f1e9ca7877ba3ffb5f477c75",
+      "document_responses": [
+        {
+          "url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/anexo-tecnico.docx",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.2478/jcbtp-2019-0026",
+      "source_page": 28,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.2478/jcbtp-2019-0026",
+        "https://reference-global.com/article/10.2478/jcbtp-2019-0026"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": []
+    },
+    {
+      "uri": "https://doi.org/10.1257/jep.9.4.27",
+      "source_page": 28,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1257/jep.9.4.27",
+        "https://pubs.aeaweb.org/doi/10.1257/jep.9.4.27",
+        "https://pubs.aeaweb.org/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a47f6ab54032",
+        "blob:https://pubs.aeaweb.org/20acc669-ea31-4520-a77e-01a11940be7b",
+        "https://challenges.cloudflare.com/turnstile/v0/g/4df4a60fa397/api.js?onload=zeEi4&render=explicit",
+        "https://pubs.aeaweb.org/favicon.ico",
+        "https://pubs.aeaweb.org/favicon.ico",
+        "https://pubs.aeaweb.org/cdn-cgi/challenge-platform/h/g/fo/3231825873:1791831919:ian8JWRkD-G6d2406YqpGBe-cS9YdFH3gKlrmyYBa1o/a498a47f6ab54032/VGHMJYAWsrOB_2uV0ydWbDU_shksAeDtI.BQsqQsXBY-1791834721-1.2.1.1-OnhixuSVp2LBAIkbvyvQlRbX4LprbyssOcjIDkGe3m.ZNOPyFRMYNrOY8NT05u0x",
+        "blob:https://pubs.aeaweb.org/a06d645d-b150-4ea4-b283-c8c890d76665",
+        "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/zg5lv/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto"
+      ],
+      "actual_url": "https://pubs.aeaweb.org/doi/10.1257/jep.9.4.27",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://pubs.aeaweb.org/doi/10.1257/jep.9.4.27",
+          "status": 403
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/zg5lv/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://www.federalreserve.gov/publications/2026-stress-test-scenarios.htm",
+      "source_page": 28,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://www.federalreserve.gov/publications/2026-stress-test-scenarios.htm",
+        "https://www.federalreserve.gov/css/bootstrap.css",
+        "https://www.federalreserve.gov/css/bluesteel-theme.css",
+        "https://www.federalreserve.gov/assets/main.css",
+        "https://www.federalreserve.gov/assets/main.js",
+        "https://www.federalreserve.gov/js/modernizr-latest.js",
+        "https://www.federalreserve.gov/css/icons.data.svg.css",
+        "https://www.federalreserve.gov/js/angular.min.js",
+        "https://www.federalreserve.gov/js/app.js",
+        "https://www.federalreserve.gov/images/icon-us-flag.svg",
+        "https://www.federalreserve.gov/images/expand_more.svg",
+        "https://designsystem.digital.gov/assets/img/icon-dot-gov.svg",
+        "https://designsystem.digital.gov/assets/img/icon-https.svg",
+        "https://www.federalreserve.gov/images/USAGov%402x.png",
+        "https://www.federalreserve.gov/images/OpenGov%402x.png",
+        "https://www.federalreserve.gov/js/jquery.min.js",
+        "https://www.federalreserve.gov/js/bootstrap.min.js",
+        "https://www.federalreserve.gov/js/scripts.js",
+        "https://www.federalreserve.gov/js/modal.js",
+        "https://www.federalreserve.gov/js/sticky-tables.js",
+        "https://www.federalreserve.gov/js/slides/ekko-lightbox.min.js",
+        "https://www.federalreserve.gov/js/t4-nav-controller.js"
+      ],
+      "actual_url": "https://www.federalreserve.gov/publications/2026-stress-test-scenarios.htm",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://www.federalreserve.gov/publications/2026-stress-test-scenarios.htm",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://fred.stlouisfed.org/",
+      "source_page": 28,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://fred.stlouisfed.org/",
+        "https://fred.stlouisfed.org/css/fred-homepage-rotating-ad.css",
+        "https://fred.stlouisfed.org/assets/bootstrap/dist/css/1791313672.bootstrap.min.css",
+        "https://fred.stlouisfed.org/assets/fontawesome-free/css/all.min.css",
+        "https://fred.stlouisfed.org/css/1791313676.home.min.css",
+        "https://fred.stlouisfed.org/assets/select2/dist/css/1791313670.select2.min.css",
+        "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap",
+        "https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap",
+        "https://fred.stlouisfed.org/images/STL_Fed_Logo.svg",
+        "https://fred.stlouisfed.org/images/STL_Fed_Logo_white_text.svg",
+        "https://fred.stlouisfed.org/images/Waffle_Menu_off.svg",
+        "https://fred.stlouisfed.org/images/FRED_Logo_for_Waffle.svg",
+        "https://fred.stlouisfed.org/images/FRASER_Logo_for_Waffle.svg",
+        "https://fred.stlouisfed.org/images/ALFRED_Logo_for_Waffle.svg",
+        "https://fred.stlouisfed.org/images/CASSIDI_Logo_for_Waffle.svg",
+        "https://fred.stlouisfed.org/images/FRED_Logo_Home_Page.svg",
+        "https://fred.stlouisfed.org/graph/fredgraph.png?g=1wmdD",
+        "https://fred.stlouisfed.org/graph/fredgraph.png?g=1Ng5J",
+        "https://fred.stlouisfed.org/graph/fredgraph.png?m=1wm8j",
+        "https://fred.stlouisfed.org/css/1791313676.footer.min.css",
+        "https://fred.stlouisfed.org/assets/jquery/dist/1791313671.jquery.min.js",
+        "https://fred.stlouisfed.org/assets/popperjs/dist/umd/1791313673.popper.min.js",
+        "https://fred.stlouisfed.org/assets/bootstrap/dist/js/1791313672.bootstrap.min.js",
+        "https://fred.stlouisfed.org/assets/select2/dist/js/1791313670.select2.full.min.js",
+        "https://fred.stlouisfed.org/assets/jquery-menu-aim/1791313675.jquery.menu-aim.min.js",
+        "https://fred.stlouisfed.org/js/1791313676.common.min.js",
+        "https://fred.stlouisfed.org/js/1791313675.508.min.js",
+        "https://fred.stlouisfed.org/assets/dompurify/dist/1791313672.purify.min.js",
+        "https://fred.stlouisfed.org/js/1791225270.banner.js",
+        "https://accounts.google.com/gsi/client",
+        "https://fred.stlouisfed.org/assets/stlrch-fred/fred-account-react/dist/1791313669.main.dist.js",
+        "https://fred.stlouisfed.org/assets/stlrch-fred/fred-account-react/dist/1791313669.vendor.dist.js",
+        "https://fred.stlouisfed.org/css/1791313676.contact.min.css",
+        "https://fred.stlouisfed.org/js/homepage.min.js",
+        "https://fred.stlouisfed.org/5Qjch/gr1Qg/akADsb/rGV1/7X7hDVDLfVJrJSG1aO/VRFBOFZ1QQM/E1/ZBTVUhMBk",
+        "https://www.googletagmanager.com/gtm.js?id=GTM-5L322W"
+      ],
+      "actual_url": "https://fred.stlouisfed.org/",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://fred.stlouisfed.org/",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.1257/mac.20130329",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1257/mac.20130329",
+        "https://pubs.aeaweb.org/doi/10.1257/mac.20130329",
+        "https://pubs.aeaweb.org/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a4986b134032",
+        "blob:https://pubs.aeaweb.org/54c5a616-8ec7-480c-9e79-da0c907d1c26",
+        "https://challenges.cloudflare.com/turnstile/v0/g/4df4a60fa397/api.js?onload=zeEi4&render=explicit",
+        "https://pubs.aeaweb.org/favicon.ico",
+        "https://pubs.aeaweb.org/favicon.ico",
+        "https://pubs.aeaweb.org/cdn-cgi/challenge-platform/h/g/fo/3231825873:1791831919:ian8JWRkD-G6d2406YqpGBe-cS9YdFH3gKlrmyYBa1o/a498a4986b134032/J0BeE6mVY37DP5Orjzvy6FIyeUnPdvPiHAR2AUJwpYE-1791834725-1.2.1.1-6PUmV9CguEMkLapRWzE67LSP3pJ3DM.kMs3pJ9XD2G4LF0NzzhP9M66djG45yENC",
+        "blob:https://pubs.aeaweb.org/f733cbf9-3e76-4514-805f-d59b96220309",
+        "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/w49ai/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto"
+      ],
+      "actual_url": "https://pubs.aeaweb.org/doi/10.1257/mac.20130329",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://pubs.aeaweb.org/doi/10.1257/mac.20130329",
+          "status": 403
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/w49ai/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.1080/23311975.2022.2140488",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1080/23311975.2022.2140488",
+        "https://www.tandfonline.com/doi/full/10.1080/23311975.2022.2140488",
+        "https://doi.org/10.1080/23311975.2022.2140488",
+        "https://www.tandfonline.com/doi/full/10.1080/23311975.2022.2140488",
+        "https://www.tandfonline.com/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a13a3c491bc6"
+      ],
+      "actual_url": "https://www.tandfonline.com/doi/full/10.1080/23311975.2022.2140488?__cf_chl_rt_tk=rhtSDtvENR1xSemagucO.TwRMhkhzVQ4Z.GE3nQeDmU-1791834587-1.0.1.1-LlIPCPIxPqj7D2Mgzos1gQoXYxbhFTMNqQ7a7Gl5Nwk",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://www.tandfonline.com/doi/full/10.1080/23311975.2022.2140488",
+          "status": 403
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.1257/0002828053828518",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1257/0002828053828518",
+        "https://pubs.aeaweb.org/doi/10.1257/0002828053828518",
+        "https://doi.org/10.1257/0002828053828518",
+        "https://pubs.aeaweb.org/doi/10.1257/0002828053828518",
+        "https://pubs.aeaweb.org/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a146ded8120e",
+        "blob:https://pubs.aeaweb.org/e1eb9127-efcc-495b-9a49-d8307bfd15f9",
+        "https://challenges.cloudflare.com/turnstile/v0/g/4df4a60fa397/api.js?onload=zeEi4&render=explicit",
+        "https://pubs.aeaweb.org/favicon.ico"
+      ],
+      "actual_url": "https://pubs.aeaweb.org/doi/10.1257/0002828053828518",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://pubs.aeaweb.org/doi/10.1257/0002828053828518",
+          "status": 403
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/wywdp/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.1086/262072",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1086/262072",
+        "https://www.journals.uchicago.edu/doi/10.1086/262072",
+        "https://doi.org/10.1086/262072",
+        "https://www.journals.uchicago.edu/doi/10.1086/262072",
+        "https://www.journals.uchicago.edu/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a4b2795a721f",
+        "blob:https://www.journals.uchicago.edu/ee735f9e-ce4b-46ed-a62d-be96df7ea8b2",
+        "https://challenges.cloudflare.com/turnstile/v0/g/4df4a60fa397/api.js?onload=zeEi4&render=explicit",
+        "https://www.journals.uchicago.edu/favicon.ico",
+        "https://www.journals.uchicago.edu/cdn-cgi/challenge-platform/h/g/fo/3231825873:1791831919:ian8JWRkD-G6d2406YqpGBe-cS9YdFH3gKlrmyYBa1o/a498a4b2795a721f/2c3gsSvyilalGpWXtaP9scRHMr8hv78_LYUbL7BA.p8-1791834729-1.2.1.1-x2SMwZN_Fz2T7TLniMc6T4omIZsLQvDqbt1bK3AJ0sbyu_b21Gbc7zgUy.FgX2G5",
+        "https://www.journals.uchicago.edu/favicon.ico",
+        "blob:https://www.journals.uchicago.edu/8b2b399d-7ba1-4cc8-8d9c-28432c8b5a71",
+        "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/ti471/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto"
+      ],
+      "actual_url": "https://www.journals.uchicago.edu/doi/10.1086/262072",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://www.journals.uchicago.edu/doi/10.1086/262072",
+          "status": 403
+        },
+        {
+          "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/ti471/0x4AAAAAAADnPIDROrmt1Wwj/dark/fbE/new/normal?lang=auto",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.2478/jcbtp-2018-0026",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.2478/jcbtp-2018-0026",
+        "https://reference-global.com/article/10.2478/jcbtp-2018-0026",
+        "https://cdn.reference-global.com/p/_next/static/media/16094c42ce816e9a.p.woff2",
+        "https://cdn.reference-global.com/p/_next/static/css/0d651e5e2f732372.css",
+        "https://cdn.reference-global.com/p/_next/static/css/3a85f44cb112b326.css",
+        "https://cdn.reference-global.com/p/_next/static/css/ebc6900ff015767d.css",
+        "https://cdn.reference-global.com/p/_next/static/css/e7207c7c820d1729.css",
+        "https://cdn.reference-global.com/p/_next/static/css/c448ca73722adad4.css",
+        "https://cdn.reference-global.com/p/_next/static/css/c26b03bb77c51ad5.css",
+        "https://cdn.reference-global.com/p/_next/static/css/ee2bed912847e9af.css",
+        "https://cdn.reference-global.com/p/_next/static/css/7e5399a2ddf1e3ad.css",
+        "https://cdn.reference-global.com/p/_next/static/css/1dfb5e71b60cea90.css",
+        "https://cdn.reference-global.com/p/_next/static/chunks/webpack-d60d3401d27f7dae.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1255-623a1bc706ecd6cc.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/main-app-3cb7829aa11362ae.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/aaea2bcf-143d3b0dc8132bc4.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/13b76428-c75990430d19f963.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4760-92886d3a47c56a0a.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4909-79f021186bc62407.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/2619-04bc32f026a0d946.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8024-c5c0c588dd5bf9de.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8137-dbab4afc29bceb64.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1691-cd41613e27790d86.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1567-3788270a3266b680.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1029-cfe1019de973f2c5.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4127-35d78e9d1074522e.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6405-dde0769e08ce9e4a.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4135-e8b62901ad46541c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9210-dae9924578833c1c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6093-45f6654ea5cd90c7.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9741-d74b92cc1ab05880.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1356-b1f982685cfcaf9f.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/5551-ecdab97733731a63.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6479-bed225d598e13aca.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8545-5d7a93dc4758faf2.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9672-b71ae64092e3eda7.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4007-c41dbdac2b767537.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9608-0bf2360010541ab8.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6338-5f8393116c9f35a1.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1561-9f62aad8a1cc3b58.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8578-af50659153e8181a.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/layout-8a0879cdf5e1a4ad.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/7520-40c5336f15b4a173.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1974-b404df980968a5f0.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1898-887542d7bf206359.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/7092-9699f5af0d202150.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/7979-d5e4b0111657bdc3.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4110-54f62aaf2fbd8f1c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/article/%5B...doi%5D/page-a994e47b7f52fa7f.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1332-0d1943de4793bb51.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/not-found-5136f877fcf5de37.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/5927-22433ec83d7f3b99.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1200-6acd2a1c5d0ca56c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4637-dd2e6a5e9dad00ad.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9866-d9ce3bbefe9cdbcb.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9321-3be6228f47cb7825.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/page-2e9240791333c174.js",
+        "https://reference-global.com/js/liblynx.js",
+        "https://connect.liblynx.com/log/js/counter5.min.js",
+        "https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
+      ],
+      "actual_url": "https://reference-global.com/article/10.2478/jcbtp-2018-0026",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://reference-global.com/article/10.2478/jcbtp-2018-0026",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.1353/eca.2011.0019",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1353/eca.2011.0019",
+        "https://muse.jhu.edu/article/475020"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://muse.jhu.edu/verify?url=%2Farticle%2F475020&r=2734199",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.18488/journal.1006.2020.102.172.183",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.18488/journal.1006.2020.102.172.183",
+        "https://archive.aessweb.com/index.php/5006/article/view/4259"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://archive.aessweb.com/index.php/5006/article/view/4259",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.1093/rfs/hhr015",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1093/rfs/hhr015",
+        "https://academic.oup.com/rfs/article-lookup/doi/10.1093/rfs/hhr015",
+        "https://doi.org/10.1093/rfs/hhr015",
+        "https://academic.oup.com/rfs/article-lookup/doi/10.1093/rfs/hhr015",
+        "https://academic.oup.com/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a192fcc85c6c"
+      ],
+      "actual_url": "https://academic.oup.com/rfs/article-lookup/doi/10.1093/rfs/hhr015?__cf_chl_rt_tk=R5eKZW5DsukfVKId3EiUCxIyNvml8LwpiMZrw.zH8Ug-1791834601-1.0.1.1-ryzUYtTIdBAcYSDdWqnYijTQrp0orTBTrmaDeDyOKXI",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://academic.oup.com/rfs/article-lookup/doi/10.1093/rfs/hhr015",
+          "status": 403
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.2307/1913610",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.2307/1913610",
+        "https://www.jstor.org/stable/1913610?origin=crossref",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/assets/inter-var.woff2",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/assets/styles.css",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/errors.js",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/script.js?reload=true",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/pat?token=AZtc0GoaU_KE4PhqubITnh9YeUesqGHt5bd2oNBdBBU2r4lgSplE9AdFDg0a3lDP619toVMQ7gGnh6p4D-YQw4NcNOY0V8dAB41lEGYXzcCtMNsT1Tgboyr03RI0rnI3fNLH93pv4Zha8m2n1sveGgowoTJ6GB7pROjDdZ8tAY8ji8zmTw8LcIdVlGIAWNRqJTRnTdiE1XZd1assiX775xJDZ4B3Otmj-s4vP7GsLIR_Ydim6GjefbKYSzjn9ehpgM75IZo2Ln8y6FfOroiqnTYuOmbJNQbAFRUo68JsnQ7egigdFdj6dVYlC6TiFOoiYyYVR7gTQZq9IobOvBGNggKKcdmiEzi487_0YS8Wiibxv9Oh6ugXOtIFh18TsagQcs9o5F8Dvve0DFG7v1ACcT-lFTR7Y6nBx5tZAGspvGyw1nlll418kDNJdZk=",
+        "https://www.jstor.org/favicon.ico",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/fst-post-back",
+        "https://www.jstor.org/fastly/logo",
+        "https://www.jstor.org/fastly/logo",
+        "data:image/svg+xml,<svg version=\"1.1\" height=\"10\" width=\"10\" viewBox=\"0 0 150 150\" xmlns=\"http://www.w3.org/2000/svg\"%0A  xmlnsXlink=\"http://www.w3.org/1999/xlink\">%0A  <title>Loading...</title>%0A  <g fill=\"transparent\" stroke=\"%23EB1A0C\">%0A    <path%0A      d=\"M3,75 C3,35.235498 35.235498,3 75,3 C114.764502,3 147,35.235498 147,75 C147,114.764502 114.764502,147 75,147 C35.235498,147 3,114.764502 3,75 Z\"%0A      stroke=\"%23EB1A0C\" stroke-width=\"5\"></path>%0A    <path d=\"M 125.91168824543144 24.08831175456858 A 72 72 0 0 0 75 3\" stroke=\"%23EB1A0C\" stroke-width=\"5\">%0A      <animateTransform attributeName=\"transform\" attributeType=\"XML\" type=\"rotate\" from=\"0 75 75\" to=\"360 75 75\"%0A        dur=\"2s\" repeatCount=\"indefinite\" />%0A    </path>%0A  </g>%0A  <style>%0A    svg>g>path:last-of-type {%0A      stroke: %23C2BAB5;%0A    }%0A  </style>%0A</svg>",
+        "https://www.jstor.org/_fs-ch-1T1wmsGaOgGaSxcX/fst-post-back",
+        "https://www.jstor.org/fastly/logo",
+        "data:image/svg+xml,<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\">%0A    <path%0A        d=\"M8 12C8.208 12 8.385 11.927 8.531 11.781C8.677 11.635 8.75 11.458 8.75 11.25C8.75 11.042 8.677 10.865 8.531 10.719C8.385 10.573 8.208 10.5 8 10.5C7.792 10.5 7.615 10.573 7.469 10.719C7.323 10.865 7.25 11.042 7.25 11.25C7.25 11.458 7.323 11.635 7.469 11.781C7.615 11.927 7.792 12 8 12ZM7.25 9H8.75V4H7.25V9ZM8 16C6.90267 16 5.868 15.7917 4.896 15.375C3.924 14.9583 3.07333 14.3853 2.344 13.656C1.61467 12.9267 1.04167 12.076 0.625 11.104C0.208333 10.132 0 9.09733 0 8C0 6.88867 0.208333 5.85033 0.625 4.885C1.04167 3.92033 1.61467 3.07333 2.344 2.344C3.07333 1.61467 3.924 1.04167 4.896 0.625C5.868 0.208333 6.90267 0 8 0C9.11133 0 10.1497 0.208333 11.115 0.625C12.0797 1.04167 12.9267 1.61467 13.656 2.344C14.3853 3.07333 14.9583 3.92033 15.375 4.885C15.7917 5.85033 16 6.88867 16 8C16 9.09733 15.7917 10.132 15.375 11.104C14.9583 12.076 14.3853 12.9267 13.656 13.656C12.9267 14.3853 12.0797 14.9583 11.115 15.375C10.1497 15.7917 9.11133 16 8 16Z\"%0A        fill=\"%23BD140A\" />%0A</svg>"
+      ],
+      "actual_url": "https://www.jstor.org/stable/1913610?origin=crossref",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://www.jstor.org/stable/1913610?origin=crossref",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.5089/9781455297740.001",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.5089/9781455297740.001",
+        "https://elibrary.imf.org/view/journals/001/2011/161/001.2011.issue-161-en.xml?cid=25026-com-dsp-crossref"
+      ],
+      "actual_url": "https://elibrary.imf.org/view/journals/001/2011/161/001.2011.issue-161-en.xml?cid=25026-com-dsp-crossref",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://elibrary.imf.org/view/journals/001/2011/161/001.2011.issue-161-en.xml?cid=25026-com-dsp-crossref",
+          "status": 403
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.2478/jcbtp-2026-0020",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.2478/jcbtp-2026-0020",
+        "https://reference-global.com/article/10.2478/jcbtp-2026-0020"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": []
+    },
+    {
+      "uri": "https://doi.org/10.1353/mcb.2006.0074",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1353/mcb.2006.0074",
+        "http://muse.jhu.edu/content/crossref/journals/journal_of_money_credit_and_banking/v038/38.5pesaran.pdf",
+        "https://muse.jhu.edu/content/crossref/journals/journal_of_money_credit_and_banking/v038/38.5pesaran.pdf"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://muse.jhu.edu/content/crossref/journals/journal_of_money_credit_and_banking/v038/38.5pesaran.pdf",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.5089/9781451865431.001",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.5089/9781451865431.001",
+        "https://elibrary.imf.org/view/journals/001/2006/283/001.2006.issue-283-en.xml?cid=20064-com-dsp-crossref",
+        "https://elibrary.imf.org/favicon.ico"
+      ],
+      "actual_url": "https://elibrary.imf.org/view/journals/001/2006/283/001.2006.issue-283-en.xml?cid=20064-com-dsp-crossref",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://elibrary.imf.org/view/journals/001/2006/283/001.2006.issue-283-en.xml?cid=20064-com-dsp-crossref",
+          "status": 403
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.33093/ijomfa.2023.4.2.6",
+      "source_page": 29,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.33093/ijomfa.2023.4.2.6",
+        "https://journals.mmupress.com/index.php/ijomfa/article/view/682"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": []
+    },
+    {
+      "uri": "https://doi.org/10.1515/jcbtp-2015-0004",
+      "source_page": 30,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1515/jcbtp-2015-0004",
+        "https://www.sciendo.com/article/10.1515/jcbtp-2015-0004",
+        "https://reference-global.com/article/10.1515/jcbtp-2015-0004"
+      ],
+      "actual_url": "file:///C:/Users/gabri/orca/riesgo-credito-macro/outputs/preview-006/report/informe.pdf",
+      "verified": true,
+      "document_responses": []
+    },
+    {
+      "uri": "https://doi.org/10.1111/jmcb.12300",
+      "source_page": 30,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.1111/jmcb.12300",
+        "https://onlinelibrary.wiley.com/doi/10.1111/jmcb.12300",
+        "https://doi.org/10.1111/jmcb.12300",
+        "https://onlinelibrary.wiley.com/doi/10.1111/jmcb.12300",
+        "https://onlinelibrary.wiley.com/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=a498a2011fb7a753",
+        "blob:https://onlinelibrary.wiley.com/cc53b502-42f6-490e-ba81-afe63c26b6d6"
+      ],
+      "actual_url": "https://onlinelibrary.wiley.com/doi/10.1111/jmcb.12300",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://onlinelibrary.wiley.com/doi/10.1111/jmcb.12300",
+          "status": 403
+        }
+      ]
+    },
+    {
+      "uri": "https://doi.org/10.2478/ceej-2023-0016",
+      "source_page": 30,
+      "method": "Actual mouse press/release on PDF URI annotation in isolated native viewer",
+      "requested_urls": [
+        "https://doi.org/10.2478/ceej-2023-0016",
+        "https://reference-global.com/article/10.2478/ceej-2023-0016",
+        "https://cdn.reference-global.com/p/_next/static/media/16094c42ce816e9a.p.woff2",
+        "https://cdn.reference-global.com/p/_next/static/css/0d651e5e2f732372.css",
+        "https://cdn.reference-global.com/p/_next/static/css/3a85f44cb112b326.css",
+        "https://cdn.reference-global.com/p/_next/static/css/ebc6900ff015767d.css",
+        "https://cdn.reference-global.com/p/_next/static/css/e7207c7c820d1729.css",
+        "https://cdn.reference-global.com/p/_next/static/css/c448ca73722adad4.css",
+        "https://cdn.reference-global.com/p/_next/static/css/c26b03bb77c51ad5.css",
+        "https://cdn.reference-global.com/p/_next/static/css/ee2bed912847e9af.css",
+        "https://cdn.reference-global.com/p/_next/static/css/7e5399a2ddf1e3ad.css",
+        "https://cdn.reference-global.com/p/_next/static/css/1dfb5e71b60cea90.css",
+        "https://cdn.reference-global.com/p/_next/static/chunks/webpack-d60d3401d27f7dae.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4bd1b696-100b9d70ed4e49c1.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1255-623a1bc706ecd6cc.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/main-app-3cb7829aa11362ae.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/aaea2bcf-143d3b0dc8132bc4.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/13b76428-c75990430d19f963.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4760-92886d3a47c56a0a.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4909-79f021186bc62407.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/2619-04bc32f026a0d946.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8024-c5c0c588dd5bf9de.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8137-dbab4afc29bceb64.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1691-cd41613e27790d86.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1567-3788270a3266b680.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1029-cfe1019de973f2c5.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4127-35d78e9d1074522e.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6405-dde0769e08ce9e4a.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4135-e8b62901ad46541c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9210-dae9924578833c1c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6093-45f6654ea5cd90c7.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9741-d74b92cc1ab05880.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1356-b1f982685cfcaf9f.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/5551-ecdab97733731a63.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6479-bed225d598e13aca.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8545-5d7a93dc4758faf2.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9672-b71ae64092e3eda7.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4007-c41dbdac2b767537.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9608-0bf2360010541ab8.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/6338-5f8393116c9f35a1.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1561-9f62aad8a1cc3b58.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/8578-af50659153e8181a.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/layout-8a0879cdf5e1a4ad.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/7520-40c5336f15b4a173.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1974-b404df980968a5f0.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1898-887542d7bf206359.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/7092-9699f5af0d202150.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/7979-d5e4b0111657bdc3.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4110-54f62aaf2fbd8f1c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/article/%5B...doi%5D/page-a994e47b7f52fa7f.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1332-0d1943de4793bb51.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/not-found-5136f877fcf5de37.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/5927-22433ec83d7f3b99.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/1200-6acd2a1c5d0ca56c.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/4637-dd2e6a5e9dad00ad.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9866-d9ce3bbefe9cdbcb.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/9321-3be6228f47cb7825.js",
+        "https://cdn.reference-global.com/p/_next/static/chunks/app/page-2e9240791333c174.js",
+        "https://reference-global.com/js/liblynx.js",
+        "https://connect.liblynx.com/log/js/counter5.min.js",
+        "https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js",
+        "https://reference-global.com/manifest.json"
+      ],
+      "actual_url": "https://reference-global.com/article/10.2478/ceej-2023-0016",
+      "verified": true,
+      "document_responses": [
+        {
+          "url": "https://reference-global.com/article/10.2478/ceej-2023-0016",
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "scope": "Real mouse events in isolated native PDF viewer; all named internal destinations and all unique URI destinations. PDF bytes unchanged. Google Docs not imported or tested.",
+  "remote_access_limitations": [
+    "https://doi.org/10.1257/jep.9.4.27",
+    "https://doi.org/10.1257/mac.20130329",
+    "https://doi.org/10.1080/23311975.2022.2140488",
+    "https://doi.org/10.1257/0002828053828518",
+    "https://doi.org/10.1086/262072",
+    "https://doi.org/10.1093/rfs/hhr015",
+    "https://doi.org/10.5089/9781455297740.001",
+    "https://doi.org/10.5089/9781451865431.001",
+    "https://doi.org/10.1111/jmcb.12300"
+  ],
+  "unconfirmed_remote_response": [
+    "https://doi.org/10.2478/jcbtp-2019-0026",
+    "https://doi.org/10.2478/jcbtp-2026-0020",
+    "https://doi.org/10.33093/ijomfa.2023.4.2.6",
+    "https://doi.org/10.1515/jcbtp-2015-0004"
+  ]
+}

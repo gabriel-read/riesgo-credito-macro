@@ -1,0 +1,48 @@
+# 9. Conclusiones
+
+El ciclo económico se asocia con la morosidad bancaria de Estados Unidos, sobre todo a través de la inflación y el crédito y, con menor respaldo, de la actividad acumulada, mientras que los cambios de la tasa de política monetaria no muestran una asociación propia distinguible en esta muestra; esa información permite vigilar mejor y dimensionar el deterioro bajo estrés, no pronosticar con precisión.
+
+## Qué dicen los resultados sobre el ciclo, la política monetaria y el riesgo de crédito
+
+La pregunta de investigación es en qué medida las condiciones macroeconómicas y los cambios de la política monetaria afectan el riesgo de crédito.
+Leída como asociación condicional, la respuesta tiene dos partes.
+
+La primera es sobre el ciclo.
+La inflación y el crecimiento del crédito, rezagado cuatro trimestres, se asocian con aumentos de la morosidad, y esa asociación se mantiene en la mayoría de las variantes de robustez.
+La actividad se asocia con menos morosidad de forma acumulada y no en el mismo trimestre, pero con evidencia débil: solo el Modelo I la respalda, con {{< var modelo1.robustez.gdp_growth >}} variantes de robustez, y el producto rezagado del Modelo II no se distingue de cero (valor p {{< var modelo2.coef.gdp_l1.p >}}).
+El desempleo es mixto: tiene el signo esperado pero el Modelo I no lo distingue de cero, mientras que el Modelo II sí distingue su variación rezagada (valor p {{< var modelo2.coef.d_unemp_l1.p >}}), con una alerta de colinealidad que infla su error estándar y no explica su significancia.
+La morosidad es muy persistente, lo que prolonga en el tiempo las variaciones observadas.
+En actividad y desempleo, la dirección coincide con la mayor parte de la literatura verificable; para la inflación, esa literatura es heterogénea, y en ningún caso las magnitudes son comparables.
+
+La segunda es sobre la política monetaria.
+Ni el cambio contemporáneo de la tasa ni sus rezagos muestran una asociación distinguible de cero con la morosidad, y la regla pre-registrada concluye que no hay evidencia de efectos rezagados.
+Eso no demuestra que la política carezca de relación con el riesgo de crédito.
+El modelo es lineal y falla varios diagnósticos, y la tasa responde al ciclo, de modo que su efecto no puede separarse de esa reacción.
+
+Bajo el escenario adverso adaptado de la Reserva Federal, ambos modelos proyectan una morosidad mayor que bajo el base.
+El aumento final va de {{< var estres.modelo2.severo.delta_final >}} pp en el Modelo II a {{< var estres.modelo1.severo.delta_final >}} pp en el Modelo I.
+El cambio es positivo en la mayoría de las réplicas, con una proporción de {{< var estres.modelo1.severo.delta_prop_pos_final >}} en el Modelo I y de {{< var estres.modelo2.severo.delta_prop_pos_final >}} en el Modelo II al final del horizonte.
+No lo es en todas, y las bandas incluyen el cero.
+La magnitud es incierta, depende de que el deterioro empiece de inmediato y no incluye todas las fuentes de incertidumbre; hay además niveles fuera de rango y réplicas explosivas, informados sin ocultarlos.
+
+## Cómo usar esta información para anticipar y gestionar el riesgo
+
+Para anticipar, conviene vigilar con prioridad el crecimiento del crédito, por su rezago de cuatro trimestres.
+La inflación y la actividad acumulada entran en el Modelo I en el mismo trimestre que la morosidad: sirven como indicadores coincidentes para el monitoreo, no como señales adelantadas.
+La tasa de política sirve de contexto de las condiciones financieras, y no como señal propia de morosidad.
+Para dimensionar, la prueba de estrés ofrece un orden de magnitud condicional del cambio de la morosidad, que cada institución puede replicar con su cartera y trasladar a provisiones y capital con sus propios parámetros.
+Para gestionar, la sección anterior propone un tablero cualitativo de alertas, con una acción asociada a cada indicador.
+Los umbrales deben calibrarse con datos propios.
+
+## Alcance y límites
+
+Los resultados son asociaciones condicionales de una muestra de {{< var datos.n_trimestres >}} trimestres, de {{< var datos.muestra_inicio >}} a {{< var datos.muestra_fin >}}, con series agregadas de Estados Unidos.
+No identifican un shock de política monetaria ni mecanismos estructurales.
+Los diagnósticos de heterocedasticidad, normalidad y forma funcional fallan en ambos modelos, y los quiebres de estabilidad afectan la lectura de las inferencias.
+El pronóstico del Modelo I fuera de muestra no supera de forma significativa a uno ingenuo.
+Las bandas del estrés reflejan solo incertidumbre de parámetros.
+No se calcula un equivalente monetario ni un estimador restringido.
+
+Un trabajo posterior podría identificar shocks de política con información externa, usar datos por institución o por segmento y contrastar formas funcionales no lineales.
+Eso exigiría nuevas especificaciones y queda fuera de este informe.
+La evidencia completa de cada resultado está en el anexo técnico, con identificadores estables para cada tabla y figura.

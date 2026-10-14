@@ -1,0 +1,43 @@
+# 1. Introducción
+
+La pregunta de este informe es en qué medida el ciclo macroeconómico y los cambios de la política monetaria de Estados Unidos se asocian con la morosidad bancaria, y cómo un gestor de riesgos puede usar esa información.
+
+## El problema y su relevancia
+
+La calidad de la cartera de un banco no depende solo de sus clientes.
+Cuando la economía se desacelera, el desempleo sube y el crédito se encarece, más prestatarios dejan de pagar al mismo tiempo.
+Ese movimiento común amenaza las utilidades, el capital y, si es amplio, la estabilidad del sistema financiero.
+Por eso los supervisores y las instituciones financieras vigilan la morosidad y someten sus carteras a pruebas de estrés.
+
+La teoría ofrece mecanismos para esa relación.
+Las fricciones del crédito amplifican los ciclos y hacen que los efectos de una perturbación persistan [@bernanke1995; @kiyotaki1997].
+La política monetaria puede alterar las condiciones de financiamiento, como el costo y la disponibilidad del crédito [@gertler2015].
+La evidencia empírica disponible, en cambio, proviene sobre todo de paneles de países y de otros sistemas bancarios, y sus conclusiones no coinciden en todos los casos.
+Este informe aporta una serie temporal trimestral de un solo país.
+
+## Pregunta y objetivo
+
+La pregunta de investigación, tal como la plantea la guía de la asignatura, es la siguiente: ¿en qué medida las condiciones macroeconómicas y los cambios en la política monetaria afectan el riesgo de crédito, y cómo pueden estos efectos ser utilizados para fortalecer la gestión y monitoreo del riesgo financiero?
+
+El objetivo general es evaluar empíricamente la relación de las condiciones macroeconómicas y de la política monetaria con el riesgo de crédito, mediante modelos econométricos y escenarios de estrés.
+
+El riesgo de crédito se mide con la tasa de morosidad de los préstamos bancarios de Estados Unidos (serie DRALACBS de FRED).
+La muestra de estimación va de {{< var datos.muestra_inicio >}} a {{< var datos.muestra_fin >}}.
+Las palabras «afectan» y «efecto» se leen aquí como asociación condicional entre variables observadas.
+El trabajo no identifica mecanismos estructurales, y la variación observada de la tasa de política no es un shock identificado.
+
+## Qué se hace y cómo se organiza el documento
+
+Se estiman dos modelos de series de tiempo, con errores estándar robustos a heterocedasticidad y autocorrelación.
+El primero relaciona la morosidad con el crecimiento del producto, el desempleo, la inflación, la política monetaria y el crédito.
+El segundo estudia si los cambios de la tasa de fondos federales anticipan la morosidad posterior, es decir, si hay efectos rezagados.
+Con ambos modelos se proyecta la morosidad bajo un escenario adverso y bajo uno base, y se calcula la diferencia.
+
+El informe sigue las once secciones de la guía.
+La revisión de literatura precede a la descripción de los datos y de la metodología.
+Los modelos y su comparación ocupan las secciones intermedias, y el estrés y las implicaciones para la gestión de riesgos las cierran.
+Las conclusiones responden la pregunta de investigación.
+
+El informe explica los resultados y deja el respaldo completo en un anexo técnico separado.
+Cada tabla o figura del anexo tiene un identificador estable, como **AT-M1-COEFFICIENTS**, y el texto remite a él.
+Cada cifra del texto procede de los resultados que se documentan en el anexo.

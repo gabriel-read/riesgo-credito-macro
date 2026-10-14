@@ -1,0 +1,70 @@
+{
+  "source": "outputs/tables/stress_paths.csv",
+  "scope": "Solo comparación de signos existentes Modelo I; no descomposición ni reestimación",
+  "checks": {
+    "PIB": {
+      "same_all": false,
+      "negative_quarters": [
+        "2026T3",
+        "2026T4",
+        "2027T1",
+        "2027T2",
+        "2027T3",
+        "2027T4",
+        "2028T1",
+        "2028T2",
+        "2028T3"
+      ],
+      "positive_quarters": [
+        "2028T4",
+        "2029T1",
+        "2029T2",
+        "2029T3"
+      ]
+    },
+    "ΔU": {
+      "same_all": false,
+      "negative_quarters": [
+        "2028T2",
+        "2028T3",
+        "2028T4",
+        "2029T1",
+        "2029T2",
+        "2029T3"
+      ],
+      "positive_quarters": [
+        "2026T3",
+        "2026T4",
+        "2027T1",
+        "2027T2",
+        "2027T3",
+        "2027T4",
+        "2028T1"
+      ]
+    },
+    "π": {
+      "same_all": false,
+      "negative_quarters": [
+        "2026T3",
+        "2026T4",
+        "2027T1",
+        "2027T2",
+        "2027T3",
+        "2027T4",
+        "2028T1",
+        "2028T2",
+        "2028T3",
+        "2028T4",
+        "2029T1",
+        "2029T2",
+        "2029T3"
+      ],
+      "positive_quarters": []
+    },
+    "CRED": {
+      "same_all": true,
+      "negative_quarters": [],
+      "positive_quarters": []
+    }
+  }
+}

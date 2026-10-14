@@ -1,0 +1,100 @@
+# 5. Modelo II: Política monetaria y riesgo de crédito
+
+El Modelo II no encuentra evidencia de que los cambios de la tasa de fondos federales anticipen un deterioro posterior de la morosidad, según una regla fijada antes de estimar.
+Ese resultado no prueba que la política monetaria carezca de relación con la morosidad: el modelo lineal presenta fallas de especificación e inestabilidad, y la variación observada de la tasa no es un shock identificado.
+
+## La pregunta y el modelo
+
+La guía pregunta cómo afectan los cambios de la política monetaria al riesgo de crédito y si existen efectos rezagados sobre la calidad de la cartera.
+Aquí se pregunta si un cambio de la tasa de fondos federales tiene relación con el deterioro posterior de la morosidad.
+«Afecta» y «efecto» se leen como asociación condicional; la guía habla de un shock, pero ΔFFR es el cambio observado de la tasa, no un shock de política identificado.
+
+El modelo explica el cambio trimestral de la morosidad, en puntos porcentuales (pp), con el cambio contemporáneo de la tasa y sus rezagos, el rezago de la morosidad, el crédito rezagado cuatro trimestres y versiones rezagadas de los controles del Modelo I (producto, desempleo e inflación).
+El número de rezagos de la tasa, K, se elige por el criterio BIC y resulta {{< var modelo2.k_elegido >}}; el criterio AIC elige {{< var modelo2.k_aic >}}.
+Como ambos coinciden, no hace falta una variante de robustez por selección de rezagos.
+Se estima con {{< var modelo2.n_obs >}} observaciones de {{< var modelo2.muestra_inicio >}} a {{< var modelo2.muestra_fin >}}, por mínimos cuadrados con errores de Newey–West de {{< var modelo2.rezagos_hac >}} rezagos [@newey1987].
+Los coeficientes y la selección completos están en **AT-M2-COEFFICIENTS** y **AT-M2-SELECTION**.
+
+## Efectos rezagados
+
+El coeficiente del cambio contemporáneo de la tasa es {{< var modelo2.coef.d_ffr_l0.coef >}} pp por punto de ΔFFR (valor p {{< var modelo2.coef.d_ffr_l0.p >}}).
+El del cambio del trimestre anterior es {{< var modelo2.coef.d_ffr_l1.coef >}} pp (valor p {{< var modelo2.coef.d_ffr_l1.p >}}).
+Ninguno es significativo.
+La suma de ambos, el efecto acumulado, es {{< var modelo2.efectos.s.est >}} pp (valor p {{< var modelo2.efectos.s.p >}}).
+La hipótesis pre-registrada esperaba una suma positiva, y el signo puntual es negativo.
+La parte rezagada sola, que es lo que interesa para anticipar el deterioro, es {{< var modelo2.efectos.s_rez.est >}} pp (valor p {{< var modelo2.efectos.s_rez.p >}}).
+
+{{< include ../outputs/informe/model2_reading_cuerpo.md >}}
+
+La lectura de «¿hay efectos rezagados?» usa solo la parte rezagada y dos condiciones fijadas antes de ver los resultados.
+La primera es que la prueba de Granger rechace.
+La segunda es que la suma rezagada sea positiva y significativa.
+La prueba de Granger no rechaza: el estadístico es {{< var modelo2.granger.chi2 >}} con valor p {{< var modelo2.granger.p >}}.
+Con un solo rezago, la prueba de Granger y la segunda condición usan el mismo contraste de Wald; la diferencia es el signo.
+Un rechazo con suma rezagada negativa cumpliría solo la primera condición y daría «evidencia parcial», con la marca de signo contrario al esperado; un rechazo con suma positiva cumpliría ambas y daría «evidencia fuerte».
+Ninguna condición se cumple y la lectura es «{{< var modelo2.lectura.etiqueta >}}».
+
+El trimestre de mayor cambio de la morosidad tras un movimiento de la tasa es el mismo trimestre del movimiento, h = {{< var modelo2.trayectoria.h_estrella.h >}}, y no uno posterior.
+La respuesta acumulada del nivel de la morosidad a los doce trimestres es {{< var modelo2.trayectoria.r.h12 >}} pp por punto de ΔFFR, sin bandas de incertidumbre en esta trayectoria.
+Las bandas las da la proyección local.
+
+## Proyecciones locales
+
+![Modelo II — respuestas dinámicas. Fuente: FRED; elaboración propia.](../outputs/figures/model2_response.png)
+
+La figura compara la respuesta de la morosidad (izquierda) con la trayectoria de la tasa (derecha) por horizonte, con bandas del noventa por ciento.
+La respuesta estimada de la morosidad es negativa en los primeros horizontes y cambia de signo hacia el final, hasta {{< var modelo2.lp.h12.beta >}} pp a los doce trimestres.
+Las bandas incluyen el cero en todos los horizontes; ningún horizonte detecta una respuesta distinta de cero.
+En los horizontes 1 a 3 el límite superior de la banda queda muy cerca de cero ({{< var modelo2.lp.h1.ic90_sup >}}, {{< var modelo2.lp.h2.ic90_sup >}} y {{< var modelo2.lp.h3.ic90_sup >}} pp) sin llegar a excluirlo: una asociación negativa casi en el borde de lo distinguible, que debe leerse junto con la endogeneidad de la tasa.
+La respuesta de las proyecciones locales y la del modelo de rezagos distribuidos tienen el mismo signo en {{< var modelo2.lp_resumen.k_de_n >}} horizontes estimados.
+Ambas son estimaciones descriptivas y no se prueba la forma paramétrica.
+
+Los dos objetos no son iguales.
+La respuesta acumulada del modelo mantiene fijas la tasa posterior y los controles.
+La proyección local, β, es la asociación condicional de la morosidad futura con ΔFFR(t) e incluye la trayectoria posterior de la tasa y la reacción de los controles.
+Esa trayectoria, φ, describe la continuación observada de la tasa en la muestra.
+Por ejemplo, un punto de ΔFFR(t) se acompaña, en promedio, de una tasa {{< var modelo2.lp.h4.phi >}} pp más alta, respecto de su nivel previo, cuatro trimestres después.
+Por eso β a ese horizonte se lee a la escala de esa trayectoria: es la asociación con el inicio de una tasa que sigue subiendo, no con un cambio aislado de un punto.
+Esa continuación describe lo observado en la muestra; no identifica un shock externo ni una secuencia de política.
+En el horizonte inicial, φ vale {{< var modelo2.lp.h0.phi >}} por construcción: es una identidad, sin error estándar ni banda, y no un resultado estimado.
+Los valores de los demás horizontes sí se estiman y están en **AT-M2-LP**.
+
+## Qué sobrevive a los diagnósticos
+
+El resultado «sin evidencia» procede de una regla fijada antes de estimar, aplicada a un modelo lineal.
+Los diagnósticos de ese modelo no son limpios.
+Pasan la autocorrelación (valor p {{< var modelo2.diag.bg.p >}}), el Chow de 2008T3 y el CUSUM.
+Fallan Breusch–Pagan, White, Jarque–Bera, RESET (valor p {{< var modelo2.diag.reset.p >}}) y el Chow de 2020T2 (valor p {{< var modelo2.diag.chow_2020t2.p >}}); como pocos trimestres siguen a esa fecha, el tamaño real de este último contraste puede diferir del nominal.
+El factor de inflación de varianza del desempleo rezagado es {{< var modelo2.diag.vif.d_unemp_l1.valor >}}, una alerta de colinealidad; en el Modelo I, ese factor refleja las variables indicadoras de la pandemia.
+El detalle está en **AT-M2-DIAGNOSTICS** y **AF-M2-CUSUM**.
+
+Con RESET y el Chow de 2020T2 en contra, «sin evidencia» significa que el modelo no detecta una relación rezagada, no que se haya demostrado su ausencia.
+Una forma funcional incorrecta o un cambio de pendiente pueden ocultar una relación existente o crear una aparente.
+Los errores HAC corrigen la covarianza, no esas fallas.
+Por eso la conclusión sobrevive solo como un resultado de este modelo y de esta muestra.
+
+Hay además tres límites que condicionan la lectura.
+En los tramos con la tasa cercana a cero, ΔFFR casi no varía, y los coeficientes de la tasa se identifican con pocos trimestres: es un límite de potencia.
+La inferencia no incorpora la incertidumbre de haber elegido K con los mismos datos, y los efectos base de los trimestres posteriores a la pandemia no llevan variable indicadora; esos dos son límites de la inferencia y de la especificación, no de potencia.
+Dos variantes de robustez contrastan dos de ellos: una sin los tramos de tasa cercana a cero, con {{< var modelo2.robustez.r3.n_obs >}} observaciones, y otra sin los trimestres de la pandemia, con {{< var modelo2.robustez.r2.n_obs >}}, que sirve de contraste para el efecto base.
+Ninguna variante trata la elección de K, porque la selección alternativa no aplica: los criterios de información eligen el mismo K.
+En ninguna la parte rezagada es significativa (valor p {{< var modelo2.robustez.r3.p_s_rez >}} y {{< var modelo2.robustez.r2.p_s_rez >}}), de modo que la lectura no cambia, aunque la variante sin tasa cercana a cero tiene menos potencia.
+Las ventanas de resultado de las proyecciones locales que tocan 2020T2–2021T1 arrastran además el efecto de la pandemia, porque no llevan variable indicadora.
+El detalle está en **AT-M2-LIMITATIONS** y **AT-M2-ROBUSTNESS-SUMMARY**.
+
+## Endogeneidad y alcance
+
+El signo puntual negativo del efecto acumulado es compatible con que la Reserva Federal reaccione al ciclo.
+Si la tasa sube cuando la economía mejora y la morosidad ya baja, el modelo asociaría alzas con menor morosidad sin que la tasa la reduzca.
+Con los datos disponibles no se puede separar esa reacción de un efecto de la tasa.
+Tampoco se interpreta como respaldo de que subir tasas mejore la cartera.
+
+La tabla de estacionariedad del Modelo II, en el anexo, contiene una columna que indica el panel probado.
+Esa columna puede nombrar la serie base o su versión diferenciada; debe leerse como la columna del panel sobre la que se aplicó la prueba y no como la serie original (**AT-M2-STATIONARITY**).
+
+## Lectura para la gestión del riesgo
+
+El Modelo II no ofrece una regla de alerta basada en la tasa de política.
+Un movimiento de la tasa no anticipa, en esta muestra y con este modelo, un deterioro posterior de la cartera.
+Por prudencia, el estrés de la sección 7 no atribuye a la tasa un efecto estimado distinto de cero, y la sensibilidad con el coeficiente puntual se presenta aparte y rotulada.
+El monitoreo de la tasa sigue siendo útil por su relación con las condiciones financieras y con el ciclo, no como señal propia de morosidad.

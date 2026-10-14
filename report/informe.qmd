@@ -1,0 +1,42 @@
+---
+title: "Condiciones macroeconómicas, política monetaria y riesgo de crédito: evidencia empírica y análisis de escenarios"
+subtitle: "NEG-LIF309-01 Control y gestión de riesgos · Profesor: Ramfis Félix Tatis"
+author: "Gabriel Read"
+affiliation: "Instituto Tecnológico de Santo Domingo (INTEC)"
+date: &submission_date "16 de octubre de 2026"
+cover-date: *submission_date
+---
+
+{{< include secciones/01-introduccion.qmd >}}
+
+{{< include secciones/02-literatura.qmd >}}
+
+{{< include secciones/03a-datos.qmd >}}
+
+{{< include secciones/03b-variables.qmd >}}
+
+{{< include secciones/03c-politica.qmd >}}
+
+{{< include secciones/03d-modelos.qmd >}}
+
+{{< include secciones/03e-desviaciones.qmd >}}
+
+{{< include secciones/03f-limitaciones.qmd >}}
+
+{{< include secciones/04-modelo1.qmd >}}
+
+{{< include secciones/05-modelo2.qmd >}}
+
+{{< include secciones/06-resultados.qmd >}}
+
+{{< include secciones/07-estres.qmd >}}
+
+{{< include secciones/08-implicaciones.qmd >}}
+
+{{< include secciones/09-conclusiones.qmd >}}
+
+{{< include secciones/10-referencias.qmd >}}
+
+{{< include secciones/11-datos-descarga.qmd >}}
+
+

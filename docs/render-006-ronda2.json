@@ -1,0 +1,30 @@
+[
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "--to",
+      "typst",
+      "--no-clean"
+    ],
+    "started_utc": "2026-10-12T23:20:21.630864+00:00",
+    "duration_seconds": 230.39958510000724,
+    "returncode": 0,
+    "log": "docs/render-006-ronda2-typst.log",
+    "log_sha256": "4af8a669895bf0214b03ab14406a8e208836743236d45c5e79a00f05513522ae"
+  },
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "--to",
+      "docx",
+      "--no-clean"
+    ],
+    "started_utc": "2026-10-12T23:24:12.034295+00:00",
+    "duration_seconds": 180.87153040000703,
+    "returncode": 0,
+    "log": "docs/render-006-ronda2-docx.log",
+    "log_sha256": "d66d5f78ca3709507c57efce318083f0ea52e228a17c9e22d62773128151903b"
+  }
+]

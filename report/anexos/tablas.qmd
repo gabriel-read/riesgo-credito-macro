@@ -1,0 +1,845 @@
+# Anexos completos de tablas
+
+Los paneles conservan todas las filas y columnas de los CSV originales. La primera columna se repite para facilitar la lectura; los paneles se leen en el mismo orden.
+
+## Estadísticos descriptivos
+
+CSV completo: `outputs/tables/descriptives.csv`.
+
+### Panel 1
+
+Columnas originales: `variable`; `n`; `media`; `desv_est`.
+
+{{< include ../outputs/informe/descriptives_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `variable`; `min`; `mediana`; `max`.
+
+{{< include ../outputs/informe/descriptives_anexo_2.md >}}
+
+## Manifiesto de fuentes congeladas
+
+CSV completo: `data/raw/manifest.csv`.
+
+### Panel 1
+
+Columnas originales: `series`; `download_date`; `source`; `file`.
+
+{{< include ../outputs/informe/fred_manifest_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `series`; `n_rows`; `first_obs`; `last_obs`.
+
+{{< include ../outputs/informe/fred_manifest_anexo_2.md >}}
+
+## Estudios verificados: variables, métodos y signos
+
+CSV completo: `outputs/tables/lit_estudios.csv`.
+
+### Panel 1
+
+Columnas originales: `clave`; `estudio`; `dependiente`; `regresores`.
+
+{{< include ../outputs/informe/lit_estudios_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `clave`; `metodo`; `signo`; `seccion_principal`.
+
+{{< include ../outputs/informe/lit_estudios_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `clave`; `nota`.
+
+{{< include ../outputs/informe/lit_estudios_anexo_3.md >}}
+
+## Modelo I — coeficientes
+
+CSV completo: `outputs/tables/model1_coefficients.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `etiqueta`; `coef`; `ee_hac`.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `z`; `p`; `ic_inf`.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `ic_sup`; `signo_esperado`; `coincide`.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `termino`; `nota`.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_4.md >}}
+
+## Modelo I — desviaciones
+
+CSV completo: `outputs/tables/model1_deviations.csv`.
+
+### Panel 1
+
+Columnas originales: `decision`; `referencia`; `motivo`.
+
+{{< include ../outputs/informe/model1_deviations_anexo_1.md >}}
+
+## Modelo I — diagnósticos
+
+CSV completo: `outputs/tables/model1_diagnostics.csv`.
+
+### Panel 1
+
+Columnas originales: `prueba`; `estadístico`; `p_valor`; `veredicto`.
+
+{{< include ../outputs/informe/model1_diagnostics_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `prueba`; `nota`.
+
+{{< include ../outputs/informe/model1_diagnostics_anexo_2.md >}}
+
+## Modelo I — efectos
+
+CSV completo: `outputs/tables/model1_effects.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `efecto`; `escala`; `etiqueta`; `de`.
+
+{{< include ../outputs/informe/model1_effects_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `efecto`; `escala`; `estimacion`; `ee`.
+
+{{< include ../outputs/informe/model1_effects_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `efecto`; `escala`; `p`; `ic_inf`.
+
+{{< include ../outputs/informe/model1_effects_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `termino`; `efecto`; `escala`; `ic_sup`; `estado`.
+
+{{< include ../outputs/informe/model1_effects_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `termino`; `efecto`; `escala`; `unidad`.
+
+{{< include ../outputs/informe/model1_effects_anexo_5.md >}}
+
+## Modelo I — limitaciones
+
+CSV completo: `outputs/tables/model1_limitations.csv`.
+
+### Panel 1
+
+Columnas originales: `limitacion`; `detalle`; `origen`.
+
+{{< include ../outputs/informe/model1_limitations_anexo_1.md >}}
+
+## Modelo I — evaluación fuera de muestra
+
+CSV completo: `outputs/tables/model1_oos.csv`.
+
+### Panel 1
+
+Columnas originales: `pronostico`; `n_trimestres`; `rmse_modelo`; `rmse_ingenuo`.
+
+{{< include ../outputs/informe/model1_oos_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `pronostico`; `mae_modelo`; `mae_ingenuo`; `cociente_rmse`.
+
+{{< include ../outputs/informe/model1_oos_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `pronostico`; `dm_estadistico`; `dm_p`; `veredicto`.
+
+{{< include ../outputs/informe/model1_oos_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `pronostico`; `significancia`.
+
+{{< include ../outputs/informe/model1_oos_anexo_4.md >}}
+
+## Modelo I — estimaciones de robustez
+
+CSV completo: `outputs/tables/model1_robustness_estimates.csv`.
+
+### Panel 1
+
+Columnas originales: `variante`; `termino`; `etiqueta`; `dependiente`; `forma_y`.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `variante`; `termino`; `terminos_diferencia`; `inicio`; `fin`.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `variante`; `termino`; `n_obs`; `rezagos_hac`; `coef`.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `variante`; `termino`; `ee_hac`; `p`; `estado`.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `variante`; `termino`; `motivo`; `nota`.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_5.md >}}
+
+## Modelo I — resumen de robustez
+
+CSV completo: `outputs/tables/model1_robustness_summary.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `etiqueta`; `R1`; `R2`.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `R3_drclacbs`; `R3_drblacbs`; `R3_drsreacbs`.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `R4`; `R5`; `R6`.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `termino`; `R7`; `R8`; `k`.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `termino`; `n`; `robustez`.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_5.md >}}
+
+## Modelo I — estacionariedad
+
+CSV completo: `outputs/tables/model1_stationarity.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `forma`; `etiqueta`; `columna_panel`; `adf_stat`.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `forma`; `adf_p`; `kpss_stat`; `kpss_p`.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `forma`; `decision`; `orden`; `no_i0`.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `termino`; `forma`; `nota`.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_4.md >}}
+
+## Modelo II — coeficientes
+
+CSV completo: `outputs/tables/model2_coefficients.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `etiqueta`; `coef`; `ee_hac`.
+
+{{< include ../outputs/informe/model2_coefficients_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `z`; `p`; `ic_inf`.
+
+{{< include ../outputs/informe/model2_coefficients_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `ic_sup`; `nota`.
+
+{{< include ../outputs/informe/model2_coefficients_anexo_3.md >}}
+
+## Modelo II — comparación dinámica
+
+CSV completo: `outputs/tables/model2_comparison.csv`.
+
+### Panel 1
+
+Columnas originales: `h`; `R`; `beta`; `phi`.
+
+{{< include ../outputs/informe/model2_comparison_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `h`; `mismo_signo`; `banda_excluye_cero`.
+
+{{< include ../outputs/informe/model2_comparison_anexo_2.md >}}
+
+## Modelo II — desviaciones
+
+CSV completo: `outputs/tables/model2_deviations.csv`.
+
+### Panel 1
+
+Columnas originales: `decision`; `referencia`; `motivo`.
+
+{{< include ../outputs/informe/model2_deviations_anexo_1.md >}}
+
+## Modelo II — diagnósticos
+
+CSV completo: `outputs/tables/model2_diagnostics.csv`.
+
+### Panel 1
+
+Columnas originales: `prueba`; `estadístico`; `p_valor`; `veredicto`.
+
+{{< include ../outputs/informe/model2_diagnostics_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `prueba`; `nota`.
+
+{{< include ../outputs/informe/model2_diagnostics_anexo_2.md >}}
+
+## Modelo II — efectos
+
+CSV completo: `outputs/tables/model2_effects.csv`.
+
+### Panel 1
+
+Columnas originales: `efecto`; `descripcion`; `est`; `ee_hac`.
+
+{{< include ../outputs/informe/model2_effects_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `efecto`; `chi2`; `p`; `ic_inf`.
+
+{{< include ../outputs/informe/model2_effects_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `efecto`; `ic_sup`; `h1_signo`; `h1_respaldada`.
+
+{{< include ../outputs/informe/model2_effects_anexo_3.md >}}
+
+## Insumos de comparación de modelos
+
+CSV completo: `outputs/tables/model2_inputs63.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `termino`; `coef`; `ee_hac`; `p`.
+
+{{< include ../outputs/informe/model2_inputs63_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `termino`; `muestra`; `n_obs`; `controles`.
+
+{{< include ../outputs/informe/model2_inputs63_anexo_2.md >}}
+
+## Modelo II — limitaciones
+
+CSV completo: `outputs/tables/model2_limitations.csv`.
+
+### Panel 1
+
+Columnas originales: `limitacion`; `detalle`; `origen`.
+
+{{< include ../outputs/informe/model2_limitations_anexo_1.md >}}
+
+## Modelo II — proyecciones locales
+
+CSV completo: `outputs/tables/model2_lp.csv`.
+
+### Panel 1
+
+Columnas originales: `h`; `beta`; `ee`; `ic90_inf`.
+
+{{< include ../outputs/informe/model2_lp_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `h`; `ic90_sup`; `n_obs`; `rezagos_hac`.
+
+{{< include ../outputs/informe/model2_lp_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `h`; `estado`; `motivo`; `phi`.
+
+{{< include ../outputs/informe/model2_lp_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `h`; `phi_ee`; `phi_ic90_inf`; `phi_ic90_sup`.
+
+{{< include ../outputs/informe/model2_lp_anexo_4.md >}}
+
+## Modelo II — lectura de resultados
+
+CSV completo: `outputs/tables/model2_reading.csv`.
+
+### Panel 1
+
+Columnas originales: `elemento`; `estadistico`; `gl`; `p`.
+
+{{< include ../outputs/informe/model2_reading_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `elemento`; `resultado`.
+
+{{< include ../outputs/informe/model2_reading_anexo_2.md >}}
+
+## Modelo II — estimaciones de robustez
+
+CSV completo: `outputs/tables/model2_robustness_estimates.csv`.
+
+### Panel 1
+
+Columnas originales: `variante`; `etiqueta`; `estado`; `motivo`.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `variante`; `K`; `inicio`; `fin`.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `variante`; `n_obs`; `rezagos_hac`; `S`.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `variante`; `ee_S`; `p_S`; `S_rez`.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `variante`; `ee_S_rez`; `p_S_rez`; `h_estrella`.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_5.md >}}
+
+### Panel 6
+
+Columnas originales: `variante`; `h1`; `nota`.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_6.md >}}
+
+## Modelo II — resumen de robustez
+
+CSV completo: `outputs/tables/model2_robustness_summary.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `etiqueta`; `p_principal`; `R1`.
+
+{{< include ../outputs/informe/model2_robustness_summary_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `R2`; `R3`; `k`.
+
+{{< include ../outputs/informe/model2_robustness_summary_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `n`; `robustez`.
+
+{{< include ../outputs/informe/model2_robustness_summary_anexo_3.md >}}
+
+## Modelo II — selección de rezagos
+
+CSV completo: `outputs/tables/model2_selection.csv`.
+
+### Panel 1
+
+Columnas originales: `K`; `n_params`; `nobs`; `aic`.
+
+{{< include ../outputs/informe/model2_selection_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `K`; `bic`; `marca`.
+
+{{< include ../outputs/informe/model2_selection_anexo_2.md >}}
+
+## Modelo II — estacionariedad
+
+CSV completo: `outputs/tables/model2_stationarity.csv`.
+
+### Panel 1
+
+Columnas originales: `termino`; `forma`; `etiqueta`; `columna_panel`; `adf_stat`.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `termino`; `forma`; `adf_p`; `kpss_stat`; `kpss_p`.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `termino`; `forma`; `decision`; `orden`; `no_i0`.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `termino`; `forma`; `nota`.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_4.md >}}
+
+## Modelo II — trayectoria
+
+CSV completo: `outputs/tables/model2_trajectory.csv`.
+
+### Panel 1
+
+Columnas originales: `h`; `psi`; `R`; `h_estrella`.
+
+{{< include ../outputs/informe/model2_trajectory_anexo_1.md >}}
+
+## Estacionariedad de las series
+
+CSV completo: `outputs/tables/stationarity.csv`.
+
+### Panel 1
+
+Columnas originales: `variable`; `forma`; `(índice CSV)`; `etiqueta`; `n_obs`.
+
+{{< include ../outputs/informe/stationarity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `variable`; `forma`; `adf_stat`; `adf_p`; `adf_lags`.
+
+{{< include ../outputs/informe/stationarity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `variable`; `forma`; `kpss_stat`; `kpss_p`; `kpss_p_truncado`.
+
+{{< include ../outputs/informe/stationarity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `variable`; `forma`; `decision`; `orden`.
+
+{{< include ../outputs/informe/stationarity_anexo_4.md >}}
+
+## Estrés — cambios adverso menos base
+
+CSV completo: `outputs/tables/stress_delta.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `delta`; `p05`.
+
+{{< include ../outputs/informe/stress_delta_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `mediana`; `p95`.
+
+{{< include ../outputs/informe/stress_delta_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `prop_pos`; `delta_final`.
+
+{{< include ../outputs/informe/stress_delta_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `delta_pico`; `pico_trimestre`.
+
+{{< include ../outputs/informe/stress_delta_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `delta_min`; `sin_aumento`.
+
+{{< include ../outputs/informe/stress_delta_anexo_5.md >}}
+
+### Panel 6
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `prop_pos_final`; `prop_pos_pico`.
+
+{{< include ../outputs/informe/stress_delta_anexo_6.md >}}
+
+### Panel 7
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `nivel_pico`; `nivel_pico_trimestre`.
+
+{{< include ../outputs/informe/stress_delta_anexo_7.md >}}
+
+## Estrés — niveles de morosidad
+
+CSV completo: `outputs/tables/stress_levels.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `dr`; `p05`.
+
+{{< include ../outputs/informe/stress_levels_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `mediana`; `p95`.
+
+{{< include ../outputs/informe/stress_levels_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `n_fuera_rango`; `prop_fuera_rango`.
+
+{{< include ../outputs/informe/stress_levels_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `n_explosivas`; `prop_explosivas`.
+
+{{< include ../outputs/informe/stress_levels_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `n_trimestres_fuera`; `n_replicas_fuera_rango`.
+
+{{< include ../outputs/informe/stress_levels_anexo_5.md >}}
+
+### Panel 6
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `prop_replicas_fuera_rango`; `nivel_min`.
+
+{{< include ../outputs/informe/stress_levels_anexo_6.md >}}
+
+### Panel 7
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `nivel_max`; `prop_trimestres_fuera`.
+
+{{< include ../outputs/informe/stress_levels_anexo_7.md >}}
+
+### Panel 8
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `n_replicas_fuera_rango_modelo`; `prop_replicas_fuera_rango_modelo`.
+
+{{< include ../outputs/informe/stress_levels_anexo_8.md >}}
+
+### Panel 9
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `nivel_min_modelo`; `nivel_max_modelo`.
+
+{{< include ../outputs/informe/stress_levels_anexo_9.md >}}
+
+## Estrés — limitaciones
+
+CSV completo: `outputs/tables/stress_limitations.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `tipo`; `limitacion`.
+
+{{< include ../outputs/informe/stress_limitations_anexo_1.md >}}
+
+## Estrés — comparación entre modelos
+
+CSV completo: `outputs/tables/stress_models.csv`.
+
+### Panel 1
+
+Columnas originales: `escenario`; `trimestre`; `delta_modelo1`; `delta_modelo2`; `diferencia_I_II`.
+
+{{< include ../outputs/informe/stress_models_anexo_1.md >}}
+
+## Estrés — variante de origen
+
+CSV completo: `outputs/tables/stress_origin.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `escenario`; `trimestre_adaptado`; `k`; `trimestre_original`.
+
+{{< include ../outputs/informe/stress_origin_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `escenario`; `trimestre_adaptado`; `dr_adaptado`; `dr_original`.
+
+{{< include ../outputs/informe/stress_origin_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `modelo`; `escenario`; `trimestre_adaptado`; `delta_adaptado`; `delta_original`.
+
+{{< include ../outputs/informe/stress_origin_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `modelo`; `escenario`; `trimestre_adaptado`; `DR_observado`.
+
+{{< include ../outputs/informe/stress_origin_anexo_4.md >}}
+
+## Estrés — trayectorias de regresores
+
+CSV completo: `outputs/tables/stress_paths.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `trimestre_fed`; `PIB`.
+
+{{< include ../outputs/informe/stress_paths_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `ΔU`; `π`.
+
+{{< include ../outputs/informe/stress_paths_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `ΔFFR`; `CRED`.
+
+{{< include ../outputs/informe/stress_paths_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `credito_observado`; `U_implicito`.
+
+{{< include ../outputs/informe/stress_paths_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `tasa_proxy_implicita`; `tasa_proxy_negativa`.
+
+{{< include ../outputs/informe/stress_paths_anexo_5.md >}}
+
+## Estrés — sensibilidad de tasa
+
+CSV completo: `outputs/tables/stress_rate_sensitivity.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `c`; `p05`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `mediana`; `p95`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `prop_pos`; `c_final`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `c_final_p05`; `c_final_p95`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `c_pico`; `prop_c_pos_final`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_5.md >}}
+
+### Panel 6
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `prop_c_pos_pico`; `pico_trimestre`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_6.md >}}
+
+### Panel 7
+
+Columnas originales: `modelo`; `escenario`; `trimestre`; `rotulo`.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_7.md >}}
+
+## Estrés — otras sensibilidades
+
+CSV completo: `outputs/tables/stress_sensitivity.csv`.
+
+### Panel 1
+
+Columnas originales: `modelo`; `escenario`; `sensibilidad`; `regla`; `nivel_final`.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas originales: `modelo`; `escenario`; `sensibilidad`; `nivel_pico`; `nivel_pico_trimestre`.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas originales: `modelo`; `escenario`; `sensibilidad`; `delta_final`; `delta_principal_2029t1`.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas originales: `modelo`; `escenario`; `sensibilidad`; `delta_pico`; `n_trimestres`.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_4.md >}}
+
+### Panel 5
+
+Columnas originales: `modelo`; `escenario`; `sensibilidad`; `n_alcanzados`.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_5.md >}}

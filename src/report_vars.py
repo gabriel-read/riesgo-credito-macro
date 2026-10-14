@@ -21,6 +21,148 @@ from src.tables import fmt_es, quarter_label
 _DASH = "—"
 
 
+def sync_report_variables(source_text: str) -> str:
+    """Validate the canonical YAML without reformatting its text."""
+    import yaml
+
+    try:
+        variables = yaml.safe_load(source_text)
+    except yaml.YAMLError as exc:
+        raise ValueError("Variables del informe: YAML inválido") from exc
+    if not isinstance(variables, dict) or not variables:
+        raise ValueError("Variables del informe: se requiere un mapa YAML no vacío")
+    return source_text
+
+
+def render_report_interface(source_text: str, assets: dict[str, dict[str, str]]) -> str:
+    """Describe canonical variables and verified asset metadata, without disk access."""
+    import json
+    import re
+    import yaml
+
+    variables = yaml.safe_load(sync_report_variables(source_text))
+
+    def escape(value):
+        return str(value).replace("|", "\\|").replace("\n", " ")
+
+    origins = {"datos": "001-datos", "modelo1": "003-modelo-i", "modelo2": "004-modelo-ii", "estres": "005-estres"}
+    available = []
+    lines = ["# Interfaz para la redacción de 006", "",
+             "Archivo generado por `uv run python -m src.pipeline report`; no editar a mano.", "",
+             "Fuente única de variables: `report/_variables.yml`. `_variables.yml` de la raíz es solo su espejo generado.",
+             "Las rutas siguientes son relativas a la raíz del proyecto Quarto, dentro de la copia activa de Orca.", "",
+             "## Variables canónicas", "",
+             "Los valores se conservan tal como los entrega la fuente. Las unidades e interpretaciones se consultan "
+             "en la spec de origen y en los campos de unidad de los CSV; no se infieren de una cifra aislada.", "",
+             "| Clave | Valor o estructura | Descripción y origen | Uso |", "| --- | --- | --- | --- |"]
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                walk(value, f"{path}.{key}" if path else str(key))
+            return
+        origin = origins.get(path.split(".")[0], "006-informe")
+        available.append(path)
+        if isinstance(node, list):
+            value = f"Lista de {len(node)} elementos; consultar la fuente o la tabla correspondiente"
+            usage = "Estructura; no se presume sintaxis de índice para shortcodes"
+        else:
+            value = node if isinstance(node, str) else json.dumps(node, ensure_ascii=False)
+            usage = f"`{{{{< var {path} >}}}}`"
+        description = path.rsplit(".", 1)[-1].replace("_", " ")
+        lines.append(f"| `{escape(path)}` | {escape(value)} | {escape(description)}; `{origin}` | {usage} |")
+
+    walk(variables, "")
+    lines.extend(["", "## Tablas, figuras y otras fuentes disponibles", "",
+                  "Las tablas de presentación y los anexos son derivados de 006; los originales conservan sus bytes.", "",
+                  "| Ruta | Descripción | Clase y origen | SHA-256 |", "| --- | --- | --- | --- |"])
+    for path, metadata in sorted(assets.items()):
+        if (path.startswith(("/", "\\")) or ":" in path or ".." in path.split("/")
+                or not all(metadata.get(k) for k in ("sha256", "description", "origin", "kind"))
+                or not re.fullmatch(r"[a-f0-9]{64}", metadata["sha256"])):
+            raise ValueError(f"Interfaz: ruta o procedencia inválida para {path!r}")
+        lines.append(f"| [{escape(path)}](../../{path}) | {escape(metadata['description'])} | "
+                     f"{escape(metadata['kind'])}; `{escape(metadata['origin'])}` | `{metadata['sha256']}` |")
+    lines.extend(["", "## Hallazgos heredados y solicitudes", "",
+                  "Las claves de coeficientes, efectos, diagnósticos, robustez, perfiles y sensibilidades aparecen arriba. "
+                  "Los tratamientos exigidos se consultan en la spec 006 y las auditorías de origen.",
+                  "Claude compara este inventario con esos hallazgos y registra las claves ausentes en "
+                  "`specs/006-informe/solicitudes-claude.md` antes de T4. Ausencia de una clave no autoriza "
+                  "calcular ni estimar un resultado nuevo.", ""])
+    groups = {
+        "Estacionariedad y faltantes declarados": r"^(datos\.(decision|cpiaucsl_2025t4|unrate_2025t4)|modelo[12]\..*(stationarity|no_i0))",
+        "Modelo I: coeficientes y efectos de impacto/largo plazo": r"^modelo1\.(coef|efectos)\.",
+        "Modelo I: diagnósticos, robustez y evaluación fuera de muestra": r"^modelo1\..*(diagn|robust|oos)",
+        "Modelo II: K elegido, AIC y BIC": r"^modelo2\.k_(elegido|aic|bic)$",
+        "Modelo II: perfil de la tasa (phi)": r"^modelo2\.lp\.h\d+\.phi$",
+        "Modelo II: efectos, regla y diagnósticos": r"^modelo2\..*(efectos|regla|diagn)",
+        "Estrés: diferencia entre picos y sensibilidades": r"^estres\.(dif_modelos|sens_)",
+        "Estrés: niveles fuera de rango y extremos": r"^estres\.modelo[12]\..*(fuera|nivel_min|nivel_max)",
+        "Conteos y tabla de literatura": r"^(literatura|lit)\.",
+    }
+    for label, pattern in groups.items():
+        keys = [key for key in available if re.search(pattern, key)]
+        lines.extend([f"### {label}", ""])
+        if keys:
+            lines.extend(f"- `{key}`" for key in keys)
+        else:
+            lines.append("PENDIENTE T4: no hay claves de esta familia en la fuente actual. "
+                         "Consultar los CSV disponibles y registrar la solicitud antes de generar una clave.")
+        lines.append("")
+    lines.extend(["La conciliación de `datos.n_series` y la URL institucional de FRED corresponden a T4. "
+                  "Los parámetros del entrenamiento de 003 no se exportaron como claves: si hicieran falta "
+                  "para una explicación nueva, requieren `change`; no se reconstruyen ni estiman en 006.", ""])
+    return "\n".join(lines)
+
+
+def add_report_metadata(variables: dict, matrix_text: str, manifest_text: str = "", stress_paths_text: str = "") -> dict:
+    """Add reporting metadata from frozen sources; preserve all model/stress blocks."""
+    import copy
+    import csv
+    import io
+    from datetime import date
+
+    from src.references import parse_matrix, summary_counts
+
+    result = copy.deepcopy(variables)
+    _, rows = parse_matrix(matrix_text)
+    studies = [r for r in rows if r.cells["Tipo"] == "estudio"]
+    counts = summary_counts(rows)
+    result["literatura"] = {
+        "n_estudios_verificados": str(sum(r.cells["Estado"] == "verificado" for r in studies)),
+        "n_pendiente_lectura": str(sum(r.cells["Estado"] == "pendiente-lectura" for r in studies)),
+        "n_descartados": str(sum(r.cells["Estado"] == "descartado" for r in studies)),
+        "n_datos_metodo_verificados": str(sum(r.cells["Estado"] == "verificado" and r.cells["Tipo"] == "datos/método" for r in rows)),
+        "por_tema": {f"t{section.replace('.', '')}": str(counts[section]) for section in ("2.1", "2.2", "2.3", "2.4", "2.5")},
+    }
+    report = result.setdefault("informe", {})
+    if manifest_text:
+        manifest = list(csv.DictReader(io.StringIO(manifest_text)))
+        names = [row.get("series", "") for row in manifest]
+        if not names or any(not name for name in names) or len(set(names)) != len(names):
+            raise ValueError("Manifiesto: series vacías o duplicadas")
+        first = min(date.fromisoformat(row["first_obs"][:10]) for row in manifest)
+        result.setdefault("datos", {})["n_series"] = str(len(names))
+        report["historia_inicio"] = f"{first.year}T{(first.month - 1) // 3 + 1}"
+        report["n_series_descargadas"] = str(len(names))
+        report["n_series_nota"] = "Series del manifiesto congelado, incluidas las fuentes de robustez; no es el número de columnas transformadas ni de regresores."
+    if stress_paths_text:
+        paths = list(csv.DictReader(io.StringIO(stress_paths_text)))
+        d = {model: [row for row in paths if row["modelo"] == model and row["escenario"] == "propio"]
+             for model in ("modelo1", "modelo2")}
+        if d["modelo1"]:
+            signature = lambda rows: [(row["trimestre"], row["ΔFFR"]) for row in rows]
+            if signature(d["modelo1"]) != signature(d["modelo2"]):
+                raise ValueError("Escenario D: trayectorias de tasa distintas entre modelos")
+            rates = [float(row["ΔFFR"]) for row in d["modelo1"]]
+            positive = [row["trimestre"] for row, rate in zip(d["modelo1"], rates) if rate > 0]
+            report["escenario_d"] = {"n_alzas": str(sum(rate > 0 for rate in rates)),
+                                    "n_ceros": str(sum(rate == 0 for rate in rates)),
+                                    "inicio_adaptado": positive[0] if positive else "ninguno",
+                                    "fin_alzas_adaptado": positive[-1] if positive else "ninguno"}
+    return result
+
+
 def data_variables(
     result: PanelResult,
     stationarity: pd.DataFrame,

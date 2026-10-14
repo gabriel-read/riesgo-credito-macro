@@ -1,0 +1,57 @@
+| Modelo | Escenario | Trimestre | Prop. positiva | Cambio final |
+| --- | --- | --- | --- | --- |
+| Modelo I | Adverso Fed | 2026T3 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2026T4 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2027T1 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2027T2 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2027T3 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2027T4 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2028T1 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2028T2 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2028T3 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2028T4 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2029T1 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2029T2 | 0,864 | 0,341 |
+| Modelo I | Adverso Fed | 2029T3 | 0,864 | 0,341 |
+| Modelo I | Escenario D | 2026T3 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2026T4 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2027T1 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2027T2 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2027T3 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2027T4 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2028T1 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2028T2 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2028T3 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2028T4 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2029T1 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2029T2 | 0,136 | -0,681 |
+| Modelo I | Escenario D | 2029T3 | 0,136 | -0,681 |
+| Modelo II | Adverso Fed | 2026T3 | 0,910 | 0,464 |
+| Modelo II | Adverso Fed | 2026T4 | 0,915 | 0,464 |
+| Modelo II | Adverso Fed | 2027T1 | 0,918 | 0,464 |
+| Modelo II | Adverso Fed | 2027T2 | 0,915 | 0,464 |
+| Modelo II | Adverso Fed | 2027T3 | 0,912 | 0,464 |
+| Modelo II | Adverso Fed | 2027T4 | 0,911 | 0,464 |
+| Modelo II | Adverso Fed | 2028T1 | 0,909 | 0,464 |
+| Modelo II | Adverso Fed | 2028T2 | 0,907 | 0,464 |
+| Modelo II | Adverso Fed | 2028T3 | 0,907 | 0,464 |
+| Modelo II | Adverso Fed | 2028T4 | 0,906 | 0,464 |
+| Modelo II | Adverso Fed | 2029T1 | 0,906 | 0,464 |
+| Modelo II | Adverso Fed | 2029T2 | 0,905 | 0,464 |
+| Modelo II | Adverso Fed | 2029T3 | 0,905 | 0,464 |
+| Modelo II | Escenario D | 2026T3 | 0,090 | -0,922 |
+| Modelo II | Escenario D | 2026T4 | 0,087 | -0,922 |
+| Modelo II | Escenario D | 2027T1 | 0,084 | -0,922 |
+| Modelo II | Escenario D | 2027T2 | 0,082 | -0,922 |
+| Modelo II | Escenario D | 2027T3 | 0,083 | -0,922 |
+| Modelo II | Escenario D | 2027T4 | 0,085 | -0,922 |
+| Modelo II | Escenario D | 2028T1 | 0,087 | -0,922 |
+| Modelo II | Escenario D | 2028T2 | 0,088 | -0,922 |
+| Modelo II | Escenario D | 2028T3 | 0,089 | -0,922 |
+| Modelo II | Escenario D | 2028T4 | 0,091 | -0,922 |
+| Modelo II | Escenario D | 2029T1 | 0,093 | -0,922 |
+| Modelo II | Escenario D | 2029T2 | 0,093 | -0,922 |
+| Modelo II | Escenario D | 2029T3 | 0,094 | -0,922 |
+
+Fuente: FRED y Reserva Federal; adaptación propia.
+Cifras redondeadas a tres decimales. La fuente original conserva la precisión completa.

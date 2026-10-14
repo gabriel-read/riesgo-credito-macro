@@ -1,0 +1,54 @@
+{
+  "pdf": {
+    "informe": {
+      "base_sha256": "d1a3460abea1cd9e17ef4a68a8fbd1a8ec1d54b72a75d83ccda1e9af0e06fd0f",
+      "repeat_sha256": "15eb9f0dc0a8eecc0ccbc35cf78da3c8254fa8b58f906bc6bab372d23891586e",
+      "objects": 1579,
+      "different_objects": [
+        1577,
+        1578
+      ],
+      "all_page_text_font_image_and_link_objects_identical": true,
+      "allowed_differences": "CreationDate/ModDate and XMP timestamps/document identifiers only"
+    },
+    "anexo-tecnico": {
+      "base_sha256": "a3e888466c600318fa549bfa0bfc6b19c74379c24b927d491f48a197807e8150",
+      "repeat_sha256": "686b9dc8ea215ed217fa33467f81505410e4bca0eb11f47aa5c52672ff0d55d5",
+      "objects": 21156,
+      "different_objects": [
+        21154,
+        21155
+      ],
+      "all_page_text_font_image_and_link_objects_identical": true,
+      "allowed_differences": "CreationDate/ModDate and XMP timestamps/document identifiers only"
+    }
+  },
+  "docx": {
+    "informe": {
+      "base_sha256": "a524791b74bea38e0426aba2daa160788a1d0a0c7609f5f7ad1cb37a2c224337",
+      "repeat_sha256": "1185960faaf363d6022b77a1f6c29a0c45b31b1d2c9020c89bc7693e2c703b7c",
+      "different_zip_members": [
+        "docProps/core.xml"
+      ],
+      "all_content_and_relationships_identical": true
+    },
+    "anexo-tecnico": {
+      "base_sha256": "e2a8d81ec8b8ebf41e947577abd87236879c23b9634e21335adde20ac6ed460a",
+      "repeat_sha256": "dd3afcc9a00d347d00b92992b767b7ea69630b67f6596455f76a432d64c8087e",
+      "different_zip_members": [
+        "docProps/core.xml"
+      ],
+      "all_content_and_relationships_identical": true
+    }
+  },
+  "gfm": {
+    "informe": {
+      "sha256": "94fa5a14c035fb4aec2652e4e83682687ecdef6002815683f7a2e54312a8f0f3",
+      "identical_bytes": true
+    },
+    "anexo-tecnico": {
+      "sha256": "4c9ac7f9ca4491fd60332ad6e7110a3c9a97fe73fd6135f3c3ad88b7ce65a1c4",
+      "identical_bytes": true
+    }
+  }
+}

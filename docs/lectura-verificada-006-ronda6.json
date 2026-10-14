@@ -1,0 +1,110 @@
+{
+  "informe.pdf": {
+    "source_sha256": "4c8710e9f6e0ba75201aae9af001c3a6f1fee4ce2e287c419954d4fb64454e74",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 1,
+      "Los candidatos que no se pudieron verificar": 1
+    }
+  },
+  "informe.docx": {
+    "source_sha256": "e63338782f2f962fab0462413a7495419f647f6772a93e1727fa3d2fae9d26d8",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 1,
+      "Los candidatos que no se pudieron verificar": 1
+    }
+  },
+  "informe.md": {
+    "source_sha256": "c406a99835ddf201924be68adf2ce9841ceeb129e061c273854453f63f5026d7",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 1,
+      "Los candidatos que no se pudieron verificar": 1
+    }
+  },
+  "anexo-tecnico.pdf": {
+    "source_sha256": "6b99442e653b5a1e07d432318003669f09f866068518a5d57826f21f25e5ff16",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 0,
+      "Los candidatos que no se pudieron verificar": 0
+    }
+  },
+  "anexo-tecnico.docx": {
+    "source_sha256": "8ebfd114df6d2b2a82a18248826fa64d7fc0f3fc3005e49c3d6e8a9d83db7595",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 0,
+      "Los candidatos que no se pudieron verificar": 0
+    }
+  },
+  "anexo-tecnico.md": {
+    "source_sha256": "801a141e6763a144ef53cdad85e8bdf3c5aa3a5da6ad5f6e3fcac4092149b967",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 0,
+      "Los candidatos que no se pudieron verificar": 0
+    }
+  }
+}

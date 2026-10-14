@@ -1,0 +1,63 @@
+{
+  "observed_utc": "2026-10-13T03:26:45.104619+00:00",
+  "status": "RESUELTO: autor conservó07 actual yClaude corrigió párrafo; validación técnica ronda3 aprobada, no cierre global",
+  "files": [
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\01-introduccion.qmd",
+      "expected_prefix": "b00073f8610451fb",
+      "sha256": "b00073f8610451fbff9b065b88aeb64282a6e089ec5405f4fc5a7a31ac628c39",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\02-literatura.qmd",
+      "expected_prefix": "61ca052192b2a05b",
+      "sha256": "61ca052192b2a05b1f9f8dc69d412342f036440f2eafd77d8bfdcc61f1d3f7f6",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\04-modelo1.qmd",
+      "expected_prefix": "4e4006adffc16ff2",
+      "sha256": "4e4006adffc16ff285acdf3bdfd84da11c48d3680eb3cb50ed8ca06b713f1cd4",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\05-modelo2.qmd",
+      "expected_prefix": "ac3bb10bece20b96",
+      "sha256": "ac3bb10bece20b96fc1d570903acfc8bbea1d861ef87d4ded6b6640010a8878f",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\06-resultados.qmd",
+      "expected_prefix": "5778e9809f18444f",
+      "sha256": "5778e9809f18444f4837c6f64a8f30f4a0d6de4a9899cf7d5029a6e595b6ae3e",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\07-estres.qmd",
+      "expected_prefix": "d50d3282c9bdc1a7",
+      "sha256": "f85297222a695024391b2aae6ecec1cd53340f5f6f41ba3a62449610dc9da82b",
+      "matches": false
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\08-implicaciones.qmd",
+      "expected_prefix": "0eaf62fb859d82b2",
+      "sha256": "0eaf62fb859d82b275975c2c40032a145a5488778921621173a16b6d8bd87140",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\09-conclusiones.qmd",
+      "expected_prefix": "8606cca087b97fb0",
+      "sha256": "8606cca087b97fb034afac5ec52f695b3453df60a72ab0d1d232753b747c0a6c",
+      "matches": true
+    },
+    {
+      "path": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\report\\secciones\\03f-limitaciones.qmd",
+      "expected_prefix": "22feb675e30b7062",
+      "sha256": "22feb675e30b70621212d80d25d110d0a8e63bbb5c5f4818f4baef93b5722f89",
+      "matches": true
+    }
+  ],
+  "reconciled_utc": "2026-10-13T05:25:22.299259+00:00",
+  "current_07_sha256": "b4c305b74d4c3dfcac0ce90531b86c297b2276344326772e8ce1ca57b6d66b42",
+  "historical_prefix_is_not_a_blocker": true
+}

@@ -1,0 +1,24 @@
+{
+  "principal": {
+    "pages": 34,
+    "changed_pages": [
+      "page-002.png",
+      "page-006.png",
+      "page-008.png",
+      "page-010.png",
+      "page-011.png",
+      "page-012.png",
+      "page-013.png",
+      "page-014.png",
+      "page-015.png",
+      "page-016.png",
+      "page-017.png",
+      "page-020.png",
+      "page-024.png"
+    ]
+  },
+  "anexo": {
+    "pages": 152,
+    "changed_pages": []
+  }
+}

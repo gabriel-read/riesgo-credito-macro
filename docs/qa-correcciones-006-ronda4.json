@@ -1,0 +1,1933 @@
+{
+  "pdf": {
+    "informe": {
+      "source_sha256": "d1a3460abea1cd9e17ef4a68a8fbd1a8ec1d54b72a75d83ccda1e9af0e06fd0f",
+      "pages": 36,
+      "named_destinations": {
+        "coeficientes-y-significancia": {
+          "page": 14,
+          "x": 90.0,
+          "y": 134.12598
+        },
+        "conclusiones": {
+          "page": 32,
+          "x": 90.0,
+          "y": 240.94202
+        },
+        "efectos-rezagados": {
+          "page": 18,
+          "x": 90.0,
+          "y": 264.50897
+        },
+        "el-problema-y-su-relevancia": {
+          "page": 3,
+          "x": 90.0,
+          "y": 454.457
+        },
+        "endogeneidad-y-alcance": {
+          "page": 21,
+          "x": 90.0,
+          "y": 300.358
+        },
+        "escenarios": {
+          "page": 25,
+          "x": 90.0,
+          "y": 571.761
+        },
+        "la-pregunta-y-el-modelo": {
+          "page": 14,
+          "x": 90.0,
+          "y": 303.46
+        },
+        "la-pregunta-y-el-modelo-1": {
+          "page": 18,
+          "x": 90.0,
+          "y": 483.057
+        },
+        "la-regla-de-la-tasa": {
+          "page": 26,
+          "x": 90.0,
+          "y": 660.146
+        },
+        "pregunta-y-objetivo": {
+          "page": 3,
+          "x": 90.0,
+          "y": 264.685
+        },
+        "proyecciones-locales": {
+          "page": 20,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "referencias": {
+          "page": 34,
+          "x": 90.0,
+          "y": 518.268
+        },
+        "resultado-de-aprendizaje": {
+          "page": 32,
+          "x": 90.0,
+          "y": 371.072
+        },
+        "resultados": {
+          "page": 26,
+          "x": 90.0,
+          "y": 519.588
+        },
+        "resultados-del-modelo-i": {
+          "page": 22,
+          "x": 90.0,
+          "y": 571.761
+        },
+        "resultados-del-modelo-ii": {
+          "page": 22,
+          "x": 90.0,
+          "y": 402.427
+        },
+        "robustez": {
+          "page": 16,
+          "x": 90.0,
+          "y": 567.768
+        },
+        "sensibilidades": {
+          "page": 29,
+          "x": 90.0,
+          "y": 645.758
+        },
+        "tablero-de-alertas-tempranas": {
+          "page": 31,
+          "x": 90.0,
+          "y": 362.574
+        },
+        "variable-dependiente": {
+          "page": 11,
+          "x": 90.0,
+          "y": 576.276
+        }
+      },
+      "links": [
+        {
+          "page": 4,
+          "rect": [
+            361.14853,
+            466.589,
+            511.09586,
+            480.977
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-coefficients&page=17"
+        },
+        {
+          "page": 5,
+          "rect": [
+            392.181,
+            140.021,
+            521.057,
+            154.409
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-lit-estudios&page=140"
+        },
+        {
+          "page": 6,
+          "rect": [
+            163.48,
+            691.187,
+            292.356,
+            705.575
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-lit-estudios&page=140"
+        },
+        {
+          "page": 10,
+          "rect": [
+            117.236,
+            408.6034,
+            360.864,
+            422.9914
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=af-delinquency-unemployment-ffr&page=6"
+        },
+        {
+          "page": 10,
+          "rect": [
+            163.48,
+            347.5754,
+            302.982,
+            361.9634
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-fred-manifest&page=146"
+        },
+        {
+          "page": 11,
+          "rect": [
+            232.157,
+            607.317,
+            370.95633,
+            621.705
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-fred-manifest&page=146"
+        },
+        {
+          "page": 11,
+          "rect": [
+            104.27766,
+            592.929,
+            237.79495,
+            607.317
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-descriptives&page=6"
+        },
+        {
+          "page": 11,
+          "rect": [
+            406.2906,
+            592.929,
+            520.3269,
+            607.317
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-stationarity&page=8"
+        },
+        {
+          "page": 11,
+          "rect": [
+            520.3269,
+            592.929,
+            524.0449,
+            607.317
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-stationarity&page=8"
+        },
+        {
+          "page": 11,
+          "rect": [
+            90.0,
+            578.541,
+            113.287,
+            592.929
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-stationarity&page=8"
+        },
+        {
+          "page": 13,
+          "rect": [
+            258.08914,
+            535.20703,
+            398.01938,
+            549.595
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-deviations&page=147"
+        },
+        {
+          "page": 13,
+          "rect": [
+            410.28363,
+            535.20703,
+            520.3269,
+            549.595
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-deviations&page=148"
+        },
+        {
+          "page": 13,
+          "rect": [
+            520.3269,
+            535.20703,
+            524.0449,
+            549.595
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-deviations&page=148"
+        },
+        {
+          "page": 13,
+          "rect": [
+            90.0,
+            520.819,
+            120.58,
+            535.20703
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-deviations&page=148"
+        },
+        {
+          "page": 13,
+          "rect": [
+            463.60593,
+            344.544,
+            524.0449,
+            358.932
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-diagnostics&page=19"
+        },
+        {
+          "page": 13,
+          "rect": [
+            90.0,
+            330.156,
+            176.867,
+            344.544
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-diagnostics&page=19"
+        },
+        {
+          "page": 13,
+          "rect": [
+            440.72058,
+            295.33,
+            524.0449,
+            309.718
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-diagnostics&page=50"
+        },
+        {
+          "page": 13,
+          "rect": [
+            90.0,
+            280.942,
+            158.805,
+            295.33
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-diagnostics&page=50"
+        },
+        {
+          "page": 15,
+          "rect": [
+            163.48,
+            670.89197,
+            313.289,
+            685.28
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-coefficients&page=17"
+        },
+        {
+          "page": 15,
+          "rect": [
+            343.8314,
+            373.742,
+            494.6587,
+            388.13
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-coefficients&page=17"
+        },
+        {
+          "page": 15,
+          "rect": [
+            203.366,
+            359.354,
+            323.717,
+            373.742
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-effects&page=21"
+        },
+        {
+          "page": 16,
+          "rect": [
+            492.619,
+            429.475,
+            522.0,
+            443.863
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-limitations&page=26"
+        },
+        {
+          "page": 16,
+          "rect": [
+            90.0,
+            415.087,
+            202.30215,
+            429.475
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-limitations&page=26"
+        },
+        {
+          "page": 16,
+          "rect": [
+            369.57776,
+            386.311,
+            469.88705,
+            400.699
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-rob&page=29"
+        },
+        {
+          "page": 16,
+          "rect": [
+            482.29535,
+            386.311,
+            523.936,
+            400.699
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-robustness-summary&page=41"
+        },
+        {
+          "page": 16,
+          "rect": [
+            90.0,
+            371.923,
+            244.165,
+            386.311
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-robustness-summary&page=41"
+        },
+        {
+          "page": 16,
+          "rect": [
+            366.4282,
+            371.923,
+            465.9116,
+            386.311
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-rob&page=29"
+        },
+        {
+          "page": 16,
+          "rect": [
+            163.48,
+            277.10303,
+            310.704,
+            291.491
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-diagnostics&page=19"
+        },
+        {
+          "page": 17,
+          "rect": [
+            279.1324,
+            359.439,
+            422.27493,
+            373.827
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-limitations&page=26"
+        },
+        {
+          "page": 17,
+          "rect": [
+            445.50955,
+            345.051,
+            524.0449,
+            359.439
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-diagnostics&page=19"
+        },
+        {
+          "page": 17,
+          "rect": [
+            90.0,
+            330.663,
+            158.805,
+            345.051
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-diagnostics&page=19"
+        },
+        {
+          "page": 17,
+          "rect": [
+            169.97,
+            330.663,
+            284.711,
+            345.051
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=af-m1-cusum&page=16"
+        },
+        {
+          "page": 17,
+          "rect": [
+            235.53,
+            238.28497,
+            388.441,
+            252.67297
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-stationarity&page=43"
+        },
+        {
+          "page": 17,
+          "rect": [
+            234.386,
+            112.11499,
+            333.584,
+            126.50299
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m1-oos&page=28"
+        },
+        {
+          "page": 17,
+          "rect": [
+            344.749,
+            112.11499,
+            444.057,
+            126.50299
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=af-m1-oos&page=17"
+        },
+        {
+          "page": 18,
+          "rect": [
+            481.9533,
+            281.162,
+            523.936,
+            295.55
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-coefficients&page=47"
+        },
+        {
+          "page": 18,
+          "rect": [
+            90.0,
+            266.774,
+            196.04,
+            281.162
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-coefficients&page=47"
+        },
+        {
+          "page": 18,
+          "rect": [
+            207.205,
+            266.774,
+            342.01,
+            281.162
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-selection&page=61"
+        },
+        {
+          "page": 18,
+          "rect": [
+            163.48,
+            108.35199,
+            288.968,
+            122.73999
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-reading&page=58"
+        },
+        {
+          "page": 20,
+          "rect": [
+            103.629,
+            124.413025,
+            194.445,
+            138.80103
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-lp&page=55"
+        },
+        {
+          "page": 21,
+          "rect": [
+            335.15323,
+            588.095,
+            482.23462,
+            602.48303
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-diagnostics&page=50"
+        },
+        {
+          "page": 21,
+          "rect": [
+            492.619,
+            588.095,
+            522.0,
+            602.48303
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=af-m2-cusum&page=45"
+        },
+        {
+          "page": 21,
+          "rect": [
+            90.0,
+            573.70703,
+            173.248,
+            588.095
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=af-m2-cusum&page=45"
+        },
+        {
+          "page": 21,
+          "rect": [
+            379.017,
+            317.011,
+            522.0,
+            331.399
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-limitations&page=53"
+        },
+        {
+          "page": 21,
+          "rect": [
+            98.415,
+            302.623,
+            296.987,
+            317.011
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-robustness-summary&page=60"
+        },
+        {
+          "page": 21,
+          "rect": [
+            444.77325,
+            156.01501,
+            524.0449,
+            170.40302
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-stationarity&page=62"
+        },
+        {
+          "page": 21,
+          "rect": [
+            90.0,
+            141.62701,
+            164.492,
+            156.01501
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-stationarity&page=62"
+        },
+        {
+          "page": 22,
+          "rect": [
+            163.48,
+            105.711975,
+            289.793,
+            120.099976
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-m2-inputs63&page=52"
+        },
+        {
+          "page": 26,
+          "rect": [
+            163.48,
+            441.421,
+            279.178,
+            455.809
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-delta&page=66"
+        },
+        {
+          "page": 26,
+          "rect": [
+            90.0,
+            127.367004,
+            203.27393,
+            141.755
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-paths&page=112"
+        },
+        {
+          "page": 29,
+          "rect": [
+            191.40793,
+            550.629,
+            365.4055,
+            565.01697
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-rate-sensitivity&page=125"
+        },
+        {
+          "page": 29,
+          "rect": [
+            461.839,
+            244.719,
+            524.0449,
+            259.107
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-origin&page=105"
+        },
+        {
+          "page": 29,
+          "rect": [
+            90.0,
+            230.331,
+            147.035,
+            244.719
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-origin&page=105"
+        },
+        {
+          "page": 30,
+          "rect": [
+            492.619,
+            691.187,
+            522.0,
+            705.575
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-limitations&page=102"
+        },
+        {
+          "page": 30,
+          "rect": [
+            90.0,
+            676.799,
+            205.98163,
+            691.187
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-limitations&page=102"
+        },
+        {
+          "page": 30,
+          "rect": [
+            211.34726,
+            676.799,
+            330.4945,
+            691.187
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-levels&page=79"
+        },
+        {
+          "page": 30,
+          "rect": [
+            335.86014,
+            676.799,
+            450.81638,
+            691.187
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-paths&page=112"
+        },
+        {
+          "page": 30,
+          "rect": [
+            462.37265,
+            676.799,
+            524.0449,
+            691.187
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-sensitivity&page=138"
+        },
+        {
+          "page": 30,
+          "rect": [
+            90.0,
+            662.411,
+            173.358,
+            676.799
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-est-sensitivity&page=138"
+        },
+        {
+          "page": 34,
+          "rect": [
+            279.706,
+            450.496,
+            454.804,
+            464.884
+          ],
+          "uri": "https://doi.org/10.2478/jcbtp-2019-0026"
+        },
+        {
+          "page": 34,
+          "rect": [
+            354.297,
+            415.67,
+            499.959,
+            430.058
+          ],
+          "uri": "https://doi.org/10.1257/jep.9.4.27"
+        },
+        {
+          "page": 34,
+          "rect": [
+            464.613,
+            395.232,
+            523.936,
+            409.62
+          ],
+          "uri": "https://www.federalreserve.gov/publications/2026-stress-test-scenarios.htm"
+        },
+        {
+          "page": 34,
+          "rect": [
+            90.0,
+            380.844,
+            369.642,
+            395.232
+          ],
+          "uri": "https://www.federalreserve.gov/publications/2026-stress-test-scenarios.htm"
+        },
+        {
+          "page": 34,
+          "rect": [
+            128.863,
+            317.242,
+            246.233,
+            331.63
+          ],
+          "uri": "https://fred.stlouisfed.org/"
+        },
+        {
+          "page": 34,
+          "rect": [
+            347.345,
+            282.416,
+            513.544,
+            296.804
+          ],
+          "uri": "https://doi.org/10.1257/mac.20130329"
+        },
+        {
+          "page": 34,
+          "rect": [
+            353.282,
+            247.59003,
+            523.936,
+            261.97803
+          ],
+          "uri": "https://doi.org/10.1080/23311975.2022.2140488"
+        },
+        {
+          "page": 34,
+          "rect": [
+            90.0,
+            233.20203,
+            125.805,
+            247.59003
+          ],
+          "uri": "https://doi.org/10.1080/23311975.2022.2140488"
+        },
+        {
+          "page": 34,
+          "rect": [
+            238.511,
+            198.37598,
+            424.785,
+            212.76398
+          ],
+          "uri": "https://doi.org/10.1257/0002828053828518"
+        },
+        {
+          "page": 34,
+          "rect": [
+            489.429,
+            177.93799,
+            522.0,
+            192.32599
+          ],
+          "uri": "https://doi.org/10.1086/262072"
+        },
+        {
+          "page": 34,
+          "rect": [
+            90.0,
+            163.54999,
+            192.553,
+            177.93799
+          ],
+          "uri": "https://doi.org/10.1086/262072"
+        },
+        {
+          "page": 34,
+          "rect": [
+            192.927,
+            114.336,
+            368.025,
+            128.724
+          ],
+          "uri": "https://doi.org/10.2478/jcbtp-2018-0026"
+        },
+        {
+          "page": 35,
+          "rect": [
+            110.515,
+            662.411,
+            275.438,
+            676.799
+          ],
+          "uri": "https://doi.org/10.1353/eca.2011.0019"
+        },
+        {
+          "page": 35,
+          "rect": [
+            316.08,
+            627.585,
+            523.936,
+            641.973
+          ],
+          "uri": "https://doi.org/10.18488/journal.1006.2020.102.172.183"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            613.197,
+            123.11,
+            627.585
+          ],
+          "uri": "https://doi.org/10.18488/journal.1006.2020.102.172.183"
+        },
+        {
+          "page": 35,
+          "rect": [
+            204.719,
+            563.98303,
+            355.771,
+            578.371
+          ],
+          "uri": "https://doi.org/10.1093/rfs/hhr015"
+        },
+        {
+          "page": 35,
+          "rect": [
+            430.351,
+            529.157,
+            510.772,
+            543.545
+          ],
+          "uri": "https://doi.org/10.2307/1913610"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            514.76904,
+            149.818,
+            529.157
+          ],
+          "uri": "https://doi.org/10.2307/1913610"
+        },
+        {
+          "page": 35,
+          "rect": [
+            397.208,
+            479.943,
+            501.642,
+            494.331
+          ],
+          "uri": "https://doi.org/10.5089/9781455297740.001"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            465.555,
+            174.26,
+            479.943
+          ],
+          "uri": "https://doi.org/10.5089/9781455297740.001"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            416.341,
+            265.098,
+            430.729
+          ],
+          "uri": "https://doi.org/10.2478/jcbtp-2026-0020"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            367.127,
+            258.795,
+            381.515
+          ],
+          "uri": "https://doi.org/10.1353/mcb.2006.0074"
+        },
+        {
+          "page": 35,
+          "rect": [
+            273.854,
+            332.301,
+            462.548,
+            346.689
+          ],
+          "uri": "https://doi.org/10.5089/9781451865431.001"
+        },
+        {
+          "page": 35,
+          "rect": [
+            474.854,
+            297.475,
+            523.936,
+            311.863
+          ],
+          "uri": "https://doi.org/10.33093/ijomfa.2023.4.2.6"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            283.087,
+            224.596,
+            297.475
+          ],
+          "uri": "https://doi.org/10.33093/ijomfa.2023.4.2.6"
+        },
+        {
+          "page": 35,
+          "rect": [
+            417.566,
+            248.26099,
+            522.0,
+            262.649
+          ],
+          "uri": "https://doi.org/10.1515/jcbtp-2015-0004"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            233.87299,
+            160.664,
+            248.26099
+          ],
+          "uri": "https://doi.org/10.1515/jcbtp-2015-0004"
+        },
+        {
+          "page": 35,
+          "rect": [
+            417.566,
+            199.047,
+            522.0,
+            213.435
+          ],
+          "uri": "https://doi.org/10.1111/jmcb.12300"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            184.659,
+            139.588,
+            199.047
+          ],
+          "uri": "https://doi.org/10.1111/jmcb.12300"
+        },
+        {
+          "page": 35,
+          "rect": [
+            395.1719,
+            149.83301,
+            520.9349,
+            164.22101
+          ],
+          "uri": "https://doi.org/10.2478/ceej-2023-0016"
+        },
+        {
+          "page": 35,
+          "rect": [
+            90.0,
+            135.445,
+            93.718,
+            149.83301
+          ],
+          "uri": "https://doi.org/10.2478/ceej-2023-0016"
+        },
+        {
+          "page": 35,
+          "rect": [
+            93.718,
+            135.445,
+            138.356,
+            149.83301
+          ],
+          "uri": "https://doi.org/10.2478/ceej-2023-0016"
+        },
+        {
+          "page": 36,
+          "rect": [
+            90.0,
+            644.228,
+            229.502,
+            658.61597
+          ],
+          "uri": "anexo-tecnico.pdf#nameddest=at-fred-manifest&page=146"
+        }
+      ],
+      "object_count": 1579
+    },
+    "anexo-tecnico": {
+      "source_sha256": "a3e888466c600318fa549bfa0bfc6b19c74379c24b927d491f48a197807e8150",
+      "pages": 149,
+      "named_destinations": {
+        "af-delinquency-unemployment-ffr": {
+          "page": 6,
+          "x": 90.0,
+          "y": 686.227
+        },
+        "af-est-model1": {
+          "page": 65,
+          "x": 90.0,
+          "y": 559.91296
+        },
+        "af-est-model2": {
+          "page": 66,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "af-m1-coefficients": {
+          "page": 16,
+          "x": 90.0,
+          "y": 686.227
+        },
+        "af-m1-cusum": {
+          "page": 16,
+          "x": 90.0,
+          "y": 396.235
+        },
+        "af-m1-oos": {
+          "page": 17,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "af-m2-cusum": {
+          "page": 45,
+          "x": 90.0,
+          "y": 423.743
+        },
+        "af-m2-profile": {
+          "page": 46,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "af-m2-response": {
+          "page": 46,
+          "x": 90.0,
+          "y": 422.008
+        },
+        "anexo-a": {
+          "page": 6,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "anexo-b": {
+          "page": 16,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "anexo-c": {
+          "page": 45,
+          "x": 90.0,
+          "y": 449.516
+        },
+        "anexo-d": {
+          "page": 65,
+          "x": 90.0,
+          "y": 585.68604
+        },
+        "anexo-e": {
+          "page": 140,
+          "x": 90.0,
+          "y": 248.32898
+        },
+        "anexo-f": {
+          "page": 146,
+          "x": 90.0,
+          "y": 564.758
+        },
+        "at-descriptives": {
+          "page": 6,
+          "x": 90.0,
+          "y": 381.53342
+        },
+        "at-est-delta": {
+          "page": 66,
+          "x": 90.0,
+          "y": 329.008
+        },
+        "at-est-levels": {
+          "page": 79,
+          "x": 90.0,
+          "y": 674.534
+        },
+        "at-est-limitations": {
+          "page": 102,
+          "x": 90.0,
+          "y": 607.568
+        },
+        "at-est-models": {
+          "page": 104,
+          "x": 90.0,
+          "y": 316.778
+        },
+        "at-est-origin": {
+          "page": 105,
+          "x": 90.0,
+          "y": 231.206
+        },
+        "at-est-paths": {
+          "page": 112,
+          "x": 90.0,
+          "y": 141.59601
+        },
+        "at-est-rate-sensitivity": {
+          "page": 125,
+          "x": 90.0,
+          "y": 249.12799
+        },
+        "at-est-sensitivity": {
+          "page": 138,
+          "x": 90.0,
+          "y": 589.646
+        },
+        "at-fred-manifest": {
+          "page": 146,
+          "x": 90.0,
+          "y": 538.985
+        },
+        "at-lit-estudios": {
+          "page": 140,
+          "x": 90.0,
+          "y": 222.55603
+        },
+        "at-m1-coefficients": {
+          "page": 17,
+          "x": 90.0,
+          "y": 422.008
+        },
+        "at-m1-deviations": {
+          "page": 147,
+          "x": 90.0,
+          "y": 428.348
+        },
+        "at-m1-diagnostics": {
+          "page": 19,
+          "x": 90.0,
+          "y": 169.357
+        },
+        "at-m1-effects": {
+          "page": 21,
+          "x": 90.0,
+          "y": 560.48
+        },
+        "at-m1-limitations": {
+          "page": 26,
+          "x": 90.0,
+          "y": 376.166
+        },
+        "at-m1-oos": {
+          "page": 28,
+          "x": 90.0,
+          "y": 625.49
+        },
+        "at-m1-rob": {
+          "page": 29,
+          "x": 90.0,
+          "y": 625.49
+        },
+        "at-m1-robustness-summary": {
+          "page": 41,
+          "x": 90.0,
+          "y": 572.252
+        },
+        "at-m1-stationarity": {
+          "page": 43,
+          "x": 90.0,
+          "y": 589.646
+        },
+        "at-m2-coefficients": {
+          "page": 47,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "at-m2-comparison": {
+          "page": 49,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "at-m2-deviations": {
+          "page": 148,
+          "x": 90.0,
+          "y": 483.698
+        },
+        "at-m2-diagnostics": {
+          "page": 50,
+          "x": 90.0,
+          "y": 517.958
+        },
+        "at-m2-effects": {
+          "page": 51,
+          "x": 90.0,
+          "y": 244.62299
+        },
+        "at-m2-inputs63": {
+          "page": 52,
+          "x": 90.0,
+          "y": 394.104
+        },
+        "at-m2-limitations": {
+          "page": 53,
+          "x": 90.0,
+          "y": 525.164
+        },
+        "at-m2-lp": {
+          "page": 55,
+          "x": 90.0,
+          "y": 613.718
+        },
+        "at-m2-reading": {
+          "page": 58,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "at-m2-robustness-estimates": {
+          "page": 58,
+          "x": 90.0,
+          "y": 276.87598
+        },
+        "at-m2-robustness-summary": {
+          "page": 60,
+          "x": 90.0,
+          "y": 396.721
+        },
+        "at-m2-selection": {
+          "page": 61,
+          "x": 90.0,
+          "y": 431.57
+        },
+        "at-m2-stationarity": {
+          "page": 62,
+          "x": 90.0,
+          "y": 464.253
+        },
+        "at-m2-trajectory": {
+          "page": 64,
+          "x": 90.0,
+          "y": 417.693
+        },
+        "at-stationarity": {
+          "page": 8,
+          "x": 90.0,
+          "y": 464.192
+        },
+        "panel-1": {
+          "page": 6,
+          "x": 90.0,
+          "y": 357.1794
+        },
+        "panel-1-1": {
+          "page": 8,
+          "x": 90.0,
+          "y": 439.838
+        },
+        "panel-1-10": {
+          "page": 47,
+          "x": 90.0,
+          "y": 628.994
+        },
+        "panel-1-11": {
+          "page": 49,
+          "x": 90.0,
+          "y": 614.606
+        },
+        "panel-1-12": {
+          "page": 50,
+          "x": 90.0,
+          "y": 493.604
+        },
+        "panel-1-13": {
+          "page": 51,
+          "x": 90.0,
+          "y": 190.393
+        },
+        "panel-1-14": {
+          "page": 52,
+          "x": 90.0,
+          "y": 311.098
+        },
+        "panel-1-15": {
+          "page": 53,
+          "x": 90.0,
+          "y": 500.81
+        },
+        "panel-1-16": {
+          "page": 55,
+          "x": 90.0,
+          "y": 501.936
+        },
+        "panel-1-17": {
+          "page": 58,
+          "x": 90.0,
+          "y": 628.994
+        },
+        "panel-1-18": {
+          "page": 58,
+          "x": 90.0,
+          "y": 235.42798
+        },
+        "panel-1-19": {
+          "page": 60,
+          "x": 90.0,
+          "y": 253.45697
+        },
+        "panel-1-2": {
+          "page": 17,
+          "x": 90.0,
+          "y": 339.002
+        },
+        "panel-1-20": {
+          "page": 61,
+          "x": 90.0,
+          "y": 362.952
+        },
+        "panel-1-21": {
+          "page": 62,
+          "x": 90.0,
+          "y": 366.859
+        },
+        "panel-1-22": {
+          "page": 64,
+          "x": 90.0,
+          "y": 334.687
+        },
+        "panel-1-23": {
+          "page": 66,
+          "x": 90.0,
+          "y": 217.22601
+        },
+        "panel-1-24": {
+          "page": 79,
+          "x": 90.0,
+          "y": 562.752
+        },
+        "panel-1-25": {
+          "page": 102,
+          "x": 90.0,
+          "y": 524.562
+        },
+        "panel-1-26": {
+          "page": 104,
+          "x": 90.0,
+          "y": 219.38397
+        },
+        "panel-1-27": {
+          "page": 105,
+          "x": 90.0,
+          "y": 133.81201
+        },
+        "panel-1-28": {
+          "page": 113,
+          "x": 90.0,
+          "y": 674.534
+        },
+        "panel-1-29": {
+          "page": 125,
+          "x": 90.0,
+          "y": 151.73401
+        },
+        "panel-1-3": {
+          "page": 19,
+          "x": 90.0,
+          "y": 145.00299
+        },
+        "panel-1-30": {
+          "page": 138,
+          "x": 90.0,
+          "y": 506.64
+        },
+        "panel-1-31": {
+          "page": 140,
+          "x": 90.0,
+          "y": 181.10797
+        },
+        "panel-1-32": {
+          "page": 146,
+          "x": 90.0,
+          "y": 514.631
+        },
+        "panel-1-33": {
+          "page": 147,
+          "x": 90.0,
+          "y": 403.994
+        },
+        "panel-1-34": {
+          "page": 148,
+          "x": 90.0,
+          "y": 459.344
+        },
+        "panel-1-4": {
+          "page": 21,
+          "x": 90.0,
+          "y": 448.698
+        },
+        "panel-1-5": {
+          "page": 26,
+          "x": 90.0,
+          "y": 351.812
+        },
+        "panel-1-6": {
+          "page": 28,
+          "x": 90.0,
+          "y": 601.136
+        },
+        "panel-1-7": {
+          "page": 29,
+          "x": 90.0,
+          "y": 601.136
+        },
+        "panel-1-8": {
+          "page": 41,
+          "x": 90.0,
+          "y": 457.764
+        },
+        "panel-1-9": {
+          "page": 43,
+          "x": 90.0,
+          "y": 565.292
+        },
+        "panel-2": {
+          "page": 7,
+          "x": 90.0,
+          "y": 410.426
+        },
+        "panel-2-1": {
+          "page": 10,
+          "x": 90.0,
+          "y": 139.14203
+        },
+        "panel-2-10": {
+          "page": 49,
+          "x": 90.0,
+          "y": 277.24902
+        },
+        "panel-2-11": {
+          "page": 51,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "panel-2-12": {
+          "page": 52,
+          "x": 90.0,
+          "y": 674.534
+        },
+        "panel-2-13": {
+          "page": 52,
+          "x": 90.0,
+          "y": 170.883
+        },
+        "panel-2-14": {
+          "page": 55,
+          "x": 90.0,
+          "y": 164.57898
+        },
+        "panel-2-15": {
+          "page": 58,
+          "x": 90.0,
+          "y": 452.935
+        },
+        "panel-2-16": {
+          "page": 59,
+          "x": 90.0,
+          "y": 674.534
+        },
+        "panel-2-17": {
+          "page": 61,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "panel-2-18": {
+          "page": 62,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "panel-2-19": {
+          "page": 63,
+          "x": 90.0,
+          "y": 601.946
+        },
+        "panel-2-2": {
+          "page": 18,
+          "x": 90.0,
+          "y": 530.258
+        },
+        "panel-2-20": {
+          "page": 68,
+          "x": 90.0,
+          "y": 356.66
+        },
+        "panel-2-21": {
+          "page": 81,
+          "x": 90.0,
+          "y": 231.206
+        },
+        "panel-2-22": {
+          "page": 107,
+          "x": 90.0,
+          "y": 302.894
+        },
+        "panel-2-23": {
+          "page": 115,
+          "x": 90.0,
+          "y": 356.66
+        },
+        "panel-2-24": {
+          "page": 127,
+          "x": 90.0,
+          "y": 302.894
+        },
+        "panel-2-25": {
+          "page": 138,
+          "x": 90.0,
+          "y": 223.04901
+        },
+        "panel-2-26": {
+          "page": 142,
+          "x": 90.0,
+          "y": 462.242
+        },
+        "panel-2-27": {
+          "page": 146,
+          "x": 90.0,
+          "y": 177.27399
+        },
+        "panel-2-3": {
+          "page": 20,
+          "x": 90.0,
+          "y": 392.504
+        },
+        "panel-2-4": {
+          "page": 23,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "panel-2-5": {
+          "page": 28,
+          "x": 90.0,
+          "y": 460.921
+        },
+        "panel-2-6": {
+          "page": 31,
+          "x": 90.0,
+          "y": 316.778
+        },
+        "panel-2-7": {
+          "page": 41,
+          "x": 90.0,
+          "y": 204.92297
+        },
+        "panel-2-8": {
+          "page": 43,
+          "x": 90.0,
+          "y": 194.203
+        },
+        "panel-2-9": {
+          "page": 47,
+          "x": 90.0,
+          "y": 238.927
+        },
+        "panel-3": {
+          "page": 12,
+          "x": 90.0,
+          "y": 357.716
+        },
+        "panel-3-1": {
+          "page": 18,
+          "x": 90.0,
+          "y": 228.745
+        },
+        "panel-3-10": {
+          "page": 59,
+          "x": 90.0,
+          "y": 516.397
+        },
+        "panel-3-11": {
+          "page": 61,
+          "x": 90.0,
+          "y": 571.78503
+        },
+        "panel-3-12": {
+          "page": 63,
+          "x": 90.0,
+          "y": 352.111
+        },
+        "panel-3-13": {
+          "page": 70,
+          "x": 90.0,
+          "y": 500.036
+        },
+        "panel-3-14": {
+          "page": 84,
+          "x": 90.0,
+          "y": 500.036
+        },
+        "panel-3-15": {
+          "page": 109,
+          "x": 90.0,
+          "y": 446.27
+        },
+        "panel-3-16": {
+          "page": 118,
+          "x": 90.0,
+          "y": 625.49
+        },
+        "panel-3-17": {
+          "page": 129,
+          "x": 90.0,
+          "y": 446.27
+        },
+        "panel-3-18": {
+          "page": 139,
+          "x": 90.0,
+          "y": 517.958
+        },
+        "panel-3-19": {
+          "page": 145,
+          "x": 90.0,
+          "y": 492.464
+        },
+        "panel-3-2": {
+          "page": 23,
+          "x": 90.0,
+          "y": 249.18903
+        },
+        "panel-3-3": {
+          "page": 28,
+          "x": 90.0,
+          "y": 320.706
+        },
+        "panel-3-4": {
+          "page": 34,
+          "x": 90.0,
+          "y": 459.626
+        },
+        "panel-3-5": {
+          "page": 42,
+          "x": 90.0,
+          "y": 589.646
+        },
+        "panel-3-6": {
+          "page": 44,
+          "x": 90.0,
+          "y": 539.414
+        },
+        "panel-3-7": {
+          "page": 48,
+          "x": 90.0,
+          "y": 500.036
+        },
+        "panel-3-8": {
+          "page": 52,
+          "x": 90.0,
+          "y": 534.319
+        },
+        "panel-3-9": {
+          "page": 56,
+          "x": 90.0,
+          "y": 410.426
+        },
+        "panel-4": {
+          "page": 14,
+          "x": 90.0,
+          "y": 539.942
+        },
+        "panel-4-1": {
+          "page": 19,
+          "x": 90.0,
+          "y": 517.958
+        },
+        "panel-4-10": {
+          "page": 72,
+          "x": 90.0,
+          "y": 674.534
+        },
+        "panel-4-11": {
+          "page": 86,
+          "x": 90.0,
+          "y": 177.44
+        },
+        "panel-4-12": {
+          "page": 111,
+          "x": 90.0,
+          "y": 589.646
+        },
+        "panel-4-13": {
+          "page": 120,
+          "x": 90.0,
+          "y": 302.894
+        },
+        "panel-4-14": {
+          "page": 131,
+          "x": 90.0,
+          "y": 589.646
+        },
+        "panel-4-15": {
+          "page": 139,
+          "x": 90.0,
+          "y": 234.367
+        },
+        "panel-4-2": {
+          "page": 24,
+          "x": 90.0,
+          "y": 374.582
+        },
+        "panel-4-3": {
+          "page": 28,
+          "x": 90.0,
+          "y": 180.49103
+        },
+        "panel-4-4": {
+          "page": 35,
+          "x": 90.0,
+          "y": 123.67401
+        },
+        "panel-4-5": {
+          "page": 42,
+          "x": 90.0,
+          "y": 395.665
+        },
+        "panel-4-6": {
+          "page": 44,
+          "x": 90.0,
+          "y": 262.50098
+        },
+        "panel-4-7": {
+          "page": 57,
+          "x": 90.0,
+          "y": 553.802
+        },
+        "panel-4-8": {
+          "page": 59,
+          "x": 90.0,
+          "y": 358.26
+        },
+        "panel-4-9": {
+          "page": 64,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "panel-5": {
+          "page": 25,
+          "x": 90.0,
+          "y": 500.036
+        },
+        "panel-5-1": {
+          "page": 37,
+          "x": 90.0,
+          "y": 410.426
+        },
+        "panel-5-2": {
+          "page": 42,
+          "x": 90.0,
+          "y": 201.68402
+        },
+        "panel-5-3": {
+          "page": 59,
+          "x": 90.0,
+          "y": 200.12299
+        },
+        "panel-5-4": {
+          "page": 73,
+          "x": 90.0,
+          "y": 231.206
+        },
+        "panel-5-5": {
+          "page": 89,
+          "x": 90.0,
+          "y": 446.27
+        },
+        "panel-5-6": {
+          "page": 123,
+          "x": 90.0,
+          "y": 571.724
+        },
+        "panel-5-7": {
+          "page": 132,
+          "x": 90.0,
+          "y": 141.59601
+        },
+        "panel-5-8": {
+          "page": 140,
+          "x": 90.0,
+          "y": 535.88
+        },
+        "panel-6": {
+          "page": 60,
+          "x": 90.0,
+          "y": 625.49
+        },
+        "panel-6-1": {
+          "page": 75,
+          "x": 90.0,
+          "y": 374.582
+        },
+        "panel-6-2": {
+          "page": 91,
+          "x": 90.0,
+          "y": 123.67401
+        },
+        "panel-6-3": {
+          "page": 134,
+          "x": 90.0,
+          "y": 302.894
+        },
+        "panel-7": {
+          "page": 77,
+          "x": 90.0,
+          "y": 517.958
+        },
+        "panel-7-1": {
+          "page": 94,
+          "x": 90.0,
+          "y": 428.348
+        },
+        "panel-7-2": {
+          "page": 136,
+          "x": 90.0,
+          "y": 446.27
+        },
+        "panel-8": {
+          "page": 97,
+          "x": 90.0,
+          "y": 712.0
+        },
+        "panel-9": {
+          "page": 99,
+          "x": 90.0,
+          "y": 344.888
+        }
+      },
+      "links": [],
+      "object_count": 21156
+    }
+  },
+  "docx": {
+    "informe": {
+      "sha256": "a524791b74bea38e0426aba2daa160788a1d0a0c7609f5f7ad1cb37a2c224337",
+      "tables": 8,
+      "presentation_figures_matched": 4,
+      "source_slugs_present": 0,
+      "local_links": [
+        "anexo-tecnico.docx#af-delinquency-unemployment-ffr",
+        "anexo-tecnico.docx#af-m1-cusum",
+        "anexo-tecnico.docx#af-m1-oos",
+        "anexo-tecnico.docx#af-m2-cusum",
+        "anexo-tecnico.docx#at-descriptives",
+        "anexo-tecnico.docx#at-est-delta",
+        "anexo-tecnico.docx#at-est-levels",
+        "anexo-tecnico.docx#at-est-limitations",
+        "anexo-tecnico.docx#at-est-origin",
+        "anexo-tecnico.docx#at-est-paths",
+        "anexo-tecnico.docx#at-est-rate-sensitivity",
+        "anexo-tecnico.docx#at-est-sensitivity",
+        "anexo-tecnico.docx#at-fred-manifest",
+        "anexo-tecnico.docx#at-lit-estudios",
+        "anexo-tecnico.docx#at-m1-coefficients",
+        "anexo-tecnico.docx#at-m1-deviations",
+        "anexo-tecnico.docx#at-m1-diagnostics",
+        "anexo-tecnico.docx#at-m1-effects",
+        "anexo-tecnico.docx#at-m1-limitations",
+        "anexo-tecnico.docx#at-m1-oos",
+        "anexo-tecnico.docx#at-m1-rob",
+        "anexo-tecnico.docx#at-m1-robustness-summary",
+        "anexo-tecnico.docx#at-m1-stationarity",
+        "anexo-tecnico.docx#at-m2-coefficients",
+        "anexo-tecnico.docx#at-m2-deviations",
+        "anexo-tecnico.docx#at-m2-diagnostics",
+        "anexo-tecnico.docx#at-m2-inputs63",
+        "anexo-tecnico.docx#at-m2-limitations",
+        "anexo-tecnico.docx#at-m2-lp",
+        "anexo-tecnico.docx#at-m2-reading",
+        "anexo-tecnico.docx#at-m2-robustness-summary",
+        "anexo-tecnico.docx#at-m2-selection",
+        "anexo-tecnico.docx#at-m2-stationarity",
+        "anexo-tecnico.docx#at-stationarity"
+      ],
+      "unresolved_markers": []
+    },
+    "anexo-tecnico": {
+      "sha256": "e2a8d81ec8b8ebf41e947577abd87236879c23b9634e21335adde20ac6ed460a",
+      "tables": 117,
+      "presentation_figures_matched": 9,
+      "source_slugs_present": 44,
+      "local_links": [],
+      "unresolved_markers": []
+    }
+  },
+  "protected_sources": {
+    "count": 116,
+    "changed": {}
+  }
+}

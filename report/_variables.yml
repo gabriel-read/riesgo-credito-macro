@@ -2,7 +2,7 @@ datos:
   muestra_inicio: 2000T1
   muestra_fin: 2026T2
   n_trimestres: '106'
-  n_series: '12'
+  n_series: '13'
   fecha_descarga: '2026-10-02'
   trimestres_excluidos: 2026T3
   cpiaucsl_2025t4_meses: '2'
@@ -972,3 +972,229 @@ modelo2:
   - '2026-10-08 · C1: White es «no calculable» si n − rango(Z_aux) < 30 (Pre-registro
     de la spec 004): Con la muestra M la auxiliar completa tiene más columnas que
     observaciones desde K = 4; la regla se fijó antes de estimar y sin conocer K.'
+estres:
+  horizonte:
+    origen: 2026T2
+    inicio: 2026T3
+    fin: 2029T3
+    h: '13'
+  replicas:
+    n: '10000'
+    semilla: '20261011'
+  dif_modelos:
+    severo:
+      delta_final: 0,600
+      delta_pico: 0,612
+    propio:
+      delta_final: 0,600
+      delta_pico: 0,612
+  sens_tasa:
+    modelo1:
+      severo:
+        c_final: 0,341
+        c_final_p05: -0,206
+        c_final_p95: 0,746
+        c_pico: 0,346
+        prop_c_pos_final: 0,864
+        prop_c_pos_pico: 0,864
+      propio:
+        c_final: -0,681
+        c_final_p05: -1,490
+        c_final_p95: 0,405
+        c_pico: -0,603
+        prop_c_pos_final: 0,136
+        prop_c_pos_pico: 0,136
+    modelo2:
+      severo:
+        c_final: 0,464
+        c_final_p05: -0,139
+        c_final_p95: 1,133
+        c_pico: 0,466
+        prop_c_pos_final: 0,905
+        prop_c_pos_pico: 0,907
+      propio:
+        c_final: -0,922
+        c_final_p05: -2,204
+        c_final_p95: 0,271
+        c_pico: -0,815
+        prop_c_pos_final: 0,094
+        prop_c_pos_pico: 0,088
+  sens_cal:
+    modelo1:
+      delta_final_2029t1: 0,340
+      delta_principal_2029t1: 1,736
+      delta_pico: 0,843
+    modelo2:
+      delta_final_2029t1: 0,048
+      delta_principal_2029t1: 1,118
+      delta_pico: 0,549
+  sens_cred:
+    modelo1:
+      base:
+        cero:
+          nivel_final: 0,599
+          nivel_pico: 1,579
+          nivel_pico_trimestre: 2027T2
+        media:
+          nivel_final: 1,649
+          nivel_pico: 1,659
+          nivel_pico_trimestre: 2029T1
+      severo:
+        cero:
+          nivel_final: 2,026
+          nivel_pico: 3,167
+          nivel_pico_trimestre: 2028T1
+        media:
+          nivel_final: 3,076
+          nivel_pico: 3,554
+          nivel_pico_trimestre: 2028T3
+    modelo2:
+      base:
+        cero:
+          nivel_final: 0,718
+          nivel_pico: 1,584
+          nivel_pico_trimestre: 2027T3
+        media:
+          nivel_final: 1,569
+          nivel_pico: 1,661
+          nivel_pico_trimestre: 2028T1
+      severo:
+        cero:
+          nivel_final: 1,545
+          nivel_pico: 2,661
+          nivel_pico_trimestre: 2028T1
+        media:
+          nivel_final: 2,396
+          nivel_pico: 2,928
+          nivel_pico_trimestre: 2028T2
+  sens_origen:
+    modelo1:
+      base:
+        nivel_final: 1,730
+        nivel_pico: 1,730
+        nivel_pico_trimestre: 2029T1
+      severo:
+        nivel_final: 3,158
+        nivel_pico: 3,466
+        nivel_pico_trimestre: 2028T1
+        delta_k13: 1,428
+    modelo2:
+      base:
+        nivel_final: 1,567
+        nivel_pico: 1,567
+        nivel_pico_trimestre: 2029T1
+      severo:
+        nivel_final: 2,394
+        nivel_pico: 2,798
+        nivel_pico_trimestre: 2028T1
+        delta_k13: 0,827
+  modelo1:
+    credito:
+      n_observados: '4'
+      n_supuestos: '9'
+    base:
+      nivel_final: 1,989
+      nivel_pico: 1,989
+      nivel_pico_trimestre: 2029T3
+    severo:
+      nivel_final: 3,417
+      nivel_pico: 3,716
+      nivel_pico_trimestre: 2028T3
+      delta_final: 1,428
+      delta_final_p05: -0,188
+      delta_final_p95: 2,288
+      delta_pico: 1,898
+      delta_pico_trimestre: 2028T3
+      delta_min: 0,129
+      delta_sin_aumento: 'no'
+      delta_prop_pos_final: 0,935
+      delta_prop_pos_pico: 0,951
+    propio:
+      nivel_final: 3,417
+      nivel_pico: 3,716
+      nivel_pico_trimestre: 2028T3
+      delta_final: 1,428
+      delta_final_p05: -0,188
+      delta_final_p95: 2,288
+      delta_pico: 1,898
+      delta_pico_trimestre: 2028T3
+      delta_min: 0,129
+      delta_sin_aumento: 'no'
+      delta_prop_pos_final: 0,935
+      delta_prop_pos_pico: 0,951
+    fuera_rango:
+      n: '105'
+      prop: 0,011
+      min: -10,323
+      max: 6,497
+    explosivas:
+      n: '1'
+      prop: 0,000
+  modelo2:
+    credito:
+      n_observados: '4'
+      n_supuestos: '9'
+    base:
+      nivel_final: 1,845
+      nivel_pico: 1,845
+      nivel_pico_trimestre: 2029T3
+    severo:
+      nivel_final: 2,672
+      nivel_pico: 3,052
+      nivel_pico_trimestre: 2028T3
+      delta_final: 0,827
+      delta_final_p05: -0,479
+      delta_final_p95: 1,721
+      delta_pico: 1,286
+      delta_pico_trimestre: 2028T3
+      delta_min: 0,000
+      delta_sin_aumento: 'no'
+      delta_prop_pos_final: 0,877
+      delta_prop_pos_pico: 0,934
+    propio:
+      nivel_final: 2,672
+      nivel_pico: 3,052
+      nivel_pico_trimestre: 2028T3
+      delta_final: 0,827
+      delta_final_p05: -0,479
+      delta_final_p95: 1,721
+      delta_pico: 1,286
+      delta_pico_trimestre: 2028T3
+      delta_min: 0,000
+      delta_sin_aumento: 'no'
+      delta_prop_pos_final: 0,877
+      delta_prop_pos_pico: 0,934
+    fuera_rango:
+      n: '160'
+      prop: 0,016
+      min: -6,120
+      max: 9,921
+    explosivas:
+      n: '1'
+      prop: 0,000
+literatura:
+  n_estudios_verificados: '17'
+  n_pendiente_lectura: '8'
+  n_descartados: '3'
+  n_datos_metodo_verificados: '4'
+  por_tema:
+    t21: '2'
+    t22: '2'
+    t23: '2'
+    t24: '2'
+    t25: '9'
+informe:
+  historia_inicio: 1998T1
+  n_series_descargadas: '13'
+  n_series_nota: Series del manifiesto congelado, incluidas las fuentes de robustez;
+    no es el número de columnas transformadas ni de regresores.
+  escenario_d:
+    n_alzas: '7'
+    n_ceros: '6'
+    inicio_adaptado: 2026T3
+    fin_alzas_adaptado: 2028T1
+  bandas:
+    percentil_inferior: '5'
+    percentil_superior: '95'
+    origen: Columnas p05 y p95 de stress_levels.csv; incertidumbre de parámetros,
+      no predicción.

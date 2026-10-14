@@ -1,0 +1,8 @@
+{
+  "command": "uv run pytest -q",
+  "started_utc": "2026-10-12T19:23:00.105990+00:00",
+  "scope": "complete; no exclusions",
+  "exit_code": 0,
+  "seconds": 965.62,
+  "ended_utc": "2026-10-12T19:39:05.730518+00:00"
+}

@@ -1,0 +1,56 @@
+| Modelo | Escenario | Trimestre | Rótulo |
+| --- | --- | --- | --- |
+| Modelo I | Adverso Fed | 2026T3 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2026T4 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2027T1 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2027T2 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2027T3 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2027T4 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2028T1 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2028T2 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2028T3 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2028T4 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2029T1 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2029T2 | sensibilidad, no efecto estimado |
+| Modelo I | Adverso Fed | 2029T3 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2026T3 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2026T4 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2027T1 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2027T2 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2027T3 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2027T4 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2028T1 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2028T2 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2028T3 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2028T4 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2029T1 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2029T2 | sensibilidad, no efecto estimado |
+| Modelo I | Escenario D | 2029T3 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2026T3 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2026T4 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2027T1 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2027T2 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2027T3 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2027T4 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2028T1 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2028T2 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2028T3 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2028T4 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2029T1 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2029T2 | sensibilidad, no efecto estimado |
+| Modelo II | Adverso Fed | 2029T3 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2026T3 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2026T4 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2027T1 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2027T2 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2027T3 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2027T4 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2028T1 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2028T2 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2028T3 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2028T4 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2029T1 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2029T2 | sensibilidad, no efecto estimado |
+| Modelo II | Escenario D | 2029T3 | sensibilidad, no efecto estimado |
+
+Fuente: FRED y Reserva Federal; adaptación propia.

@@ -1,0 +1,20 @@
+{
+  "differences_from_r6": {
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/02-literatura.qmd": {
+      "before": "f9e29fca813729959ef9ae86bc34588eb8b31cca3782e5ecf49f34cfd27b81ce",
+      "now": "01a299dde5591e6e2a344eb6faa122f7380628b8818a892795733b0dc63aac73"
+    }
+  },
+  "nine_claude_sources_sha256": {
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/01-introduccion.qmd": "be47254ba13d3e1ec9f1e2d0e93ebc230b06d08874aeb137be602d59e0c21f4c",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/02-literatura.qmd": "01a299dde5591e6e2a344eb6faa122f7380628b8818a892795733b0dc63aac73",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/03f-limitaciones.qmd": "8f97f714fed4d81094ba4a0f6e33ca5040bb57e11bb6d09bb6774b5adeb4f307",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/04-modelo1.qmd": "a6d3f2a1334e6accf3c43e6765c7252b9f9a243157770170278e806137148293",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/05-modelo2.qmd": "c88be5b54a363bf31b93ef42641bff3845711b6aca683d81224770a9abba5dcf",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/06-resultados.qmd": "0641ba45ce829b010a6127e4e0c67c1a2807a95872d6f9b45698c53c758e3839",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/07-estres.qmd": "f94d7332f971bcd81d1feb2ea880fbc5388462af53313471809de95ce816a4cc",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/08-implicaciones.qmd": "c1404f1f992636bfd0ee7c74cc6ffe9079aba9c0b77214792a5aa1350e785891",
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/09-conclusiones.qmd": "f24a85006086595753fb0066a43b010b6c16e466f46b5a33e74ef108eced4a84"
+  },
+  "scope": "02 R5-6 autorizado; otras ocho estables; anteriores preservados"
+}

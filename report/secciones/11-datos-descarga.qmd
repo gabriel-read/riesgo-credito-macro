@@ -1,0 +1,35 @@
+# 11. Base de datos y descarga de información
+
+La reproducción parte del vintage congelado, del manifiesto y de las especificaciones pre-registradas; no requiere actualizar los datos.
+Las fuentes originales y sus fechas quedan registradas en **AT-FRED-MANIFEST** [@fred2026].
+
+La descarga usa `pandas_datareader` para consultar FRED y admite su CSV oficial como respaldo sin clave.
+Los archivos originales de `data/raw/` permanecen en solo lectura.
+Las series se procesan en el pipeline; los escenarios de la Reserva Federal conservan sus bytes originales y manifiesto [@frb2026].
+La descarga se realiza con la llamada siguiente; los resultados del informe utilizan exclusivamente el vintage congelado.
+
+```python
+from pandas_datareader import data as web
+web.DataReader("DRALACBS", "fred", start="1998-01-01", end="2026-10-02")
+```
+
+Para reproducir de punta a punta, se utiliza una copia aislada con las mismas fuentes y versiones fijadas:
+
+```bash
+uv sync
+uv run python -m src.pipeline all
+uv run pytest -q
+```
+
+La etapa `all` procesa datos, modelos, estrés y productos editoriales.
+Para generar únicamente los documentos desde resultados conservados, se ejecuta `uv run python -m src.pipeline report`.
+Las tablas, figuras y cifras se generan desde los resultados conservados.
+
+La descarga congelada corresponde al {{< var datos.fecha_descarga >}}.
+En 2025T4, CPIAUCSL y UNRATE solo contienen noviembre y diciembre; octubre está ausente y no se imputa.
+
+Se entregan dos documentos: informe principal y anexo técnico completo.
+Los identificadores estables permiten localizar la evidencia sin depender de la paginación.
+Los enlaces relativos requieren conservar ambos archivos en la misma carpeta.
+Al importar documentos por separado en Google Docs, los enlaces locales entre archivos no se conservan como enlaces de nube.
+La navegación interna y los identificadores estables permiten localizar cada evidencia.

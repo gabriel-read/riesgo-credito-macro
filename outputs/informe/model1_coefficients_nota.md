@@ -1,0 +1,1 @@
+Nota: variable dependiente en primera diferencia; muestra 2000T1–2026T2; n = 106; parámetros = 11; R² = 0,832; R² ajustado = 0,814; error estándar de la regresión = 0,096; ventana HAC de 4 rezagos (Newey-West, kernel de Bartlett); truncamiento espectral: no; rango reducido por dummies de impulso (esperado).

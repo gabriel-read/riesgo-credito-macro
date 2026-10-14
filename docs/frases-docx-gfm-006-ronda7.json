@@ -1,0 +1,34 @@
+{
+  "informe.md": {
+    "sha256": "6704875411ad0d4baf8732606521f1950d0638337eaa1ddeef8e9e70ece6002c",
+    "counts": {
+      "old_stress": 0,
+      "old_table": 0,
+      "new_vif": 3
+    }
+  },
+  "informe.docx": {
+    "sha256": "7917fcf0c7daccd699587766a693fa4738cd05383eaa2f1d00063e6b711cca22",
+    "counts": {
+      "old_stress": 0,
+      "old_table": 0,
+      "new_vif": 3
+    }
+  },
+  "anexo-tecnico.md": {
+    "sha256": "2cb012c6a3484fbae1472dd6e9d745202c4272b993e02b8fbb86f274934b6c52",
+    "counts": {
+      "old_stress": 0,
+      "old_table": 0,
+      "new_vif": 0
+    }
+  },
+  "anexo-tecnico.docx": {
+    "sha256": "c51d02cb4d2c0755903403532d28c42c076437f1a020c670a37e37bc4130dc67",
+    "counts": {
+      "old_stress": 0,
+      "old_table": 0,
+      "new_vif": 0
+    }
+  }
+}

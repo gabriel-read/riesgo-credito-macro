@@ -1,0 +1,133 @@
+{
+  "root": "C:\\Users\\gabri\\orca\\riesgo-credito-macro",
+  "original_evidence": "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\smoke-006\\evidencia-g1-original-122",
+  "original_files_verified": 151,
+  "protected_unchanged": 99,
+  "canonical_variables_unchanged": true,
+  "targeted": {
+    "passed": 53,
+    "seconds": 12.21,
+    "exit_code": 0
+  },
+  "tests_first": {
+    "failed": 2,
+    "reason": "missing approved note and empty-reason context"
+  },
+  "complete_suite": {
+    "command": "uv run pytest -q",
+    "status": "interrupted after confirmed unrelated failure; not approved",
+    "confirmed_failure": "test_sdd_procedure_and_operator_guide_local_links_resolve",
+    "reason_for_stop": "Frozen stress preservation fixture repeatedly hashes every outputs file for each file; QA evidence increased its cost. No full-suite pass claimed.",
+    "owned_process_chain": [
+      22292,
+      29280,
+      30080,
+      23296
+    ],
+    "minimum_observed_progress": "16 percent plus frozen-fixture group in progress",
+    "exit_code": 1,
+    "processes_stopped": true
+  },
+  "harness_failure": {
+    "test": "test_sdd_procedure_and_operator_guide_local_links_resolve",
+    "missing_file": "Playbook agéntico SDD riesgo de crédito.md",
+    "git_status": "D; outside current scope, not restored"
+  },
+  "files": {
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\src\\report_tables.py": "0ef8aaa7c384b38e82083be87c2305726269d53c680e4269be9a5576d04597d5",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\src\\pipeline.py": "91493d4aabc510b193520f354ffbc1f859714f44ea29675cb7468e6e93edb834",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\tests\\test_report_tables.py": "2103a1a900aa273cd0a6c6394f7cd01b6bc03f5350d8aebda1f1549f0bfa7a93",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\tables\\model2_lp.csv": "06aa15f41feea77c296f57a493d284b2026ddac521f28232d38a10fa71678220",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\tables\\model2_lp.md": "2a17749d9cef2ea4fd01d4438ae186a4dd6745ecfb5393d7427f7245ab54f696",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\tables\\model1_robustness_estimates.csv": "c5bd503ada497dbb2d94542fa2b4785195a6e2a155449ab93239ef84e191f6af",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\models\\model1_main.json": "488bc6cef3682c37f4441235bc9c66f0a08cc8f97fe8fb5ea6ad394b3928efa8",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\models\\model2_main.json": "787ed4ac2bcb29ee14ac352751fc6bdaa3686c923dc99ab41da23de24e326dbd",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\smoke-006\\diagnostico-tablas.pdf": "10842e319fdea9d355c229224c900727c4089e354b204cd23b298e67cf2baaf6",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\smoke-006\\diagnostico-tablas.docx": "ac7c2855fa4f161a7f162cfbd505ce354d04869d513d0ca3a422d48dfccbe8e0"
+  },
+  "link_proof": {
+    "outputs\\smoke-006\\enlaces-editoriales\\anexo-enlaces.pdf": {
+      "sha256": "bab4417f7cb13cfca92d07ece4135c3de80f43e53a6170e9db34044e5d869c47",
+      "external_relative_targets": [],
+      "internal_destinations": [
+        "at-m2-lp",
+        "at-m1-rob",
+        "indice",
+        "indice"
+      ],
+      "all_targets_exist": true,
+      "viewer_click_test": false
+    },
+    "outputs\\smoke-006\\enlaces-editoriales\\principal-enlaces.pdf": {
+      "sha256": "9c1ce16ab519a578ee78b6e8eb8f6fbfb14459a67ceccd238078d8905e817b6f",
+      "external_relative_targets": [
+        "anexo-enlaces.pdf",
+        "anexo-enlaces.docx"
+      ],
+      "internal_destinations": [],
+      "all_targets_exist": true,
+      "viewer_click_test": false
+    },
+    "outputs\\smoke-006\\enlaces-editoriales\\anexo-enlaces.docx": {
+      "sha256": "a8e39e42f9591b550a3b4ba5d83c088c5eee286385206770e987b70ae7c87153",
+      "anchors": [
+        "at-m2-lp",
+        "at-m1-rob",
+        "indice",
+        "indice"
+      ],
+      "bookmarks": [
+        "indice",
+        "at-m2-lp",
+        "at-m1-rob"
+      ],
+      "external_relative_targets": [],
+      "all_targets_exist": true,
+      "Word_native_verified": false,
+      "Google_Docs_click_test": "pending author import"
+    },
+    "outputs\\smoke-006\\enlaces-editoriales\\principal-enlaces.docx": {
+      "sha256": "0bc81c3d864598d8708b42d8a938b0c2d8136270b36f4953fb568ca11b458a2e",
+      "anchors": [],
+      "bookmarks": [
+        "remisiones"
+      ],
+      "external_relative_targets": [
+        "anexo-enlaces.docx",
+        "anexo-enlaces.pdf"
+      ],
+      "all_targets_exist": true,
+      "Word_native_verified": false,
+      "Google_Docs_click_test": "pending author import"
+    }
+  },
+  "changed_generated_paths": [
+    "specs/006-informe/interfaz.md",
+    "outputs/informe/model1_robustness_estimates_anexo_5.md",
+    "outputs/informe/model2_lp.md",
+    "outputs/informe/model2_lp_anexo_3.md",
+    "outputs/informe/model2_lp_anexo_4.md",
+    "outputs/informe/model2_lp_anexo_5.md",
+    "outputs/informe/trace.json"
+  ],
+  "report_reproducibility": {
+    "identical": true,
+    "count": 148
+  },
+  "corrected_renders": {
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\smoke-006\\informe-notas-corregidas.pdf": "40d2737967fb50557402cd10f431eab00f4a8129573a28eb8143b62f8b168011",
+    "C:\\Users\\gabri\\orca\\riesgo-credito-macro\\outputs\\smoke-006\\informe-notas-corregidas.docx": "a72b37951555e0976d916b55b6ea21bbef62f6fc55468f152712104d5fc25d58"
+  },
+  "proposal_sha256": "c6ccfa47da00c5a9b95b449b240df4a1c0492a23e95c1f6cfa6c997a73d078f8",
+  "docx_corrections": {
+    "all_original_table_cells_identical": true,
+    "tables": 109,
+    "data_rows": 2691,
+    "new_notes_present": true
+  },
+  "corrected_pdf": {
+    "pages": 122,
+    "visual_review": "original locations 29,48,49 plus focused eight-page QA reviewed",
+    "original_122_pages_preserved": true
+  }
+}

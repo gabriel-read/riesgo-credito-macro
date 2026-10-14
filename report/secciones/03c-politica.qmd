@@ -1,0 +1,14 @@
+## 3.3 Variables macroeconómicas
+
+Las condiciones macroeconómicas se representan mediante actividad, desempleo, inflación, tasa de interés y crecimiento del crédito.
+El PIB principal utiliza GDPC1, una medida real; GDP nominal permanece como contraste de robustez.
+UNRATE representa el desempleo, CPIAUCSL el índice de precios, FEDFUNDS la tasa de fondos federales y LOANS el crédito [@fred2026].
+
+El panel calcula la variación interanual logarítmica del PIB, del índice de precios y del crédito.
+Las observaciones mensuales se agregan antes de transformar; desempleo y tasa se expresan en puntos porcentuales.
+Las ecuaciones utilizan las diferencias y rezagos que fijaron sus respectivos pre-registros.
+La transformación del panel y la forma final del regresor se distinguen expresamente en las tablas de estacionariedad de los modelos.
+
+La «tasa de interés» y la variable de política monetaria no se incorporan como regresores distintos de forma redundante.
+CORALACBS y las dependientes de subcarteras permanecen disponibles según su alcance de extensión o robustez.
+USREC se utiliza para contextualizar gráficos, sin convertirse en un regresor añadido después de estimar.

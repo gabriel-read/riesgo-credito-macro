@@ -1,0 +1,227 @@
+# Anexo B. Modelo I {#anexo-b}
+
+## Figura B.1. Modelo I — coeficientes — AF-M1-COEFFICIENTS {#af-m1-coefficients}
+
+
+![Modelo I — coeficientes](../outputs/figures/model1_coefficients.png)
+
+## Figura B.2. Modelo I — CUSUM — AF-M1-CUSUM {#af-m1-cusum}
+
+
+![Modelo I — CUSUM](../outputs/figures/model1_cusum.png)
+
+## Figura B.3. Modelo I — evaluación fuera de muestra — AF-M1-OOS {#af-m1-oos}
+
+
+![Modelo I — evaluación fuera de muestra](../outputs/figures/model1_oos.png)
+
+## Tabla B.1. Modelo I — coeficientes — AT-M1-COEFFICIENTS {#at-m1-coefficients}
+
+
+{{< include ../outputs/informe/model1_coefficients_nota.md >}}
+
+### Panel 1
+
+Columnas: Término; Etiqueta; Coef.; EE HAC.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; z; p; IC inf..
+
+{{< include ../outputs/informe/model1_coefficients_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; IC sup.; Signo previsto; Coincide.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Término; Nota.
+
+{{< include ../outputs/informe/model1_coefficients_anexo_4.md >}}
+
+## Tabla B.2. Modelo I — diagnósticos — AT-M1-DIAGNOSTICS {#at-m1-diagnostics}
+
+
+### Panel 1
+
+Columnas: Prueba; Estadístico; p; Veredicto.
+
+{{< include ../outputs/informe/model1_diagnostics_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Prueba; Nota.
+
+{{< include ../outputs/informe/model1_diagnostics_anexo_2.md >}}
+
+## Tabla B.3. Modelo I — efectos — AT-M1-EFFECTS {#at-m1-effects}
+
+
+{{< include ../outputs/informe/model1_effects_nota.md >}}
+
+### Panel 1
+
+Columnas: Término; Efecto; Escala; Etiqueta; DE.
+
+{{< include ../outputs/informe/model1_effects_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; Efecto; Escala; Estimación; EE.
+
+{{< include ../outputs/informe/model1_effects_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; Efecto; Escala; p; IC inf..
+
+{{< include ../outputs/informe/model1_effects_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Término; Efecto; Escala; IC sup.; Estado.
+
+{{< include ../outputs/informe/model1_effects_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Término; Efecto; Escala; Unidad.
+
+{{< include ../outputs/informe/model1_effects_anexo_5.md >}}
+
+## Tabla B.4. Modelo I — limitaciones — AT-M1-LIMITATIONS {#at-m1-limitations}
+
+
+### Panel 1
+
+Columnas: Limitación; Detalle; Origen.
+
+{{< include ../outputs/informe/model1_limitations_anexo_1.md >}}
+
+## Tabla B.5. Modelo I — evaluación fuera de muestra — AT-M1-OOS {#at-m1-oos}
+
+
+### Panel 1
+
+Columnas: Pronóstico; Trimestres; RMSE modelo; RMSE ingenuo.
+
+{{< include ../outputs/informe/model1_oos_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Pronóstico; MAE modelo; MAE ingenuo; Razón RMSE.
+
+{{< include ../outputs/informe/model1_oos_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Pronóstico; Estad. DM; p DM; Veredicto.
+
+{{< include ../outputs/informe/model1_oos_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Pronóstico; Significancia.
+
+{{< include ../outputs/informe/model1_oos_anexo_4.md >}}
+
+## Tabla B.6. Modelo I — estimaciones de robustez — AT-M1-ROB {#at-m1-rob}
+
+
+### Panel 1
+
+Columnas: Variante; Término; Etiqueta; Dependiente; Forma de Y.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Variante; Término; Diferencias; Inicio; Fin.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Variante; Término; Obs.; Rezagos HAC; Coef..
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Variante; Término; EE HAC; p; Estado.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Variante; Término; Motivo; Nota.
+
+{{< include ../outputs/informe/model1_robustness_estimates_anexo_5.md >}}
+
+## Tabla B.7. Modelo I — resumen de robustez — AT-M1-ROBUSTNESS-SUMMARY {#at-m1-robustness-summary}
+
+
+{{< include ../outputs/informe/model1_robustness_summary_nota.md >}}
+
+### Panel 1
+
+Columnas: Término; Etiqueta; R1; R2.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; R3: tarjetas; R3: empresas; R3: inmuebles.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; R4; R5; R6.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Término; R7; R8; k.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Término; n; Robustez.
+
+{{< include ../outputs/informe/model1_robustness_summary_anexo_5.md >}}
+
+## Tabla B.8. Modelo I — estacionariedad — AT-M1-STATIONARITY {#at-m1-stationarity}
+
+
+### Panel 1
+
+Columnas: Término; Forma; Etiqueta; Columna panel; Estad. ADF.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; Forma; p ADF; Estad. KPSS; p KPSS.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; Forma; Decisión; Orden; No I(0).
+
+{{< include ../outputs/informe/model1_stationarity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Término; Forma; Nota.
+
+{{< include ../outputs/informe/model1_stationarity_anexo_4.md >}}
+

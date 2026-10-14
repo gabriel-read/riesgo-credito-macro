@@ -1,0 +1,30 @@
+| escenario | trimestre | delta_modelo1 | delta_modelo2 | diferencia_I_II |
+| --- | --- | --- | --- | --- |
+| severo | 2026T3 | 0,129 | 0,000 | 0,129 |
+| severo | 2026T4 | 0,361 | 0,138 | 0,223 |
+| severo | 2027T1 | 0,653 | 0,365 | 0,288 |
+| severo | 2027T2 | 0,986 | 0,612 | 0,374 |
+| severo | 2027T3 | 1,293 | 0,851 | 0,442 |
+| severo | 2027T4 | 1,563 | 1,037 | 0,527 |
+| severo | 2028T1 | 1,769 | 1,184 | 0,584 |
+| severo | 2028T2 | 1,881 | 1,275 | 0,606 |
+| severo | 2028T3 | 1,898 | 1,286 | 0,612 |
+| severo | 2028T4 | 1,847 | 1,221 | 0,626 |
+| severo | 2029T1 | 1,736 | 1,118 | 0,618 |
+| severo | 2029T2 | 1,591 | 0,978 | 0,613 |
+| severo | 2029T3 | 1,428 | 0,827 | 0,600 |
+| propio | 2026T3 | 0,129 | 0,000 | 0,129 |
+| propio | 2026T4 | 0,361 | 0,138 | 0,223 |
+| propio | 2027T1 | 0,653 | 0,365 | 0,288 |
+| propio | 2027T2 | 0,986 | 0,612 | 0,374 |
+| propio | 2027T3 | 1,293 | 0,851 | 0,442 |
+| propio | 2027T4 | 1,563 | 1,037 | 0,527 |
+| propio | 2028T1 | 1,769 | 1,184 | 0,584 |
+| propio | 2028T2 | 1,881 | 1,275 | 0,606 |
+| propio | 2028T3 | 1,898 | 1,286 | 0,612 |
+| propio | 2028T4 | 1,847 | 1,221 | 0,626 |
+| propio | 2029T1 | 1,736 | 1,118 | 0,618 |
+| propio | 2029T2 | 1,591 | 0,978 | 0,613 |
+| propio | 2029T3 | 1,428 | 0,827 | 0,600 |
+
+Nota: en el ejercicio principal los coeficientes de ΔFFR se fijan en cero por la regla heredada. Son proyecciones condicionales asociadas a las trayectorias, con incertidumbre de parámetros; las bandas de niveles no son intervalos de predicción. Fuente: FRED, Reserva Federal (escenarios 2026), adaptación propia. Diferencia puntual entre modelos, sin banda: no hay una distribución conjunta.

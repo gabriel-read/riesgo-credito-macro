@@ -1,0 +1,17 @@
+[
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "report/anexo-tecnico.qmd",
+      "--to",
+      "typst",
+      "--no-clean"
+    ],
+    "started_utc": "2026-10-13T12:31:44.099250+00:00",
+    "duration_seconds": 50.730070499994326,
+    "returncode": 1,
+    "log": "docs/render-006-ronda4-editorial-1-typst.log",
+    "log_sha256": "fa5befdb7781dced9fbe3bd506f172fd99ce29650d46bb0f8b07901af6e85db7"
+  }
+]

@@ -1,0 +1,28 @@
+# 3. Datos y metodología
+
+## 3.1 Descripción de los datos
+
+La investigación utiliza un panel trimestral de Estados Unidos, construido desde descargas congeladas de FRED [@fred2026].
+La muestra común comprende {{< var datos.muestra_inicio >}}–{{< var datos.muestra_fin >}}, con {{< var datos.n_trimestres >}} trimestres.
+El vintage corresponde a la descarga del {{< var datos.fecha_descarga >}}; no se incorporan revisiones posteriores.
+
+Se descargaron {{< var datos.n_series >}} series, incluidas las utilizadas en robustez y en la contextualización gráfica.
+Este conteo identifica códigos de origen; no cuenta columnas transformadas ni regresores de cada ecuación.
+La historia congelada comienza en {{< var informe.historia_inicio >}}, antes de la ventana principal, para construir transformaciones y rezagos.
+
+Las series mensuales se agregan mediante promedios del trimestre calendario.
+La morosidad corresponde a información trimestral de fin de período; se declara esa diferencia frente a los promedios macroeconómicos.
+FRED fecha cada trimestre en su primer día y el panel lo identifica por año y trimestre.
+
+En 2025T4 faltan las observaciones de octubre para CPIAUCSL y UNRATE.
+El promedio utiliza noviembre y diciembre: {{< var datos.cpiaucsl_2025t4_meses >}} meses para CPI y {{< var datos.unrate_2025t4_meses >}} para desempleo.
+No se imputó octubre ni se rellenaron observaciones en silencio.
+La cola incompleta queda fuera de la muestra común: {{< var datos.trimestres_excluidos >}}.
+
+![Morosidad, desempleo y tasa de fondos federales. Fuente: FRED; elaboración propia. Las franjas grises indican períodos de recesión según USREC.](../outputs/figures/delinquency_unemployment_ffr.png)
+
+La figura sitúa la morosidad en su contexto macroeconómico; su versión completa se identifica como **AF-DELINQUENCY-UNEMPLOYMENT-FFR**.
+
+{{< include ../outputs/informe/fred_manifest_cuerpo.md >}}
+
+Los descriptivos completos están en **AT-DESCRIPTIVES** y las pruebas de estacionariedad en **AT-STATIONARITY**.

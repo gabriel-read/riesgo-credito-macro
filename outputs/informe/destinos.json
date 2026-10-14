@@ -1,0 +1,222 @@
+{
+  "AF-DELINQUENCY-UNEMPLOYMENT-FFR": {
+    "anchor": "af-delinquency-unemployment-ffr",
+    "annex": "A",
+    "page": 6
+  },
+  "AT-DESCRIPTIVES": {
+    "anchor": "at-descriptives",
+    "annex": "A",
+    "page": 6
+  },
+  "AT-STATIONARITY": {
+    "anchor": "at-stationarity",
+    "annex": "A",
+    "page": 8
+  },
+  "AF-M1-COEFFICIENTS": {
+    "anchor": "af-m1-coefficients",
+    "annex": "B",
+    "page": 16
+  },
+  "AF-M1-CUSUM": {
+    "anchor": "af-m1-cusum",
+    "annex": "B",
+    "page": 16
+  },
+  "AF-M1-OOS": {
+    "anchor": "af-m1-oos",
+    "annex": "B",
+    "page": 17
+  },
+  "AT-M1-COEFFICIENTS": {
+    "anchor": "at-m1-coefficients",
+    "annex": "B",
+    "page": 17
+  },
+  "AT-M1-DIAGNOSTICS": {
+    "anchor": "at-m1-diagnostics",
+    "annex": "B",
+    "page": 19
+  },
+  "AT-M1-EFFECTS": {
+    "anchor": "at-m1-effects",
+    "annex": "B",
+    "page": 21
+  },
+  "AT-M1-LIMITATIONS": {
+    "anchor": "at-m1-limitations",
+    "annex": "B",
+    "page": 26
+  },
+  "AT-M1-OOS": {
+    "anchor": "at-m1-oos",
+    "annex": "B",
+    "page": 28
+  },
+  "AT-M1-ROB": {
+    "anchor": "at-m1-rob",
+    "annex": "B",
+    "page": 29
+  },
+  "AT-M1-ROBUSTNESS-SUMMARY": {
+    "anchor": "at-m1-robustness-summary",
+    "annex": "B",
+    "page": 41
+  },
+  "AT-M1-STATIONARITY": {
+    "anchor": "at-m1-stationarity",
+    "annex": "B",
+    "page": 43
+  },
+  "AF-M2-CUSUM": {
+    "anchor": "af-m2-cusum",
+    "annex": "C",
+    "page": 45
+  },
+  "AF-M2-PROFILE": {
+    "anchor": "af-m2-profile",
+    "annex": "C",
+    "page": 46
+  },
+  "AF-M2-RESPONSE": {
+    "anchor": "af-m2-response",
+    "annex": "C",
+    "page": 46
+  },
+  "AT-M2-COEFFICIENTS": {
+    "anchor": "at-m2-coefficients",
+    "annex": "C",
+    "page": 47
+  },
+  "AT-M2-COMPARISON": {
+    "anchor": "at-m2-comparison",
+    "annex": "C",
+    "page": 49
+  },
+  "AT-M2-DIAGNOSTICS": {
+    "anchor": "at-m2-diagnostics",
+    "annex": "C",
+    "page": 50
+  },
+  "AT-M2-EFFECTS": {
+    "anchor": "at-m2-effects",
+    "annex": "C",
+    "page": 51
+  },
+  "AT-M2-INPUTS63": {
+    "anchor": "at-m2-inputs63",
+    "annex": "C",
+    "page": 52
+  },
+  "AT-M2-LIMITATIONS": {
+    "anchor": "at-m2-limitations",
+    "annex": "C",
+    "page": 53
+  },
+  "AT-M2-LP": {
+    "anchor": "at-m2-lp",
+    "annex": "C",
+    "page": 55
+  },
+  "AT-M2-READING": {
+    "anchor": "at-m2-reading",
+    "annex": "C",
+    "page": 58
+  },
+  "AT-M2-ROBUSTNESS-ESTIMATES": {
+    "anchor": "at-m2-robustness-estimates",
+    "annex": "C",
+    "page": 58
+  },
+  "AT-M2-ROBUSTNESS-SUMMARY": {
+    "anchor": "at-m2-robustness-summary",
+    "annex": "C",
+    "page": 60
+  },
+  "AT-M2-SELECTION": {
+    "anchor": "at-m2-selection",
+    "annex": "C",
+    "page": 61
+  },
+  "AT-M2-STATIONARITY": {
+    "anchor": "at-m2-stationarity",
+    "annex": "C",
+    "page": 62
+  },
+  "AT-M2-TRAJECTORY": {
+    "anchor": "at-m2-trajectory",
+    "annex": "C",
+    "page": 64
+  },
+  "AF-EST-MODEL1": {
+    "anchor": "af-est-model1",
+    "annex": "D",
+    "page": 65
+  },
+  "AF-EST-MODEL2": {
+    "anchor": "af-est-model2",
+    "annex": "D",
+    "page": 66
+  },
+  "AT-EST-DELTA": {
+    "anchor": "at-est-delta",
+    "annex": "D",
+    "page": 66
+  },
+  "AT-EST-LEVELS": {
+    "anchor": "at-est-levels",
+    "annex": "D",
+    "page": 79
+  },
+  "AT-EST-LIMITATIONS": {
+    "anchor": "at-est-limitations",
+    "annex": "D",
+    "page": 102
+  },
+  "AT-EST-MODELS": {
+    "anchor": "at-est-models",
+    "annex": "D",
+    "page": 104
+  },
+  "AT-EST-ORIGIN": {
+    "anchor": "at-est-origin",
+    "annex": "D",
+    "page": 105
+  },
+  "AT-EST-PATHS": {
+    "anchor": "at-est-paths",
+    "annex": "D",
+    "page": 113
+  },
+  "AT-EST-RATE-SENSITIVITY": {
+    "anchor": "at-est-rate-sensitivity",
+    "annex": "D",
+    "page": 125
+  },
+  "AT-EST-SENSITIVITY": {
+    "anchor": "at-est-sensitivity",
+    "annex": "D",
+    "page": 138
+  },
+  "AT-LIT-ESTUDIOS": {
+    "anchor": "at-lit-estudios",
+    "annex": "E",
+    "page": 140
+  },
+  "AT-FRED-MANIFEST": {
+    "anchor": "at-fred-manifest",
+    "annex": "F",
+    "page": 147
+  },
+  "AT-M1-DEVIATIONS": {
+    "anchor": "at-m1-deviations",
+    "annex": "F",
+    "page": 148
+  },
+  "AT-M2-DEVIATIONS": {
+    "anchor": "at-m2-deviations",
+    "annex": "F",
+    "page": 149
+  }
+}

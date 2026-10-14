@@ -1,0 +1,37 @@
+{
+  "src/report_tables.py": {
+    "before_r6_sha256": "e52efc97d997df5079a1ed12a8e22cb453a8a667b5b98e0c46fb92088ba3203e",
+    "after_correction_sha256": "0549cdeb02aafce6c4d6491e9c1a253503fe942dff96a2ca66fd69f5a7cefec5",
+    "new_file": false
+  },
+  "src/report_editorial.py": {
+    "before_r6_sha256": "993e2e2fcb70038b80ee3ab7fe6ad151567942e54a0d9ca28c9e557c1956911d",
+    "after_correction_sha256": "9f91286e3704b55c0c6be9020135a58496b1812c163c47f5255742b6eadf14c4",
+    "new_file": false
+  },
+  "report/filters/slug-links.lua": {
+    "before_r6_sha256": "fa48adf661b7ed5f37c7d23c872697f29893d33ca5a1c5ec527f009e00fab24a",
+    "after_correction_sha256": "5012fb5e1f43894c5ca41271d66b06e48640308b7d02a3f46161214003b95175",
+    "new_file": false
+  },
+  "research/matriz-literatura.md": {
+    "before_r6_sha256": "9ab3bb28ffaf744ba31abdf85010f5ba03e309e2822cfbf3b21e16db71ad64c8",
+    "after_correction_sha256": "a089b3e542c1cbe34cf5ae441fb436c854829b475976351f772e64f1fbacda90",
+    "new_file": false
+  },
+  "tests/test_report_round4.py": {
+    "before_r6_sha256": "9c1068bdea9762fd703a9598f0c1baa45a5eaeb99502b0a6a189a26078e87d1a",
+    "after_correction_sha256": "4e530c7aa41ff4ddd032c62fd3b38913cd55b01bc5602301bbbed685409a8c59",
+    "new_file": false
+  },
+  "tests/test_report_tables.py": {
+    "before_r6_sha256": "d95127fd16fb693ae6e02492c2b4494711909443f2407c559593308452aa0c33",
+    "after_correction_sha256": "766782d60b783dec0fe0b1faa7b1bcc3dd339b237e2e4b2aed77311507ad6810",
+    "new_file": false
+  },
+  "tests/test_report_round5.py": {
+    "before_r6_sha256": null,
+    "after_correction_sha256": "8f3bdb91b94013f9ed9b6a0db5b295c2e7534d40e025bcc3d731fb9605bc5ab7",
+    "new_file": true
+  }
+}

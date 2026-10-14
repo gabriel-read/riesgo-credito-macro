@@ -1,0 +1,60 @@
+## 3.5 Metodología econométrica
+
+El trabajo utiliza dos especificaciones complementarias: un modelo dinámico de determinantes macroeconómicos y otro con rezagos distribuidos de ΔFFR.
+Ambos se estiman por mínimos cuadrados con errores HAC de Newey–West [@newey1987].
+La persistencia se incorpora mediante el rezago de la dependiente y se mantienen los controles y dummies fijados antes de estimar.
+Las dummies de impulso corresponden a {{< var modelo1.dummies_covid >}}.
+
+Las ecuaciones siguientes describen las especificaciones fijadas antes de estimar; no añaden modelos ni regresores.
+Para el Modelo I, Y representa la {{< var modelo1.forma_y >}} de la morosidad:
+
+$$
+\begin{aligned}
+Y_t &= \alpha + \rho Y_{t-1} + \beta_{PIB} PIB_t + \beta_U \Delta U_t + \beta_{\pi} \pi_t \\
+    &\quad + \beta_{FFR}\Delta FFR_t + \beta_{CRED} CRED_{t-4}
+      + \sum_{k\in\mathcal C}\delta_k D_{k,t} + \varepsilon_t.
+\end{aligned}
+$$
+
+Aquí, PIB, inflación y crédito son variaciones interanuales logarítmicas; ΔU y ΔFFR son cambios trimestrales.
+La forma de Y determina también la de su rezago. El conjunto C contiene los trimestres de impulso indicados arriba.
+
+El Modelo II mantiene la dependiente en primera diferencia y rezaga los controles macroeconómicos:
+
+$$
+\begin{aligned}
+\Delta DR_t &= \alpha + \rho\Delta DR_{t-1}
+ + \sum_{j=0}^{K}\theta_j\Delta FFR_{t-j} \\
+ &\quad + \gamma_{PIB}PIB_{t-1} + \gamma_U\Delta U_{t-1} + \gamma_{\pi}\pi_{t-1} \\
+ &\quad + \gamma_{CRED}CRED_{t-4}
+ + \sum_{k\in\mathcal C}\delta_k D_{k,t} + \varepsilon_t.
+\end{aligned}
+$$
+
+K procede del criterio BIC sobre la muestra común de selección; no se vuelve a seleccionar para las robusteces.
+Las proyecciones locales usan las dos dependientes acumuladas previstas, con el mismo cambio contemporáneo de tasa:
+
+$$
+\begin{aligned}
+DR_{t+h}-DR_{t-1} &= a_h+\beta_h\Delta FFR_t+b_h'Z_t+u_{t,h}, \\
+FFR_{t+h}-FFR_{t-1} &= c_h+\phi_h\Delta FFR_t+d_h'Z_t+v_{t,h}.
+\end{aligned}
+$$
+
+Z contiene el cambio rezagado de morosidad, PIB, desempleo e inflación rezagados, crédito rezagado,
+los cambios rezagados de tasa hasta K y las dummies fechadas en el trimestre de origen.
+β y φ son asociaciones condicionales; su interpretación y las bandas se discuten en la sección del Modelo II.
+
+El Modelo I distingue la asociación contemporánea de su acumulación dinámica.
+El Modelo II compara estructuras de rezagos según los criterios predefinidos y usa BIC para su especificación principal.
+Las proyecciones locales complementan la descripción de la respuesta por horizonte, con incertidumbre HAC [@jorda2005].
+No se eliminan regresores por resultados inesperados ni se realizan nuevas selecciones para mejorar la lectura del informe.
+
+Se declaran las diferencias frente a la guía: GDPC1 real como principal, GDP nominal como robustez y LOANS como serie de crédito elegida.
+La muestra termina en {{< var datos.muestra_fin >}}, el último trimestre común de las fuentes congeladas.
+Este corte supera el inicio de trimestre 2026T1 indicado por la guía; no se presenta como una muestra con el mismo cierre.
+La historia disponible comienza en {{< var informe.historia_inicio >}}; no se presenta la robustez de muestra larga como estimada si falta historia.
+Las formas fijas de ciertos regresores y la lectura conjunta de estacionariedad se conservan como desviaciones y límites del pre-registro.
+
+Las desviaciones completas están en **AT-M1-DEVIATIONS** y **AT-M2-DEVIATIONS**.
+Los diagnósticos y limitaciones se presentan junto a los resultados y no quedan ocultos por separar el anexo técnico.

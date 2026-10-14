@@ -1,0 +1,405 @@
+{
+  "model1_coefficients": {
+    "slug": "AT-M1-COEFFICIENTS",
+    "columns": [
+      "termino",
+      "coef",
+      "ee_hac",
+      "p",
+      "ic_inf",
+      "ic_sup"
+    ],
+    "rows": [
+      [
+        "PIB (crecimiento)",
+        "-0,016",
+        "0,010",
+        "0,110",
+        "-0,036",
+        "0,004"
+      ],
+      [
+        "Cambio del desempleo",
+        "0,077",
+        "0,062",
+        "0,214",
+        "-0,045",
+        "0,199"
+      ],
+      [
+        "Inflación",
+        "0,020",
+        "0,006",
+        "0,001",
+        "0,008",
+        "0,032"
+      ],
+      [
+        "Cambio de la tasa",
+        "-0,044",
+        "0,040",
+        "0,269",
+        "-0,122",
+        "0,034"
+      ],
+      [
+        "Crédito rezagado",
+        "0,010",
+        "0,003",
+        "< 0,001",
+        "0,005",
+        "0,015"
+      ]
+    ],
+    "source": "outputs/tables/model1_coefficients.csv",
+    "source_sha256": "ea583f9ff75fd1522a26ccbcc757048cbeadb1e819c22ec999c9728ef7bf5bc0"
+  },
+  "model1_diagnostics": {
+    "slug": "AT-M1-DIAGNOSTICS",
+    "columns": [
+      "prueba",
+      "estadístico",
+      "p_valor",
+      "veredicto"
+    ],
+    "rows": [
+      [
+        "Breusch-Godfrey",
+        "3,252",
+        "0,517",
+        "pasa"
+      ],
+      [
+        "Breusch-Pagan",
+        "21,981",
+        "0,015",
+        "falla"
+      ],
+      [
+        "White",
+        "91,756",
+        "< 0,001",
+        "falla"
+      ],
+      [
+        "Jarque-Bera",
+        "461,908",
+        "< 0,001",
+        "falla"
+      ],
+      [
+        "RESET",
+        "6,021",
+        "0,003",
+        "falla"
+      ],
+      [
+        "VIF (Dependiente rezagada)",
+        "3,174",
+        "",
+        "sin alerta"
+      ],
+      [
+        "VIF (PIB (crecimiento))",
+        "3,280",
+        "",
+        "sin alerta"
+      ],
+      [
+        "VIF (Cambio del desempleo)",
+        "36,811",
+        "",
+        "alerta"
+      ],
+      [
+        "VIF (Inflación)",
+        "1,329",
+        "",
+        "sin alerta"
+      ],
+      [
+        "VIF (Cambio de la tasa)",
+        "1,343",
+        "",
+        "sin alerta"
+      ],
+      [
+        "VIF (Crédito rezagado)",
+        "1,604",
+        "",
+        "sin alerta"
+      ],
+      [
+        "Chow 2008T3",
+        "24,987",
+        "< 0,001",
+        "falla"
+      ],
+      [
+        "Chow 2020T2",
+        "15,155",
+        "0,034",
+        "falla"
+      ],
+      [
+        "CUSUM",
+        "",
+        "",
+        "pasa"
+      ]
+    ],
+    "source": "outputs/tables/model1_diagnostics.csv",
+    "source_sha256": "fecb3a626a58d137e0fbc3dcac2499e6671441bd3e30f8966afb8003666f7050"
+  },
+  "model2_inputs63": {
+    "slug": "AT-M2-INPUTS63",
+    "columns": [
+      "modelo",
+      "termino",
+      "coef",
+      "p",
+      "n_obs"
+    ],
+    "rows": [
+      [
+        "Modelo I",
+        "ΔFFR(t)",
+        "-0,044",
+        "0,269",
+        "106"
+      ],
+      [
+        "Modelo II",
+        "θ0 = ΔFFR(t)",
+        "-0,084",
+        "0,190",
+        "105"
+      ]
+    ],
+    "source": "outputs/tables/model2_inputs63.csv",
+    "source_sha256": "712ff6fda631e87ea06de96a1e9f17fac0b63711280dca6e5e78d75801da7e00"
+  },
+  "model2_reading": {
+    "slug": "AT-M2-READING",
+    "columns": [
+      "elemento",
+      "resultado"
+    ],
+    "rows": [
+      [
+        "Granger: θ1 = 0",
+        "no rechaza"
+      ],
+      [
+        "C1: Granger rechaza al 5 %",
+        "no"
+      ],
+      [
+        "C2: S_rez > 0 con p < 0,05",
+        "no"
+      ],
+      [
+        "Lectura de «¿hay efectos rezagados?»",
+        "sin evidencia"
+      ]
+    ],
+    "source": "outputs/tables/model2_reading.csv",
+    "source_sha256": "98eb053c6b33b8ccfabdfa3d10e7078b1003f5645374a1bd63a6bba43099c765"
+  },
+  "stress_delta": {
+    "slug": "AT-EST-DELTA",
+    "columns": [
+      "modelo",
+      "escenario",
+      "delta_final",
+      "delta_pico",
+      "pico_trimestre"
+    ],
+    "rows": [
+      [
+        "Modelo I",
+        "Adverso Fed",
+        "1,428",
+        "1,898",
+        "2028T3"
+      ],
+      [
+        "Modelo I",
+        "Escenario D",
+        "1,428",
+        "1,898",
+        "2028T3"
+      ],
+      [
+        "Modelo II",
+        "Adverso Fed",
+        "0,827",
+        "1,286",
+        "2028T3"
+      ],
+      [
+        "Modelo II",
+        "Escenario D",
+        "0,827",
+        "1,286",
+        "2028T3"
+      ]
+    ],
+    "source": "outputs/tables/stress_delta.csv",
+    "source_sha256": "b91b7d21853f58d8cb0556c8c1a9a1f554d076f57c53aacbb8c8f8feb2a09a64"
+  },
+  "lit_estudios": {
+    "slug": "AT-LIT-ESTUDIOS",
+    "columns": [
+      "estudio",
+      "dependiente",
+      "regresores",
+      "metodo",
+      "signo"
+    ],
+    "rows": [
+      [
+        "Obradović y Grubišić (2026)",
+        "morosidad bancaria (NPL)",
+        "tasa de préstamo, tipo de cambio oficial y desempleo",
+        "efectos fijos (FE), mínimos cuadrados generalizados factibles (FGLS) y errores estándar corregidos para panel (PCSE), sobre un panel no balanceado de países",
+        "—"
+      ],
+      [
+        "Tanasković y Jandrić (2015)",
+        "logaritmo del índice de morosidad sobre el total de préstamos",
+        "PIB, tipo de cambio, ratio de préstamos en moneda extranjera, inflación, nivel de desarrollo del mercado financiero y otras variables institucionales",
+        "modelo de panel estático, con la variable dependiente en logaritmo",
+        "—"
+      ],
+      [
+        "Bayar (2019)",
+        "índice de morosidad (NPL)",
+        "crecimiento económico, inflación, desempleo, deuda pública, crecimiento del crédito, libertad económica, rentabilidad (ROA y ROE), capital regulatorio sobre activos ponderados, ingresos no financieros, ratio de costes a ingresos, indicador de crisis y morosidad rezagada",
+        "estimador de panel dinámico GMM (sistema)",
+        "El efecto del crecimiento económico y el de la inflación sobre la morosidad es negativo, igual que el de la libertad económica, la rentabilidad y el capital regulatorio; el efecto del desempleo, la deuda pública, el crecimiento del crédito, el ratio de costes a ingresos, las crisis y la morosidad rezagada es positivo."
+      ],
+      [
+        "Koju et al. (2018)",
+        "índice de morosidad (NPL)",
+        "cinco variables macroeconómicas (crecimiento del PIB, inflación, remesas, deuda pública y diferencial de tipos de interés), el ratio de exportaciones sobre importaciones y siete variables específicas del banco",
+        "estimación de panel estático y dinámico sobre 30 bancos",
+        "—"
+      ],
+      [
+        "Zawadzki (2023)",
+        "índice de morosidad (NPL ratio)",
+        "crecimiento del PIB real, desempleo, deuda pública, crédito al sector privado, depreciación de la moneda, inflación, tipo de interés y variable indicadora de pertenencia a la OCDE",
+        "mínimos cuadrados ordinarios (OLS) sobre datos de panel",
+        "El efecto del crédito al sector privado y el de la pertenencia a la OCDE sobre la morosidad es negativo, y el del desempleo y el de la deuda pública es positivo; para la inflación y la depreciación de la moneda el resumen no precisa el signo."
+      ],
+      [
+        "Tan y Tang (2023)",
+        "saldo pendiente de morosidad (NPL) en 11 sectores de financiación",
+        "tipo de interés, desempleo, output, nivel de precios y morosidad rezagada",
+        "mínimos cuadrados ordinarios (OLS) en primeras diferencias, por no estacionariedad de las variables",
+        "El efecto de un output mayor sobre la morosidad total, incluidos los bancos islámicos, es negativo aunque inelástico; el de la morosidad pasada sobre el saldo pendiente reciente es positivo."
+      ],
+      [
+        "Madbouly (2020)",
+        "ratio de morosidad (NPL ratio)",
+        "inflación, crecimiento del PIB real y rendimientos del petróleo",
+        "modelo de regresión sobre datos trimestrales",
+        "La inflación, el crecimiento del PIB real y los rendimientos del petróleo afectan de forma significativa al riesgo de crédito bancario, medido por el ratio de morosidad, y los tres efectos son positivos según el resumen."
+      ],
+      [
+        "Golitsis et al. (2022)",
+        "morosidad (NPL)",
+        "desempleo, PIB, tasas de interés, préstamos brutos y NPL rezagados",
+        "enfoque ARDL de pruebas de límites (bounds testing)",
+        "A largo plazo, el desempleo y las tasas de interés tienen un efecto positivo sobre la morosidad (un aumento de 1 % del desempleo la eleva un 0,64 %, significativo al 0,05, y uno de 1 % de las tasas de interés la eleva un 3,47 %, significativo al 0,01), el crecimiento del PIB tiene un efecto negativo y los préstamos brutos no son significativos."
+      ],
+      [
+        "Nkusu (2011)",
+        "morosidad (NPL)",
+        "determinantes macroeconómicos (no especificados en la fuente consultada)",
+        "regresiones de panel y modelo vectorial autorregresivo de panel (PVAR)",
+        "—"
+      ]
+    ],
+    "source": "outputs/tables/lit_estudios.csv",
+    "source_sha256": "686a17b8dd58df7bbc000a5ac13343f9811d644f9f7c3d7c219b797d1807a72a"
+  },
+  "fred_manifest": {
+    "slug": "AT-FRED-MANIFEST",
+    "columns": [
+      "series",
+      "source",
+      "download_date"
+    ],
+    "rows": [
+      [
+        "DRALACBS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "GDPC1",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "GDP",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "UNRATE",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "CPIAUCSL",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "FEDFUNDS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "LOANS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "DRALACBN",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "DRCLACBS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "DRBLACBS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "DRSREACBS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "CORALACBS",
+        "pandas-datareader",
+        "2026-10-02"
+      ],
+      [
+        "USREC",
+        "pandas-datareader",
+        "2026-10-02"
+      ]
+    ],
+    "source": "data/raw/manifest.csv",
+    "source_sha256": "c77a236d83fa6051693d64392be6127675d63bfe29c01178398a5d0a2c2a1cca"
+  }
+}

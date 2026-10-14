@@ -1,0 +1,1 @@
+Nota: ψ_h es la respuesta de ΔDR (pp por trimestre) y R(h) la respuesta acumulada del nivel de la morosidad (pp) a un shock de 1 pp en ΔFFR; h* = 0 (signo −), el h con mayor |ψ_h|; H2 (h* ≥ 1): no; la trayectoria es solo estimación puntual y no lleva bandas: las bandas están en la proyección local.

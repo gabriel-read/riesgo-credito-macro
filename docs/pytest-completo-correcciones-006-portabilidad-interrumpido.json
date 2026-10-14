@@ -1,0 +1,10 @@
+{
+  "command": "uv run pytest -q",
+  "exclusions": [],
+  "started_utc": "2026-10-12T22:22:22.118296+00:00",
+  "ended_utc": "2026-10-12T22:25:16.792831+00:00",
+  "duration_seconds": 174.67452910001157,
+  "returncode": 4294967295,
+  "log": "docs/pytest-completo-correcciones-006-ronda2.log",
+  "log_sha256": "fe8b324e7461374cb5a811ab574a495c440127c86eae403a7985e6ab42ea47ca"
+}

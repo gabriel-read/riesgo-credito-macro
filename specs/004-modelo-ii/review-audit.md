@@ -1,92 +1,85 @@
-VEREDICTO: CAMBIOS NECESARIOS
+VEREDICTO: APROBADO
 
-Audité la spec 004 (Modelo II): `specs/004-modelo-ii/{spec,plan,tasks,review-validate}.md`, las 14 tablas `outputs/tables/model2_*`, las 3 figuras, `outputs/models/model2_main.json`, el bloque `modelo2:` de `report/_variables.yml` y `docs/constitution.md`.
+Auditoría independiente, **ronda 2**, de la spec 004 (Modelo II). Autor: subagente `revisor-econometrico` de Claude Code, lanzado el 11-oct-2026 sobre HEAD `2f4c401` con solo rutas y criterios originales (sin conclusiones del implementador ni del validador). La ronda 1 (CAMBIOS NECESARIOS) se conserva intacta en `review-audit-ronda1.md`. Informe copiado tal cual lo entregó el subagente.
 
-**En corto:** la econometría está bien y el pre-registro se respetó. Pido dos cambios pequeños antes de cerrar:
-- uno en la exportación que va a leer la spec 005;
-- uno de notación en las tablas que irán al informe.
+**En corto:** los dos cambios que pidió la ronda 1 están corregidos en el código, en el JSON, en las tablas y en los tests, y no encontré ningún problema nuevo que bloquee el cierre. Lo comprobé recalculando, sin fiarme de `review-validate.md`. El pre-registro se respetó, la aritmética cuadra con el JSON hasta la precisión de máquina y el pipeline da exactamente los mismos bytes en dos corridas y frente a lo commiteado. No modificó nada del repositorio.
 
 ## Qué comprobé y cómo
-- **Tests:** `uv run pytest -q` da **756 passed** en 218 s, rc = 0. Solo hay FutureWarnings de pandas y statsmodels. `git status --porcelain` está vacío.
-- **Pre-registro:** spec `ec983d0` (11:19), cambio C1 `45c43d5`, plan `7f732ce` (11:38). La primera salida real es `7325ff2` (15:07). Los tres primeros commits solo tocan `specs/` (y `MEMORY.md` en el del plan).
-- **Aritmética contra el JSON:**
-  - S = θ0 + θ1 = −0,048. Su EE sale de la covarianza: √(0,0041118 + 0,0014927 − 2·0,0020933) = 0,0377, y χ² = 1,64.
-  - S_rez = θ1 = 0,036, con EE 0,0386 y χ² = 0,857, igual que Granger (con K = 1 es el mismo test).
-  - La recursión ψ_h cuadra: ψ1 = 0,036 + 0,699·(−0,084) = −0,023. R(12) = −0,159 ≈ S/(1−ρ).
-  - BIC − AIC = 12·(ln 105 − 2) = 31,85, como en la tabla.
-  - Ventanas HAC: 4 con T = 105; 3 con 97 y 69; max(fórmula, h+1) en las proyecciones locales.
-  - n: R2 = 105 − 8 = 97; R3 = 105 − 36 = 69.
-  - Trimestres útiles del Chow: 33/68 y 80/21.
-  - BG: χ²(4) = 3,409 da p = 0,492.
-- **Coherencia entre archivos:** coeficientes, efectos, LP, diagnósticos, robustez e insumos de la 6.3 coinciden entre `.md`, `.csv` y `_variables.yml`. La fila del Modelo I en `model2_inputs63` es la de `model1_coefficients`: −0,044, EE 0,040, p 0,269, n = 106.
-- **Checklist de la skill:**
-  - Estacionariedad: cada término tiene su fila, y la desviación de la regla está pre-registrada y declarada.
-  - HAC en todo, con la ventana declarada.
-  - AIC y BIC sobre la misma M: 105 observaciones en los 8 modelos.
-  - Signos: H1 dice «no» y se reporta tal cual.
-  - Lenguaje causal: ninguno (lo busqué con grep en las salidas del Modelo II).
-  - Diagnósticos fallidos: se reportan; la discusión de qué implican queda pendiente (punto 3).
-  - Reproducibilidad: no corrí el pipeline porque no me lo indicaron. La cubren `test_two_independent_roots_leave_identical_bytes` y `test_running_models_twice...`, que están en verde.
+
+**Correcciones de la ronda 1 (commit `b2cd4f4`)**
+- **Punto 1, `columns.y_lag`:** `src/model2.py:766` exporta ahora `dralacbs_d`. Reconstruí el modelo desde fuera usando solo el contrato del JSON: tomé cada `columns[t].column` del panel real, lo desplacé su `lag` y añadí la constante y las dummies. Ajusté MCO con HAC (Bartlett, 4 rezagos, sin corrección) sobre 2000T2–2026T2:
+  - n = 105, ningún faltante;
+  - coeficientes iguales a `params` (diferencia 0,0);
+  - covarianza igual a `cov_hac` (diferencia máxima 6,5e-19);
+  - `dralacbs_d` coincide exactamente con la diferencia de `dralacbs`.
+  - Con el nivel (el error de la ronda 1), ΔDR(t−1) en 2026T2 habría valido 1,45 en lugar de −0,01.
+  - Hay tres tests nuevos: dos con datos sintéticos que comparan término a término con la matriz del diseño, y uno sobre el panel real que comprueba que las columnas existen.
+- **Punto 2, notación con K = 1:** `src/model2.py:246-269` añade funciones que separan K = 1 de K ≥ 2. Busqué en `outputs/` y en `_variables.yml` las formas rotas («θ0+…+θ1», «θ1..θ1», «= … = θ1», «t..t−1»): no queda ninguna. Las tablas regeneradas dicen «θ0 + θ1», «θ1», «Granger: θ1 = 0» y «ΔFFR(t) y ΔFFR(t−1)». `tests/test_model2_notation.py` cubre K = 1 de punta a punta y K ≥ 2.
+- **Alcance del cambio:** el diff de `b2cd4f4` solo toca etiquetas y esa clave del JSON. Ninguna cifra cambió.
+
+**Pre-registro**
+- `ec983d0` (spec), `45c43d5` (cambio C1) y `7f732ce` (plan) solo tocan `specs/` y `MEMORY.md`, y son anteriores a la primera salida real (`7325ff2`, 15:07).
+- `git diff 7f732ce HEAD` sobre `spec.md` y `plan.md` está vacío.
+
+**Aritmética contra el JSON** (las seis cifras coinciden)
+
+| Cantidad | Valor | Cómo |
+|---|---|---|
+| S = θ0 + θ1 | −0,04823; EE 0,03765; χ² 1,641; p 0,200 | combinación lineal de `params` y `cov_hac` |
+| S_rez = θ1 | 0,03576; EE 0,03863; χ² 0,857; p 0,355 | igual; con K = 1 es el mismo Wald que Granger |
+| ψ_h y R(h) | diferencia 0,0 con el JSON | recursión rehecha a mano |
+| R(12) | −0,1594 (S/(1−ρ) = −0,1605) | respuesta acumulada a 12 trimestres |
+| BIC − AIC | 31,85 = 12·(ln 105 − 2) | tabla de selección |
+| Breusch-Godfrey(4) | 3,409 (p 0,492) | recalculado |
+
+Otros recuentos que también cuadran: 36 trimestres de tasa cero; ventana HAC de 4 en la principal y de 3 en R2 y R3; max(fórmula, h+1) en las proyecciones locales; trimestres útiles del Chow 33/68 y 80/21.
+
+**Coherencia entre archivos:** las cifras de las proyecciones locales, los coeficientes, los efectos, Granger, la lectura y los diagnósticos de `_variables.yml` coinciden con los CSV (0 discrepancias). Las tres figuras cuadran con sus tablas.
+
+**Checklist de la skill**
+- **Estacionariedad:** hay una fila por término. La forma fija de π y CRED(t−4), que no son I(0), está pre-registrada y declarada como desviación y como limitación.
+- **HAC:** todo con HAC y la ventana declarada.
+- **Selección de K:** AIC y BIC sobre la misma M (105 observaciones en los 8 modelos).
+- **Signos:** H1 sale «no» y se reporta tal cual.
+- **Lenguaje:** ninguna frase causal (grep en tablas, JSON y variables).
+- **Diagnósticos fallidos:** BP, White, JB, RESET y Chow 2020T2 figuran como limitaciones; falta escribir su discusión (observación 3).
+- **Reproducibilidad:** ver abajo.
+
+**Reproducibilidad y tests**
+- `uv run pytest -q`: **774 passed**, rc 0, en 5 min 31 s. El total incluye `tests/test_codex_harness.py`, que está sin seguimiento en git y no es de la 004.
+- `src.pipeline all` dos veces en directorios temporales (`PIPELINE_ROOT`), con rc 0 en ambas: las dos corridas son idénticas y todos los archivos de `outputs/` y `_variables.yml` son idénticos byte a byte a los del repositorio.
+- `git status` no cambió por el trabajo del auditor. Durante la sesión aparecieron archivos sin seguimiento de otro proceso: `specs/005-estres/` (borrador de Claude Code, esta sesión), `docs/secuencia-sdd-006-007.md` (ídem) y `docs/insumos-005-006-2026-10-11.md` (no es de esta sesión).
 
 ## Cambios necesarios
 
-1. **Importante, el único que bloquea.** `src/model2.py:734-735` → `outputs/models/model2_main.json`, clave `columns.y_lag`.
-   - **Qué pasa:** exporta `{"column": "dralacbs", "lag": 1}`. El plan (§4) define `columns` como «término → **columna del panel** y rezago». En el panel, ΔDR es `dralacbs_d`; `dralacbs` es el nivel, alrededor de 1,5 %. Los demás términos sí apuntan a la columna real (`fedfunds_d`, `unrate_d`).
-   - **Por qué importa:** la spec 005 (crítica) va a proyectar de forma recursiva leyendo este contrato. Si lo toma al pie de la letra, mete el nivel como ΔDR(t−1): ρ·1,5 ≈ +1,05 pp por trimestre de error, sin que nada falle.
-   - **Qué espero:** `"dralacbs_d"`, con un test que compruebe que cada `columns[*].column` existe en el panel y es la serie que entra en la forma del modelo.
+Ninguno bloqueante.
 
-2. **Menor.** `src/model2.py:248, 262, 309, 321, 347`: la notación se rompe con K = 1. Salen «θ0+…+θ1», «θ1 = … = θ1 = 0», «θ1..θ1» y «ΔFFR(t..t−1)» en `model2_effects`, `model2_reading`, `model2_diagnostics` y `model2_limitations`.
-   - **Por qué importa:** son tablas que irán al informe y ahí parecen un error.
-   - **Qué espero:**
-     - con K = 1: «θ0 + θ1», «θ1 = 0», «θ1», «ΔFFR(t) y ΔFFR(t−1)»;
-     - con K ≥ 2: la forma general;
-     - un test para cada caso.
+## Observaciones no bloqueantes (por gravedad)
 
-## Para la spec 006 (no bloquean la 004, pero sin esto el informe no se defiende)
-
-3. **Importante.** `src/model2.py:636`, en `model2_limitations`: el texto dice «se reporta y se discute qué implica para las conclusiones», pero esa discusión no existe todavía. La skill la exige y la 006 tiene que escribirla:
-   - **BP y White fallan:** el HAC ya cubre la heterocedasticidad, así que la inferencia se mantiene en sentido asintótico.
-   - **JB falla (209):** colas gruesas por la crisis de 2008–2010; los p-valores con n = 105 dependen de la aproximación asintótica.
-   - **RESET falla (p < 0,001):** la forma lineal no recoge alguna no linealidad (probablemente el pico de 2009–2010), y eso es relevante para «sin evidencia».
-   - **Chow 2020T2 falla, con 21 trimestres útiles:** R2 (sin 2020–2021) da casi lo mismo (S = −0,043; S_rez = 0,040, p = 0,303), y eso es lo que hay que decir.
-   - **Chow 2008T3 pasa aquí y fallaba en el Modelo I:** comentarlo en la 6.3.
-
-4. **Importante.** `src/model2.py:632`: el VIF de ΔU(t−1), 33,2, se rotula «posible multicolinealidad», y es un artefacto. El VIF se calcula con las dummies COVID en la regresión auxiliar (`src/diagnostics.py:259-270`), y esas dummies absorben justo los saltos de ΔU:
-   - +9,17 pp, que entra en 2020T3;
-   - −4,20 pp, en 2020T4;
-   - −2,03 pp, en 2021T1.
-
-   El informe debe decirlo; si no, el lector concluye que hay colinealidad entre los controles.
-
-5. **Importante, de interpretación.** Las proyecciones locales llevan normalizaciones distintas.
-   - φ_h llega a 3,2 en h = 5–7: un +1 pp en ΔFFR(t) viene seguido de unos 3 pp de alzas acumuladas. Por eso β_6 = −0,558 es la morosidad asociada a un ciclo de alzas, no a 1 pp.
-   - En h = 1–3, el límite superior de la banda al 90 % de β_h es 0,003, 0,001 y 0,005. Casi excluye el cero, pero del lado **negativo**.
-   - Lo correcto es decir que «no se detecta una asociación rezagada positiva y las estimaciones puntuales apuntan a signo negativo, coherente con que la Fed sube tasas en expansiones (endogeneidad)». Nunca «la política monetaria no afecta».
-
-6. **Menor.** Con K = 1, C1 (Granger) y C2 son el mismo Wald sobre θ1 (χ² = 0,857 en los dos). La «evidencia parcial» solo es alcanzable si θ1 es significativamente negativo. Hay que decirlo para que nadie lea C1 y C2 como dos pruebas independientes.
-
-## Opcional (no bloquea)
-- `outputs/tables/model2_stationarity.md`:
-  - La decisión «niveles» de filas que entran en diferencia confunde; «estacionaria en su forma» sería más claro.
-  - Además, FEDFUNDS y UNRATE son I(0) en niveles según la 001 (ADF −3,82 y −2,90) y entran en diferencia por motivo económico (la guía 3.4 pide el «cambio en la FFR»). Conviene decirlo explícitamente en `model2_deviations` en lugar de dejarlo dentro de «forma fija».
-- `outputs/figures/model2_cusum.png`: el eje es posicional y salta de 2018T2 a 2023T2 sin marcar el hueco de las 4 dummies.
-- `model2_main.json`: no marca qué términos son dummies de impulso ni que `cov_hac` tiene rango reducido. La 005 debe simular solo el bloque informativo (ya está en `MEMORY.md`).
-- «−0,000» en ψ_12 y en S de R3 (O2 de la validación).
-- `model2_profile.png` dibuja h* (definido sobre ψ_h) en el eje de rezagos j. Aquí coinciden solo porque h* = 0.
+1. **Importante, para la spec 005 (contrato del JSON):**
+   - **Rango de la covarianza:** `cov_hac` tiene rango 8 de 12; los 4 autovalores nulos son las direcciones de las dummies. En cambio, el bloque de los 8 términos que no son dummies es de rango completo (autovalor mínimo 7,1e-7). El borrador de `specs/005-estres/spec.md:59` habla de «rango reducido esperado» para ese bloque: eso vale para la matriz completa, no para el bloque.
+   - **Simetría:** los bloques cruzados entre dummies y resto no se simetrizan (`src/estimation.py:146-149`; asimetría de 1e-16). La 005 debe usar solo el bloque de 8 términos y simetrizarlo.
+   - **Coeficientes de la tasa en cero:** hay que pre-registrar si se simula el resto con su distribución marginal o condicionada a θ = 0. Hoy θ0 tiene covarianzas distintas de cero con ρ, con la constante y con ΔU.
+   - **Réplicas explosivas:** P(ρ ≥ 1) ≈ 1,8e-4 por extracción, es decir, unas 2 réplicas de cada 10 000. El borrador ya reporta esa proporción; está bien.
+   - **Origen de la proyección:** el panel trae una fila 2026T3 con `fedfunds` y `unrate_d` pero sin morosidad. El arranque debe ser `sample_end` (2026T2), no la última fila del panel.
+2. **Menor, `outputs/tables/model2_stationarity.csv`, columna `columna_panel`:** pone `dralacbs`, `fedfunds` y `unrate` (la serie base, junto a «forma») para términos que en el panel son `*_d`. Es la misma ambigüedad que causó el error de la ronda 1. Conviene renombrar la columna a «serie» o poner la columna diferenciada.
+3. **Menor, pendientes para la 006 (heredados de la ronda 1, siguen vigentes):**
+   - las limitaciones prometen «se discute qué implica» sin que esa discusión exista (`src/model2.py`, tabla de limitaciones);
+   - el VIF de ΔU (33,2) se rotula «posible multicolinealidad» cuando es un artefacto de las dummies COVID;
+   - con K = 1, C1 y C2 son el mismo Wald (χ² = 0,857);
+   - φ_h ≈ 3,2 hace que β_h describa un ciclo de alzas, no un alza de 1 pp.
+4. **Menor, formato del JSON:**
+   - `h_star.signo` usa el signo menos Unicode «−»; la 005 debe leerlo así;
+   - el JSON no tiene una clave explícita para la columna dependiente (`dralacbs_d`) ni marca qué términos son dummies de impulso. Se deduce de `columns` nulos y del prefijo `covid_`.
+5. **Opcional:** «−0,000» en ψ12 y en S de R3; h\* dibujado sobre el eje de rezagos j en `model2_profile.png`; el eje del CUSUM no marca el hueco de 2020T2–2021T1.
+6. **Proceso:** `review-audit-ronda1.md` entró en el mismo commit que el arreglo (`b2cd4f4`); la validación la firmó el mismo agente que implementó (declarado).
 
 ## Lo que defendería ante el profesor
-- La especificación, K, la regla de lectura y la regla para el estrés se commitearon antes de la primera estimación (`ec983d0` → `7325ff2`). «Sin evidencia» es el resultado de una regla fijada antes de ver los datos, no una elección.
-- ΔFFR es I(0), y la inferencia sobre θ_j (coeficientes de regresores estacionarios) es estándar aunque π y CRED no sean I(0). Todo es HAC, con BG limpio (p = 0,49) y M común para AIC y BIC (BIC y AIC eligen K = 1).
-- Dos enfoques distintos (rezagos distribuidos y proyecciones locales) y dos robusteces (R2, R3) coinciden: no hay asociación rezagada positiva, y el signo puntual negativo es coherente con la reacción de la Fed al ciclo.
+- La especificación, la regla de selección de K, la regla de lectura y la regla para el estrés se commitearon antes de la primera estimación (`ec983d0` → `7325ff2`). «Sin evidencia» es el resultado de una regla fijada de antemano.
+- Todo usa errores HAC, Breusch-Godfrey no rechaza (p = 0,49) y AIC y BIC eligen K = 1 sobre la misma muestra. El modelo se puede reconstruir exactamente desde el JSON exportado.
+- Los rezagos distribuidos, las proyecciones locales, R2 y R3 coinciden: no hay asociación rezagada positiva, y el signo puntual negativo es coherente con que la Fed reacciona al ciclo.
 
 ## Lo que me preguntaría el profesor
-1. Si K = 1 y las proyecciones locales muestran β_h negativo hasta h = 10, ¿no está diciendo el modelo que subir tasas «reduce» la morosidad? ¿Cómo separa eso de la endogeneidad sin un shock identificado?
-2. RESET rechaza con p < 0,001 y el Chow de 2020T2 también: ¿por qué creerle a una conclusión de «sin evidencia» obtenida con un modelo lineal mal especificado e inestable?
-3. φ_h ≈ 3: su «shock de 1 pp» es en realidad un ciclo de unos 3 pp de alzas. En la prueba de estrés, con la tasa en cero por la regla heredada, ¿cómo responde a la pregunta de la guía, «¿cómo afectan los cambios en la política monetaria?»?
-
-Archivos clave:
-- `C:\Users\gabri\orca\riesgo-credito-macro\src\model2.py`
-- `C:\Users\gabri\orca\riesgo-credito-macro\outputs\models\model2_main.json`
-- `C:\Users\gabri\orca\riesgo-credito-macro\outputs\tables\model2_limitations.md`
-- `C:\Users\gabri\orca\riesgo-credito-macro\outputs\tables\model2_lp.md`
-- `C:\Users\gabri\orca\riesgo-credito-macro\specs\004-modelo-ii\plan.md`
+1. Con K = 1, Granger y C2 son la misma prueba. ¿No se reduce entonces su «regla de dos condiciones» a un solo p-valor de θ1 = 0,355?
+2. RESET rechaza con p < 0,001 y el Chow de 2020T2 también. ¿Qué parte de «sin evidencia» sobrevive si la forma lineal no es correcta y los parámetros cambian después de 2020?
+3. En el estrés pone la tasa en cero por la regla heredada, pero θ0 está correlacionado con ρ y con ΔU en la covarianza HAC. ¿Simula el resto de coeficientes condicionado a θ = 0 o con su distribución marginal, y cuánto cambia el pico de morosidad?

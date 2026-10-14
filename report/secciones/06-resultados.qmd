@@ -1,0 +1,100 @@
+# 6. Análisis de resultados
+
+Los dos modelos indican que parte del entorno macroeconómico se asocia de forma robusta a las variantes con la morosidad, mientras que la política monetaria no muestra una asociación distinguible de cero en esta muestra.
+Los modelos se integran sin ponderarlos ni elegir uno, porque difieren en la muestra y en la forma de los controles.
+
+## 6.1 Resultados del Modelo I
+
+El Modelo I relaciona el cambio trimestral de la morosidad con condiciones macroeconómicas contemporáneas.
+La inflación y el crecimiento del crédito rezagado cuatro trimestres tienen asociaciones positivas y significativas.
+Un punto más de inflación se asocia con {{< var modelo1.efectos.inflation.impacto_pp >}} pp más de variación trimestral de la morosidad.
+Un punto más de crecimiento del crédito rezagado se asocia con {{< var modelo1.efectos.credit_growth.impacto_pp >}} pp.
+Ambas variables son también las más estables en las variantes de robustez: la inflación en {{< var modelo1.robustez.inflation >}} y el crédito en {{< var modelo1.robustez.credit_growth >}}.
+El crecimiento del producto tiene el signo esperado y solo es significativo en el largo plazo.
+El desempleo tiene el signo esperado pero no es significativo, y el cambio de la tasa tiene signo contrario al esperado y tampoco lo es.
+Los diagnósticos de heterocedasticidad, normalidad, forma funcional y estabilidad fallan; los detalles están en la sección 4.
+
+## 6.2 Resultados del Modelo II
+
+El Modelo II pregunta si los cambios de la tasa de fondos federales anticipan la morosidad posterior.
+La suma de los efectos de la tasa es {{< var modelo2.efectos.s.est >}} pp, con valor p {{< var modelo2.efectos.s.p >}}, y su parte rezagada es {{< var modelo2.efectos.s_rez.est >}} pp, con valor p {{< var modelo2.efectos.s_rez.p >}}.
+La prueba de Granger no rechaza, y la regla pre-registrada concluye «{{< var modelo2.lectura.etiqueta >}}».
+Las proyecciones locales no detectan una respuesta distinta de cero en ningún horizonte.
+Como en el Modelo I, fallan los diagnósticos de heterocedasticidad, normalidad y forma funcional, y también el contraste de quiebre de 2020T2.
+Por eso la lectura de «sin evidencia» es la de este modelo en esta muestra, no una demostración de ausencia.
+El desarrollo está en la sección 5.
+
+## 6.3 Comparación de resultados
+
+Los dos modelos comparten el cambio contemporáneo de la tasa de fondos federales, el rezago de la morosidad y el crecimiento del crédito rezagado cuatro trimestres.
+Difieren en que el Modelo I usa el producto, el desempleo y la inflación del mismo trimestre, y el Modelo II los rezaga un trimestre y añade el rezago de la tasa.
+El único término de política monetaria que aparece en ambos es el cambio contemporáneo de la tasa.
+
+{{< include ../outputs/informe/model2_inputs63_cuerpo.md >}}
+
+En ambos modelos el coeficiente es negativo, contrario a la expectativa pre-registrada, y no es significativo: {{< var modelo1.coef.d_ffr.coef >}} pp con valor p {{< var modelo1.coef.d_ffr.p >}} en el Modelo I, y {{< var modelo2.coef.d_ffr_l0.coef >}} pp con valor p {{< var modelo2.coef.d_ffr_l0.p >}} en el Modelo II.
+La coincidencia de signo y de falta de significancia apunta en la misma dirección.
+Pero no es una confirmación independiente, porque los dos modelos usan casi los mismos datos.
+
+Los modelos difieren en la muestra y en los controles.
+El Modelo I tiene {{< var modelo1.n_obs >}} observaciones y controles contemporáneos del producto, el desempleo, la inflación y el crédito rezagado.
+El Modelo II tiene {{< var modelo2.n_obs >}} observaciones, una menos que el Modelo I porque la selección de rezagos compara hasta ocho rezagos de la tasa sobre una muestra común, y rezaga los controles.
+Por ello los dos coeficientes no miden lo mismo y no se promedian ni se elige entre ellos.
+
+Los modelos se complementan.
+El Modelo I describe qué condiciones se asocian con la morosidad del mismo trimestre.
+El Modelo II mira hacia adelante: si la tasa anticipa la morosidad.
+Para la gestión del riesgo, el primero informa qué vigilar; el segundo advierte que la tasa por sí sola no es una señal anticipada con la evidencia disponible.
+Los controles del Modelo II no tienen hipótesis de signo pre-registrada, pero sus coeficientes también se informan.
+La inflación rezagada ({{< var modelo2.coef.inflation_l1.coef >}} pp, valor p {{< var modelo2.coef.inflation_l1.p >}}) y el crecimiento del crédito rezagado ({{< var modelo2.coef.credit_l4.coef >}} pp, valor p {{< var modelo2.coef.credit_l4.p >}}) tienen asociaciones positivas y significativas, como en el Modelo I.
+El producto rezagado ({{< var modelo2.coef.gdp_l1.coef >}} pp, valor p {{< var modelo2.coef.gdp_l1.p >}}) tiene signo positivo, opuesto al del Modelo I, y no se distingue de cero: la asociación del producto con menos morosidad aparece solo en el Modelo I y no se confirma en el Modelo II.
+En el desempleo los modelos difieren: el Modelo I no lo distingue de cero, y el Modelo II sí distingue su variación rezagada ({{< var modelo2.coef.d_unemp_l1.coef >}} pp, valor p {{< var modelo2.coef.d_unemp_l1.p >}}), con una alerta de colinealidad en ese regresor, que infla su error estándar y no explica su significancia.
+La evidencia sobre el desempleo es, por tanto, mixta y depende de la especificación.
+La coincidencia para la inflación y el crédito no es una confirmación independiente, porque los datos son casi los mismos.
+
+## 6.4 Discusión económica de los resultados
+
+La pregunta fundamental es si los resultados econométricos proporcionan evidencia de que el entorno macroeconómico y la política monetaria son factores relevantes para el riesgo de crédito.
+La respuesta es diferenciada y se formula como asociación, no como efecto estructural.
+
+**El entorno macroeconómico.** Hay evidencia de asociación para la inflación y el crecimiento del crédito: aparece en los dos modelos, y las dos sobreviven a las variantes de robustez del Modelo I.
+El producto muestra una asociación negativa acumulada en el Modelo I, coherente con el mecanismo de ingresos y capacidad de pago, pero débil: no es significativa en el impacto, se mantiene en {{< var modelo1.robustez.gdp_growth >}} variantes de robustez y el Modelo II no la confirma con el producto rezagado.
+El desempleo da una evidencia mixta: el Modelo I no lo distingue de cero y el Modelo II sí distingue su variación rezagada, con una alerta de colinealidad que infla su error estándar y no explica su significancia.
+Como varía poco fuera de la pandemia, el resultado depende de la especificación y no prueba ni irrelevancia ni relevancia.
+La evidencia de la literatura revisada va en la misma dirección en los signos que son verificables: más desempleo y menos crecimiento se asocian con más morosidad, aunque con heterogeneidad entre países y métodos.
+
+**La política monetaria.** No hay evidencia de asociación distinguible de cero ni contemporánea ni rezagada.
+El signo es negativo en ambos modelos, contrario al esperado.
+Un modelo con RESET y quiebres en contra, y una tasa que responde al ciclo, no permite separar un efecto de la tasa de la reacción de la política al entorno.
+La literatura sobre transmisión sugiere que la política opera sobre el costo y la disponibilidad del crédito, que no se observan aquí; el informe no contradice ese canal ni lo confirma.
+
+**Asociación y no efecto estructural.** Los coeficientes son asociaciones condicionales dentro de modelos lineales que fallan varios diagnósticos.
+La variación observada de la tasa no es un shock identificado.
+Por eso ningún resultado se lee como el efecto que tendría intervenir una variable.
+
+Esta discusión permite responder las preguntas que un lector crítico puede plantear.
+
+*¿Por qué creer los p-valores de la inflación y del crédito si no son estacionarias en la regla conservadora?*
+No se toman al pie de la letra.
+Las pruebas de estacionariedad son ambiguas, y esas dos variables son justo las más significativas.
+Su estabilidad en las variantes de robustez refuerza la asociación, pero no elimina la ambigüedad.
+
+*¿Cómo usar el Modelo I en un estrés con alzas de tasas si el coeficiente de la tasa es negativo?*
+No se usa.
+Un signo contrario al esperado y no significativo no se emplea como efecto estimado.
+El estrés de la sección 7 fija el efecto de la tasa en cero por la regla pre-registrada, que lo anula mientras la lectura del Modelo II no sea de evidencia fuerte, y presenta aparte una sensibilidad rotulada como tal.
+
+*¿Qué afirmación para la gestión de riesgos sobrevive a la endogeneidad, la inestabilidad y la no linealidad?*
+La de dirección y orden de magnitud para la inflación y el crédito rezagado, que no dependen de un solo modelo ni de una sola variante, y la alta persistencia de la morosidad.
+No sobreviven las magnitudes como pronóstico, ni cualquier afirmación sobre el efecto de la tasa.
+
+*¿Subir las tasas reduce la morosidad según el Modelo II, y cómo se separa de la endogeneidad?*
+El signo puntual es negativo, pero no es significativo y es compatible con que la política reaccione al ciclo.
+Con estos datos no se separa; por eso no se afirma que las alzas reduzcan la morosidad.
+
+*¿Qué cambia en los niveles si el escenario parte de 2025T4 o de 2026T2, y por qué no cambia la diferencia?*
+La sección 7 lo responde con las condiciones en que se cumple.
+
+En síntesis, el entorno macroeconómico es un factor relevante para la morosidad en la medida en que la inflación y el crédito se asocian con ella de forma robusta a las variantes.
+La política monetaria no muestra, en estos modelos, una asociación propia que sirva como señal.
+Ambas conclusiones son condicionales a especificaciones imperfectas y a una muestra con pocos episodios.
