@@ -1,0 +1,1 @@
+Nota: la prueba de Granger es un Wald HAC χ²(1) sobre θ1 (se excluye θ0, que es simultáneo) y mide precedencia temporal de la tasa respecto de la morosidad; la lectura usa solo lo rezagado: «evidencia fuerte» si se cumplen C1 y C2, «evidencia parcial» si se cumple una y «sin evidencia» si ninguna.

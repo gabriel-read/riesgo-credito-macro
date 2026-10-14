@@ -270,3 +270,43 @@ def test_standardization_sd_excludes_covid():
     mask = ~X.index.isin(covid)
     assert sds["gdp_growth"] == pytest.approx(X.loc[mask, "gdp_growth"].std(ddof=1))
     assert sds["d_unemp"] == pytest.approx(X.loc[mask, "d_unemp"].std(ddof=1))
+
+
+# --- Ampliaciones de la spec 004 (D1 y D2 del plan): retrocompatibles ---
+
+
+def _simple_design(n: int = 120, seed: int = 11, with_unit_sum_column: bool = False) -> Design:
+    rng = np.random.default_rng(seed)
+    X = pd.DataFrame({"const": 1.0, "x": rng.normal(size=n)})
+    if with_unit_sum_column:
+        w = np.zeros(n)
+        w[10], w[11] = 0.3, 0.7                        # suma exactamente 1, pero no es 0/1
+        X["w"] = w
+    y = 0.5 + 0.8 * X["x"].to_numpy() + np.random.default_rng(seed + 1).normal(size=n)
+    return _design_from_arrays(y, X)
+
+
+def test_fit_ols_hac_maxlags_overrides_the_window():
+    d = _simple_design()
+    assert fit_ols_hac(d, maxlags=7).hac_lags == 7
+    assert fit_ols_hac(d, maxlags=1).hac_lags == 1
+    assert not np.allclose(fit_ols_hac(d, maxlags=7).cov.to_numpy(), fit_ols_hac(d, maxlags=1).cov.to_numpy())
+
+
+def test_fit_ols_hac_default_window_unchanged():
+    d = _simple_design()
+    a, b = fit_ols_hac(d), fit_ols_hac(d, maxlags=None)
+    assert a.hac_lags == b.hac_lags == hac_lags(120)
+    assert a.params.equals(b.params) and a.cov.equals(b.cov)
+    assert fit_ols_hac(d, maxlags=hac_lags(120)).cov.equals(a.cov)
+
+
+def test_impulse_detection_ignores_a_continuous_column_that_sums_to_one():
+    from src.estimation import _impulse_dummy_cols
+
+    d = _simple_design(with_unit_sum_column=True)
+    assert _impulse_dummy_cols(d.X) == []
+    X = d.X.copy()
+    X["imp"] = 0.0
+    X.iloc[5, X.columns.get_loc("imp")] = 1.0
+    assert _impulse_dummy_cols(X) == ["imp"]

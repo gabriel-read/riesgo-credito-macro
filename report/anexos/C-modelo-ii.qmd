@@ -1,0 +1,286 @@
+# Anexo C. Modelo II {#anexo-c}
+
+## Figura C.1. Modelo II — CUSUM — AF-M2-CUSUM {#af-m2-cusum}
+
+
+![Modelo II — CUSUM](../outputs/figures/model2_cusum.png)
+
+## Figura C.2. Modelo II — perfil de rezagos — AF-M2-PROFILE {#af-m2-profile}
+
+
+![Modelo II — perfil de rezagos](../outputs/figures/model2_profile.png)
+
+## Figura C.3. Modelo II — respuestas dinámicas — AF-M2-RESPONSE {#af-m2-response}
+
+
+![Modelo II — respuestas dinámicas](../outputs/figures/model2_response.png)
+
+## Tabla C.1. Modelo II — coeficientes — AT-M2-COEFFICIENTS {#at-m2-coefficients}
+
+
+{{< include ../outputs/informe/model2_coefficients_nota.md >}}
+
+### Panel 1
+
+Columnas: Término; Etiqueta; Coef.; EE HAC.
+
+{{< include ../outputs/informe/model2_coefficients_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; z; p; IC inf..
+
+{{< include ../outputs/informe/model2_coefficients_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; IC sup.; Nota.
+
+{{< include ../outputs/informe/model2_coefficients_anexo_3.md >}}
+
+## Tabla C.2. Modelo II — comparación dinámica — AT-M2-COMPARISON {#at-m2-comparison}
+
+
+{{< include ../outputs/informe/model2_comparison_nota.md >}}
+
+### Panel 1
+
+Columnas: h; R; β; φ.
+
+{{< include ../outputs/informe/model2_comparison_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: h; Mismo signo; Banda sin cero.
+
+{{< include ../outputs/informe/model2_comparison_anexo_2.md >}}
+
+## Tabla C.3. Modelo II — diagnósticos — AT-M2-DIAGNOSTICS {#at-m2-diagnostics}
+
+
+### Panel 1
+
+Columnas: Prueba; Estadístico; p; Veredicto.
+
+{{< include ../outputs/informe/model2_diagnostics_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Prueba; Nota.
+
+{{< include ../outputs/informe/model2_diagnostics_anexo_2.md >}}
+
+## Tabla C.4. Modelo II — efectos — AT-M2-EFFECTS {#at-m2-effects}
+
+
+{{< include ../outputs/informe/model2_effects_nota.md >}}
+
+### Panel 1
+
+Columnas: Efecto; Descripción; Estimación; EE HAC.
+
+{{< include ../outputs/informe/model2_effects_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Efecto; χ²; p; IC inf..
+
+{{< include ../outputs/informe/model2_effects_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Efecto; IC sup.; Signo H1; Respalda H1.
+
+{{< include ../outputs/informe/model2_effects_anexo_3.md >}}
+
+## Tabla C.5. Insumos de comparación de modelos — AT-M2-INPUTS63 {#at-m2-inputs63}
+
+
+{{< include ../outputs/informe/model2_inputs63_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Término; Coef.; EE HAC; p.
+
+{{< include ../outputs/informe/model2_inputs63_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Término; Muestra; Obs.; Controles.
+
+{{< include ../outputs/informe/model2_inputs63_anexo_2.md >}}
+
+## Tabla C.6. Modelo II — limitaciones — AT-M2-LIMITATIONS {#at-m2-limitations}
+
+
+### Panel 1
+
+Columnas: Limitación; Detalle; Origen.
+
+{{< include ../outputs/informe/model2_limitations_anexo_1.md >}}
+
+## Tabla C.7. Modelo II — proyecciones locales — AT-M2-LP {#at-m2-lp}
+
+
+{{< include ../outputs/informe/model2_lp_nota.md >}}
+
+### Panel 1
+
+Columnas: h; β; EE; IC90 inf..
+
+{{< include ../outputs/informe/model2_lp_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: h; IC90 sup.; Obs.; Rezagos HAC.
+
+{{< include ../outputs/informe/model2_lp_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: h; Estado; Motivo; φ.
+
+{{< include ../outputs/informe/model2_lp_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: h; EE φ; IC90 φ inf.; IC90 φ sup..
+
+{{< include ../outputs/informe/model2_lp_anexo_4.md >}}
+
+## Tabla C.8. Modelo II — lectura de resultados — AT-M2-READING {#at-m2-reading}
+
+
+{{< include ../outputs/informe/model2_reading_nota.md >}}
+
+### Panel 1
+
+Columnas: Elemento; Estadístico; GL; p.
+
+{{< include ../outputs/informe/model2_reading_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Elemento; Resultado.
+
+{{< include ../outputs/informe/model2_reading_anexo_2.md >}}
+
+## Tabla C.9. Modelo II — estimaciones de robustez — AT-M2-ROBUSTNESS-ESTIMATES {#at-m2-robustness-estimates}
+
+
+### Panel 1
+
+Columnas: Variante; Etiqueta; Estado; Motivo.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Variante; K; Inicio; Fin.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Variante; Obs.; Rezagos HAC; S.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Variante; EE S; p S; S rez..
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Variante; EE S rez.; p S rez.; h estrella.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_5.md >}}
+
+### Panel 6
+
+Columnas: Variante; H1; Nota.
+
+{{< include ../outputs/informe/model2_robustness_estimates_anexo_6.md >}}
+
+## Tabla C.10. Modelo II — resumen de robustez — AT-M2-ROBUSTNESS-SUMMARY {#at-m2-robustness-summary}
+
+
+{{< include ../outputs/informe/model2_robustness_summary_nota.md >}}
+
+### Panel 1
+
+Columnas: Término; Etiqueta; p principal; R1.
+
+{{< include ../outputs/informe/model2_robustness_summary_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; R2; R3; k.
+
+{{< include ../outputs/informe/model2_robustness_summary_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; n; Robustez.
+
+{{< include ../outputs/informe/model2_robustness_summary_anexo_3.md >}}
+
+## Tabla C.11. Modelo II — selección de rezagos — AT-M2-SELECTION {#at-m2-selection}
+
+
+{{< include ../outputs/informe/model2_selection_nota.md >}}
+
+### Panel 1
+
+Columnas: K; Parámetros; Obs.; AIC.
+
+{{< include ../outputs/informe/model2_selection_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: K; BIC; Marca.
+
+{{< include ../outputs/informe/model2_selection_anexo_2.md >}}
+
+## Tabla C.12. Modelo II — estacionariedad — AT-M2-STATIONARITY {#at-m2-stationarity}
+
+
+{{< include ../outputs/informe/model2_stationarity_nota.md >}}
+
+### Panel 1
+
+Columnas: Término; Forma; Etiqueta; Columna panel; Estad. ADF.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Término; Forma; p ADF; Estad. KPSS; p KPSS.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Término; Forma; Decisión; Orden; No I(0).
+
+{{< include ../outputs/informe/model2_stationarity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Término; Forma; Nota.
+
+{{< include ../outputs/informe/model2_stationarity_anexo_4.md >}}
+
+## Tabla C.13. Modelo II — trayectoria — AT-M2-TRAJECTORY {#at-m2-trajectory}
+
+
+{{< include ../outputs/informe/model2_trajectory_nota.md >}}
+
+### Panel 1
+
+Columnas: h; ψ; R; h estrella.
+
+{{< include ../outputs/informe/model2_trajectory_anexo_1.md >}}
+

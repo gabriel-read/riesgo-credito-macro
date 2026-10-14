@@ -1,0 +1,8 @@
+| decision | referencia | motivo |
+| --- | --- | --- |
+| Muestra M 2000T2–2026T2 (n = 105) en lugar de la del Modelo I, que empieza en 2000T1 | Spec 003 y guía, sección 11 | M empieza un trimestre después de la del Modelo I por los 8 rezagos de ΔFFR que exige el rango de K; termina en 2026T2, el último trimestre común, y no en el 2026-01-01 del ejemplo de descarga de la guía. |
+| K elegido por BIC en la principal y por AIC como robustez R1 | Skill de econometría de series de tiempo | La skill pide AIC y BIC sobre la misma muestra efectiva; cuando difieren, la principal usa BIC y la otra va como robustez. |
+| Controles rezagados y forma fija de los regresores en lugar de la regla de estacionariedad para todas las series | Skill de econometría de series de tiempo | PIB, ΔU y π se rezagan un trimestre para no condicionar sobre variables macro del mismo trimestre; conservan su interpretación económica y su no estacionariedad residual se declara como limitación. |
+| Tramo de tasa cero definido por regla (promedio trimestral de FEDFUNDS ≤ 0,25 %) | Spec 004, robustez R3 | La regla fija los trimestres excluidos sin mirar resultados. |
+| El GDP nominal no se prueba como robustez y la muestra larga desde 1985 queda fuera | Guía, secciones 3.3 y 11 | El PIB es aquí un control rezagado y no la variable de interés, y la historia congelada empieza en 1998. |
+| 2026-10-08 · C1: White es «no calculable» si n − rango(Z_aux) < 30 | Pre-registro de la spec 004 | Con la muestra M la auxiliar completa tiene más columnas que observaciones desde K = 4; la regla se fijó antes de estimar y sin conocer K. |

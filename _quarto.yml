@@ -1,0 +1,32 @@
+project:
+  type: default
+  render:
+    - report/informe.qmd
+    - report/anexo-tecnico.qmd
+  output-dir: outputs/preview-006
+  pre-render:
+    - uv run python -m src.pipeline report
+
+# report/_variables.yml is canonical; pre-render refreshes the ignored root adapter.
+lang: es
+toc: true
+toc-title: "Índice"
+bibliography: report/references.bib
+csl: report/apa.csl
+filters:
+  - report/filters/student-cover.lua
+  - report/filters/apa-references.lua
+  - report/filters/slug-links.lua
+format:
+  typst:
+    keep-typ: true
+    citeproc: true
+    template-partials:
+      - report/templates/typst-template.typ
+    include-in-header:
+      text: |
+        #show table: set text(size: 9pt)
+        #show link: it => underline(text(fill: rgb("#174a7e"), hyphenate: false, it))
+        #set page(paper: "us-letter", margin: 1in, numbering: "1", number-align: top + right)
+  docx:
+    reference-doc: report/templates/apa-reference.docx

@@ -1,0 +1,98 @@
+# 4. Modelo I: Determinantes macroeconómicos del riesgo de crédito
+
+El Modelo I encuentra que la inflación y el crecimiento rezagado del crédito se asocian con aumentos de la morosidad, que el producto muestra una asociación negativa solo en el largo plazo, y que el desempleo y la política monetaria no tienen una asociación distinguible de cero.
+Todas son asociaciones condicionales de una muestra pequeña y con diagnósticos que fallan; no son efectos estructurales.
+
+## La pregunta y el modelo
+
+La guía pregunta cómo afectan las condiciones macroeconómicas al comportamiento del riesgo de crédito.
+«Afectan» se lee aquí como asociación condicional entre variables observadas.
+La variable dependiente es el cambio trimestral de la tasa de morosidad, medido en puntos porcentuales (pp), porque la serie entra con la transformación {{< var modelo1.forma_y >}}.
+Los regresores son el crecimiento del producto, el cambio del desempleo, la inflación, el cambio de la tasa de fondos federales (ΔFFR) y el crecimiento del crédito rezagado cuatro trimestres.
+El modelo incluye el rezago de la dependiente y variables indicadoras para {{< var modelo1.dummies_covid >}}.
+Se estima con {{< var modelo1.n_obs >}} observaciones de {{< var modelo1.muestra_inicio >}} a {{< var modelo1.muestra_fin >}}, por mínimos cuadrados con errores de Newey–West de {{< var modelo1.rezagos_hac >}} rezagos [@newey1987].
+La persistencia es alta: el coeficiente del rezago de la morosidad es {{< var modelo1.coef.y_lag.coef >}} (valor p {{< var modelo1.coef.y_lag.p >}}).
+
+## Coeficientes y significancia
+
+{{< include ../outputs/informe/model1_coefficients_cuerpo.md >}}
+
+La tabla muestra el efecto de impacto: lo que se asocia con un punto de cambio del regresor en la variación de la morosidad del mismo trimestre.
+Como la morosidad persiste, el efecto de largo plazo acumula esa asociación en el nivel de la morosidad.
+Se distingue entre ambos al hablar de significancia, porque no siempre coinciden.
+Las bandas de incertidumbre salen de errores HAC; la tabla completa, con las variables indicadoras, está en **AT-M1-COEFFICIENTS**, y los efectos de largo plazo en **AT-M1-EFFECTS**.
+
+**Inflación.** Un punto más de inflación interanual se asocia con {{< var modelo1.efectos.inflation.impacto_pp >}} pp más de variación trimestral de la morosidad (valor p {{< var modelo1.efectos.inflation.impacto_pp_p >}}).
+La asociación acumulada en el nivel es de {{< var modelo1.efectos.inflation.largo_pp >}} pp (valor p {{< var modelo1.efectos.inflation.largo_pp_p >}}).
+Para dar una escala, un aumento de una desviación estándar de la inflación, de {{< var modelo1.efectos.inflation.de >}} puntos, se asocia con {{< var modelo1.efectos.inflation.impacto_de >}} pp de variación trimestral de la morosidad y con {{< var modelo1.efectos.inflation.largo_de >}} pp acumulados.
+El pre-registro no fijó un signo esperado, porque la inflación puede reducir la carga real de la deuda o anticipar alzas de tasas y menor ingreso real.
+El signo positivo observado no distingue entre esos mecanismos.
+
+**Crédito.** Un punto más de crecimiento del crédito, rezagado cuatro trimestres, se asocia con {{< var modelo1.efectos.credit_growth.impacto_pp >}} pp más de variación de la morosidad (valor p {{< var modelo1.efectos.credit_growth.impacto_pp_p >}}).
+En el largo plazo la asociación acumulada es de {{< var modelo1.efectos.credit_growth.largo_pp >}} pp.
+Una desviación estándar del crecimiento del crédito, de {{< var modelo1.efectos.credit_growth.de >}} puntos, se asocia con {{< var modelo1.efectos.credit_growth.impacto_de >}} pp de variación trimestral y con {{< var modelo1.efectos.credit_growth.largo_de >}} pp acumulados.
+Concuerda con la hipótesis de que las expansiones rápidas relajan los estándares y la mora aparece con retraso.
+
+**Producto.** El crecimiento del producto tiene el signo esperado, negativo.
+Su efecto de impacto es de {{< var modelo1.efectos.gdp_growth.impacto_pp >}} pp y no es significativo (valor p {{< var modelo1.efectos.gdp_growth.impacto_pp_p >}}).
+Su efecto de largo plazo es de {{< var modelo1.efectos.gdp_growth.largo_pp >}} pp y sí es significativo (valor p {{< var modelo1.efectos.gdp_growth.largo_pp_p >}}).
+La respuesta sobre significancia depende, por tanto, de cuál efecto se mire.
+
+**Desempleo.** El cambio del desempleo tiene el signo esperado, positivo, pero no es significativo ni de impacto ({{< var modelo1.efectos.d_unemp.impacto_pp >}} pp, valor p {{< var modelo1.efectos.d_unemp.impacto_pp_p >}}) ni de largo plazo (valor p {{< var modelo1.efectos.d_unemp.largo_pp_p >}}).
+El desempleo varía poco fuera de la pandemia, lo que limita su identificación estadística; no equivale a evidencia de que no importe.
+En el Modelo II, la variación rezagada del desempleo sí es significativa (sección 6), así que la evidencia sobre esta variable es mixta.
+
+**Política monetaria.** El cambio contemporáneo de la tasa de fondos federales tiene signo negativo, contrario al esperado, y no es significativo ({{< var modelo1.efectos.d_ffr.impacto_pp >}} pp, valor p {{< var modelo1.efectos.d_ffr.impacto_pp_p >}}).
+No se interpreta como una señal de que las alzas de tasas reduzcan la morosidad.
+La tasa responde al ciclo, y el Modelo II examina los efectos rezagados.
+
+## Robustez
+
+Se reestimó el modelo con nueve variantes: una muestra sin la pandemia, otras definiciones de la dependiente, el producto nominal y distintos rezagos del crédito.
+Una variante es robusta cuando mantiene el signo de la principal y es significativa al diez por ciento con errores HAC.
+Contando el coeficiente de impacto, la inflación se sostiene en {{< var modelo1.robustez.inflation >}} variantes y el crédito en {{< var modelo1.robustez.credit_growth >}}.
+El producto lo hace en {{< var modelo1.robustez.gdp_growth >}}, el desempleo en {{< var modelo1.robustez.d_unemp >}} y la política monetaria en {{< var modelo1.robustez.d_ffr >}}.
+La variante sin la pandemia es un contraste parcial: conserva como rezagos valores de los trimestres excluidos.
+El rebote del producto y el crédito asociado al programa de protección de nóminas entran sin variable indicadora, lo que puede afectar sobre todo a la lectura del crédito (**AT-M1-LIMITATIONS**).
+Una variante de muestra larga no se pudo estimar porque la historia congelada no la cubre.
+Las inferencias sobre inflación y crédito son, entonces, las más robustas a las variantes.
+El detalle y las notas de cada variante están en **AT-M1-ROB** y **AT-M1-ROBUSTNESS-SUMMARY**.
+La columna de motivo de la primera de ellas queda vacía en las variantes estimadas por diseño; solo la variante no estimada lleva motivo.
+
+## Diagnósticos
+
+{{< include ../outputs/informe/model1_diagnostics_cuerpo.md >}}
+
+Los diagnósticos no respaldan una especificación limpia.
+Pasa la autocorrelación (valor p {{< var modelo1.diag.bg.p >}}).
+Fallan la heterocedasticidad de Breusch–Pagan (valor p {{< var modelo1.diag.bp.p >}}) y de White, la normalidad de Jarque–Bera, la forma funcional RESET (valor p {{< var modelo1.diag.reset.p >}}) y los dos contrastes de quiebre de Chow, en 2008T3 (valor p {{< var modelo1.diag.chow_2008t3.p >}}) y en 2020T2 (valor p {{< var modelo1.diag.chow_2020t2.p >}}).
+El CUSUM no detecta inestabilidad ({{< var modelo1.diag.cusum.veredicto >}}).
+Esto no contradice los Chow: el CUSUM tiene poca potencia frente a quiebres en las pendientes.
+El Chow de 2020T2 se apoya en pocos trimestres posteriores a esa fecha frente al número de restricciones, así que su tamaño real puede diferir del nominal; se lee como señal de inestabilidad y no como prueba exacta.
+El factor de inflación de varianza del desempleo es {{< var modelo1.diag.vif.d_unemp.valor >}}.
+Refleja la colinealidad con las variables indicadoras de la pandemia, no un problema de datos.
+Los errores HAC corrigen la covarianza, no la forma funcional ni los quiebres.
+Tampoco resuelven la simultaneidad: el producto, el desempleo, la inflación y la tasa entran en el mismo trimestre que la morosidad y se determinan junto con ella (**AT-M1-LIMITATIONS**).
+Por eso los p-valores se leen con cautela.
+Las pruebas completas y las figuras de estabilidad están en **AT-M1-DIAGNOSTICS** y **AF-M1-CUSUM**.
+
+La regresión es desbalanceada: la dependiente entra en primera diferencia y dos regresores, la inflación y el crecimiento del crédito, quedan clasificados como no estacionarios por la regla conservadora de la prueba ADF.
+La prueba KPSS, sin embargo, tampoco rechaza su estacionariedad, de modo que la evidencia es ambigua y se dicen ambas cosas.
+Son justamente las dos variables con asociación más significativa, así que sus p-valores deben leerse con esa ambigüedad.
+El tratamiento completo está en **AT-M1-STATIONARITY**.
+
+## Ajuste y evaluación fuera de muestra
+
+El R² es {{< var modelo1.r2 >}}, pero lo inflan las variables indicadoras de la pandemia.
+No mide cuánto explican las variables macroeconómicas.
+En la evaluación fuera de muestra, el modelo reduce ligeramente el error de pronóstico a un trimestre frente a un pronóstico ingenuo: el cociente de errores es {{< var modelo1.oos.cociente_un_paso >}} y el resultado se califica como «{{< var modelo1.oos.veredicto_un_paso >}}», pero «{{< var modelo1.oos.significancia_un_paso >}}».
+En el pronóstico dinámico de varios trimestres, el cociente es {{< var modelo1.oos.cociente_dinamico >}} y el modelo no supera al ingenuo.
+Por eso el modelo sirve para describir asociaciones y para escenarios condicionales, no como instrumento de pronóstico.
+El detalle está en **AT-M1-OOS** y **AF-M1-OOS**.
+
+## Lectura para la gestión del riesgo
+
+Con esas salvedades, el Modelo I sugiere tres lecturas para un gestor de riesgos.
+Primera, la inflación y el crecimiento del crédito rezagado son las variables con asociación más robusta a las variantes con el deterioro de la cartera; el crédito, además, la anticipa por su rezago de cuatro trimestres.
+Segunda, la actividad se asocia con la morosidad sobre todo de forma acumulada y con respaldo más débil, así que una desaceleración sostenida importa más que una caída de un trimestre.
+Tercera, el modelo no permite afirmar que una alza de tasas reduzca la morosidad, ni que el desempleo carezca de relación con ella.

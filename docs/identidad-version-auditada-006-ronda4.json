@@ -1,0 +1,108 @@
+{
+  "checked_utc": "2026-10-13T12:31:17.671519+00:00",
+  "audited_manifest": "docs/huellas-paquete-auditoria-006-ronda3.json",
+  "differences_after_author_corrections": {
+    "C:/Users/gabri/orca/riesgo-credito-macro/_quarto.yml": {
+      "validated": "9fe265b0ae193a5362a77f2b3a460ffa55cca05f976e793f15ff8734daec6130",
+      "current": "ef0f380132723eb47f2dade817a1f5f1e33a933c5fbd83660071ef171202998e"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/apa.csl": {
+      "validated": "5b867a81e829e002ca346fe1a9ee95309eedd12e359b8dc7cde6efdb778d737b",
+      "current": "f965fd0f222a6fb54521eecec7552bdfa5e24f2415ccfde6dd8a5294f8ccd9d3"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/filters/slug-links.lua": {
+      "validated": "dd8ae81799d010570dc44208a7cf5e711ac7d1f28b73d04e9bcc6525584aaedd",
+      "current": "59dde0e7893f26de993b00ef177705b147c3d94f901d44775200c335f4daaa39"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/references.bib": {
+      "validated": "e72069e68edc72624e711003daa514834c1958df47dbac30f9e7bcb4882cb91f",
+      "current": "6bcd60df328e07290d85e2fc2641d9bd2a84fcfd149751476aa3288de4973ec3"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/01-introduccion.qmd": {
+      "validated": "b00073f8610451fbff9b065b88aeb64282a6e089ec5405f4fc5a7a31ac628c39",
+      "current": "be47254ba13d3e1ec9f1e2d0e93ebc230b06d08874aeb137be602d59e0c21f4c"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/02-literatura.qmd": {
+      "validated": "61ca052192b2a05b1f9f8dc69d412342f036440f2eafd77d8bfdcc61f1d3f7f6",
+      "current": "fed06116811ed8af456de6e4f4a4557187d0123dfda28f2bb910e32654c83457"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/03a-datos.qmd": {
+      "validated": "67b95e196fea56baf4f1c0f921476bc0621484fd0675aab04cd25b14a87a9602",
+      "current": "70a729017d2c366e7332d4e44afe20cffc58ddf264b257b8682cb65f45a1d5da"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/03b-variables.qmd": {
+      "validated": "54d9f10662f23bdff16a2c72e02ac65fb6837022650c38524396d87466d55686",
+      "current": "dd771421cf644a8f1b3ceba9dcdb0d5f0b8c60e1710f589d68e638ec88b047d1"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/03d-modelos.qmd": {
+      "validated": "7570a3b28059926fd897022085aadebf7f269ff1be03b8d0d3320a5e4045aae4",
+      "current": "6a8251a08c90ed4d273565c7f171c04d9d1cc5768370c3c0a68d88ed90e508ff"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/03e-desviaciones.qmd": {
+      "validated": "b617b76f20008dc639b97a0f22f47ba04307231ecfe4b2549d8b965817d4967f",
+      "current": "f571128cc8a1d3f1f6117c97d520682fcc2dfd531471022d074fd0018e09c347"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/03f-limitaciones.qmd": {
+      "validated": "22feb675e30b70621212d80d25d110d0a8e63bbb5c5f4818f4baef93b5722f89",
+      "current": "8f97f714fed4d81094ba4a0f6e33ca5040bb57e11bb6d09bb6774b5adeb4f307"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/04-modelo1.qmd": {
+      "validated": "4e4006adffc16ff285acdf3bdfd84da11c48d3680eb3cb50ed8ca06b713f1cd4",
+      "current": "8c28bfdc44afc62136dabb8a3d0cd3fdd53ae28d868dfe9c0aca81e23d940f4e"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/05-modelo2.qmd": {
+      "validated": "ac3bb10bece20b96fc1d570903acfc8bbea1d861ef87d4ded6b6640010a8878f",
+      "current": "86b112ee5b650560fffe9bb9ac28c4393eab6f80a84485157854d89e43b1f9bd"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/06-resultados.qmd": {
+      "validated": "5778e9809f18444f4837c6f64a8f30f4a0d6de4a9899cf7d5029a6e595b6ae3e",
+      "current": "87b78120e798e5815c96bf47fc1b1c3cea9d3f5abebbfc3155439dc69325a8c0"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/07-estres.qmd": {
+      "validated": "b4c305b74d4c3dfcac0ce90531b86c297b2276344326772e8ce1ca57b6d66b42",
+      "current": "28e37c356063d7ef60b0317a908371529db16c178bf782162cb8e93dd2cd00d8"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/08-implicaciones.qmd": {
+      "validated": "0eaf62fb859d82b275975c2c40032a145a5488778921621173a16b6d8bd87140",
+      "current": "c1404f1f992636bfd0ee7c74cc6ffe9079aba9c0b77214792a5aa1350e785891"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/09-conclusiones.qmd": {
+      "validated": "8606cca087b97fb034afac5ec52f695b3453df60a72ab0d1d232753b747c0a6c",
+      "current": "278df8c24f03eb47ee50332d1aff9c4de07faaa32bed7eab29d32b889aee4683"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/secciones/11-datos-descarga.qmd": {
+      "validated": "9d09a3798d0effd6e67b858bedc787ab57ce1ea5686b61b21b76e6b1638a0444",
+      "current": "3335b62b895a59f008c731c833dc91640ebecceaac3b7fba0a4fc767bf75bab8"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/report/templates/apa-reference.docx": {
+      "validated": "2eb2c28d4d678c01115a028568de14f8c83b12eea596cce0d98cebd26c88f0bf",
+      "current": "b377b861c1049446f5d92d2766f56e966a05de776b8072efb732f35473207195"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/pipeline.py": {
+      "validated": "0784bd4ba37dc7aa223575308c2373a382beaacc17924afce5cb7ebd071a795d",
+      "current": "e5ebd7b2d65d09b23d6487363b0cd6d320fe5463a02058353b7a319bc7602039"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/report_editorial.py": {
+      "validated": "e8fb4d260db2680c6dc823a2c3330108745f57b528b92b10362da97653c97836",
+      "current": "4440426f321f7f48dd04848ea0dc01ce6a41f49a54427e0a2b87ec1523f9ab80"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/report_tables.py": {
+      "validated": "ab70c3df1cccad356b77033b42abd1532a3fbc905453b8f1f07b9f7cfe5f8c61",
+      "current": "a3e3cc8fa75020fa6bd9b9bce9227b20a2a7598b398243051d7287f437e4d69a"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/tests/test_report_audit_corrections.py": {
+      "validated": "de4cf88b730564d8b1629fa93c04f9da745c6074c6cd1fcc22ff16879f879356",
+      "current": "94e6259280fe6251379c2da745f9794214ec5334b1a9cadd9d8a7dc6ce1cb222"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/tests/test_report_editorial.py": {
+      "validated": "17a286fb4e34de763aa13a7144076f60631f203db2c0598705a6af024333634a",
+      "current": "0a8ad5f453abf1c1a5dff883b27525c9ca27292027ab84a6b8d764e08ac78f7e"
+    },
+    "C:/Users/gabri/orca/riesgo-credito-macro/tests/test_report_tables.py": {
+      "validated": "d9245c7b00ce3eb223c2719e1718342e5542a09568a90e3f84ba7af15835ee50",
+      "current": "d95127fd16fb693ae6e02492c2b4494711909443f2407c559593308452aa0c33"
+    }
+  },
+  "regeneration_required": true,
+  "archived_deliverables": "outputs\\preview-006-ronda3-evidencia"
+}

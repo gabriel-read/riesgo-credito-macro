@@ -18,3 +18,9 @@ Thumbs.db
 .claude/settings.local.json
 CLAUDE.local.md
 *.bak
+
+/.quarto/
+**/*.quarto_ipynb
+
+# Generated Quarto adapter; report/_variables.yml remains tracked and canonical.
+/_variables.yml

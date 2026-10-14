@@ -1,0 +1,65 @@
+........................................................................ [  7%]
+........................................................................ [ 15%]
+........................................................................ [ 23%]
+........................................................................ [ 30%]
+........................................................................ [ 38%]
+........................................................................ [ 46%]
+........................................................................ [ 54%]
+........................................................................ [ 61%]
+........................................................................ [ 69%]
+........................................................................ [ 77%]
+........................................................................ [ 85%]
+........................................................................ [ 92%]
+...................................................................      [100%]
+============================== warnings summary ===============================
+tests/test_frozen_model1.py: 20 warnings
+tests/test_frozen_model2.py: 10 warnings
+tests/test_frozen_stress.py: 18 warnings
+tests/test_model1_nonregression.py: 5 warnings
+tests/test_notebook.py: 5 warnings
+tests/test_panel.py: 7 warnings
+tests/test_panel_t6.py: 15 warnings
+tests/test_pipeline.py: 15 warnings
+tests/test_scenarios.py: 7 warnings
+tests/test_stress_audit.py: 6 warnings
+  C:\Users\gabri\orca\riesgo-credito-macro\src\panel.py:39: FutureWarning: 'M' is deprecated and will be removed in a future version, please use 'ME' instead.
+    if not isinstance(s.index, pd.PeriodIndex) or s.index.freq != "M":
+
+tests/test_frozen_model1.py: 4 warnings
+tests/test_frozen_model2.py: 2 warnings
+tests/test_frozen_stress.py: 6 warnings
+tests/test_model1_nonregression.py: 1 warning
+tests/test_notebook.py: 1 warning
+tests/test_panel.py: 1 warning
+tests/test_panel_t6.py: 3 warnings
+tests/test_pipeline.py: 3 warnings
+tests/test_scenarios.py: 2 warnings
+tests/test_stress_audit.py: 2 warnings
+  C:\Users\gabri\orca\riesgo-credito-macro\src\panel.py:47: FutureWarning: 'Q-DEC' is deprecated and will be removed in a future version, please use 'QE-DEC' instead.
+    if not isinstance(s.index, pd.PeriodIndex) or s.index.freq != "Q-DEC":
+
+tests/test_frozen_model1.py: 16 warnings
+tests/test_frozen_model2.py: 8 warnings
+tests/test_frozen_stress.py: 92 warnings
+tests/test_model1_nonregression.py: 4 warnings
+tests/test_notebook.py: 4 warnings
+tests/test_panel_t6.py: 13 warnings
+tests/test_pipeline.py: 12 warnings
+tests/test_scenarios.py: 14 warnings
+tests/test_stress.py: 20 warnings
+tests/test_stress_audit.py: 44 warnings
+  C:\Users\gabri\orca\riesgo-credito-macro\src\panel.py:298: FutureWarning: 'Q-DEC' is deprecated and will be removed in a future version, please use 'QE-DEC' instead.
+    if not isinstance(x.index, pd.PeriodIndex) or x.index.freq != "Q-DEC":
+
+tests/test_frozen_model1.py: 34 warnings
+tests/test_pipeline.py: 102 warnings
+tests/test_stationarity.py: 70 warnings
+  C:\Users\gabri\orca\riesgo-credito-macro\src\stationarity.py:77: FutureWarning: adfuller currently returns a plain tuple whose length depends on the store and autolag arguments. In release 0.16 or after July 2027, whichever is later, the default behavior will switch to always returning an ADFullerResult. Set result_object=True to switch now, or result_object=False to keep the current behavior and silence this warning.
+    result = adfuller(x_clean, maxlag=maxlag, regression="c", autolag="AIC")
+
+tests/test_stress.py::test_summary_signed_peak_tie_nonpositive_and_no_clipping
+  C:\Users\gabri\orca\riesgo-credito-macro\tests\test_stress.py:160: RuntimeWarning: invalid value encountered in multiply
+    summarize_levels(adv,draws_adv*np.inf,np.array([.5,.6,1.1,-1.2]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+931 passed, 567 warnings in 1219.23s (0:20:19)

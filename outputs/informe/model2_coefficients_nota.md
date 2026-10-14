@@ -1,0 +1,1 @@
+Nota: K = 1 elegido por BIC; variable dependiente en primera diferencia; muestra M 2000T2–2026T2; n = 105; parámetros = 12; R² = 0,844; R² ajustado = 0,826; error estándar de la regresión = 0,094; ventana HAC de 4 rezagos (Newey-West, kernel de Bartlett); truncamiento espectral: no; rango reducido por dummies de impulso (esperado).

@@ -1,0 +1,44 @@
+**Limitaciones de la metodología.**
+
+Los dos modelos son lineales, en primera diferencia, y se estiman por mínimos cuadrados con errores estándar de Newey–West.
+Esos errores corrigen la covarianza, no la especificación.
+Si la forma funcional es inadecuada o la relación cambia en el tiempo, los coeficientes siguen siendo asociaciones condicionales de la muestra y no parámetros estables.
+
+Los diagnósticos del Modelo I no avalan una especificación limpia.
+Pasa la prueba de autocorrelación de Breusch–Godfrey; fallan las de heterocedasticidad de Breusch–Pagan y White, la de normalidad de Jarque–Bera, la de forma funcional RESET y los dos contrastes de quiebre de Chow, en 2008T3 y en 2020T2.
+El CUSUM no detecta inestabilidad.
+No es una contradicción: ese contraste tiene poca potencia frente a quiebres en las pendientes.
+El detalle está en **AT-M1-DIAGNOSTICS**.
+
+El Modelo II tiene un patrón parecido.
+Pasan la autocorrelación, el Chow de 2008T3 y el CUSUM; fallan Breusch–Pagan, White, Jarque–Bera, RESET y el Chow de 2020T2 (**AT-M2-DIAGNOSTICS**).
+La conclusión de «sin evidencia» del Modelo II procede de una regla fijada antes de estimar, aplicada a un modelo lineal mal especificado e inestable.
+Se discute en la sección sobre el Modelo II.
+
+El factor de inflación de varianza de la variación del desempleo es {{< var modelo1.diag.vif.d_unemp.valor >}} en el Modelo I.
+Es una alerta que refleja la colinealidad con las variables indicadoras de la pandemia, no un problema de datos de la serie.
+Esas variables indicadoras absorben los trimestres de la pandemia ({{< var modelo1.dummies_covid >}}).
+Por eso el ajuste del modelo, con un R² de {{< var modelo1.r2 >}}, no mide el poder explicativo de las variables macroeconómicas; las indicadoras lo inflan.
+No existe una cifra del ajuste sin ellas en los resultados del informe.
+
+El ejercicio fuera de muestra del Modelo I usa un tramo de entrenamiento cuyos coeficientes no se exportaron.
+Por eso el informe no explica con cifras por qué el pronóstico dinámico no supera al ingenuo más allá de lo que muestran las salidas.
+
+La variación observada de la tasa de fondos federales no es un shock de política monetaria identificado.
+La Reserva Federal responde al ciclo, de modo que la dirección de la asociación puede reflejar esa reacción.
+Las proyecciones locales estiman, por horizonte, la asociación condicional entre la morosidad futura y ΔFFR(t).
+La trayectoria posterior de la tasa que acompaña a esa variación describe la continuación observada en la muestra.
+No identifica un shock externo ni una secuencia de política determinada.
+Se interpreta en la sección sobre el Modelo II.
+
+En el Modelo I, el producto, el desempleo, la inflación y la tasa entran en el mismo trimestre que la morosidad y se determinan junto con ella; la estimación no resuelve esa simultaneidad.
+En el Modelo II, la tasa casi no varía en los tramos con tasa cercana a cero, lo que reduce la potencia para detectar efectos.
+Los efectos base de los trimestres posteriores a la pandemia, como el rebote del producto y el crédito asociado al programa de protección de nóminas, no llevan variable indicadora.
+
+El número de observaciones es limitado: {{< var modelo1.n_obs >}} en el Modelo I y {{< var modelo2.n_obs >}} en el Modelo II.
+Los resultados pueden depender de pocos episodios, como la crisis financiera y la pandemia.
+Las series de FRED se revisan; el vintage del {{< var datos.fecha_descarga >}} puede dar resultados distintos si se descarga de nuevo.
+
+En el estrés, las bandas reflejan la incertidumbre de los parámetros y omiten otras fuentes de incertidumbre.
+El trabajo no calcula un equivalente en dólares del cambio de morosidad ni un estimador restringido.
+Esas ausencias son límites del alcance y no se compensan con cifras nuevas.

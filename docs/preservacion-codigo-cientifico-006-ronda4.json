@@ -1,0 +1,31 @@
+{
+  "unchanged_scientific_modules": 25,
+  "sha256_by_absolute_path": {
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/config.py": "810fba02e9c9756e2471da99661391c32d6d02a59e37dfc2a07f96a393cd6edf",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/data_note.py": "7cd23ce962010536bc05a9f83562db9f49270383f9b865eee799eed6f7affd2f",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/descriptives.py": "de6b160049bc1c3a1d7400881114e2e2255722de1566aca99bfc958e302107da",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/design.py": "33b4d857bf3ef508a062866413d53c67b76590ce2a06b5d735063b39f19ccbbf",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/design2.py": "77f069f7e2b44e839544837e247f1331862c5be41b932af42b1ea213bc05a948",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/diagnostics.py": "4af2054172c577e24fed28c1858ccebc8e4324afcad0adb59c471e489f2e2abe",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/dynamics.py": "3633e266ce9809c990f9d42d99fd3d778149fc957c6f8fe12fb68b79784c8459",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/estimation.py": "a55741bdc84f6695e7ba9e87a039d642d789aee9bde87b531351547b7549252d",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/figures.py": "ba7378a7b2770fdf1ac14cc7164e9738393227055027f6ac176de40b3ff77e12",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/forecast.py": "ea81e5a88f0e57c86295724eaac381c0ae1e0429340fc72d4851f2e6009674ec",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/fred_io.py": "2180703246e5550f361b199d34dbaea27b8e4041d6e0bc2d02f2d94272cc3f4a",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/localproj.py": "c427f22544cca8e9342de89e54dff72ee8da1991ef840fa9e58ab4fc39765cee",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/model1.py": "424ebaccfa58239eae343a19ca345d9d7b6d03b399addc33b9316c2fa256d241",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/model1_config.py": "baddf560029f936abde90c27a90cc5a035b5ee3922c79544d0674fbb3362d9c1",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/model2.py": "05f0c213340985c6e21e7eda9bc559b90d2c58562bb6a7eb719459060eed608f",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/model2_config.py": "04114c86c58175b0438c617c2e6fbad1cc4bfc03f01a716eecb2d2297e54a1ba",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/panel.py": "2b3248362b57869149c44219b5fb82def50eb4c1a6461b1dcf46db9b56814cae",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/references.py": "0b781ddf7c48c33ee9e9dd284ea3a461e91c4913f2d27f263b442260ace0cd04",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/scenarios.py": "b3b1a83a10b378a77773a226a219e4e654e28b011f5a1a499b567534d49bb53f",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/stationarity.py": "f8078002e2a36da98f133a936809d92991a359aca33e8e0c24820f726ebbb43e",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/stress.py": "1984d13e1c0c00ef3f01ff75a339c5eeb9a829c4ae8cee9f8e76704fd8c0dacf",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/stress_figures.py": "57a4fbddce3f5144e7972276d3ad81e586956d0c9a6650171dfdafbeadebc449",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/stress_tables.py": "2e4e91f1174dd9a2f341564c7013d3ea8bedc438e020ee7dcaae148dfca81b7e",
+    "C:/Users/gabri/orca/riesgo-credito-macro/src/tables.py": "c5cb7883bc10e4ea11cdc2e4e6f8da15709fc3a9ae185b31b4bf8de766b474b1"
+  },
+  "pipeline_scope": "Cambios exclusivos dentro de stage_report"
+}

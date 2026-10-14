@@ -1,0 +1,12 @@
+Running script 'uv'
+Etapa report completada; espejo de variables verificado por SHA-256.
+
+[1/2] report\informe.qmd
+[typst]: Compiling informe.typ to informe.pdf...DONE
+
+[2/2] report\anexo-tecnico.qmd
+[typst]: Compiling anexo-tecnico.typ to anexo-tecnico.pdf...DONE
+
+
+Output created: outputs\preview-006\report\anexo-tecnico.pdf
+

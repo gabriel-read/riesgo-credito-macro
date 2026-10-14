@@ -1,0 +1,1 @@
+Nota: muestra común M 2000T2–2026T2, n = 105; un modelo por K = 1..8 con el mismo resto de la ecuación y las cuatro dummies COVID; K_BIC = 1 (especificación principal) y K_AIC = 1; en un empate gana el menor K.

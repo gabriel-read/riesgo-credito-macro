@@ -1,0 +1,49 @@
+# Anexo A. Datos y transformaciones {#anexo-a}
+
+## Figura A.1. Morosidad, desempleo y tasa de fondos federales — AF-DELINQUENCY-UNEMPLOYMENT-FFR {#af-delinquency-unemployment-ffr}
+
+
+![Morosidad, desempleo y tasa de fondos federales. Fuente: FRED; elaboración propia. Las franjas grises indican períodos de recesión según USREC.](../outputs/figures/delinquency_unemployment_ffr.png)
+
+## Tabla A.1. Estadísticos descriptivos — AT-DESCRIPTIVES {#at-descriptives}
+
+
+### Panel 1
+
+Columnas: Variable; n; Media; DE.
+
+{{< include ../outputs/informe/descriptives_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Variable; Mín.; Mediana; Máx..
+
+{{< include ../outputs/informe/descriptives_anexo_2.md >}}
+
+## Tabla A.2. Estacionariedad de las series — AT-STATIONARITY {#at-stationarity}
+
+
+### Panel 1
+
+Columnas: Variable; Forma; Índice CSV; Etiqueta; Obs..
+
+{{< include ../outputs/informe/stationarity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Variable; Forma; Estad. ADF; p ADF; Rezagos ADF.
+
+{{< include ../outputs/informe/stationarity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Variable; Forma; Estad. KPSS; p KPSS; p KPSS acotado.
+
+{{< include ../outputs/informe/stationarity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Variable; Forma; Decisión; Orden.
+
+{{< include ../outputs/informe/stationarity_anexo_4.md >}}
+

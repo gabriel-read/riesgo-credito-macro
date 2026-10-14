@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\gabri\orca\riesgo-credito-macro\src\pipeline.py", line 587, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "C:\Users\gabri\orca\riesgo-credito-macro\src\pipeline.py", line 567, in main
+    return stage_report()
+           ^^^^^^^^^^^^^^
+  File "C:\Users\gabri\orca\riesgo-credito-macro\src\pipeline.py", line 539, in stage_report
+    (interface_dir / "interfaz.md").write_text(render_report_interface(content.decode("utf-8"), assets) + registry_interface(registry),
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte

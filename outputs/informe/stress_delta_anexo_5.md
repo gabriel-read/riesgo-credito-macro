@@ -1,0 +1,57 @@
+| Modelo | Escenario | Trimestre | Δ mín. | Sin aumento |
+| --- | --- | --- | --- | --- |
+| Modelo I | Adverso Fed | 2026T3 | 0,129 | no |
+| Modelo I | Adverso Fed | 2026T4 | 0,129 | no |
+| Modelo I | Adverso Fed | 2027T1 | 0,129 | no |
+| Modelo I | Adverso Fed | 2027T2 | 0,129 | no |
+| Modelo I | Adverso Fed | 2027T3 | 0,129 | no |
+| Modelo I | Adverso Fed | 2027T4 | 0,129 | no |
+| Modelo I | Adverso Fed | 2028T1 | 0,129 | no |
+| Modelo I | Adverso Fed | 2028T2 | 0,129 | no |
+| Modelo I | Adverso Fed | 2028T3 | 0,129 | no |
+| Modelo I | Adverso Fed | 2028T4 | 0,129 | no |
+| Modelo I | Adverso Fed | 2029T1 | 0,129 | no |
+| Modelo I | Adverso Fed | 2029T2 | 0,129 | no |
+| Modelo I | Adverso Fed | 2029T3 | 0,129 | no |
+| Modelo I | Escenario D | 2026T3 | 0,129 | no |
+| Modelo I | Escenario D | 2026T4 | 0,129 | no |
+| Modelo I | Escenario D | 2027T1 | 0,129 | no |
+| Modelo I | Escenario D | 2027T2 | 0,129 | no |
+| Modelo I | Escenario D | 2027T3 | 0,129 | no |
+| Modelo I | Escenario D | 2027T4 | 0,129 | no |
+| Modelo I | Escenario D | 2028T1 | 0,129 | no |
+| Modelo I | Escenario D | 2028T2 | 0,129 | no |
+| Modelo I | Escenario D | 2028T3 | 0,129 | no |
+| Modelo I | Escenario D | 2028T4 | 0,129 | no |
+| Modelo I | Escenario D | 2029T1 | 0,129 | no |
+| Modelo I | Escenario D | 2029T2 | 0,129 | no |
+| Modelo I | Escenario D | 2029T3 | 0,129 | no |
+| Modelo II | Adverso Fed | 2026T3 | 0,000 | no |
+| Modelo II | Adverso Fed | 2026T4 | 0,000 | no |
+| Modelo II | Adverso Fed | 2027T1 | 0,000 | no |
+| Modelo II | Adverso Fed | 2027T2 | 0,000 | no |
+| Modelo II | Adverso Fed | 2027T3 | 0,000 | no |
+| Modelo II | Adverso Fed | 2027T4 | 0,000 | no |
+| Modelo II | Adverso Fed | 2028T1 | 0,000 | no |
+| Modelo II | Adverso Fed | 2028T2 | 0,000 | no |
+| Modelo II | Adverso Fed | 2028T3 | 0,000 | no |
+| Modelo II | Adverso Fed | 2028T4 | 0,000 | no |
+| Modelo II | Adverso Fed | 2029T1 | 0,000 | no |
+| Modelo II | Adverso Fed | 2029T2 | 0,000 | no |
+| Modelo II | Adverso Fed | 2029T3 | 0,000 | no |
+| Modelo II | Escenario D | 2026T3 | 0,000 | no |
+| Modelo II | Escenario D | 2026T4 | 0,000 | no |
+| Modelo II | Escenario D | 2027T1 | 0,000 | no |
+| Modelo II | Escenario D | 2027T2 | 0,000 | no |
+| Modelo II | Escenario D | 2027T3 | 0,000 | no |
+| Modelo II | Escenario D | 2027T4 | 0,000 | no |
+| Modelo II | Escenario D | 2028T1 | 0,000 | no |
+| Modelo II | Escenario D | 2028T2 | 0,000 | no |
+| Modelo II | Escenario D | 2028T3 | 0,000 | no |
+| Modelo II | Escenario D | 2028T4 | 0,000 | no |
+| Modelo II | Escenario D | 2029T1 | 0,000 | no |
+| Modelo II | Escenario D | 2029T2 | 0,000 | no |
+| Modelo II | Escenario D | 2029T3 | 0,000 | no |
+
+Fuente: FRED y Reserva Federal; adaptación propia.
+Cifras redondeadas a tres decimales. La fuente original conserva la precisión completa.

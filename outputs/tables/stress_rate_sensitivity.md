@@ -1,0 +1,56 @@
+| modelo | escenario | trimestre | c | p05 | mediana | p95 | prop_pos | c_final | c_final_p05 | c_final_p95 | c_pico | prop_c_pos_final | prop_c_pos_pico | pico_trimestre | rotulo |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| modelo1 | severo | 2026T3 | 0,048 | -0,022 | 0,048 | 0,121 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2026T4 | 0,175 | -0,083 | 0,174 | 0,425 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2027T1 | 0,245 | -0,123 | 0,244 | 0,572 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2027T2 | 0,285 | -0,149 | 0,282 | 0,646 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2027T3 | 0,310 | -0,167 | 0,306 | 0,690 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2027T4 | 0,326 | -0,180 | 0,321 | 0,718 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2028T1 | 0,336 | -0,189 | 0,331 | 0,736 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2028T2 | 0,342 | -0,196 | 0,338 | 0,746 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2028T3 | 0,346 | -0,203 | 0,343 | 0,755 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2028T4 | 0,344 | -0,204 | 0,341 | 0,750 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2029T1 | 0,342 | -0,205 | 0,341 | 0,748 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2029T2 | 0,342 | -0,205 | 0,341 | 0,747 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | severo | 2029T3 | 0,341 | -0,206 | 0,340 | 0,746 | 0,864 | 0,341 | -0,206 | 0,746 | 0,346 | 0,864 | 0,864 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2026T3 | -0,006 | -0,015 | -0,006 | 0,003 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2026T4 | -0,047 | -0,116 | -0,047 | 0,022 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2027T1 | -0,144 | -0,348 | -0,144 | 0,069 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2027T2 | -0,273 | -0,646 | -0,272 | 0,135 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2027T3 | -0,392 | -0,905 | -0,390 | 0,199 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2027T4 | -0,487 | -1,106 | -0,483 | 0,255 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2028T1 | -0,559 | -1,250 | -0,552 | 0,299 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2028T2 | -0,603 | -1,335 | -0,596 | 0,332 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2028T3 | -0,631 | -1,390 | -0,624 | 0,353 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2028T4 | -0,653 | -1,432 | -0,646 | 0,374 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2029T1 | -0,667 | -1,459 | -0,660 | 0,388 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2029T2 | -0,676 | -1,478 | -0,670 | 0,399 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo1 | propio | 2029T3 | -0,681 | -1,490 | -0,678 | 0,405 | 0,136 | -0,681 | -1,490 | 0,405 | -0,603 | 0,136 | 0,136 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2026T3 | 0,092 | -0,023 | 0,093 | 0,210 | 0,910 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2026T4 | 0,302 | -0,065 | 0,305 | 0,682 | 0,915 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2027T1 | 0,354 | -0,073 | 0,354 | 0,790 | 0,918 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2027T2 | 0,389 | -0,087 | 0,387 | 0,876 | 0,915 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2027T3 | 0,417 | -0,098 | 0,413 | 0,946 | 0,912 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2027T4 | 0,436 | -0,113 | 0,432 | 1,001 | 0,911 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2028T1 | 0,450 | -0,119 | 0,445 | 1,044 | 0,909 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2028T2 | 0,459 | -0,129 | 0,455 | 1,074 | 0,907 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2028T3 | 0,466 | -0,135 | 0,461 | 1,100 | 0,907 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2028T4 | 0,462 | -0,136 | 0,457 | 1,107 | 0,906 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2029T1 | 0,463 | -0,137 | 0,458 | 1,115 | 0,906 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2029T2 | 0,464 | -0,138 | 0,459 | 1,125 | 0,905 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | severo | 2029T3 | 0,464 | -0,139 | 0,461 | 1,133 | 0,905 | 0,464 | -0,139 | 1,133 | 0,466 | 0,905 | 0,907 | 2028T3 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2026T3 | -0,012 | -0,027 | -0,012 | 0,003 | 0,090 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2026T4 | -0,086 | -0,196 | -0,087 | 0,020 | 0,087 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2027T1 | -0,244 | -0,549 | -0,246 | 0,051 | 0,084 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2027T2 | -0,428 | -0,957 | -0,430 | 0,087 | 0,082 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2027T3 | -0,573 | -1,281 | -0,573 | 0,121 | 0,083 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2027T4 | -0,684 | -1,537 | -0,683 | 0,152 | 0,085 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2028T1 | -0,767 | -1,736 | -0,762 | 0,178 | 0,087 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2028T2 | -0,815 | -1,871 | -0,809 | 0,201 | 0,088 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2028T3 | -0,849 | -1,964 | -0,840 | 0,221 | 0,089 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2028T4 | -0,881 | -2,053 | -0,872 | 0,238 | 0,091 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2029T1 | -0,900 | -2,114 | -0,890 | 0,257 | 0,093 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2029T2 | -0,913 | -2,163 | -0,903 | 0,266 | 0,093 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+| modelo2 | propio | 2029T3 | -0,922 | -2,204 | -0,912 | 0,271 | 0,094 | -0,922 | -2,204 | 0,271 | -0,815 | 0,094 | 0,088 | 2028T2 | sensibilidad, no efecto estimado |
+
+Nota: en el ejercicio principal los coeficientes de ΔFFR se fijan en cero por la regla heredada. Son proyecciones condicionales asociadas a las trayectorias, con incertidumbre de parámetros; las bandas de niveles no son intervalos de predicción. Fuente: FRED, Reserva Federal (escenarios 2026), adaptación propia. sensibilidad, no efecto estimado; usa los coeficientes de tasa sin fijarlos en cero.

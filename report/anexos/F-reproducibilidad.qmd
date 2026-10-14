@@ -1,0 +1,35 @@
+# Anexo F. Desviaciones y reproducibilidad {#anexo-f}
+
+## Tabla F.1. Manifiesto de fuentes congeladas — AT-FRED-MANIFEST {#at-fred-manifest}
+
+
+### Panel 1
+
+Columnas: Serie; Fecha de descarga; Fuente; Archivo.
+
+{{< include ../outputs/informe/fred_manifest_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Serie; Filas; Primera observación; Última observación.
+
+{{< include ../outputs/informe/fred_manifest_anexo_2.md >}}
+
+## Tabla F.2. Modelo I — desviaciones — AT-M1-DEVIATIONS {#at-m1-deviations}
+
+
+### Panel 1
+
+Columnas: Decisión; Referencia; Motivo.
+
+{{< include ../outputs/informe/model1_deviations_anexo_1.md >}}
+
+## Tabla F.3. Modelo II — desviaciones — AT-M2-DEVIATIONS {#at-m2-deviations}
+
+
+### Panel 1
+
+Columnas: Decisión; Referencia; Motivo.
+
+{{< include ../outputs/informe/model2_deviations_anexo_1.md >}}
+

@@ -1,0 +1,286 @@
+# Anexo D. Estrés {#anexo-d}
+
+## Figura D.1. Estrés — Modelo I — AF-EST-MODEL1 {#af-est-model1}
+
+
+![Estrés — Modelo I](../outputs/informe/stress_model1_presentacion.png)
+
+## Figura D.2. Estrés — Modelo II — AF-EST-MODEL2 {#af-est-model2}
+
+
+![Estrés — Modelo II](../outputs/informe/stress_model2_presentacion.png)
+
+## Tabla D.1. Estrés — cambios adverso menos base — AT-EST-DELTA {#at-est-delta}
+
+
+{{< include ../outputs/informe/stress_delta_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Escenario; Trimestre; Δ; P05.
+
+{{< include ../outputs/informe/stress_delta_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Escenario; Trimestre; Mediana; P95.
+
+{{< include ../outputs/informe/stress_delta_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Modelo; Escenario; Trimestre; Prop. positiva; Δ final.
+
+{{< include ../outputs/informe/stress_delta_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Modelo; Escenario; Trimestre; Δ pico; Trimestre pico.
+
+{{< include ../outputs/informe/stress_delta_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Modelo; Escenario; Trimestre; Δ mín.; Sin aumento.
+
+{{< include ../outputs/informe/stress_delta_anexo_5.md >}}
+
+### Panel 6
+
+Columnas: Modelo; Escenario; Trimestre; Prop. final +; Prop. pico +.
+
+{{< include ../outputs/informe/stress_delta_anexo_6.md >}}
+
+### Panel 7
+
+Columnas: Modelo; Escenario; Trimestre; Nivel pico; Trimestre nivel pico.
+
+{{< include ../outputs/informe/stress_delta_anexo_7.md >}}
+
+## Tabla D.2. Estrés — niveles de morosidad — AT-EST-LEVELS {#at-est-levels}
+
+
+{{< include ../outputs/informe/stress_levels_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Escenario; Trimestre; Morosidad; P05.
+
+{{< include ../outputs/informe/stress_levels_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Escenario; Trimestre; Mediana; P95.
+
+{{< include ../outputs/informe/stress_levels_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Modelo; Escenario; Trimestre; N fuera rango; Prop. fuera rango.
+
+{{< include ../outputs/informe/stress_levels_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Modelo; Escenario; Trimestre; N explosivas; Prop. explosivas.
+
+{{< include ../outputs/informe/stress_levels_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Modelo; Escenario; Trimestre; Trimestres fuera; Réplicas fuera.
+
+{{< include ../outputs/informe/stress_levels_anexo_5.md >}}
+
+### Panel 6
+
+Columnas: Modelo; Escenario; Trimestre; Prop. réplicas fuera; Nivel mín..
+
+{{< include ../outputs/informe/stress_levels_anexo_6.md >}}
+
+### Panel 7
+
+Columnas: Modelo; Escenario; Trimestre; Nivel máx.; Prop. trimestres fuera.
+
+{{< include ../outputs/informe/stress_levels_anexo_7.md >}}
+
+### Panel 8
+
+Columnas: Modelo; Escenario; Trimestre; Réplicas fuera / modelo; Prop. fuera / modelo.
+
+{{< include ../outputs/informe/stress_levels_anexo_8.md >}}
+
+### Panel 9
+
+Columnas: Modelo; Escenario; Trimestre; Nivel mín. / modelo; Nivel máx. / modelo.
+
+{{< include ../outputs/informe/stress_levels_anexo_9.md >}}
+
+## Tabla D.3. Estrés — limitaciones — AT-EST-LIMITATIONS {#at-est-limitations}
+
+
+{{< include ../outputs/informe/stress_limitations_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Tipo; Limitación.
+
+{{< include ../outputs/informe/stress_limitations_anexo_1.md >}}
+
+## Tabla D.4. Estrés — comparación entre modelos — AT-EST-MODELS {#at-est-models}
+
+
+{{< include ../outputs/informe/stress_models_nota.md >}}
+
+### Panel 1
+
+Columnas: Escenario; Trimestre; Δ Modelo I; Δ Modelo II; Diferencia I−II.
+
+{{< include ../outputs/informe/stress_models_anexo_1.md >}}
+
+## Tabla D.5. Estrés — variante de origen — AT-EST-ORIGIN {#at-est-origin}
+
+
+{{< include ../outputs/informe/stress_origin_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Escenario; Trim. adaptado; k; Trim. original.
+
+{{< include ../outputs/informe/stress_origin_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Escenario; Trim. adaptado; Nivel adaptado; Nivel original.
+
+{{< include ../outputs/informe/stress_origin_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Modelo; Escenario; Trim. adaptado; Δ adaptado; Δ original.
+
+{{< include ../outputs/informe/stress_origin_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Modelo; Escenario; Trim. adaptado; Nivel observado.
+
+{{< include ../outputs/informe/stress_origin_anexo_4.md >}}
+
+## Tabla D.6. Estrés — trayectorias de regresores — AT-EST-PATHS {#at-est-paths}
+
+
+{{< include ../outputs/informe/stress_paths_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Escenario; Trimestre; Trimestre Fed; PIB.
+
+{{< include ../outputs/informe/stress_paths_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Escenario; Trimestre; ΔU; Inflación.
+
+{{< include ../outputs/informe/stress_paths_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Modelo; Escenario; Trimestre; ΔFFR; Crédito.
+
+{{< include ../outputs/informe/stress_paths_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Modelo; Escenario; Trimestre; Crédito observado; U implícito.
+
+{{< include ../outputs/informe/stress_paths_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Modelo; Escenario; Trimestre; Tasa implícita; Tasa negativa.
+
+{{< include ../outputs/informe/stress_paths_anexo_5.md >}}
+
+## Tabla D.7. Estrés — sensibilidad de tasa — AT-EST-RATE-SENSITIVITY {#at-est-rate-sensitivity}
+
+
+{{< include ../outputs/informe/stress_rate_sensitivity_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Escenario; Trimestre; Cambio; P05.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Escenario; Trimestre; Mediana; P95.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Modelo; Escenario; Trimestre; Prop. positiva; Cambio final.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Modelo; Escenario; Trimestre; P05 final; P95 final.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Modelo; Escenario; Trimestre; Cambio pico; Prop. final +.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_5.md >}}
+
+### Panel 6
+
+Columnas: Modelo; Escenario; Trimestre; Prop. pico +; Trimestre pico.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_6.md >}}
+
+### Panel 7
+
+Columnas: Modelo; Escenario; Trimestre; Rótulo.
+
+{{< include ../outputs/informe/stress_rate_sensitivity_anexo_7.md >}}
+
+## Tabla D.8. Estrés — otras sensibilidades — AT-EST-SENSITIVITY {#at-est-sensitivity}
+
+
+{{< include ../outputs/informe/stress_sensitivity_nota.md >}}
+
+### Panel 1
+
+Columnas: Modelo; Escenario; Sensibilidad; Regla; Nivel final.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Modelo; Escenario; Sensibilidad; Nivel pico; Trimestre nivel pico.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Modelo; Escenario; Sensibilidad; Δ final; Δ principal 2029T1.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_3.md >}}
+
+### Panel 4
+
+Columnas: Modelo; Escenario; Sensibilidad; Δ pico; Trimestres.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_4.md >}}
+
+### Panel 5
+
+Columnas: Modelo; Escenario; Sensibilidad; Alcanzados.
+
+{{< include ../outputs/informe/stress_sensitivity_anexo_5.md >}}
+

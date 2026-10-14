@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-12",
+  "author": "Codex, technical smoke only; no report drafting",
+  "root": "C:\\Users\\gabri\\orca\\riesgo-credito-macro",
+  "quarto_executable": "C:/Program Files/Quarto/bin/quarto.exe",
+  "versions": {
+    "quarto": "1.10.19",
+    "pandoc": "pandoc 3.10\nFeatures: +server +lua\nScripting engine: Lua 5.4\nUser data directory: C:\\Users\\gabri\\AppData\\Roaming\\pandoc\nCopyright (C) 2006-2025 John MacFarlane. Web:  https://pandoc.org\nThis is free software; see the source for copying conditions. There is no\nwarranty, not even for merchantability or fitness for a particular purpose.",
+    "typst": "typst 0.15.1 (9dfd3a08)"
+  },
+  "canonical_variables": "report/_variables.yml",
+  "generated_adapter": "_variables.yml",
+  "canonical_and_adapter_identical_bytes": true,
+  "variables_sha256": "305f11e30857df2e96bcdccb35f4b585c78856430b8c38e9ad1b552077672a95",
+  "permanent_stage_report_or_hook_implemented": false,
+  "apa": {
+    "url": "https://raw.githubusercontent.com/citation-style-language/styles/master/apa.csl",
+    "sha256": "3917def5fc951b104d64216c3373096042368b9704ba269ca83c14ebaba889fc",
+    "bytes": 85817,
+    "license": "CC BY-SA 3.0"
+  },
+  "renders": [
+    {
+      "format": "typst",
+      "command": "C:/Program Files/Quarto/bin/quarto.exe render report/informe.qmd --to typst",
+      "rc": 0
+    },
+    {
+      "format": "docx",
+      "command": "C:/Program Files/Quarto/bin/quarto.exe render report/informe.qmd --to docx",
+      "rc": 0
+    },
+    {
+      "format": "gfm",
+      "command": "C:/Program Files/Quarto/bin/quarto.exe render report/informe.qmd --to gfm",
+      "rc": 0
+    }
+  ],
+  "checks": {
+    "pdf_magic_and_size": true,
+    "docx_variable_resolved": "106",
+    "docx_citation_resolved": [
+      "Newey",
+      "West",
+      "1987"
+    ],
+    "docx_tables": 1,
+    "original_figure_embedded": true,
+    "docx_and_gfm_and_typst_no_unresolved_markers": true,
+    "model_and_stress_protected_hashes_unchanged": true,
+    "specs_005_006_and_006_plan_unchanged": true
+  },
+  "tool_issues": [
+    {
+      "launcher": "quarto.cmd",
+      "status": "failed",
+      "error": "Module not found: cwd/Files/Quarto/bin/tools/x86_64/deno.exe",
+      "resolution": "Use the installed quarto.exe by absolute path, no installation or PATH changes"
+    },
+    {
+      "format": "typst",
+      "initial_rc": 1,
+      "error": "path must not contain a backslash in generated CSL bibliography style",
+      "resolution": "format.typst.citeproc: true; same frozen APA CSL, Pandoc citation processing, same Typst PDF format"
+    }
+  ],
+  "visual_observation": "First page of Typst preview: wide original coefficient table wraps labels and some term names overlap. Presentation work remains for the full report; approved outputs were not edited.",
+  "file_hashes": {
+    "_quarto.yml": "0c623c8f027f83c83f35e0b772c1f4a5acebf202c35d8ec3b779261bf51b1ea2",
+    "_variables.yml": "305f11e30857df2e96bcdccb35f4b585c78856430b8c38e9ad1b552077672a95",
+    "report/informe.qmd": "62a12e4fcf853bc6c7e879ab0690839eaf1926bd4ec5af64b4da315ea42d25c9",
+    "report/apa.csl": "3917def5fc951b104d64216c3373096042368b9704ba269ca83c14ebaba889fc",
+    "report/informe.typ": "30c188ee19cde90f7ee5b8e9682d0a7133b80b5d5d07eb8303e45eb5a41d0cb5",
+    "outputs/smoke-006/outputs/figures/model1_coefficients.png": "96544c3ff8320b16ea39307211536acd3d2d2c160466de7b6d4d1e852d1bed69",
+    "outputs/smoke-006/report/informe.docx": "4f63ef08a05af5844ab2006a65e77d6edc69f3ae1d68fe009184f5b8c32e09ec",
+    "outputs/smoke-006/report/informe.md": "489856174efa6d90fc72995f73dc299eed33419de70f69844c1d1537c704a3c2",
+    "outputs/smoke-006/report/informe.pdf": "b6104b306be700b091a9962dedba3c9fd8de23b2f92e927e0e4b3504ac032c44",
+    "outputs/smoke-006/report/preview.png": "c41ed010eaf6656b7dad9de12cb82ac50505024ca50462014ca5672177e0eeba",
+    "outputs/smoke-006/report/smoke-text.txt": "658d4c13c77fcc2319589ced52dea14153ef61de2805a9516c9808a8a4505114"
+  },
+  "audit_005_sha256": "8ff520eaf5f2eab46bba2d1a265f699ae12bd171c5167b97c8ae8db4fae083a4",
+  "head": "7a3dd2ad76bf09a8401534679e4311400fb3a4aa",
+  "pytest_repeated_by_codex": false
+}

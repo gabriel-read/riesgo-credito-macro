@@ -1,0 +1,135 @@
+# 7. Análisis de escenarios y pruebas de estrés
+
+Bajo la adaptación del escenario Fed 2026, los dos modelos proyectan una morosidad más alta en el escenario adverso que en el base: el cambio al final del horizonte es {{< var estres.modelo1.severo.delta_final >}} pp con el Modelo I y {{< var estres.modelo2.severo.delta_final >}} pp con el Modelo II.
+Son proyecciones condicionales a los escenarios y a los coeficientes estimados, con incertidumbre solo de parámetros; no son pronósticos.
+
+## Escenarios
+
+La prueba parte del último trimestre con datos comunes, {{< var estres.horizonte.origen >}}, y proyecta {{< var estres.horizonte.h >}} trimestres, de {{< var estres.horizonte.inicio >}} a {{< var estres.horizonte.fin >}}.
+Los escenarios base y adverso son una adaptación del escenario Fed 2026: usan las trayectorias supervisoras definitivas de la Reserva Federal para 2026, que la propia Fed describe como hipótesis de trabajo y no como pronósticos [@frb2026].
+La adaptación desplaza solo la etiqueta de calendario: el primer trimestre de la trayectoria de la Fed pasa a ser el primero posterior al origen.
+Los valores de las trayectorias no se modifican.
+Se hizo así porque los primeros trimestres de 2026 ya son datos observados y no siguieron ninguna de las dos trayectorias.
+El resultado no es una publicación de la Fed, y la base de la Fed no coincide con lo ocurrido en esos trimestres.
+
+El escenario adverso responde a la guía en lo que se refiere a actividad: deterioro económico y mayor desempleo, según la trayectoria severamente adversa de la Fed.
+En esa trayectoria, sin embargo, la inflación y la tasa de política bajan.
+El ejemplo de la guía, con aumento de la tasa, queda cubierto por un segundo escenario adverso propio, el escenario D.
+D conserva del adverso la actividad, el desempleo y la inflación, y solo cambia la tasa.
+Su ΔFFR toma los cambios observados de la tasa en el ciclo de alzas de 2022T1–2023T3, con {{< var informe.escenario_d.n_alzas >}} trimestres de alza que, en la proyección, van de {{< var informe.escenario_d.inicio_adaptado >}} a {{< var informe.escenario_d.fin_alzas_adaptado >}}.
+Después, los {{< var informe.escenario_d.n_ceros >}} trimestres restantes tienen ΔFFR igual a cero, por un supuesto explícito y no por una predicción.
+Esas fechas son las de la trayectoria proyectada, no las del episodio histórico.
+D no es un escenario estanflacionario, porque no incorpora inflación elevada.
+
+## Cómo se proyecta
+
+Se usan el Modelo I y el Modelo II tal como se estimaron, sin reestimarlos.
+La proyección aplica los coeficientes a las trayectorias de cada escenario, con innovaciones nulas, y el cambio de riesgo es la diferencia entre el escenario adverso y el base.
+Los dos modelos no se promedian.
+La diferencia entre ellos se reporta como cifra puntual y sin banda, porque no existe una distribución conjunta de ambos.
+
+La incertidumbre se mide con {{< var estres.replicas.n >}} réplicas de los parámetros, con semilla {{< var estres.replicas.semilla >}}.
+Las bandas van del percentil {{< var informe.bandas.percentil_inferior >}} al {{< var informe.bandas.percentil_superior >}} de esas réplicas.
+Representan incertidumbre de parámetros.
+No son intervalos de predicción: omiten las innovaciones y otras fuentes de incertidumbre.
+
+El crédito de los primeros {{< var estres.modelo1.credito.n_observados >}} trimestres del horizonte es observado, porque entra con rezago de cuatro trimestres.
+En los {{< var estres.modelo1.credito.n_supuestos >}} restantes se mantiene constante en su último valor observado, en todos los escenarios.
+Ese supuesto fija los niveles, y no cambia la diferencia entre escenarios.
+
+## La regla de la tasa
+
+La lectura del Modelo II es «{{< var modelo2.lectura.etiqueta >}}».
+Por una regla fijada antes de estimar, mientras la lectura no sea de evidencia fuerte, los coeficientes de ΔFFR valen cero en el ejercicio principal.
+Es una regla de prudencia y no un hallazgo de efecto cero: «sin evidencia» no equivale a efecto nulo.
+Un coeficiente con signo contrario al esperado no se presenta nunca como efecto estimado.
+Con esa regla, el escenario D, que solo difiere en la tasa, da la misma proyección que el adverso.
+Por eso las tablas y figuras muestran ambos superpuestos.
+El ejercicio principal no puede, en consecuencia, decir nada sobre el efecto de una alza de tasas; esa pregunta se examina solo como sensibilidad.
+
+## Resultados
+
+{{< include ../outputs/informe/stress_delta_cuerpo.md >}}
+
+En la tabla, «Adverso Fed» es el adverso adaptado y «Escenario D» es el de alzas de tasa.
+
+**De dónde sale el cambio del Modelo I.** El informe no descompone el cambio por variable ni reporta el peso de cada una, porque ninguna salida del análisis lo respalda. Lo que sigue es una lectura de signos, sin magnitudes, a partir de los términos del modelo y de las trayectorias de **AT-EST-PATHS**.
+El crédito es el mismo en ambos escenarios, de modo que no contribuye al contraste bajo ese supuesto compartido.
+La inflación es menor en el adverso que en el base en todo el horizonte; como su coeficiente es positivo, resta al cambio en lugar de sumar.
+En los primeros trimestres el adverso tiene menor crecimiento del producto y mayor aumento del desempleo que el base, y los coeficientes de ambas variables tienen el signo que se asocia con más morosidad; hacia el final de la trayectoria el crecimiento del producto del adverso supera al del base y el aumento del desempleo es menor, aunque el nivel del desempleo sigue por encima.
+Esta lectura no cuantifica la contribución de cada variable. Como los coeficientes del producto y del desempleo se mantienen en la robustez solo en {{< var modelo1.robustez.gdp_growth >}} y {{< var modelo1.robustez.d_unemp >}} variantes, respectivamente, la magnitud del cambio debe leerse con esa cautela.
+Todos los coeficientes macroeconómicos se aplican tal como se estimaron; solo el de la tasa se fija en cero, por la regla pre-registrada de la sección anterior, que depende de que la lectura del Modelo II no sea de evidencia fuerte.
+
+![Estrés del Modelo I: morosidad proyectada por escenario y cambio adverso menos base. Fuente: FRED, Reserva Federal (escenarios 2026), adaptación propia.](../outputs/figures/stress_model1.png)
+
+**Modelo I.** La morosidad base llega a {{< var estres.modelo1.base.nivel_final >}} pp al final del horizonte.
+En el adverso llega a {{< var estres.modelo1.severo.nivel_final >}} pp, con un pico de {{< var estres.modelo1.severo.nivel_pico >}} pp en {{< var estres.modelo1.severo.nivel_pico_trimestre >}}.
+El cambio adverso menos base es {{< var estres.modelo1.severo.delta_final >}} pp al final y {{< var estres.modelo1.severo.delta_pico >}} pp en su pico, en {{< var estres.modelo1.severo.delta_pico_trimestre >}}.
+La banda del cambio final va de {{< var estres.modelo1.severo.delta_final_p05 >}} a {{< var estres.modelo1.severo.delta_final_p95 >}} pp.
+Cruza el cero aunque la mayoría de las réplicas es positiva: la proporción con cambio positivo es {{< var estres.modelo1.severo.delta_prop_pos_final >}} al final.
+Así, la dirección predominante es positiva, pero la banda incluye cambios negativos y la magnitud es incierta.
+
+![Estrés del Modelo II: morosidad proyectada por escenario y cambio adverso menos base. Fuente: FRED, Reserva Federal (escenarios 2026), adaptación propia.](../outputs/figures/stress_model2.png)
+
+**Modelo II.** La morosidad base llega a {{< var estres.modelo2.base.nivel_final >}} pp y la adversa a {{< var estres.modelo2.severo.nivel_final >}} pp, con un pico de {{< var estres.modelo2.severo.nivel_pico >}} pp en {{< var estres.modelo2.severo.nivel_pico_trimestre >}}.
+El cambio adverso menos base es {{< var estres.modelo2.severo.delta_final >}} pp al final y {{< var estres.modelo2.severo.delta_pico >}} pp en su pico.
+La banda del cambio final va de {{< var estres.modelo2.severo.delta_final_p05 >}} a {{< var estres.modelo2.severo.delta_final_p95 >}} pp, y la proporción de réplicas con cambio positivo es {{< var estres.modelo2.severo.delta_prop_pos_final >}}.
+En este modelo el cambio del primer trimestre es exactamente cero con la regla de la tasa, porque todos sus controles van rezagados y son observados.
+
+**Comparación.** El Modelo I proyecta un cambio final mayor que el Modelo II, con una diferencia puntual de {{< var estres.dif_modelos.severo.delta_final >}} pp.
+La diferencia no lleva banda ni se toma como una elección entre modelos.
+
+**Contexto histórico de los niveles.** Los niveles proyectados se leen frente a la historia de la serie.
+El último dato observado es {{< var datos.dralacbs_ultimo >}} %, la media de la muestra es {{< var datos.dralacbs_media >}} % y el máximo fue {{< var datos.dralacbs_max >}} % en {{< var datos.dralacbs_max_trimestre >}}.
+El nivel final del adverso del Modelo I, {{< var estres.modelo1.severo.nivel_final >}} pp, queda por encima de la media y por debajo de ese máximo, y el del Modelo II, {{< var estres.modelo2.severo.nivel_final >}} pp, queda más cerca de la media.
+La base también sube desde el último dato, hasta {{< var estres.modelo1.base.nivel_final >}} pp en el Modelo I, porque los niveles dependen de los supuestos de calendario y de crédito; por eso se basa la lectura en el cambio entre escenarios y no en el nivel.
+
+**Niveles fuera de rango.** Algunas réplicas dan niveles fuera del rango posible de la morosidad, y no se truncan.
+En el Modelo I son {{< var estres.modelo1.fuera_rango.n >}} réplicas; el mínimo y el máximo alcanzados por esas réplicas son {{< var estres.modelo1.fuera_rango.min >}} y {{< var estres.modelo1.fuera_rango.max >}}.
+En el Modelo II son {{< var estres.modelo2.fuera_rango.n >}}, con mínimo {{< var estres.modelo2.fuera_rango.min >}} y máximo {{< var estres.modelo2.fuera_rango.max >}}.
+Uno de esos extremos puede caer dentro del rango posible, porque cada réplica cruza el rango en algún trimestre distinto.
+Hay además {{< var estres.modelo1.explosivas.n >}} réplica explosiva en el Modelo I y {{< var estres.modelo2.explosivas.n >}} en el Modelo II.
+Truncarlas rompería la cancelación lineal del cambio, y se informan tal cual.
+
+## Sensibilidades
+
+**Coeficiente de la tasa: sensibilidad, no efecto estimado.** Si se usaran los coeficientes puntuales de ΔFFR, que tienen signo negativo, contrario al esperado, la caída de la tasa del adverso sumaría {{< var estres.sens_tasa.modelo1.severo.c_final >}} pp al cambio final del Modelo I.
+Las alzas del escenario D darían una contribución de {{< var estres.sens_tasa.modelo1.propio.c_final >}} pp.
+En el Modelo II esas contribuciones son {{< var estres.sens_tasa.modelo2.severo.c_final >}} y {{< var estres.sens_tasa.modelo2.propio.c_final >}} pp.
+Las bandas incluyen el cero.
+El detalle está en **AT-EST-RATE-SENSITIVITY**.
+No se presentan como el efecto de la tasa, porque el coeficiente no es significativo y su signo es contrario al esperado.
+Además, esta sensibilidad mezcla dos medidas de tasa: en D proviene de los cambios observados de la tasa de fondos federales, y en la base y el adverso, de la letra a tres meses.
+
+**Calendario: el choque debe empezar de inmediato.** Si se omiten los dos primeros trimestres del escenario, el cambio final al cierre del tramo es {{< var estres.sens_cal.modelo1.delta_final_2029t1 >}} pp en el Modelo I, frente a {{< var estres.sens_cal.modelo1.delta_principal_2029t1 >}} pp del ejercicio principal en esa misma fecha.
+En el Modelo II es {{< var estres.sens_cal.modelo2.delta_final_2029t1 >}} frente a {{< var estres.sens_cal.modelo2.delta_principal_2029t1 >}} pp.
+El resultado principal depende, por tanto, de que el deterioro de actividad comience en el primer trimestre.
+
+**Supuesto de crédito: cambia los niveles.** Con crédito en cero o en su media muestral, el nivel final del adverso del Modelo I pasa de {{< var estres.modelo1.severo.nivel_final >}} pp a {{< var estres.sens_cred.modelo1.severo.cero.nivel_final >}} o {{< var estres.sens_cred.modelo1.severo.media.nivel_final >}} pp.
+El cambio entre escenarios no se mueve, porque ese supuesto es el mismo en ambos.
+
+**Origen del escenario: cambian los niveles, no el cambio.** Si el escenario partiera de 2025T4, con el calendario original de la Fed, el nivel final del adverso del Modelo I sería {{< var estres.sens_origen.modelo1.severo.nivel_final >}} pp en lugar de {{< var estres.modelo1.severo.nivel_final >}} pp.
+El cambio adverso menos base en el paso final es {{< var estres.sens_origen.modelo1.severo.delta_k13 >}} pp, el mismo que en la adaptación.
+Lo explica una propiedad del diseño. La diferencia entre escenarios no depende del origen si se cumplen varias condiciones a la vez: ambos escenarios comparten el historial observado y el ancla, el modelo es lineal y usa los mismos coeficientes, y los desvíos de los regresores entre el adverso y el base son iguales en cada paso alineado del horizonte.
+La comparación se hace por paso, el paso {{< var estres.horizonte.h >}} en ambos casos, y no por coincidencia de fechas: ese paso es 2029T1 en la variante y {{< var estres.horizonte.fin >}} en la adaptación.
+Compartir historial y ancla no basta, y la propiedad no es general.
+Los niveles de 2026T1–T2 de esa variante son contrafactuales.
+El detalle de esta variante está en **AT-EST-ORIGIN**.
+
+## Límites
+
+La banda del cambio recoge incertidumbre de parámetros y omite la de escenario, la de especificación, la de endogeneidad y la del estimador HAC.
+La especificación lineal falla RESET y el contraste de Chow de 2020T2 en ambos modelos, y la proyección supone un solo rezago de la morosidad.
+La cancelación de las innovaciones en el cambio es una propiedad del diseño, no del proceso: en una recesión la varianza puede ser mayor y las innovaciones pueden relacionarse con los regresores.
+El nivel de la tasa se ancla en el último valor de la tasa de fondos federales por falta de letra a tres meses en el panel.
+La adaptación del calendario y la base de la Fed no son pronósticos.
+No se calcula un equivalente en dólares del cambio de morosidad ni se usa un estimador restringido.
+La tabla de limitaciones completa y las demás trayectorias están en **AT-EST-LIMITATIONS**, **AT-EST-LEVELS**, **AT-EST-PATHS** y **AT-EST-SENSITIVITY**.
+
+## Lectura para la gestión del riesgo
+
+El estrés sirve para dimensionar un orden de magnitud condicional: si la actividad se deteriora como en el escenario adverso, los modelos asocian un aumento de la morosidad que va de {{< var estres.modelo2.severo.delta_final >}} a {{< var estres.modelo1.severo.delta_final >}} pp al final del horizonte.
+En ambos modelos el cambio es positivo en la mayoría de las réplicas: {{< var estres.modelo1.severo.delta_prop_pos_final >}} en el Modelo I y {{< var estres.modelo2.severo.delta_prop_pos_final >}} en el Modelo II al final del horizonte.
+Eso no significa que lo sean todas, y las bandas incluyen el cero.
+La magnitud es incierta, y depende del calendario y de que el modelo lineal siga válido; los niveles fuera de rango y las réplicas explosivas se reportan sin ocultarlos.
+El ejercicio no dice cuánto empeoraría la cartera si subieran las tasas, porque la evidencia no respalda un efecto estimado de la tasa.

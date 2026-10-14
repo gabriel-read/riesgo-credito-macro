@@ -1,0 +1,62 @@
+{
+  "pdf": {
+    "informe": {
+      "original_sha256": "49fcfe2ac7b742f68ae66350746d842833da09668854f1594e066f19bb62e16a",
+      "repeat_sha256": "f7321ec7877d1c69deacbf01630da0d124de3b00f33baeac66cc2d67d84f3e32",
+      "identical_bytes": false,
+      "object_count": 1320,
+      "different_objects": [
+        1318,
+        1319
+      ],
+      "only_differences": "CreationDate/ModDate, XMP creation/modification times and document/instance identifiers",
+      "all_page_content_fonts_images_links_unchanged": true
+    },
+    "anexo-tecnico": {
+      "original_sha256": "4db7863782aba0bfe33759177f7652835c41e27db924712bffbe9f574729b6c0",
+      "repeat_sha256": "ddadced7a60f12e1ab05de8eb0a2b0e79d2597e2e2cdd4977d1b51467f87d322",
+      "identical_bytes": false,
+      "object_count": 16604,
+      "different_objects": [
+        16602,
+        16603
+      ],
+      "only_differences": "CreationDate/ModDate, XMP creation/modification times and document/instance identifiers",
+      "all_page_content_fonts_images_links_unchanged": true
+    }
+  },
+  "docx": {
+    "informe": {
+      "original_sha256": "cf5cbf6f0ba7225497218ff279d720a9cee654b88ba213b9964316fb163eead4",
+      "repeat_sha256": "1c717b961974533952ee36d5a1781d502d46fab8cde11f200d03d84701291c01",
+      "zip_member_count": 19,
+      "different_zip_members": [
+        "docProps/core.xml"
+      ],
+      "only_differences": "created/modified timestamps in docProps/core.xml plus ZIP container timestamps",
+      "all_document_tables_figures_links_payloads_identical": true,
+      "unresolved_markers": false
+    },
+    "anexo-tecnico": {
+      "original_sha256": "84a675d9e37756ef8950f9fb8106b8c24ace2799f1e9ca7877ba3ffb5f477c75",
+      "repeat_sha256": "4164ea0d1fd57b786de17afd212e04c5aa17897bec17f47af58b10c3648fc82d",
+      "zip_member_count": 25,
+      "different_zip_members": [
+        "docProps/core.xml"
+      ],
+      "only_differences": "created/modified timestamps in docProps/core.xml plus ZIP container timestamps",
+      "all_document_tables_figures_links_payloads_identical": true,
+      "unresolved_markers": false
+    }
+  },
+  "gfm": {
+    "informe": {
+      "sha256": "52472366096e0dd40f75c0795e3e59f8efd3776b97732f5861aa4a835ff3798c",
+      "unresolved_markers": []
+    },
+    "anexo-tecnico": {
+      "sha256": "a287a8e3c53ae9dcd22dc7c7f14840ee74f47c147f0f39877683bc48851e38f5",
+      "unresolved_markers": []
+    }
+  }
+}

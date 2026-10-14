@@ -1,0 +1,29 @@
+{
+  "claude_paused_including_007": true,
+  "confirmed_terminal": "term_ba7c3e99-95ea-4b73-bc14-48552227c604",
+  "claude_sections_sha256": {
+    "01-introduccion.qmd": "be47254ba13d3e1ec9f1e2d0e93ebc230b06d08874aeb137be602d59e0c21f4c",
+    "02-literatura.qmd": "fed06116811ed8af456de6e4f4a4557187d0123dfda28f2bb910e32654c83457",
+    "03f-limitaciones.qmd": "8f97f714fed4d81094ba4a0f6e33ca5040bb57e11bb6d09bb6774b5adeb4f307",
+    "04-modelo1.qmd": "8c28bfdc44afc62136dabb8a3d0cd3fdd53ae28d868dfe9c0aca81e23d940f4e",
+    "05-modelo2.qmd": "86b112ee5b650560fffe9bb9ac28c4393eab6f80a84485157854d89e43b1f9bd",
+    "06-resultados.qmd": "87b78120e798e5815c96bf47fc1b1c3cea9d3f5abebbfc3155439dc69325a8c0",
+    "07-estres.qmd": "28e37c356063d7ef60b0317a908371529db16c178bf782162cb8e93dd2cd00d8",
+    "08-implicaciones.qmd": "c1404f1f992636bfd0ee7c74cc6ffe9079aba9c0b77214792a5aa1350e785891",
+    "09-conclusiones.qmd": "278df8c24f03eb47ee50332d1aff9c4de07faaa32bed7eab29d32b889aee4683"
+  },
+  "codex_owns": [
+    "src/report*",
+    "stage_report",
+    "tests/test_report*",
+    "report/filters",
+    "report/templates",
+    "_quarto.yml",
+    "report/references.bib",
+    "report/apa.csl",
+    "report/secciones/03a–03e",
+    "report/secciones/10",
+    "report/secciones/11"
+  ],
+  "validation_requires_no_other_writer": true
+}

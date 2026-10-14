@@ -1,0 +1,20 @@
+---
+title: "Anexo técnico: riesgo de crédito y macroeconomía"
+subtitle: "NEG-LIF309-01 Control y gestión de riesgos · Profesor: Ramfis Félix Tatis"
+author: "Gabriel Read"
+affiliation: "Instituto Tecnológico de Santo Domingo (INTEC)"
+date: &submission_date "16 de octubre de 2026"
+cover-date: *submission_date
+---
+
+{{< include anexos/A-datos.qmd >}}
+
+{{< include anexos/B-modelo-i.qmd >}}
+
+{{< include anexos/C-modelo-ii.qmd >}}
+
+{{< include anexos/D-estres.qmd >}}
+
+{{< include anexos/E-literatura.qmd >}}
+
+{{< include anexos/F-reproducibilidad.qmd >}}

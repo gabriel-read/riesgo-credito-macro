@@ -1,0 +1,68 @@
+[
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "report/anexo-tecnico.qmd",
+      "--to",
+      "typst",
+      "--no-clean",
+      "--output-dir",
+      "outputs/repro-006-ronda4"
+    ],
+    "started_utc": "2026-10-13T12:58:50.392857+00:00",
+    "duration_seconds": 170.66108829999575,
+    "returncode": 0,
+    "log": "docs/render-006-ronda4-repetido-1-typst.log",
+    "log_sha256": "59940018441b944e3944a623d1f47c0f16ef2a6c1440886a8594895c4f988e4d"
+  },
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "report/informe.qmd",
+      "--to",
+      "typst",
+      "--no-clean",
+      "--output-dir",
+      "outputs/repro-006-ronda4"
+    ],
+    "started_utc": "2026-10-13T13:01:41.057942+00:00",
+    "duration_seconds": 110.58577290002722,
+    "returncode": 0,
+    "log": "docs/render-006-ronda4-repetido-2-typst.log",
+    "log_sha256": "e81c359959d2f76713585fd14db4e142e0bf49694f9953fad7dbc18e1e1b3b91"
+  },
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "--to",
+      "docx",
+      "--no-clean",
+      "--output-dir",
+      "outputs/repro-006-ronda4"
+    ],
+    "started_utc": "2026-10-13T13:03:31.648818+00:00",
+    "duration_seconds": 170.0226791999885,
+    "returncode": 0,
+    "log": "docs/render-006-ronda4-repetido-3-docx.log",
+    "log_sha256": "c6472f8a3ec5a38a5a3539f970fc64eb267e3a9be1404428bd49fa2f50f497b9"
+  },
+  {
+    "command": [
+      "C:/Program Files/Quarto/bin/quarto.exe",
+      "render",
+      "--to",
+      "gfm",
+      "--no-clean",
+      "--output-dir",
+      "outputs/repro-006-ronda4"
+    ],
+    "started_utc": "2026-10-13T13:06:21.674093+00:00",
+    "duration_seconds": 148.9199368999689,
+    "returncode": 0,
+    "log": "docs/render-006-ronda4-repetido-4-gfm.log",
+    "log_sha256": "6302ae360254939175032d493efc237f18185a7ea58a015909ee1f1a1f293cfc"
+  }
+]

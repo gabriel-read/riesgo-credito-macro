@@ -108,14 +108,23 @@ def psd_truncate(V: np.ndarray, rel_tol: float = PSD_REL_TOL) -> tuple[np.ndarra
 
 
 def _impulse_dummy_cols(X: pd.DataFrame) -> list[str]:
-    """Columnas que valen 1 en exactamente una observación (dummies de impulso)."""
-    return [c for c in X.columns if float(X[c].sum()) == 1.0]
+    """Columnas que valen 1 en exactamente una observación y solo toman los valores 0 y 1.
+
+    La exigencia de {0, 1} (spec 004, D2) evita tomar por dummy de impulso una columna continua
+    cuya suma sea exactamente 1, como un rezago de ΔFFR.
+    """
+    return [
+        c for c in X.columns
+        if float(X[c].sum()) == 1.0 and bool(X[c].isin((0.0, 1.0)).all())
+    ]
 
 
-def fit_ols_hac(design: Design) -> Fit:
+def fit_ols_hac(design: Design, maxlags: int | None = None) -> Fit:
     """MCO con errores Newey-West puro (D4) y truncamiento espectral (D15).
 
     - Newey-West: kernel de Bartlett, use_correction=False, use_t=False.
+    - Ventana: hac_lags(nobs), salvo que se pase `maxlags` (spec 004, D1: las proyecciones locales
+      usan al menos h + 1).
     - La positividad se comprueba solo en el bloque de V sin dummies de
       impulso (C3/D15); el rango reducido por esas dummies es esperado.
     """
@@ -123,7 +132,7 @@ def fit_ols_hac(design: Design) -> Fit:
     X = design.X
     nobs = int(y.shape[0])
     k = int(X.shape[1])
-    L = hac_lags(nobs)
+    L = hac_lags(nobs) if maxlags is None else int(maxlags)
     result = sm.OLS(y, X).fit(
         cov_type="HAC",
         cov_kwds={"maxlags": L, "kernel": "bartlett", "use_correction": False},

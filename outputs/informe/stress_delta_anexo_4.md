@@ -1,0 +1,57 @@
+| Modelo | Escenario | Trimestre | Δ pico | Trimestre pico |
+| --- | --- | --- | --- | --- |
+| Modelo I | Adverso Fed | 2026T3 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2026T4 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2027T1 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2027T2 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2027T3 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2027T4 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2028T1 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2028T2 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2028T3 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2028T4 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2029T1 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2029T2 | 1,898 | 2028T3 |
+| Modelo I | Adverso Fed | 2029T3 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2026T3 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2026T4 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2027T1 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2027T2 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2027T3 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2027T4 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2028T1 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2028T2 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2028T3 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2028T4 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2029T1 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2029T2 | 1,898 | 2028T3 |
+| Modelo I | Escenario D | 2029T3 | 1,898 | 2028T3 |
+| Modelo II | Adverso Fed | 2026T3 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2026T4 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2027T1 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2027T2 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2027T3 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2027T4 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2028T1 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2028T2 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2028T3 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2028T4 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2029T1 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2029T2 | 1,286 | 2028T3 |
+| Modelo II | Adverso Fed | 2029T3 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2026T3 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2026T4 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2027T1 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2027T2 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2027T3 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2027T4 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2028T1 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2028T2 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2028T3 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2028T4 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2029T1 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2029T2 | 1,286 | 2028T3 |
+| Modelo II | Escenario D | 2029T3 | 1,286 | 2028T3 |
+
+Fuente: FRED y Reserva Federal; adaptación propia.
+Cifras redondeadas a tres decimales. La fuente original conserva la precisión completa.

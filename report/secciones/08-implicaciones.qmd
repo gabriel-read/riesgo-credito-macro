@@ -1,0 +1,65 @@
+# 8. Implicaciones para la gestión de riesgos
+
+Una institución financiera puede usar estos resultados para vigilar con prioridad la inflación y el crecimiento del crédito, y con menor respaldo la actividad, para dimensionar un orden de magnitud de deterioro bajo estrés y para no depender de la tasa de política como señal propia de morosidad.
+Los resultados orientan la vigilancia y la prueba de estrés; no sustituyen los datos de la propia cartera.
+Esta sección conecta cada punto de la guía con los resultados de las secciones 4 a 7 y con la literatura de la sección 2.
+
+## Los siete puntos de la guía
+
+**Indicadores de alerta temprana.** El crecimiento del crédito, rezagado cuatro trimestres, es el indicador con asociación positiva y robusta a las variantes con la morosidad posterior (sección 4).
+Su rezago da tiempo de reacción, y es coherente con el mecanismo por el cual condiciones financieras laxas ablandan los estándares de crédito [@maddaloni2011].
+La inflación es el segundo indicador estable en las variantes de robustez, aunque su mecanismo no está identificado, y en el Modelo I entra en el mismo trimestre que la morosidad: es un indicador coincidente.
+La tasa de política no se usa como alerta propia de morosidad, porque el Modelo II no encuentra evidencia de que la anticipe (sección 5).
+
+**Monitoreo macroeconómico.** Conviene seguir el crecimiento del producto de forma acumulada y no solo trimestre a trimestre, como indicador coincidente.
+En el Modelo I la asociación del producto con la morosidad es significativa en el largo plazo y no en el impacto, y el producto rezagado del Modelo II no la confirma.
+El desempleo también se monitorea, aunque su evidencia es mixta entre los modelos y varió poco fuera de la pandemia; la literatura verificable lo asocia con más morosidad [@bayar2019; @zawadzki2023; @golitsis2022].
+La tasa de fondos federales se vigila como indicador de condiciones financieras, que operan sobre el costo y la disponibilidad del crédito [@gertler2015].
+
+**Políticas de crédito.** Una aceleración del crédito justifica endurecer o revisar estándares de originación antes de que aparezca la mora, porque la asociación tiene retraso de cuatro trimestres.
+La recomendación se basa en una asociación condicional; no demuestra que frenar el crédito reduzca la morosidad.
+
+**Escenarios de estrés.** La prueba de la sección 7 muestra la dirección y un orden de magnitud: bajo el adverso, la morosidad proyectada supera a la base en ambos modelos.
+Una institución puede replicar la lógica con sus propias carteras y sus propios escenarios, con trayectorias de desempleo, actividad e inflación.
+Debe reportar siempre la banda de parámetros, y no leerla como intervalo de predicción.
+Si incluye alzas de tasas, debe tratarlas como sensibilidad rotulada y no como efecto estimado.
+
+**Planificación de capital.** El cambio de morosidad proyectado en puntos porcentuales es un insumo para estimar pérdidas esperadas y provisiones, pero requiere los parámetros de la institución, como pérdida dada el incumplimiento y exposición.
+Este trabajo no calcula un equivalente monetario ni una necesidad de capital.
+Como los niveles dependen de supuestos de calendario y de crédito, conviene basar el capital en el cambio entre escenarios y en un rango, no en un nivel puntual.
+
+**Gestión de cartera.** Los resultados corresponden al agregado de bancos comerciales de Estados Unidos.
+Su mensaje para la cartera es el de vigilar los segmentos más expuestos al crecimiento reciente del crédito y a la inflación.
+La identificación de esos segmentos exige datos propios; el estudio no estima la sensibilidad de cada tipo de préstamo.
+
+**Seguimiento de concentración y calidad crediticia.** Los modelos usan series agregadas y no miden concentración ni calidad por prestatario.
+La calidad crediticia aparece solo como la tasa de morosidad total.
+Por ello el seguimiento de concentración debe hacerse con información interna, y los resultados de este informe sirven para contextualizarlo, no para medirlo.
+
+## Tablero de alertas tempranas
+
+El tablero resume qué vigilar y qué hacer.
+Los criterios son cualitativos de gestión: describen una dirección o una condición, no un umbral numérico.
+Cada institución debe calibrar sus propios umbrales con sus datos.
+
+| Indicador | Criterio cualitativo de alerta | Acción de gestión | Base |
+| --- | --- | --- | --- |
+| Crecimiento del crédito (rezago de cuatro trimestres) | Aceleración sostenida del crédito frente a su comportamiento reciente | Revisar estándares de originación y la composición de nuevas colocaciones | Sección 4; literatura sobre estándares |
+| Inflación (indicador coincidente) | Aumento persistente de la inflación | Revisar la capacidad de pago de los deudores sensibles a precios y la sensibilidad de la cartera | Sección 4 |
+| Producto (crecimiento acumulado, indicador coincidente) | Desaceleración que se prolonga varios trimestres | Activar el seguimiento reforzado y actualizar las pruebas de estrés | Secciones 4 y 7 |
+| Desempleo | Deterioro sostenido del mercado laboral | Vigilar la cartera de hogares y los segmentos de menor ingreso | Secciones 2 y 4 |
+| Condiciones financieras y tasa de política | Endurecimiento de las condiciones de crédito o cambio de rumbo de la política | Contextualizar el riesgo y revisar las sensibilidades de tasa, no usar la tasa como señal propia | Secciones 2 y 5 |
+| Morosidad propia y su persistencia | Aumento de la morosidad que no revierte en pocos trimestres | Reforzar cobranza y provisiones, porque la morosidad es persistente | Sección 4 |
+| Resultado de la prueba de estrés | Deterioro proyectado que supera la tolerancia de la institución | Revisar planes de capital y de contingencia | Sección 7 |
+| Concentración y calidad por segmento | Aumento de la exposición a segmentos con mala evolución interna | Ajustar límites de concentración con datos propios | Fuera de los modelos |
+
+Fuente: elaboración propia a partir de los resultados de las secciones 4 a 7 y de la literatura verificada.
+
+## Resultado de aprendizaje
+
+El tablero y los puntos anteriores conectan con identificar, medir, monitorear y gestionar los principales riesgos financieros.
+Identificar: los modelos señalan qué variables macroeconómicas se asocian con la morosidad.
+Medir: el Modelo I cuantifica asociaciones en puntos porcentuales y la prueba de estrés dimensiona un cambio condicional.
+Monitorear: el tablero ordena qué vigilar y con qué criterio.
+Gestionar: cada indicador lleva una acción asociada.
+Las cuatro tareas se apoyan en asociaciones con límites declarados, por lo que la decisión final sigue en manos de quien conoce la cartera.

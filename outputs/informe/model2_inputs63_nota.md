@@ -1,0 +1,1 @@
+Nota: insumos para la comparación de la sección 6.3; los coeficientes de ambos modelos provienen de sus estimaciones principales; ambos son asociaciones condicionales con errores HAC y los controles de cada modelo entran en la forma indicada.

@@ -1,0 +1,24 @@
+{
+  "informe": {
+    "source": "outputs/preview-006/report/informe.pdf",
+    "sha256": "8cdfa2a6521594f6d56c3831aa4da022c2f17063abd823c50a18b01144b91878",
+    "characters": 93761,
+    "method": "Native Edge PDF selectAll/getSelectedText reply; no clipboard; NFKC and whitespace normalization",
+    "counts": {
+      "old_stress": 0,
+      "old_table": 0,
+      "new_vif": 3
+    }
+  },
+  "anexo-tecnico": {
+    "source": "outputs/preview-006/report/anexo-tecnico.pdf",
+    "sha256": "58429c72be4563d86420f115f3deaa0d05f5a9e812ddadc5c753ec5689779c22",
+    "characters": 209762,
+    "method": "Native Edge PDF selectAll/getSelectedText reply; no clipboard; NFKC and whitespace normalization",
+    "counts": {
+      "old_stress": 0,
+      "old_table": 0,
+      "new_vif": 0
+    }
+  }
+}

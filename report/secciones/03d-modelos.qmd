@@ -1,0 +1,9 @@
+## 3.4 Variable de política monetaria
+
+La variable de política monetaria es ΔFFR, el cambio trimestral de la tasa de fondos federales.
+La tasa procede de FEDFUNDS y se agrega al trimestre calendario antes de calcular su cambio [@fred2026].
+Esta es también la medida de tasa de interés de la subsección anterior.
+
+ΔFFR recoge movimientos observados de política monetaria, no un shock identificado de forma externa.
+La política responde a las condiciones económicas; esa endogeneidad limita la interpretación de sus coeficientes.
+Por ello, «efecto» y «respuesta» se utilizan como asociaciones condicionales dentro de los modelos estimados.

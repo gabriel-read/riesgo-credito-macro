@@ -1,0 +1,7 @@
+termino,etiqueta,columna_panel,forma,adf_stat,adf_p,kpss_stat,kpss_p,decision,orden,no_i0,nota
+d_dr,ΔDR — dependiente (DRALACBS en primera diferencia),dralacbs,primera diferencia,-3.4431142331804945,0.0095740301991813,0.1400619436057625,0.1,niveles,I(0),no,regla de la spec 001 aplicada a la fila «primera diferencia»
+d_ffr,ΔFFR — cambio trimestral de la tasa de la Fed,fedfunds,primera diferencia,-4.236577143690884,0.0005710065772869,0.1385551525021859,0.1,niveles,I(0),no,regla de la spec 001 aplicada a la fila «primera diferencia»
+gdp_l1,"PIB(t−1) (variación interanual del PIB real, %)",gdpc1_yoy,tal cual,-3.6204104497852168,0.0053826009360118,0.0988249587216865,0.1,niveles,I(0),no,ADF/KPSS de la serie sin rezagar
+d_unemp_l1,"ΔU(t−1) (cambio trimestral del desempleo, pp)",unrate,primera diferencia,-12.028181555115388,2.9156662725533655e-22,0.0873357395121713,0.1,niveles,I(0),no,regla de la spec 001 aplicada a la fila «primera diferencia»; ADF/KPSS de la serie sin rezagar
+inflation_l1,"π(t−1) (inflación interanual, %)",cpiaucsl_yoy,tal cual,-2.3368110739898635,0.1603702975182782,0.228761863087596,0.1,ambigua (primera diferencia),I(1),sí,ADF/KPSS de la serie sin rezagar
+credit_l4,"CRED(t−4) (variación interanual de préstamos, %)",loans_yoy,tal cual,-2.4550208274402423,0.1268051960872745,0.1939101006277453,0.1,ambigua (primera diferencia),I(1),sí,ADF/KPSS de la serie sin rezagar

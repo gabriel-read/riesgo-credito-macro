@@ -1,0 +1,23 @@
+# Anexo E. Literatura verificada {#anexo-e}
+
+## Tabla E.1. Estudios verificados: variables, métodos y signos — AT-LIT-ESTUDIOS {#at-lit-estudios}
+
+
+### Panel 1
+
+Columnas: Clave; Estudio; Dependiente; Regresores.
+
+{{< include ../outputs/informe/lit_estudios_anexo_1.md >}}
+
+### Panel 2
+
+Columnas: Clave; Método; Signo y contexto; Sección.
+
+{{< include ../outputs/informe/lit_estudios_anexo_2.md >}}
+
+### Panel 3
+
+Columnas: Clave; Nota.
+
+{{< include ../outputs/informe/lit_estudios_anexo_3.md >}}
+

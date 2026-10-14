@@ -1,0 +1,44 @@
+{
+  "informe": {
+    "sha256": "a524791b74bea38e0426aba2daa160788a1d0a0c7609f5f7ad1cb37a2c224337",
+    "cover": [
+      "Condiciones macroeconómicas, política monetaria y riesgo de crédito: evidencia empírica y análisis de escenarios",
+      "Gabriel Read",
+      "Instituto Tecnológico de Santo Domingo (INTEC)",
+      "NEG-LIF309-01 Control y gestión de riesgos · Profesor: Ramfis Félix Tatis",
+      "16 de octubre de 2026",
+      "Índice",
+      "",
+      "1. Introducción",
+      "La pregunta de este informe es en qué medida el ciclo macroeconómico y los cambios de la política monetaria de Estados Unidos se asocian con la morosidad bancaria, y cómo un gestor de riesgos puede usar esa información.",
+      "El problema y su relevancia",
+      "La calidad de la cartera de un banco no depende solo de sus clientes. Cuando la economía se desacelera, el desempleo sube y el crédito se encarece, más prestatarios dejan de pagar al mismo tiempo. Ese movimiento común amenaza las utilidades, el capital y, si es amplio, la estabilidad del sistema financiero. Por eso los supervisores y las instituciones financieras vigilan la morosidad y someten sus carteras a pruebas de estrés.",
+      "La teoría ofrece mecanismos para esa relación. Las fricciones del crédito amplifican los ciclos y hacen que los efectos de una perturbación persistan (Bernanke & Gertler, 1995; Kiyotaki & Moore, 1997). La política monetaria puede alterar las condiciones de financiamiento, como el costo y la disponibilidad del crédito (Gertler & Karadi, 2015). La evidencia empírica disponible, en cambio, proviene sobre todo de paneles de países y de otros sistemas bancarios, y sus conclusiones no coinciden en todos los casos. Este informe aporta una serie temporal trimestral de un solo país."
+    ],
+    "all_xml_valid": true,
+    "bibliography_compounds_checked": true,
+    "native_word_visual_checked": false,
+    "google_docs_checked": false
+  },
+  "anexo-tecnico": {
+    "sha256": "e2a8d81ec8b8ebf41e947577abd87236879c23b9634e21335adde20ac6ed460a",
+    "cover": [
+      "Anexo técnico: riesgo de crédito y macroeconomía",
+      "Gabriel Read",
+      "Instituto Tecnológico de Santo Domingo (INTEC)",
+      "NEG-LIF309-01 Control y gestión de riesgos · Profesor: Ramfis Félix Tatis",
+      "16 de octubre de 2026",
+      "Índice",
+      "",
+      "Anexo A. Datos y transformaciones",
+      "Figura A.1. Morosidad, desempleo y tasa de fondos federales — AF-DELINQUENCY-UNEMPLOYMENT-FFR",
+      "",
+      "Morosidad, desempleo y tasa de fondos federales",
+      "Tabla A.1. Estadísticos descriptivos — AT-DESCRIPTIVES"
+    ],
+    "all_xml_valid": true,
+    "bibliography_compounds_checked": false,
+    "native_word_visual_checked": false,
+    "google_docs_checked": false
+  }
+}

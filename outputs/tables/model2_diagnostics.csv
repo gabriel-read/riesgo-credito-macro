@@ -1,0 +1,16 @@
+prueba,estadístico,p_valor,veredicto,nota
+Breusch-Godfrey,3.408886063250381,0.4918669411869243,pasa,
+Breusch-Pagan,33.784143685381196,0.00039228412570306803,falla,
+White,90.71027000789866,5.308395547021227e-06,falla,
+Jarque-Bera,209.2074026750334,3.725544218958693e-46,falla,
+RESET,10.447590178319585,8.231245062017362e-05,falla,
+VIF (y_lag),3.121731601012032,—,sin alerta,
+VIF (d_ffr_l0),2.5209031349705597,—,sin alerta,
+VIF (d_ffr_l1),2.664320841451644,—,sin alerta,
+VIF (gdp_l1),3.0084476627990924,—,sin alerta,
+VIF (d_unemp_l1),33.154009967988024,—,alerta,
+VIF (inflation_l1),1.4141621702690117,—,sin alerta,
+VIF (credit_l4),1.5477963822865288,—,sin alerta,
+Chow 2008T3,11.643654516224474,0.16782524590456693,pasa,"Wald HAC con interacciones de 8 términos (constante, ρ, los cuatro controles, ΔFFR(t) y ΔFFR(t−1)); dummies COVID sin interactuar; trimestres útiles anteriores: 33; posteriores: 68"
+Chow 2020T2,28.123094060669057,0.00045140021399481256,falla,"Wald HAC con interacciones de 8 términos (constante, ρ, los cuatro controles, ΔFFR(t) y ΔFFR(t−1)); dummies COVID sin interactuar; trimestres útiles anteriores: 80; posteriores: 21; el tamaño empírico del contraste puede diferir del 5 % nominal"
+CUSUM,—,—,pasa,los trimestres con dummy de impulso no aportan residuo recursivo

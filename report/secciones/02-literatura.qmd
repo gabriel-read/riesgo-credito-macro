@@ -1,0 +1,79 @@
+# 2. Revisión de literatura
+
+La literatura verificada documenta que el ciclo económico se relaciona con el riesgo de crédito y que la política monetaria se relaciona con las condiciones financieras y el costo del crédito, pero los estudios verificados sobre transmisión no miden la morosidad frente a la tasa de política, y no ofrece una magnitud única que sirva de referencia.
+Solo se citan estudios cuya fuente se verificó; los candidatos sin verificar no se usan como evidencia.
+En la mayoría de los casos la verificación se apoya en el resumen del estudio, y el Anexo E indica la base de cada uno.
+
+## 2.1 Riesgo de crédito y ciclo económico
+
+El riesgo de crédito se mueve con el ciclo porque las fricciones de información y las garantías amplifican las perturbaciones.
+La teoría del canal del crédito sostiene que esas fricciones se agravan cuando el dinero se encarece y que ello refuerza el efecto de la política monetaria sobre la economía [@bernanke1995].
+Este trabajo la resume como marco general de transmisión; la subsección sobre transmisión la retoma como apoyo secundario.
+Un modelo dinámico con deuda garantizada muestra otra fuente de amplificación.
+Cuando los activos sirven de garantía, en ese modelo, la interacción entre los límites de crédito y los precios de los activos da lugar a efectos persistentes que se transmiten a otros sectores [@kiyotaki1997].
+Ninguno de los dos estudia la morosidad; sus mecanismos son coherentes con que la morosidad reaccione con retraso y de forma persistente, lo que es coherente con incluir su propio rezago en los modelos.
+
+## 2.2 Determinantes macroeconómicos del riesgo de crédito
+
+Los determinantes macroeconómicos entran al riesgo de crédito por el estado de los deudores.
+Una línea de trabajo vincula el valor de los activos de las empresas de una cartera con un modelo macroeconométrico global.
+En ella la probabilidad de impago depende de cómo las empresas se ligan a los ciclos económicos, y las pérdidas responden de forma asimétrica a los choques [@pesaran2006].
+Otra línea propone incorporar los choques macroeconómicos a la medición del riesgo de cartera cuando faltan datos, y muestra su utilidad en ejercicios de estrés [@segoviano2006].
+Ninguno de los dos estudia directamente la morosidad bancaria; se citan como marco para pasar de variables macroeconómicas a pérdidas de crédito y a escenarios de estrés.
+La evidencia empírica sobre la morosidad se reúne en la última subsección.
+
+## 2.3 Política monetaria y condiciones financieras
+
+Una hipótesis de transmisión es que la política monetaria se asocia con la oferta de crédito antes que con la morosidad.
+En datos de encuestas de la zona del euro y de Estados Unidos, las tasas oficiales de corto plazo bajas se asocian con estándares de crédito más laxos.
+Esa asociación se amplifica con la securitización y con una supervisión débil del capital bancario, mientras que las tasas de largo plazo bajas no muestran el mismo patrón [@maddaloni2011].
+La política no convencional también se asocia con el mercado laboral: un modelo no lineal de la estructura de tasas, aplicado a Estados Unidos, atribuye al estímulo de la Reserva Federal una menor tasa de desempleo [@wu2016].
+Ambas lecturas indican que la postura de política y las condiciones financieras se relacionan con el entorno en que los deudores pagan.
+Ninguna mide la morosidad.
+
+## 2.4 Transmisión de la política monetaria al riesgo de crédito
+
+La transmisión opera sobre el costo y la disponibilidad del crédito, y de ahí sobre la capacidad de pago.
+Un modelo vectorial autorregresivo con shocks identificados por sorpresas de alta frecuencia muestra que movimientos modestos de las tasas cortas producen movimientos grandes en los costos del crédito.
+Los costos reaccionan sobre todo por las primas de término y los diferenciales de crédito, y la orientación futura importa para la intensidad de la transmisión [@gertler2015].
+Otro estudio, basado en eventos alrededor de las compras de bonos de la Reserva Federal, encuentra varios canales y asocia las compras de bonos con garantía hipotecaria con menores rendimientos y con menor riesgo de crédito corporativo [@krishnamurthy2011].
+El canal del crédito de la primera subsección completa el marco [@bernanke1995].
+Estos trabajos miden costos y estándares de crédito, no tasas de morosidad.
+Por ello, tratar un cambio de la tasa de política como señal de deterioro posterior de la cartera es una hipótesis empírica que este informe contrasta con el Modelo II, no un resultado dado.
+
+## 2.5 Evidencia empírica
+
+Los estudios que estiman la morosidad bancaria en función de variables macroeconómicas usan sobre todo paneles de países o de bancos.
+Esta subsección reúne {{< var literatura.por_tema.t25 >}} de ellos, con las variables y los métodos de cada uno.
+La tabla siguiente resume los estudios de esta subsección, con su variable dependiente, sus regresores y su método.
+
+{{< include ../outputs/informe/lit_estudios_cuerpo.md >}}
+
+La columna «Signo y contexto» recoge solo los signos verificables en cada estudio, y «—» indica que la tabla no los recoge.
+Los signos que sí se pueden reportar se resumen en el texto que sigue.
+
+**Variables.** La morosidad (NPL) es la variable dependiente en todos los estudios.
+Los regresores más frecuentes son el crecimiento del producto, la inflación, el desempleo, el crecimiento del crédito, la deuda pública y los tipos de interés, a los que se suman variables propias de cada banco o país [@bayar2019; @zawadzki2023; @golitsis2022].
+Tres estudios usan el tipo de cambio o la depreciación de la moneda [@tanaskovic2015; @obradovic2026; @zawadzki2023], y uno incluye los rendimientos del petróleo [@madbouly2020].
+
+**Métodos.** Predominan los modelos de panel estáticos y dinámicos, con efectos fijos, mínimos cuadrados generalizados factibles o GMM de sistema [@obradovic2026; @tanaskovic2015; @bayar2019; @koju2018].
+Otros usan mínimos cuadrados ordinarios, sobre un panel de países o sobre datos mensuales de un país, estos últimos en primeras diferencias por la no estacionariedad de las variables [@zawadzki2023; @tan2023].
+Dos aplican series trimestrales, una con un modelo de regresión sobre siete bancos y otra con un modelo ARDL de pruebas de límites [@madbouly2020; @golitsis2022].
+Uno combina paneles con un modelo vectorial autorregresivo de panel [@nkusu2011].
+
+**Signos que la evidencia verificada permite reportar.** En la mayoría de los estudios cuyos signos son verificables, un mayor desempleo se asocia con más morosidad [@bayar2019; @zawadzki2023; @golitsis2022].
+El crecimiento del producto se asocia con menos morosidad en dos de ellos [@bayar2019; @golitsis2022], pero con más en otro, que estudia siete bancos cotizados de Bahréin [@madbouly2020].
+Para la inflación, un estudio halla un signo negativo [@bayar2019], otro positivo [@madbouly2020] y otro no lo precisa [@zawadzki2023].
+En el estudio con ARDL, la tasa de interés se asocia con más morosidad en el largo plazo [@golitsis2022].
+En el panel de nueve países del Sudeste de Europa, el tipo de interés de préstamo, que no es la tasa de política, se asocia con más morosidad [@obradovic2026].
+Ese mismo estudio halla que el tipo de cambio oficial no tiene un efecto consistente sobre la morosidad y que el desempleo se asocia con menos morosidad, un resultado que los autores califican de inesperado y que atribuyen a un comportamiento de préstamo más prudente en períodos de incertidumbre y a los mecanismos de apoyo público [@obradovic2026].
+Los signos son heterogéneos y dependen del país, del período y del método.
+Eso obliga a leer cualquier signo esperado como una hipótesis y no como un resultado dado.
+
+**Contraste con este trabajo.** La mayoría de los estudios usa países emergentes o paneles heterogéneos de países o de bancos.
+Este trabajo usa Estados Unidos, frecuencia trimestral y una muestra de {{< var datos.n_trimestres >}} trimestres, con dos modelos de series de tiempo y una prueba de estrés.
+Los resultados no son comparables en magnitud con los de paneles de países.
+Sirven para contrastar direcciones y para ubicar las variables de control.
+
+**Estudios no usados como evidencia.** Los candidatos que no se pudieron verificar o que no respaldaban la subsección que los motivaba no se usan como evidencia.
+Ninguno se cita con hallazgos.

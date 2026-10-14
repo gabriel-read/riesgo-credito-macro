@@ -1,0 +1,22 @@
+{
+  "anexo": {
+    "old_pages": 149,
+    "new_pages": 149,
+    "different_pages": [
+      "page-037.png",
+      "page-052.png",
+      "page-146.png",
+      "page-148.png",
+      "page-149.png"
+    ]
+  },
+  "principal": {
+    "old_pages": 35,
+    "new_pages": 35,
+    "different_pages": []
+  },
+  "pdf_sha256": {
+    "informe": "658814c512685718f8a06ec3362ef3fa07d4636653ed38d34f79b208a1a487ad",
+    "anexo-tecnico": "73bbdfabd0f4cd84b347507fc602d990bac6f3267595fb3569383ddc142a0fcd"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "informe.pdf": {
+    "source_sha256": "658814c512685718f8a06ec3362ef3fa07d4636653ed38d34f79b208a1a487ad",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0,
+      "vacíos del csv": 0,
+      "pre-registro de la especificación pre-registrada": 0,
+      "descrito en 2.5": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 1,
+      "Los candidatos que no se pudieron verificar": 1
+    }
+  },
+  "informe.docx": {
+    "source_sha256": "7917fcf0c7daccd699587766a693fa4738cd05383eaa2f1d00063e6b711cca22",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0,
+      "vacíos del csv": 0,
+      "pre-registro de la especificación pre-registrada": 0,
+      "descrito en 2.5": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 1,
+      "Los candidatos que no se pudieron verificar": 1
+    }
+  },
+  "informe.md": {
+    "source_sha256": "6704875411ad0d4baf8732606521f1950d0638337eaa1ddeef8e9e70ece6002c",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0,
+      "vacíos del csv": 0,
+      "pre-registro de la especificación pre-registrada": 0,
+      "descrito en 2.5": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 1,
+      "Los candidatos que no se pudieron verificar": 1
+    }
+  },
+  "anexo-tecnico.pdf": {
+    "source_sha256": "73bbdfabd0f4cd84b347507fc602d990bac6f3267595fb3569383ddc142a0fcd",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0,
+      "vacíos del csv": 0,
+      "pre-registro de la especificación pre-registrada": 0,
+      "descrito en 2.5": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 0,
+      "Los candidatos que no se pudieron verificar": 0
+    }
+  },
+  "anexo-tecnico.docx": {
+    "source_sha256": "c51d02cb4d2c0755903403532d28c42c076437f1a020c670a37e37bc4130dc67",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0,
+      "vacíos del csv": 0,
+      "pre-registro de la especificación pre-registrada": 0,
+      "descrito en 2.5": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 0,
+      "Los candidatos que no se pudieron verificar": 0
+    }
+  },
+  "anexo-tecnico.md": {
+    "source_sha256": "2cb012c6a3484fbae1472dd6e9d745202c4272b993e02b8fbb86f274934b6c52",
+    "checks_passed": true,
+    "forbidden_phrase_counts": {
+      "salida aprobada": 0,
+      "el csv no añade una nota": 0,
+      "crédito con su rezago aprobado": 0,
+      "la redacción de la comparación corresponde": 0,
+      "consultar la matriz": 0,
+      "mínimos cuadrados generalizables factibles": 0,
+      "preregistro": 0,
+      "lectura de signo no presentada": 0,
+      "vacíos del csv": 0,
+      "pre-registro de la especificación pre-registrada": 0,
+      "descrito en 2.5": 0
+    },
+    "preserved_passage_counts": {
+      "En la mayoría de los casos la verificación se apoya en el resumen del estudio": 0,
+      "Los candidatos que no se pudieron verificar": 0
+    }
+  }
+}
